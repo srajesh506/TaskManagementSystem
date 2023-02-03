@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C698CB12-6814-4849-BE94-DCCC8076BBD3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TMS</RootNamespace>
+    <AssemblyName>TMS</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>TMS.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp.pdfa, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.pdfa.5.5.13.3\lib\itextsharp.pdfa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tulpep.NotificationWindow">
+      <HintPath>..\..\..\..\Users\184877.AMERICAS\Downloads\PopupNotification\PopupNotification\bin\Debug\Tulpep.NotificationWindow.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MessageBox\FormMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessageBox\FormMessageBox.Designer.cs">
+      <DependentUpon>FormMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskReporting\CRTimeBasedReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRTimeBasedReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TaskReporting\ReportViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskReporting\ReportViewer.Designer.cs">
+      <DependentUpon>ReportViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskReporting\TimeBasedReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskReporting\TimeBasedReport.Designer.cs">
+      <DependentUpon>TimeBasedReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\CustomComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Utilities\RightBottomMessageBox.cs" />
+    <Compile Include="Utilities\FormControlHandling.cs" />
+    <Compile Include="Utilities\Function.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utilities\Global.cs" />
+    <Compile Include="Utilities\PopupMessageBox.cs" />
+    <Compile Include="Utilities\RoundPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeamManagement\AddRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamManagement\AddRole.Designer.cs">
+      <DependentUpon>AddRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManagement\DefineActivity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskManagement\DefineActivity.Designer.cs">
+      <DependentUpon>DefineActivity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManagement\DefineSubTask.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskManagement\DefineSubTask.Designer.cs">
+      <DependentUpon>DefineSubTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManagement\DefineTask.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskManagement\DefineTask.Designer.cs">
+      <DependentUpon>DefineTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Changepassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings\Changepassword.Designer.cs">
+      <DependentUpon>Changepassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManagement\WorkItemAssignments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskManagement\WorkItemAssignments.Designer.cs">
+      <DependentUpon>WorkItemAssignments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManagement\CreateWorkItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskManagement\CreateWorkItem.Designer.cs">
+      <DependentUpon>CreateWorkItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManagement\TaskManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskManagement\TaskManagement.Designer.cs">
+      <DependentUpon>TaskManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeamManagement\TeamRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamManagement\TeamRegister.Designer.cs">
+      <DependentUpon>TeamRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="wait\waiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="wait\waiting.Designer.cs">
+      <DependentUpon>waiting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="wait\waitformfunc.cs" />
+    <Compile Include="Settings\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DashBoard\Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashBoard\Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MDI\FormMainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MDI\FormMainMenu.Designer.cs">
+      <DependentUpon>FormMainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ThemeColor.cs" />
+    <Compile Include="TaskReporting\AssigneeBasedReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskReporting\AssigneeBasedReport.Designer.cs">
+      <DependentUpon>AssigneeBasedReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskReporting\StatusBasedReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskReporting\StatusBasedReport.Designer.cs">
+      <DependentUpon>StatusBasedReport.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MessageBox\FormMessageBox.resx">
+      <DependentUpon>FormMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskReporting\CRTimeBasedReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRTimeBasedReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskReporting\ReportViewer.resx">
+      <DependentUpon>ReportViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskReporting\TimeBasedReport.resx">
+      <DependentUpon>TimeBasedReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeamManagement\AddRole.resx">
+      <DependentUpon>AddRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskManagement\DefineActivity.resx">
+      <DependentUpon>DefineActivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskManagement\DefineSubTask.resx">
+      <DependentUpon>DefineSubTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskManagement\DefineTask.resx">
+      <DependentUpon>DefineTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Changepassword.resx">
+      <DependentUpon>Changepassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskManagement\WorkItemAssignments.resx">
+      <DependentUpon>WorkItemAssignments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskManagement\CreateWorkItem.resx">
+      <DependentUpon>CreateWorkItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskManagement\TaskManagement.resx">
+      <DependentUpon>TaskManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeamManagement\TeamRegister.resx">
+      <DependentUpon>TeamRegister.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="wait\waiting.resx">
+      <DependentUpon>waiting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashBoard\Dashboard.resx">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MDI\FormMainMenu.resx">
+      <DependentUpon>FormMainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="TaskReporting\AssigneeBasedReport.resx">
+      <DependentUpon>AssigneeBasedReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskReporting\StatusBasedReport.resx">
+      <DependentUpon>StatusBasedReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+    <None Include="Resources\exclamation.png" />
+    <None Include="Resources\icons8-calendar-18.png" />
+    <None Include="Resources\info.png" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\question.png" />
+    <None Include="Resources\success.png" />
+    <None Include="Resources\Warning.png" />
+    <None Include="Resources\calendarDark.png" />
+    <None Include="Resources\chat.png" />
+    <None Include="Resources\dp.JPG" />
+    <None Include="Resources\hoverIcon.JPG" />
+    <Content Include="TMS.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLogicLayer.csproj">
+      <Project>{c1591b53-802e-4d67-b879-1f36bda2bbfa}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\BusinessEntities.csproj">
+      <Project>{d5504485-638c-42d0-87b9-53f780360eab}</Project>
+      <Name>BusinessEntities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

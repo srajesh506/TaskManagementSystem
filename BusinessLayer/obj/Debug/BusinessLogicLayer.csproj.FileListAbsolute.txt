@@ -1,0 +1,29 @@
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\bin\Debug\DataAccess.dll
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\bin\Debug\Entities.dll
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\bin\Debug\DataAccess.pdb
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\bin\Debug\Entities.pdb
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\obj\Debug\BusinessLogicLayer.csprojResolveAssemblyReference.cache
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\Karan\TaskManagementSystem\TMS\BusinessLayer\obj\Debug\BusinessLayer.pdb
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\bin\Debug\BusinessEntities.dll
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\bin\Debug\DataAccess.dll
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\bin\Debug\DataAccess.pdb
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\bin\Debug\BusinessEntities.pdb
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\obj\Debug\BusinessLogicLayer.csproj.AssemblyReference.cache
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\obj\Debug\BusinessLogicLayer.csproj.CopyComplete
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\BusinessLayer\obj\Debug\BusinessLayer.pdb
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\bin\Debug\BusinessEntities.dll
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\bin\Debug\DataAccess.dll
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\bin\Debug\DataAccess.pdb
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\bin\Debug\BusinessEntities.pdb
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\obj\Debug\BusinessLogicLayer.csprojResolveAssemblyReference.cache
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\Users\184877.AMERICAS\Downloads\TMS (1)\TMS\BusinessLayer\obj\Debug\BusinessLayer.pdb

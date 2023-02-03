@@ -1,0 +1,10 @@
+C:\Karan\TaskManagementSystem\TMS\DataAccess\bin\Debug\DataAccess.dll
+C:\Karan\TaskManagementSystem\TMS\DataAccess\bin\Debug\DataAccess.pdb
+C:\Karan\TaskManagementSystem\TMS\DataAccess\obj\Debug\DataAccess.dll
+C:\Karan\TaskManagementSystem\TMS\DataAccess\obj\Debug\DataAccess.pdb
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\DataAccess\bin\Debug\DataAccess.dll
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\DataAccess\bin\Debug\DataAccess.pdb
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\DataAccess\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\DataAccess\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\DataAccess\obj\Debug\DataAccess.dll
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\DataAccess\obj\Debug\DataAccess.pdb

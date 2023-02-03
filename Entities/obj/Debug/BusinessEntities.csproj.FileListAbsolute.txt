@@ -1,0 +1,11 @@
+C:\Karan\TaskManagementSystem\TMS\Entities\bin\Debug\Entities.dll
+C:\Karan\TaskManagementSystem\TMS\Entities\bin\Debug\Entities.pdb
+C:\Karan\TaskManagementSystem\TMS\Entities\obj\Debug\BusinessEntities.csprojResolveAssemblyReference.cache
+C:\Karan\TaskManagementSystem\TMS\Entities\obj\Debug\Entities.dll
+C:\Karan\TaskManagementSystem\TMS\Entities\obj\Debug\Entities.pdb
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\Entities\bin\Debug\BusinessEntities.dll
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\Entities\bin\Debug\BusinessEntities.pdb
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\Entities\obj\Debug\BusinessEntities.csproj.AssemblyReference.cache
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\Entities\obj\Debug\BusinessEntities.csproj.CoreCompileInputs.cache
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\Entities\obj\Debug\BusinessEntities.dll
+C:\Development\Codebase\Microsoft\TMS-30-Jan-23\TMS\TMS\Entities\obj\Debug\BusinessEntities.pdb

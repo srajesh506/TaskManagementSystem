@@ -1,0 +1,6 @@
+C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\Entities\bin\Debug\Entities.dll
+C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\Entities\bin\Debug\Entities.pdb
+C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\Entities\obj\Debug\Entities.csproj.AssemblyReference.cache
+C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\Entities\obj\Debug\Entities.csproj.CoreCompileInputs.cache
+C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\Entities\obj\Debug\Entities.dll
+C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\Entities\obj\Debug\Entities.pdb
