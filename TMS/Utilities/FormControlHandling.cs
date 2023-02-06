@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using TMS.Properties;
 
@@ -69,6 +70,28 @@ namespace TMS.UI.Utilities
 
             }
         }
-
+        public static DataTable GetPageRecords(DataTable dataTable, int currentPage, int pageSize)
+        {
+            DataTable records = new DataTable();
+            records = dataTable.Clone();
+            records.Rows.Clear();
+            int offset, temp;
+            offset = currentPage * pageSize;
+            if (currentPage == 1)
+            {
+                temp = 0;
+            }
+            else
+            {
+                temp = offset - pageSize;
+            }
+            while ((temp < offset) & (temp < dataTable.Rows.Count))
+            {
+                DataRow dataRow = dataTable.Rows[temp];
+                records.ImportRow(dataRow);
+                temp += 1;
+            }
+            return records;
+        }
     }
 }
