@@ -32,7 +32,7 @@ namespace TMS.MDI
             InitializeComponent();
             Random = new Random();
             Global.GlobalVar = userid;
-            btnclosechildform.Visible = false;
+            btnCloseChildForm.Visible = false;
             this.Text = string.Empty;
             this.ControlBox = false;
             //this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
@@ -40,12 +40,12 @@ namespace TMS.MDI
             {
                 picemp.Image = Image.FromFile(Application.StartupPath + "\\Image\\" + userid + ".jpg");
                 //lblwelcome.Text = "Employee ID: " + empid +"\n"+"Welcome "+ dboperations.GetEmpname(int.Parse(empid)); 
-                lblwelcome.Text = "Welcome " + teamManagement.GetEmployees(userid).Rows[0][0].ToString();
+                lblWelCome.Text = "Welcome " + teamManagement.GetEmployees(userid).Rows[0][0].ToString();
             }
             else
             {
                 picemp.Image = Image.FromFile(Application.StartupPath + "\\Image\\noimageMDI.png");
-               lblwelcome.Text = "Welcome " + teamManagement.GetEmployees(userid).Rows[0][0].ToString();
+               lblWelCome.Text = "Welcome " + teamManagement.GetEmployees(userid).Rows[0][0].ToString();
             }
 
         }
@@ -82,7 +82,7 @@ namespace TMS.MDI
                     panelLogo.BackColor = ThemeColor.ChangeColorBrightness(color, 0.3);
                     ThemeColor.PrimaryColor = color;
                     ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, 0.3);
-                    btnclosechildform.Visible = true;
+                    btnCloseChildForm.Visible = true;
                 }
             }
         }
@@ -103,7 +103,7 @@ namespace TMS.MDI
             this.panelDesktopPanel.Tag = childform;
             childform.BringToFront();
             childform.Show();
-            labeltitle.Text = childform.Text;
+            lblTitle.Text = childform.Text;
         }
         private void OpenDashBoardForm(Form childform)
         {
@@ -120,7 +120,7 @@ namespace TMS.MDI
             this.panelDesktopPanel.Tag = childform;
             childform.BringToFront();
             childform.Show();
-            labeltitle.Text = childform.Text;
+            lblTitle.Text = childform.Text;
         }
         private void DisableButton()
         {
@@ -187,11 +187,11 @@ namespace TMS.MDI
         private void Reset()
         {
             DisableButton();
-            labeltitle.Text = "DASHBOARD";
+            lblTitle.Text = "DASHBOARD";
             paneltitlebar.BackColor = Color.FromArgb(0, 150, 136);
             panelLogo.BackColor = Color.FromArgb(35, 40, 45);
             CurrentButton = null;
-            btnclosechildform.Visible = false;
+            btnCloseChildForm.Visible = false;
         }
 
         private void paneltitlebar_MouseDown(object sender, MouseEventArgs e)
@@ -342,34 +342,34 @@ namespace TMS.MDI
         }
         private void lbllogout_MouseEnter(object sender, EventArgs e)
         {
-            lbllogout.Font = new Font(lbllogout.Font.Name, lbllogout.Font.SizeInPoints, FontStyle.Bold);
-            lbllogout.ForeColor = Color.Yellow;
+            lblLogOut.Font = new Font(lblLogOut.Font.Name, lblLogOut.Font.SizeInPoints, FontStyle.Bold);
+            lblLogOut.ForeColor = Color.Yellow;
         }
         private void lbllogout_MouseLeave(object sender, EventArgs e)
         {
-            lbllogout.Font = new Font(lbllogout.Font.Name, lbllogout.Font.SizeInPoints, FontStyle.Regular);
-            lbllogout.ForeColor = Color.White;
+            lblLogOut.Font = new Font(lblLogOut.Font.Name, lblLogOut.Font.SizeInPoints, FontStyle.Regular);
+            lblLogOut.ForeColor = Color.White;
         }
         private void lblwelcome_MouseEnter(object sender, EventArgs e)
         {
-            lblwelcome.Font = new Font(lblwelcome.Font.Name, lblwelcome.Font.SizeInPoints, FontStyle.Bold);
-            lblwelcome.ForeColor = Color.Yellow;
+            lblWelCome.Font = new Font(lblWelCome.Font.Name, lblWelCome.Font.SizeInPoints, FontStyle.Bold);
+            lblWelCome.ForeColor = Color.Yellow;
         }
         private void lblwelcome_MouseLeave(object sender, EventArgs e)
         {
-            lblwelcome.Font = new Font(lblwelcome.Font.Name, lblwelcome.Font.SizeInPoints, FontStyle.Regular);
-            lblwelcome.ForeColor = Color.White;
+            lblWelCome.Font = new Font(lblWelCome.Font.Name, lblWelCome.Font.SizeInPoints, FontStyle.Regular);
+            lblWelCome.ForeColor = Color.White;
         }
         private void labelmenu_MouseEnter(object sender, EventArgs e)
         {
-            lblmenu.Font = new Font(lblmenu.Font.Name, lblmenu.Font.SizeInPoints, FontStyle.Bold);
-            lblmenu.ForeColor = Color.Yellow;
+            lblMenu.Font = new Font(lblMenu.Font.Name, lblMenu.Font.SizeInPoints, FontStyle.Bold);
+            lblMenu.ForeColor = Color.Yellow;
         }
 
         private void labelmenu_MouseLeave(object sender, EventArgs e)
         {
-            lblmenu.Font = new Font(lblmenu.Font.Name, lblmenu.Font.SizeInPoints, FontStyle.Regular);
-            lblmenu.ForeColor = Color.White;
+            lblMenu.Font = new Font(lblMenu.Font.Name, lblMenu.Font.SizeInPoints, FontStyle.Regular);
+            lblMenu.ForeColor = Color.White;
         }
         private void btnSettings_Click(object sender, EventArgs e)
         {

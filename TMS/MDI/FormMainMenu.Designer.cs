@@ -33,40 +33,40 @@
             this.Sidebar = new System.Windows.Forms.FlowLayoutPanel();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.picemp = new TMS.UI.Utilities.RoundPictureBox();
-            this.lbllogout = new System.Windows.Forms.Label();
-            this.lblwelcome = new System.Windows.Forms.Label();
-            this.lblmenu = new System.Windows.Forms.Label();
+            this.lblLogOut = new System.Windows.Forms.Label();
+            this.lblWelCome = new System.Windows.Forms.Label();
+            this.lblMenu = new System.Windows.Forms.Label();
             this.Menubutton = new System.Windows.Forms.PictureBox();
             this.HomeContainer = new System.Windows.Forms.Panel();
             this.panelTC = new System.Windows.Forms.Panel();
-            this.btngrouptask = new System.Windows.Forms.Button();
+            this.btnGroupTask = new System.Windows.Forms.Button();
             this.panelTS = new System.Windows.Forms.Panel();
-            this.btnteamregister = new System.Windows.Forms.Button();
+            this.btnTeamRegister = new System.Windows.Forms.Button();
             this.HomeChildContainer = new System.Windows.Forms.Panel();
-            this.btnmasterdata = new System.Windows.Forms.Button();
+            this.btnMasterData = new System.Windows.Forms.Button();
             this.pnlmainworkitm = new System.Windows.Forms.Panel();
-            this.btnassignworkItem = new System.Windows.Forms.Button();
-            this.btnworkitem = new System.Windows.Forms.Button();
-            this.btnassigntask = new System.Windows.Forms.Button();
+            this.btnAssignWorkItem = new System.Windows.Forms.Button();
+            this.btnWorkItem = new System.Windows.Forms.Button();
+            this.btnAssignTask = new System.Windows.Forms.Button();
             this.panelReportAnalysis = new System.Windows.Forms.Panel();
             this.btnTimeBasedReport = new System.Windows.Forms.Button();
             this.btnAssigneeBasedReport = new System.Windows.Forms.Button();
-            this.btnstatusbasedreport = new System.Windows.Forms.Button();
-            this.btnreportanalysis = new System.Windows.Forms.Button();
+            this.btnStatusBasedReport = new System.Windows.Forms.Button();
+            this.btnReportAnalysis = new System.Windows.Forms.Button();
             this.pnlmainsettings = new System.Windows.Forms.Panel();
-            this.btnupdatepwd = new System.Windows.Forms.Button();
+            this.btnUpdatePwd = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.panelTS1 = new System.Windows.Forms.Panel();
-            this.btntasksheet = new System.Windows.Forms.Button();
+            this.btnTaskSheet = new System.Windows.Forms.Button();
             this.panelTC1 = new System.Windows.Forms.Panel();
-            this.btntaskcalender = new System.Windows.Forms.Button();
+            this.btnTaskCalender = new System.Windows.Forms.Button();
             this.Sidebartimer = new System.Windows.Forms.Timer(this.components);
             this.paneltitlebar = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnMaximize = new System.Windows.Forms.Button();
-            this.btnclose = new System.Windows.Forms.Button();
-            this.btnclosechildform = new System.Windows.Forms.Button();
-            this.labeltitle = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnCloseChildForm = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.panelDesktopPanel = new System.Windows.Forms.Panel();
             this.HomeTimer = new System.Windows.Forms.Timer(this.components);
             this.ReportTimer = new System.Windows.Forms.Timer(this.components);
@@ -108,9 +108,9 @@
             // panelLogo
             // 
             this.panelLogo.Controls.Add(this.picemp);
-            this.panelLogo.Controls.Add(this.lbllogout);
-            this.panelLogo.Controls.Add(this.lblwelcome);
-            this.panelLogo.Controls.Add(this.lblmenu);
+            this.panelLogo.Controls.Add(this.lblLogOut);
+            this.panelLogo.Controls.Add(this.lblWelCome);
+            this.panelLogo.Controls.Add(this.lblMenu);
             this.panelLogo.Controls.Add(this.Menubutton);
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelLogo.Location = new System.Drawing.Point(3, 3);
@@ -127,49 +127,49 @@
             this.picemp.TabIndex = 5;
             this.picemp.TabStop = false;
             // 
-            // lbllogout
+            // lblLogOut
             // 
-            this.lbllogout.AutoSize = true;
-            this.lbllogout.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbllogout.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbllogout.ForeColor = System.Drawing.Color.White;
-            this.lbllogout.Image = ((System.Drawing.Image)(resources.GetObject("lbllogout.Image")));
-            this.lbllogout.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.lbllogout.Location = new System.Drawing.Point(68, 52);
-            this.lbllogout.Name = "lbllogout";
-            this.lbllogout.Size = new System.Drawing.Size(86, 21);
-            this.lbllogout.TabIndex = 5;
-            this.lbllogout.Text = "     Logout?";
-            this.lbllogout.Click += new System.EventHandler(this.lbllogout_Click);
-            this.lbllogout.MouseEnter += new System.EventHandler(this.lbllogout_MouseEnter);
-            this.lbllogout.MouseLeave += new System.EventHandler(this.lbllogout_MouseLeave);
+            this.lblLogOut.AutoSize = true;
+            this.lblLogOut.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblLogOut.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLogOut.ForeColor = System.Drawing.Color.White;
+            this.lblLogOut.Image = ((System.Drawing.Image)(resources.GetObject("lblLogOut.Image")));
+            this.lblLogOut.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lblLogOut.Location = new System.Drawing.Point(68, 52);
+            this.lblLogOut.Name = "lblLogOut";
+            this.lblLogOut.Size = new System.Drawing.Size(86, 21);
+            this.lblLogOut.TabIndex = 5;
+            this.lblLogOut.Text = "     Logout?";
+            this.lblLogOut.Click += new System.EventHandler(this.lbllogout_Click);
+            this.lblLogOut.MouseEnter += new System.EventHandler(this.lbllogout_MouseEnter);
+            this.lblLogOut.MouseLeave += new System.EventHandler(this.lbllogout_MouseLeave);
             // 
-            // lblwelcome
+            // lblWelCome
             // 
-            this.lblwelcome.AutoSize = true;
-            this.lblwelcome.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblwelcome.ForeColor = System.Drawing.Color.White;
-            this.lblwelcome.Location = new System.Drawing.Point(68, 6);
-            this.lblwelcome.Name = "lblwelcome";
-            this.lblwelcome.Size = new System.Drawing.Size(52, 21);
-            this.lblwelcome.TabIndex = 4;
-            this.lblwelcome.Text = "label1";
-            this.lblwelcome.MouseEnter += new System.EventHandler(this.lblwelcome_MouseEnter);
-            this.lblwelcome.MouseLeave += new System.EventHandler(this.lblwelcome_MouseLeave);
+            this.lblWelCome.AutoSize = true;
+            this.lblWelCome.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.lblWelCome.ForeColor = System.Drawing.Color.White;
+            this.lblWelCome.Location = new System.Drawing.Point(68, 6);
+            this.lblWelCome.Name = "lblWelCome";
+            this.lblWelCome.Size = new System.Drawing.Size(52, 21);
+            this.lblWelCome.TabIndex = 4;
+            this.lblWelCome.Text = "label1";
+            this.lblWelCome.MouseEnter += new System.EventHandler(this.lblwelcome_MouseEnter);
+            this.lblWelCome.MouseLeave += new System.EventHandler(this.lblwelcome_MouseLeave);
             // 
-            // lblmenu
+            // lblMenu
             // 
-            this.lblmenu.AutoSize = true;
-            this.lblmenu.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblmenu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblmenu.ForeColor = System.Drawing.Color.White;
-            this.lblmenu.Location = new System.Drawing.Point(68, 104);
-            this.lblmenu.Name = "lblmenu";
-            this.lblmenu.Size = new System.Drawing.Size(50, 21);
-            this.lblmenu.TabIndex = 2;
-            this.lblmenu.Text = "Menu";
-            this.lblmenu.MouseEnter += new System.EventHandler(this.labelmenu_MouseEnter);
-            this.lblmenu.MouseLeave += new System.EventHandler(this.labelmenu_MouseLeave);
+            this.lblMenu.AutoSize = true;
+            this.lblMenu.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblMenu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMenu.ForeColor = System.Drawing.Color.White;
+            this.lblMenu.Location = new System.Drawing.Point(68, 104);
+            this.lblMenu.Name = "lblMenu";
+            this.lblMenu.Size = new System.Drawing.Size(50, 21);
+            this.lblMenu.TabIndex = 2;
+            this.lblMenu.Text = "Menu";
+            this.lblMenu.MouseEnter += new System.EventHandler(this.labelmenu_MouseEnter);
+            this.lblMenu.MouseLeave += new System.EventHandler(this.labelmenu_MouseLeave);
             // 
             // Menubutton
             // 
@@ -198,7 +198,7 @@
             // panelTC
             // 
             this.panelTC.BackColor = System.Drawing.Color.White;
-            this.panelTC.Controls.Add(this.btngrouptask);
+            this.panelTC.Controls.Add(this.btnGroupTask);
             this.panelTC.Location = new System.Drawing.Point(1, 93);
             this.panelTC.MaximumSize = new System.Drawing.Size(241, 92);
             this.panelTC.MinimumSize = new System.Drawing.Size(241, 50);
@@ -206,28 +206,28 @@
             this.panelTC.Size = new System.Drawing.Size(241, 50);
             this.panelTC.TabIndex = 8;
             // 
-            // btngrouptask
+            // btnGroupTask
             // 
-            this.btngrouptask.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
-            this.btngrouptask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btngrouptask.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btngrouptask.ForeColor = System.Drawing.Color.White;
-            this.btngrouptask.Image = ((System.Drawing.Image)(resources.GetObject("btngrouptask.Image")));
-            this.btngrouptask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btngrouptask.Location = new System.Drawing.Point(-1, -1);
-            this.btngrouptask.Name = "btngrouptask";
-            this.btngrouptask.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btngrouptask.Size = new System.Drawing.Size(245, 57);
-            this.btngrouptask.TabIndex = 2;
-            this.btngrouptask.Text = "        Task Management";
-            this.btngrouptask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btngrouptask.UseVisualStyleBackColor = false;
-            this.btngrouptask.Click += new System.EventHandler(this.btngrouptask_Click);
+            this.btnGroupTask.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
+            this.btnGroupTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGroupTask.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGroupTask.ForeColor = System.Drawing.Color.White;
+            this.btnGroupTask.Image = ((System.Drawing.Image)(resources.GetObject("btnGroupTask.Image")));
+            this.btnGroupTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGroupTask.Location = new System.Drawing.Point(-1, -1);
+            this.btnGroupTask.Name = "btnGroupTask";
+            this.btnGroupTask.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnGroupTask.Size = new System.Drawing.Size(245, 57);
+            this.btnGroupTask.TabIndex = 2;
+            this.btnGroupTask.Text = "        Task Management";
+            this.btnGroupTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGroupTask.UseVisualStyleBackColor = false;
+            this.btnGroupTask.Click += new System.EventHandler(this.btngrouptask_Click);
             // 
             // panelTS
             // 
             this.panelTS.BackColor = System.Drawing.Color.White;
-            this.panelTS.Controls.Add(this.btnteamregister);
+            this.panelTS.Controls.Add(this.btnTeamRegister);
             this.panelTS.Location = new System.Drawing.Point(1, 55);
             this.panelTS.MaximumSize = new System.Drawing.Size(241, 92);
             this.panelTS.MinimumSize = new System.Drawing.Size(241, 50);
@@ -235,28 +235,28 @@
             this.panelTS.Size = new System.Drawing.Size(241, 50);
             this.panelTS.TabIndex = 7;
             // 
-            // btnteamregister
+            // btnTeamRegister
             // 
-            this.btnteamregister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
-            this.btnteamregister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnteamregister.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnteamregister.ForeColor = System.Drawing.Color.White;
-            this.btnteamregister.Image = ((System.Drawing.Image)(resources.GetObject("btnteamregister.Image")));
-            this.btnteamregister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnteamregister.Location = new System.Drawing.Point(-1, -4);
-            this.btnteamregister.Name = "btnteamregister";
-            this.btnteamregister.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnteamregister.Size = new System.Drawing.Size(245, 57);
-            this.btnteamregister.TabIndex = 2;
-            this.btnteamregister.Text = "        Team Management";
-            this.btnteamregister.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnteamregister.UseVisualStyleBackColor = false;
-            this.btnteamregister.Click += new System.EventHandler(this.btnteamregister_Click);
+            this.btnTeamRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
+            this.btnTeamRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTeamRegister.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTeamRegister.ForeColor = System.Drawing.Color.White;
+            this.btnTeamRegister.Image = ((System.Drawing.Image)(resources.GetObject("btnTeamRegister.Image")));
+            this.btnTeamRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTeamRegister.Location = new System.Drawing.Point(-1, -4);
+            this.btnTeamRegister.Name = "btnTeamRegister";
+            this.btnTeamRegister.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnTeamRegister.Size = new System.Drawing.Size(245, 57);
+            this.btnTeamRegister.TabIndex = 2;
+            this.btnTeamRegister.Text = "        Team Management";
+            this.btnTeamRegister.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTeamRegister.UseVisualStyleBackColor = false;
+            this.btnTeamRegister.Click += new System.EventHandler(this.btnteamregister_Click);
             // 
             // HomeChildContainer
             // 
             this.HomeChildContainer.BackColor = System.Drawing.Color.White;
-            this.HomeChildContainer.Controls.Add(this.btnmasterdata);
+            this.HomeChildContainer.Controls.Add(this.btnMasterData);
             this.HomeChildContainer.Location = new System.Drawing.Point(1, 3);
             this.HomeChildContainer.MaximumSize = new System.Drawing.Size(241, 92);
             this.HomeChildContainer.MinimumSize = new System.Drawing.Size(241, 50);
@@ -264,30 +264,30 @@
             this.HomeChildContainer.Size = new System.Drawing.Size(241, 50);
             this.HomeChildContainer.TabIndex = 5;
             // 
-            // btnmasterdata
+            // btnMasterData
             // 
-            this.btnmasterdata.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.btnmasterdata.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnmasterdata.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmasterdata.ForeColor = System.Drawing.Color.White;
-            this.btnmasterdata.Image = ((System.Drawing.Image)(resources.GetObject("btnmasterdata.Image")));
-            this.btnmasterdata.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnmasterdata.Location = new System.Drawing.Point(-1, -1);
-            this.btnmasterdata.Name = "btnmasterdata";
-            this.btnmasterdata.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnmasterdata.Size = new System.Drawing.Size(243, 58);
-            this.btnmasterdata.TabIndex = 2;
-            this.btnmasterdata.Text = "        Master Data";
-            this.btnmasterdata.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnmasterdata.UseVisualStyleBackColor = false;
-            this.btnmasterdata.Click += new System.EventHandler(this.btnmasterdata_Click);
+            this.btnMasterData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.btnMasterData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMasterData.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMasterData.ForeColor = System.Drawing.Color.White;
+            this.btnMasterData.Image = ((System.Drawing.Image)(resources.GetObject("btnMasterData.Image")));
+            this.btnMasterData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMasterData.Location = new System.Drawing.Point(-1, -1);
+            this.btnMasterData.Name = "btnMasterData";
+            this.btnMasterData.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnMasterData.Size = new System.Drawing.Size(243, 58);
+            this.btnMasterData.TabIndex = 2;
+            this.btnMasterData.Text = "        Master Data";
+            this.btnMasterData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMasterData.UseVisualStyleBackColor = false;
+            this.btnMasterData.Click += new System.EventHandler(this.btnmasterdata_Click);
             // 
             // pnlmainworkitm
             // 
             this.pnlmainworkitm.BackColor = System.Drawing.Color.White;
-            this.pnlmainworkitm.Controls.Add(this.btnassignworkItem);
-            this.pnlmainworkitm.Controls.Add(this.btnworkitem);
-            this.pnlmainworkitm.Controls.Add(this.btnassigntask);
+            this.pnlmainworkitm.Controls.Add(this.btnAssignWorkItem);
+            this.pnlmainworkitm.Controls.Add(this.btnWorkItem);
+            this.pnlmainworkitm.Controls.Add(this.btnAssignTask);
             this.pnlmainworkitm.ForeColor = System.Drawing.Color.White;
             this.pnlmainworkitm.Location = new System.Drawing.Point(3, 211);
             this.pnlmainworkitm.MaximumSize = new System.Drawing.Size(241, 170);
@@ -296,59 +296,59 @@
             this.pnlmainworkitm.Size = new System.Drawing.Size(241, 50);
             this.pnlmainworkitm.TabIndex = 8;
             // 
-            // btnassignworkItem
+            // btnAssignWorkItem
             // 
-            this.btnassignworkItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.btnassignworkItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnassignworkItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnassignworkItem.ForeColor = System.Drawing.Color.White;
-            this.btnassignworkItem.Image = ((System.Drawing.Image)(resources.GetObject("btnassignworkItem.Image")));
-            this.btnassignworkItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnassignworkItem.Location = new System.Drawing.Point(-1, 112);
-            this.btnassignworkItem.Name = "btnassignworkItem";
-            this.btnassignworkItem.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnassignworkItem.Size = new System.Drawing.Size(243, 58);
-            this.btnassignworkItem.TabIndex = 2;
-            this.btnassignworkItem.Text = "        Assign WorkItem";
-            this.btnassignworkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnassignworkItem.UseVisualStyleBackColor = false;
-            this.btnassignworkItem.Click += new System.EventHandler(this.btnassignworkItem_Click);
+            this.btnAssignWorkItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.btnAssignWorkItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAssignWorkItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAssignWorkItem.ForeColor = System.Drawing.Color.White;
+            this.btnAssignWorkItem.Image = ((System.Drawing.Image)(resources.GetObject("btnAssignWorkItem.Image")));
+            this.btnAssignWorkItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAssignWorkItem.Location = new System.Drawing.Point(-1, 112);
+            this.btnAssignWorkItem.Name = "btnAssignWorkItem";
+            this.btnAssignWorkItem.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnAssignWorkItem.Size = new System.Drawing.Size(243, 58);
+            this.btnAssignWorkItem.TabIndex = 2;
+            this.btnAssignWorkItem.Text = "        Assign WorkItem";
+            this.btnAssignWorkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAssignWorkItem.UseVisualStyleBackColor = false;
+            this.btnAssignWorkItem.Click += new System.EventHandler(this.btnassignworkItem_Click);
             // 
-            // btnworkitem
+            // btnWorkItem
             // 
-            this.btnworkitem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.btnworkitem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnworkitem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnworkitem.ForeColor = System.Drawing.Color.White;
-            this.btnworkitem.Image = ((System.Drawing.Image)(resources.GetObject("btnworkitem.Image")));
-            this.btnworkitem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnworkitem.Location = new System.Drawing.Point(-1, -1);
-            this.btnworkitem.Name = "btnworkitem";
-            this.btnworkitem.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnworkitem.Size = new System.Drawing.Size(243, 58);
-            this.btnworkitem.TabIndex = 2;
-            this.btnworkitem.Text = "        WorkItem";
-            this.btnworkitem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnworkitem.UseVisualStyleBackColor = false;
-            this.btnworkitem.Click += new System.EventHandler(this.btnworkitem_Click);
+            this.btnWorkItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.btnWorkItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWorkItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWorkItem.ForeColor = System.Drawing.Color.White;
+            this.btnWorkItem.Image = ((System.Drawing.Image)(resources.GetObject("btnWorkItem.Image")));
+            this.btnWorkItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnWorkItem.Location = new System.Drawing.Point(-1, -1);
+            this.btnWorkItem.Name = "btnWorkItem";
+            this.btnWorkItem.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnWorkItem.Size = new System.Drawing.Size(243, 58);
+            this.btnWorkItem.TabIndex = 2;
+            this.btnWorkItem.Text = "        WorkItem";
+            this.btnWorkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnWorkItem.UseVisualStyleBackColor = false;
+            this.btnWorkItem.Click += new System.EventHandler(this.btnworkitem_Click);
             // 
-            // btnassigntask
+            // btnAssignTask
             // 
-            this.btnassigntask.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.btnassigntask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnassigntask.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnassigntask.ForeColor = System.Drawing.Color.White;
-            this.btnassigntask.Image = ((System.Drawing.Image)(resources.GetObject("btnassigntask.Image")));
-            this.btnassigntask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnassigntask.Location = new System.Drawing.Point(-1, 56);
-            this.btnassigntask.Name = "btnassigntask";
-            this.btnassigntask.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnassigntask.Size = new System.Drawing.Size(243, 58);
-            this.btnassigntask.TabIndex = 2;
-            this.btnassigntask.Text = "        Create WorkItem";
-            this.btnassigntask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnassigntask.UseVisualStyleBackColor = false;
-            this.btnassigntask.Click += new System.EventHandler(this.btnassigntask_Click);
+            this.btnAssignTask.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.btnAssignTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAssignTask.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAssignTask.ForeColor = System.Drawing.Color.White;
+            this.btnAssignTask.Image = ((System.Drawing.Image)(resources.GetObject("btnAssignTask.Image")));
+            this.btnAssignTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAssignTask.Location = new System.Drawing.Point(-1, 56);
+            this.btnAssignTask.Name = "btnAssignTask";
+            this.btnAssignTask.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnAssignTask.Size = new System.Drawing.Size(243, 58);
+            this.btnAssignTask.TabIndex = 2;
+            this.btnAssignTask.Text = "        Create WorkItem";
+            this.btnAssignTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAssignTask.UseVisualStyleBackColor = false;
+            this.btnAssignTask.Click += new System.EventHandler(this.btnassigntask_Click);
             // 
             // panelReportAnalysis
             // 
@@ -356,8 +356,8 @@
             this.panelReportAnalysis.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelReportAnalysis.Controls.Add(this.btnTimeBasedReport);
             this.panelReportAnalysis.Controls.Add(this.btnAssigneeBasedReport);
-            this.panelReportAnalysis.Controls.Add(this.btnstatusbasedreport);
-            this.panelReportAnalysis.Controls.Add(this.btnreportanalysis);
+            this.panelReportAnalysis.Controls.Add(this.btnStatusBasedReport);
+            this.panelReportAnalysis.Controls.Add(this.btnReportAnalysis);
             this.panelReportAnalysis.Location = new System.Drawing.Point(3, 267);
             this.panelReportAnalysis.MaximumSize = new System.Drawing.Size(241, 219);
             this.panelReportAnalysis.MinimumSize = new System.Drawing.Size(241, 50);
@@ -401,46 +401,46 @@
             this.btnAssigneeBasedReport.UseVisualStyleBackColor = false;
             this.btnAssigneeBasedReport.Click += new System.EventHandler(this.btnAssigneeBaseReport_Click);
             // 
-            // btnstatusbasedreport
+            // btnStatusBasedReport
             // 
-            this.btnstatusbasedreport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
-            this.btnstatusbasedreport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnstatusbasedreport.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnstatusbasedreport.ForeColor = System.Drawing.Color.White;
-            this.btnstatusbasedreport.Image = ((System.Drawing.Image)(resources.GetObject("btnstatusbasedreport.Image")));
-            this.btnstatusbasedreport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnstatusbasedreport.Location = new System.Drawing.Point(-1, 50);
-            this.btnstatusbasedreport.Name = "btnstatusbasedreport";
-            this.btnstatusbasedreport.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnstatusbasedreport.Size = new System.Drawing.Size(245, 57);
-            this.btnstatusbasedreport.TabIndex = 2;
-            this.btnstatusbasedreport.Text = "        Status Based Report";
-            this.btnstatusbasedreport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnstatusbasedreport.UseVisualStyleBackColor = false;
-            this.btnstatusbasedreport.Click += new System.EventHandler(this.btnstatusbasedreport_Click);
+            this.btnStatusBasedReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
+            this.btnStatusBasedReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatusBasedReport.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStatusBasedReport.ForeColor = System.Drawing.Color.White;
+            this.btnStatusBasedReport.Image = ((System.Drawing.Image)(resources.GetObject("btnStatusBasedReport.Image")));
+            this.btnStatusBasedReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStatusBasedReport.Location = new System.Drawing.Point(-1, 50);
+            this.btnStatusBasedReport.Name = "btnStatusBasedReport";
+            this.btnStatusBasedReport.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnStatusBasedReport.Size = new System.Drawing.Size(245, 57);
+            this.btnStatusBasedReport.TabIndex = 2;
+            this.btnStatusBasedReport.Text = "        Status Based Report";
+            this.btnStatusBasedReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStatusBasedReport.UseVisualStyleBackColor = false;
+            this.btnStatusBasedReport.Click += new System.EventHandler(this.btnstatusbasedreport_Click);
             // 
-            // btnreportanalysis
+            // btnReportAnalysis
             // 
-            this.btnreportanalysis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.btnreportanalysis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnreportanalysis.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnreportanalysis.ForeColor = System.Drawing.Color.White;
-            this.btnreportanalysis.Image = ((System.Drawing.Image)(resources.GetObject("btnreportanalysis.Image")));
-            this.btnreportanalysis.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnreportanalysis.Location = new System.Drawing.Point(-1, -1);
-            this.btnreportanalysis.Name = "btnreportanalysis";
-            this.btnreportanalysis.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnreportanalysis.Size = new System.Drawing.Size(243, 58);
-            this.btnreportanalysis.TabIndex = 2;
-            this.btnreportanalysis.Text = "        Report Analysis";
-            this.btnreportanalysis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnreportanalysis.UseVisualStyleBackColor = false;
-            this.btnreportanalysis.Click += new System.EventHandler(this.btnreportanalysis_Click);
+            this.btnReportAnalysis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.btnReportAnalysis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReportAnalysis.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportAnalysis.ForeColor = System.Drawing.Color.White;
+            this.btnReportAnalysis.Image = ((System.Drawing.Image)(resources.GetObject("btnReportAnalysis.Image")));
+            this.btnReportAnalysis.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReportAnalysis.Location = new System.Drawing.Point(-1, -1);
+            this.btnReportAnalysis.Name = "btnReportAnalysis";
+            this.btnReportAnalysis.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnReportAnalysis.Size = new System.Drawing.Size(243, 58);
+            this.btnReportAnalysis.TabIndex = 2;
+            this.btnReportAnalysis.Text = "        Report Analysis";
+            this.btnReportAnalysis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReportAnalysis.UseVisualStyleBackColor = false;
+            this.btnReportAnalysis.Click += new System.EventHandler(this.btnreportanalysis_Click);
             // 
             // pnlmainsettings
             // 
             this.pnlmainsettings.BackColor = System.Drawing.Color.White;
-            this.pnlmainsettings.Controls.Add(this.btnupdatepwd);
+            this.pnlmainsettings.Controls.Add(this.btnUpdatePwd);
             this.pnlmainsettings.Controls.Add(this.btnSettings);
             this.pnlmainsettings.ForeColor = System.Drawing.Color.White;
             this.pnlmainsettings.Location = new System.Drawing.Point(3, 323);
@@ -450,23 +450,23 @@
             this.pnlmainsettings.Size = new System.Drawing.Size(241, 50);
             this.pnlmainsettings.TabIndex = 7;
             // 
-            // btnupdatepwd
+            // btnUpdatePwd
             // 
-            this.btnupdatepwd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.btnupdatepwd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnupdatepwd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnupdatepwd.ForeColor = System.Drawing.Color.White;
-            this.btnupdatepwd.Image = ((System.Drawing.Image)(resources.GetObject("btnupdatepwd.Image")));
-            this.btnupdatepwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnupdatepwd.Location = new System.Drawing.Point(0, 56);
-            this.btnupdatepwd.Name = "btnupdatepwd";
-            this.btnupdatepwd.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnupdatepwd.Size = new System.Drawing.Size(245, 52);
-            this.btnupdatepwd.TabIndex = 2;
-            this.btnupdatepwd.Text = "        Change Password";
-            this.btnupdatepwd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnupdatepwd.UseVisualStyleBackColor = false;
-            this.btnupdatepwd.Click += new System.EventHandler(this.btnupdatepwd_Click);
+            this.btnUpdatePwd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.btnUpdatePwd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdatePwd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdatePwd.ForeColor = System.Drawing.Color.White;
+            this.btnUpdatePwd.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdatePwd.Image")));
+            this.btnUpdatePwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpdatePwd.Location = new System.Drawing.Point(0, 56);
+            this.btnUpdatePwd.Name = "btnUpdatePwd";
+            this.btnUpdatePwd.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnUpdatePwd.Size = new System.Drawing.Size(245, 52);
+            this.btnUpdatePwd.TabIndex = 2;
+            this.btnUpdatePwd.Text = "        Change Password";
+            this.btnUpdatePwd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpdatePwd.UseVisualStyleBackColor = false;
+            this.btnUpdatePwd.Click += new System.EventHandler(this.btnupdatepwd_Click);
             // 
             // btnSettings
             // 
@@ -488,53 +488,53 @@
             // 
             // panelTS1
             // 
-            this.panelTS1.Controls.Add(this.btntasksheet);
+            this.panelTS1.Controls.Add(this.btnTaskSheet);
             this.panelTS1.Location = new System.Drawing.Point(513, 313);
             this.panelTS1.Name = "panelTS1";
             this.panelTS1.Size = new System.Drawing.Size(242, 37);
             this.panelTS1.TabIndex = 4;
             this.panelTS1.Visible = false;
             // 
-            // btntasksheet
+            // btnTaskSheet
             // 
-            this.btntasksheet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btntasksheet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btntasksheet.ForeColor = System.Drawing.Color.White;
-            this.btntasksheet.Image = ((System.Drawing.Image)(resources.GetObject("btntasksheet.Image")));
-            this.btntasksheet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btntasksheet.Location = new System.Drawing.Point(-1, -8);
-            this.btntasksheet.Name = "btntasksheet";
-            this.btntasksheet.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btntasksheet.Size = new System.Drawing.Size(243, 58);
-            this.btntasksheet.TabIndex = 2;
-            this.btntasksheet.Text = "             Task Sheet";
-            this.btntasksheet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btntasksheet.UseVisualStyleBackColor = true;
+            this.btnTaskSheet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTaskSheet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTaskSheet.ForeColor = System.Drawing.Color.White;
+            this.btnTaskSheet.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskSheet.Image")));
+            this.btnTaskSheet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTaskSheet.Location = new System.Drawing.Point(-1, -8);
+            this.btnTaskSheet.Name = "btnTaskSheet";
+            this.btnTaskSheet.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnTaskSheet.Size = new System.Drawing.Size(243, 58);
+            this.btnTaskSheet.TabIndex = 2;
+            this.btnTaskSheet.Text = "             Task Sheet";
+            this.btnTaskSheet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTaskSheet.UseVisualStyleBackColor = true;
             // 
             // panelTC1
             // 
-            this.panelTC1.Controls.Add(this.btntaskcalender);
+            this.panelTC1.Controls.Add(this.btnTaskCalender);
             this.panelTC1.Location = new System.Drawing.Point(513, 356);
             this.panelTC1.Name = "panelTC1";
             this.panelTC1.Size = new System.Drawing.Size(242, 37);
             this.panelTC1.TabIndex = 2;
             this.panelTC1.Visible = false;
             // 
-            // btntaskcalender
+            // btnTaskCalender
             // 
-            this.btntaskcalender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btntaskcalender.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btntaskcalender.ForeColor = System.Drawing.Color.White;
-            this.btntaskcalender.Image = ((System.Drawing.Image)(resources.GetObject("btntaskcalender.Image")));
-            this.btntaskcalender.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btntaskcalender.Location = new System.Drawing.Point(-1, -8);
-            this.btntaskcalender.Name = "btntaskcalender";
-            this.btntaskcalender.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btntaskcalender.Size = new System.Drawing.Size(243, 58);
-            this.btntaskcalender.TabIndex = 2;
-            this.btntaskcalender.Text = "             Task Calender";
-            this.btntaskcalender.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btntaskcalender.UseVisualStyleBackColor = true;
+            this.btnTaskCalender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTaskCalender.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTaskCalender.ForeColor = System.Drawing.Color.White;
+            this.btnTaskCalender.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskCalender.Image")));
+            this.btnTaskCalender.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTaskCalender.Location = new System.Drawing.Point(-1, -8);
+            this.btnTaskCalender.Name = "btnTaskCalender";
+            this.btnTaskCalender.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnTaskCalender.Size = new System.Drawing.Size(243, 58);
+            this.btnTaskCalender.TabIndex = 2;
+            this.btnTaskCalender.Text = "             Task Calender";
+            this.btnTaskCalender.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTaskCalender.UseVisualStyleBackColor = true;
             // 
             // Sidebartimer
             // 
@@ -546,9 +546,9 @@
             this.paneltitlebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.paneltitlebar.Controls.Add(this.btnMinimize);
             this.paneltitlebar.Controls.Add(this.btnMaximize);
-            this.paneltitlebar.Controls.Add(this.btnclose);
-            this.paneltitlebar.Controls.Add(this.btnclosechildform);
-            this.paneltitlebar.Controls.Add(this.labeltitle);
+            this.paneltitlebar.Controls.Add(this.btnClose);
+            this.paneltitlebar.Controls.Add(this.btnCloseChildForm);
+            this.paneltitlebar.Controls.Add(this.lblTitle);
             this.paneltitlebar.Dock = System.Windows.Forms.DockStyle.Top;
             this.paneltitlebar.Location = new System.Drawing.Point(245, 0);
             this.paneltitlebar.Name = "paneltitlebar";
@@ -586,47 +586,47 @@
             this.btnMaximize.UseVisualStyleBackColor = true;
             this.btnMaximize.Click += new System.EventHandler(this.btnMaximize_Click);
             // 
-            // btnclose
+            // btnClose
             // 
-            this.btnclose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnclose.FlatAppearance.BorderSize = 0;
-            this.btnclose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnclose.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnclose.ForeColor = System.Drawing.Color.White;
-            this.btnclose.Location = new System.Drawing.Point(866, 1);
-            this.btnclose.Name = "btnclose";
-            this.btnclose.Size = new System.Drawing.Size(30, 29);
-            this.btnclose.TabIndex = 2;
-            this.btnclose.Text = "x";
-            this.btnclose.UseVisualStyleBackColor = true;
-            this.btnclose.Click += new System.EventHandler(this.btnclose_Click);
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(866, 1);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(30, 29);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "x";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnclose_Click);
             // 
-            // btnclosechildform
+            // btnCloseChildForm
             // 
-            this.btnclosechildform.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnclosechildform.FlatAppearance.BorderSize = 0;
-            this.btnclosechildform.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnclosechildform.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnclosechildform.ForeColor = System.Drawing.Color.White;
-            this.btnclosechildform.Location = new System.Drawing.Point(0, 0);
-            this.btnclosechildform.Name = "btnclosechildform";
-            this.btnclosechildform.Size = new System.Drawing.Size(75, 65);
-            this.btnclosechildform.TabIndex = 1;
-            this.btnclosechildform.Text = "X";
-            this.btnclosechildform.UseVisualStyleBackColor = true;
-            this.btnclosechildform.Click += new System.EventHandler(this.btnclosechildform_Click);
+            this.btnCloseChildForm.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnCloseChildForm.FlatAppearance.BorderSize = 0;
+            this.btnCloseChildForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseChildForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseChildForm.ForeColor = System.Drawing.Color.White;
+            this.btnCloseChildForm.Location = new System.Drawing.Point(0, 0);
+            this.btnCloseChildForm.Name = "btnCloseChildForm";
+            this.btnCloseChildForm.Size = new System.Drawing.Size(75, 65);
+            this.btnCloseChildForm.TabIndex = 1;
+            this.btnCloseChildForm.Text = "X";
+            this.btnCloseChildForm.UseVisualStyleBackColor = true;
+            this.btnCloseChildForm.Click += new System.EventHandler(this.btnclosechildform_Click);
             // 
-            // labeltitle
+            // lblTitle
             // 
-            this.labeltitle.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.labeltitle.AutoSize = true;
-            this.labeltitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labeltitle.ForeColor = System.Drawing.Color.White;
-            this.labeltitle.Location = new System.Drawing.Point(333, 19);
-            this.labeltitle.Name = "labeltitle";
-            this.labeltitle.Size = new System.Drawing.Size(187, 31);
-            this.labeltitle.TabIndex = 0;
-            this.labeltitle.Text = "DASHBOARD";
+            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(333, 19);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(187, 31);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "DASHBOARD";
             // 
             // panelDesktopPanel
             // 
@@ -697,44 +697,44 @@
 
         private System.Windows.Forms.FlowLayoutPanel Sidebar;
         private System.Windows.Forms.Panel panelLogo;
-        private System.Windows.Forms.Button btnmasterdata;
+        private System.Windows.Forms.Button btnMasterData;
         private System.Windows.Forms.Panel panelTC1;
-        private System.Windows.Forms.Button btntaskcalender;
+        private System.Windows.Forms.Button btnTaskCalender;
         private System.Windows.Forms.Panel panelTS1;
-        private System.Windows.Forms.Button btntasksheet;
-        private System.Windows.Forms.Label lblmenu;
+        private System.Windows.Forms.Button btnTaskSheet;
+        private System.Windows.Forms.Label lblMenu;
         private System.Windows.Forms.PictureBox Menubutton;
         private System.Windows.Forms.Timer Sidebartimer;
         private System.Windows.Forms.Panel paneltitlebar;
-        private System.Windows.Forms.Label labeltitle;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panelDesktopPanel;
-        private System.Windows.Forms.Button btnclosechildform;
-        private System.Windows.Forms.Button btnclose;
+        private System.Windows.Forms.Button btnCloseChildForm;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Button btnMaximize;
         private System.Windows.Forms.Timer HomeTimer;
         private System.Windows.Forms.Panel HomeContainer;
         private System.Windows.Forms.Panel panelTS;
-        private System.Windows.Forms.Button btnteamregister;
+        private System.Windows.Forms.Button btnTeamRegister;
         private System.Windows.Forms.Panel HomeChildContainer;
         private System.Windows.Forms.Panel panelTC;
-        private System.Windows.Forms.Button btngrouptask;
+        private System.Windows.Forms.Button btnGroupTask;
         private System.Windows.Forms.Panel panelReportAnalysis;
         private System.Windows.Forms.Button btnTimeBasedReport;
         private System.Windows.Forms.Button btnAssigneeBasedReport;
-        private System.Windows.Forms.Button btnstatusbasedreport;
-        private System.Windows.Forms.Button btnreportanalysis;
+        private System.Windows.Forms.Button btnStatusBasedReport;
+        private System.Windows.Forms.Button btnReportAnalysis;
         private System.Windows.Forms.Timer ReportTimer;
-        private System.Windows.Forms.Label lblwelcome;
-        private System.Windows.Forms.Label lbllogout;
+        private System.Windows.Forms.Label lblWelCome;
+        private System.Windows.Forms.Label lblLogOut;
         private System.Windows.Forms.Panel pnlmainsettings;
         private System.Windows.Forms.Timer SettingTimer;
-        private System.Windows.Forms.Button btnupdatepwd;
+        private System.Windows.Forms.Button btnUpdatePwd;
         private System.Windows.Forms.Button btnSettings;
-        private System.Windows.Forms.Button btnassigntask;
+        private System.Windows.Forms.Button btnAssignTask;
         private System.Windows.Forms.Panel pnlmainworkitm;
-        private System.Windows.Forms.Button btnassignworkItem;
-        private System.Windows.Forms.Button btnworkitem;
+        private System.Windows.Forms.Button btnAssignWorkItem;
+        private System.Windows.Forms.Button btnWorkItem;
         private System.Windows.Forms.Timer WorkItemtimer;
         private TMS.UI.Utilities.RoundPictureBox picemp;
     }

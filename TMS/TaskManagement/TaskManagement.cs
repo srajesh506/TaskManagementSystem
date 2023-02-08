@@ -13,7 +13,7 @@ namespace TMS.UI
         {
             InitializeComponent();
             addControl(new DefineActivity());
-            pnlmanageactivity.BackColor = Color.Black;
+            pnlManageActivity.BackColor = Color.Black;
         }
         private void LoadTheme()
         {
@@ -41,7 +41,7 @@ namespace TMS.UI
         }
         private void btn_click(object sender, EventArgs e)
         {
-            foreach (var pnl in tableLayoutPanel1.Controls.OfType<Panel>())
+            foreach (var pnl in tableLayoutPanelMain.Controls.OfType<Panel>())
             {
                 pnl.BackColor = Color.Silver;
             }
@@ -50,15 +50,15 @@ namespace TMS.UI
             {
                 case "btnmanageactivity":
                     addControl(new DefineActivity());
-                    pnlmanageactivity.BackColor = Color.Black;
+                    pnlManageActivity.BackColor = Color.Black;
                     break;
                 case "btnManagetask":
                     addControl(new DefineTask());
-                    pnlManagetask.BackColor = Color.Black;
+                    pnlManageTask.BackColor = Color.Black;
                     break;
                 case "btnmanagesubtask":
                     addControl(new DefineSubTask());
-                    pnlmanagesubtask.BackColor = Color.Black;
+                    pnlManageSubtask.BackColor = Color.Black;
                     break;
                 default:
                     break;

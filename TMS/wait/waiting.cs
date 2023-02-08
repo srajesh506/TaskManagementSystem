@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace TMS.UI.wait
 {
-    public partial class waitfrm : Form
+    public partial class waitFrm : Form
     {
-        public waitfrm()
+        public waitFrm()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
         }
-        public waitfrm(Form parent)
+        public waitFrm(Form parent)
         {
             InitializeComponent();
             if(parent!=null)
@@ -33,9 +33,9 @@ namespace TMS.UI.wait
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
-            if(label1.Image!=null)
+            if(lblimg.Image!=null)
             {
-                label1.Image.Dispose();
+                lblimg.Image.Dispose();
 
             }
 
