@@ -46,7 +46,7 @@ namespace TMS.UI.Utilities
                     cmb.SelectedIndex = 0;
                 }
                 if (frm is PictureBox)
-                {   
+                {
                     pic = frm as PictureBox;
                     if (frm.Name == "pbPic")
                     {
@@ -77,18 +77,16 @@ namespace TMS.UI.Utilities
             records.Rows.Clear();
             int offset, temp;
             offset = currentPage * pageSize;
-            if (currentPage == 1)
+            temp = offset - pageSize + 1;
+            while ((temp <= offset) && (records.Rows.Count <= dataTable.Rows.Count))
             {
-                temp = 0;
-            }
-            else
-            {
-                temp = offset - pageSize;
-            }
-            while ((temp < offset) & (temp < dataTable.Rows.Count))
-            {
-                DataRow dataRow = dataTable.Rows[temp];
-                records.ImportRow(dataRow);
+                foreach (DataRow dataRow in dataTable.Rows)
+                {
+                    if (temp == Convert.ToInt32(dataRow[0]))
+                    {
+                        records.ImportRow(dataRow);
+                    }
+                }
                 temp += 1;
             }
             return records;

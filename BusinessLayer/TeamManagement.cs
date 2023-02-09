@@ -32,14 +32,19 @@ namespace TMS.BusinessLogicLayer
         }
 
         //Returns the active employees records from the database along with role information
-        public DataTable GetEmployeesRoles()
+        public DataTable GetEmployeesRoles(out Int32 totalRecords,Int32 pageNum = 1, Int32 pageSize = 5)
         {
             try
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.CommandText = "uspGetEmployeesRoles";
-                return dbConnection.ExeReader(sqlCommand);
+                sqlCommand.Parameters.Add("@PageNum", SqlDbType.Int).Value = pageNum;
+                sqlCommand.Parameters.Add("@PageSize", SqlDbType.Int).Value = pageSize;
+                sqlCommand.Parameters.Add("@TotalRecords", SqlDbType.Int).Direction= ParameterDirection.Output;
+                DataTable dataTable = dbConnection.ExeReader(sqlCommand);
+                totalRecords = Convert.ToInt32(sqlCommand.Parameters["@TotalRecords"].Value);
+                return dataTable;
             }
             catch (Exception ex)
             {

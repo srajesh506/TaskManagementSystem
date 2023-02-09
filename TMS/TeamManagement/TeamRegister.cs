@@ -8,7 +8,7 @@ using TMS.UI.Utilities;
 using TMS.BusinessEntities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
-
+using System.Linq;
 
 namespace TMS.UI
 {
@@ -16,7 +16,13 @@ namespace TMS.UI
     {
         private int _currentPage = 1;
         private int _pageSize = 5;
+
         private int _noOfPages;
+        private int _totalRecords;
+
+        private int _startPageInLocal;
+        private int _pagesInLocal;
+
         private DataTable _employees;
 
         Employee employee = new Employee();
@@ -203,7 +209,12 @@ namespace TMS.UI
             try
             {
                 _currentPage -= 1;
-                LoadEmployeesDataGrid();
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadEmployeesDataGrid();
+                else
+                {
+                    LoadEmployeesDataGrid(true);
+                }
             }
             catch (Exception ex)
             {
@@ -217,7 +228,10 @@ namespace TMS.UI
             try
             {
                 _currentPage += 1;
-                LoadEmployeesDataGrid();
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadEmployeesDataGrid();
+                else
+                    LoadEmployeesDataGrid(true);
             }
             catch (Exception ex)
             {
@@ -231,7 +245,7 @@ namespace TMS.UI
             try
             {
                 _currentPage = 1;
-                LoadEmployeesDataGrid();
+                LoadEmployeesDataGrid(true);
             }
             catch (Exception ex)
             {
@@ -245,7 +259,10 @@ namespace TMS.UI
             try
             {
                 _currentPage = 1;
-                LoadEmployeesDataGrid();
+                if (_startPageInLocal == 1)
+                    LoadEmployeesDataGrid();
+                else
+                    LoadEmployeesDataGrid(true);
             }
             catch (Exception ex)
             {
@@ -259,11 +276,14 @@ namespace TMS.UI
             try
             {
                 _currentPage = _noOfPages;
-                LoadEmployeesDataGrid();
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadEmployeesDataGrid();
+                else
+                    LoadEmployeesDataGrid(true);
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -335,11 +355,15 @@ namespace TMS.UI
         }
 
         // Function to retrive the Employee table data for GridView DataSource
-        private void GetEmployeesData()
+        private void GetEmployeesData(int pageNum, int pageSize)
         {
             try
             {
-                _employees = teamManagement.GetEmployeesRoles();
+                _employees = teamManagement.GetEmployeesRoles(out _totalRecords, pageNum , pageSize);
+                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_employees.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_employees.Rows.Count / pageSize));
+                _pageSize = pageSize;
+                _startPageInLocal = pageNum;
             }
             catch (Exception ex)
             {
@@ -558,7 +582,7 @@ namespace TMS.UI
             }
             catch (Exception ex)
             {
-                throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message+ "\n", ex.InnerException);
+                throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
 
@@ -567,10 +591,8 @@ namespace TMS.UI
         {
             try
             {
-                if (refresh)
-                    GetEmployeesData();
-                _pageSize = Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem);
-                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_employees.Rows.Count / _pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_employees.Rows.Count / _pageSize));
+                if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
+                    GetEmployeesData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
                 lblCurrentPage.Text = _currentPage.ToString();
                 lblNoOfPages.Text = _noOfPages.ToString();
                 DataTable records = FormControlHandling.GetPageRecords(_employees, _currentPage, _pageSize);
