@@ -17,3 +17,7 @@ TMS/BusinessEntities.dll
 TMS/BusinessEntities.pdb
 TMS/TMS.exe.config
 TMS/TMS.exe
+TMS/BusinessLayer.dll
+TMS/DataAccess.dll
+TMS/BusinessLayer.pdb
+TMS/DataAccess.pdb
