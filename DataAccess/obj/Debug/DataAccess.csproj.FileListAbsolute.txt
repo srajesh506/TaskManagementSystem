@@ -1,6 +1,0 @@
-C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\DataAccess\bin\Debug\DataAccess.dll
-C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\DataAccess\bin\Debug\DataAccess.pdb
-C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\DataAccess\obj\Debug\DataAccess.csproj.AssemblyReference.cache
-C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
-C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\DataAccess\obj\Debug\DataAccess.dll
-C:\Development\Codebase\Microsoft\TMS-05-Jan-23\TaskManagementSystem\TMS\DataAccess\obj\Debug\DataAccess.pdb
