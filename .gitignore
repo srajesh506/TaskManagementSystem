@@ -13,3 +13,7 @@ Entities/bin/
 BusinessLayer/bin/
 DataAccess/bin/
 Entities/bin/
+TMS/BusinessEntities.dll
+TMS/BusinessEntities.pdb
+TMS/TMS.exe.config
+TMS/TMS.exe
