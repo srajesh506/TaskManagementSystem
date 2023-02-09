@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/BusinessLayer/obj/
+/DataAccess/obj/
+/Entities/obj/
+/TMS/obj/
+*.vsidx
+*.lock
+.vs/TMS/v17/.suo
+Entities/bin/
+BusinessLayer/bin/
+DataAccess/bin/
+Entities/bin/

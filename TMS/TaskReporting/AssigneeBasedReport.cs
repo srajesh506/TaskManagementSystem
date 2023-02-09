@@ -16,9 +16,7 @@ namespace TMS.UI
     public partial class AssigneeBasedReport : Form
     {
          private int _currentPage = 1;
-        private int _pageSize = 5;
         private int _noOfPages;
-        private DataTable _employees;
 
         TMS.BusinessLogicLayer.TaskReporting taskReporting = new TMS.BusinessLogicLayer.TaskReporting();
         WorkItemManagement workItemManagement = new WorkItemManagement();
