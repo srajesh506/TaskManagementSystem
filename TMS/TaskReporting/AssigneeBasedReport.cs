@@ -15,6 +15,10 @@ namespace TMS.UI
 {
     public partial class AssigneeBasedReport : Form
     {
+         private int _currentPage = 1;
+        private int _pageSize = 5;
+        private int _noOfPages;
+        private DataTable _employees;
 
         TMS.BusinessLogicLayer.TaskReporting taskReporting = new TMS.BusinessLogicLayer.TaskReporting();
         WorkItemManagement workItemManagement = new WorkItemManagement();
@@ -22,11 +26,7 @@ namespace TMS.UI
         public AssigneeBasedReport()
         {
             InitializeComponent();
-            LoadTheme();
-            cmbassignee.SelectedText = "--Select Assignee--";
-            GetAllData("0");
-            datefrom.Enabled = false;
-            dateTo.Enabled = false;
+           
         }
         private void LoadTheme()
         {
@@ -39,23 +39,29 @@ namespace TMS.UI
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
-                    btnprint.ForeColor = ThemeColor.PrimaryColor;
+                    btnPrint.ForeColor = ThemeColor.PrimaryColor;
                 }
             }
 
-            lblassignee.ForeColor = ThemeColor.PrimaryColor;
-            lblstartdate.ForeColor = ThemeColor.PrimaryColor;
-            lblenddate.ForeColor = ThemeColor.PrimaryColor;
-            dview.ForeColor = ThemeColor.PrimaryColor;
+            lblAssignee.ForeColor = ThemeColor.PrimaryColor;
+            lblStartDate.ForeColor = ThemeColor.PrimaryColor;
+            lblEndDate.ForeColor = ThemeColor.PrimaryColor;
+            Dview.ForeColor = ThemeColor.PrimaryColor;
             groupBoxforeTaskBasedReport.ForeColor = ThemeColor.PrimaryColor;
-            chkdateandassignee.ForeColor = ThemeColor.PrimaryColor;
-            btnprint.Enabled = false;
+            chkDateandAssignee.ForeColor = ThemeColor.PrimaryColor;
+            btnPrint.Enabled = false;
         }
 
         private void AssigneeBasedReport_Load(object sender, EventArgs e)
         {
             try
             {
+                LoadTheme();
+                cmbAssignee.SelectedText = "--Select Assignee--";
+                GetAllData("0");
+                dateFrom.Enabled = false;
+                dateTo.Enabled = false;
+
                 DataTable dt = new DataTable();
                 dt = teamManagement.GetEmployees(null, true); //dt = workItemManagement.GetUserIdandNames();
                 //ds = obj.GetDataFromTable("Select empid,EmpName from UserMaster where isactive=1");
@@ -63,11 +69,9 @@ namespace TMS.UI
                 dr_Assignee = dt.NewRow();
                 dr_Assignee.ItemArray = new object[] { 0, "--Select Assignee--" };
                 dt.Rows.InsertAt(dr_Assignee, 0);
-                cmbassignee.ValueMember = "UserId";
-                cmbassignee.DisplayMember = "EmpName";
-                cmbassignee.DataSource = dt;
-
-
+                cmbAssignee.ValueMember = "UserId";
+                cmbAssignee.DisplayMember = "EmpName";
+                cmbAssignee.DataSource = dt;
             }
             catch (Exception ex)
             {
@@ -77,24 +81,24 @@ namespace TMS.UI
 
         public void GetAllData(string statusid) //Statusid 
         {
-            if (cmbassignee.SelectedIndex > 0)
+            if (cmbAssignee.SelectedIndex > 0)
             {
-                dview.DataSource = null;
-                dview.DataSource = taskReporting.GetAssigneeBasedReport(datefrom.Value, dateTo.Value, chkdateandassignee.Checked, cmbassignee.SelectedValue.ToString());
+                Dview.DataSource = null;
+                Dview.DataSource = taskReporting.GetAssigneeBasedReport(dateFrom.Value, dateTo.Value, chkDateandAssignee.Checked, cmbAssignee.SelectedValue.ToString());
             }
             else
             {
-                dview.DataSource = null;
-                dview.DataSource = taskReporting.GetAssigneeBasedReport(datefrom.Value, dateTo.Value, chkdateandassignee.Checked, null);
+                Dview.DataSource = null;
+                Dview.DataSource = taskReporting.GetAssigneeBasedReport(dateFrom.Value, dateTo.Value, chkDateandAssignee.Checked, null);
             }
-            dview.Columns[0].Width = 400;
-            dview.Columns[1].Width = 100;
-            dview.Columns[2].Width = 100;
-            dview.Columns[3].Width = 100;
-            dview.Columns[4].Width = 120;
-            dview.Columns[5].Width = 150;
-            dview.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dview.ReadOnly = true;
+            Dview.Columns[0].Width = 400;
+            Dview.Columns[1].Width = 100;
+            Dview.Columns[2].Width = 100;
+            Dview.Columns[3].Width = 100;
+            Dview.Columns[4].Width = 120;
+            Dview.Columns[5].Width = 150;
+            Dview.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            Dview.ReadOnly = true;
 
         }
 
@@ -115,17 +119,17 @@ namespace TMS.UI
             // changing the name of active sheet  
             worksheet.Name = "Status Based Report";
             // storing header part in Excel  
-            for (int i = 1; i < dview.Columns.Count + 1; i++)
+            for (int i = 1; i < Dview.Columns.Count + 1; i++)
             {
-                worksheet.Cells[1, i] = dview.Columns[i - 1].HeaderText;
+                worksheet.Cells[1, i] = Dview.Columns[i - 1].HeaderText;
 
             }
             // storing Each row and column value to excel sheet  
-            for (int i = 0; i < dview.Rows.Count - 1; i++)
+            for (int i = 0; i < Dview.Rows.Count - 1; i++)
             {
-                for (int j = 0; j < dview.Columns.Count; j++)
+                for (int j = 0; j < Dview.Columns.Count; j++)
                 {
-                    worksheet.Cells[i + 2, j + 1] = dview.Rows[i].Cells[j].Value.ToString();
+                    worksheet.Cells[i + 2, j + 1] = Dview.Rows[i].Cells[j].Value.ToString();
                 }
             }
             // save the application  
@@ -136,10 +140,50 @@ namespace TMS.UI
             // Exit from the application  
             app.Quit();
         }
-
+        private void EnableDisableButtons(int flag)
+        {
+            try
+            {
+                if (flag == 4)                  //Grid Page no change or No of records per page change
+                {
+                    if (_currentPage == 1)
+                    {
+                        btnPrevious.Enabled = false;
+                        btnNext.Enabled = true;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = true;
+                    }
+                    if (_currentPage == _noOfPages)
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_noOfPages == 1))
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = false;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_currentPage > 1) && (_currentPage < _noOfPages))
+                    {
+                        btnNext.Enabled = true;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to setup the form button controls!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
         private void picpdf_Click(object sender, EventArgs e)
         {
-            if (dview.Rows.Count > 0)
+            if (Dview.Rows.Count > 0)
             {
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.Filter = "PDF (*.pdf)|*.pdf";
@@ -163,18 +207,18 @@ namespace TMS.UI
                     {
                         try
                         {
-                            PdfPTable pdfTable = new PdfPTable(dview.Columns.Count);
+                            PdfPTable pdfTable = new PdfPTable(Dview.Columns.Count);
                             pdfTable.DefaultCell.Padding = 3;
                             pdfTable.WidthPercentage = 100;
                             pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
-                            foreach (DataGridViewColumn column in dview.Columns)
+                            foreach (DataGridViewColumn column in Dview.Columns)
                             {
                                 PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
                                 pdfTable.AddCell(cell);
                             }
 
-                            foreach (DataGridViewRow row in dview.Rows)
+                            foreach (DataGridViewRow row in Dview.Rows)
                             {
                                 foreach (DataGridViewCell cell in row.Cells)
                                 {
@@ -211,20 +255,20 @@ namespace TMS.UI
         private void picexcel_MouseHover(object sender, EventArgs e)
         {
             ToolTip tt = new ToolTip();
-            tt.SetToolTip(this.picexcel, "Export into Excel");
+            tt.SetToolTip(this.picExcel, "Export into Excel");
             tt.ForeColor = Color.Yellow;
         }
 
         private void picpdf_MouseHover(object sender, EventArgs e)
         {
             ToolTip tt_pdf = new ToolTip();
-            tt_pdf.SetToolTip(this.picexcel, "Export into PDF");
+            tt_pdf.SetToolTip(this.picExcel, "Export into PDF");
             tt_pdf.ForeColor = Color.Yellow;
         }
 
         private void btnprint_Click(object sender, EventArgs e)
         {
-            if ((cmbassignee.SelectedIndex <= 0 || chkdateandassignee.Checked == false) && (cmbassignee.SelectedIndex <= 0 || chkdateandassignee.Checked == true))
+            if ((cmbAssignee.SelectedIndex <= 0 || chkDateandAssignee.Checked == false) && (cmbAssignee.SelectedIndex <= 0 || chkDateandAssignee.Checked == true))
             {
                 PopupMessageBox.Show("Please Select Assignee!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -232,7 +276,7 @@ namespace TMS.UI
             {
                 DataSet Ds = new DataSet();
                 DataTable dt = new DataTable();
-                dt = taskReporting.GetAssigneeBasedReport(datefrom.Value, dateTo.Value, chkdateandassignee.Checked, cmbassignee.SelectedValue.ToString());
+                dt = taskReporting.GetAssigneeBasedReport(dateFrom.Value, dateTo.Value, chkDateandAssignee.Checked, cmbAssignee.SelectedValue.ToString());
                 Ds.Tables.Add(dt);
                 Ds.WriteXmlSchema("TimeBasedReportSchema.xml");
                 ReportViewer fm = new ReportViewer();
@@ -250,14 +294,14 @@ namespace TMS.UI
 
         private void chkdateandassignee_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkdateandassignee.Checked == true)
+            if (chkDateandAssignee.Checked == true)
             {
-                datefrom.Enabled = true;
+                dateFrom.Enabled = true;
                 dateTo.Enabled = true;
             }
             else
             {
-                datefrom.Enabled = false;
+                dateFrom.Enabled = false;
                 dateTo.Enabled = false;
             }
         }
@@ -266,21 +310,21 @@ namespace TMS.UI
         {
             try
             {
-                if ((cmbassignee.SelectedIndex <= 0 || chkdateandassignee.Checked == false) && (cmbassignee.SelectedIndex <= 0 || chkdateandassignee.Checked == true))
+                if ((cmbAssignee.SelectedIndex <= 0 || chkDateandAssignee.Checked == false) && (cmbAssignee.SelectedIndex <= 0 || chkDateandAssignee.Checked == true))
                 {
                     PopupMessageBox.Show("Please Select Assignee!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    btnprint.Enabled = false;
+                    btnPrint.Enabled = false;
                 }
                 else
                 {
-                    GetAllData(cmbassignee.SelectedValue.ToString());
-                    btnprint.Enabled = false;
-                    if (dview.Rows.Count <= 1)
+                    GetAllData(cmbAssignee.SelectedValue.ToString());
+                    btnPrint.Enabled = false;
+                    if (Dview.Rows.Count <= 1)
                     {
                         PopupMessageBox.Show("No Record Found", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
-                    btnprint.Enabled = true;
+                    btnPrint.Enabled = true;
                 }
 
 
@@ -295,7 +339,7 @@ namespace TMS.UI
         {
             try
             {
-                GetAllData(cmbassignee.SelectedValue.ToString());
+                GetAllData(cmbAssignee.SelectedValue.ToString());
             }
             catch (Exception ex)
             {

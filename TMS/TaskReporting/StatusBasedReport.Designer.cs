@@ -29,62 +29,62 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatusBasedReport));
-            this.pnlouter = new System.Windows.Forms.Panel();
-            this.btngetrecord = new System.Windows.Forms.Button();
+            this.pnlOuter = new System.Windows.Forms.Panel();
+            this.btnGetRecord = new System.Windows.Forms.Button();
             this.dateTo = new TMS.UI.Utilities.CustomDatetimePicker();
-            this.datefrom = new TMS.UI.Utilities.CustomDatetimePicker();
-            this.chkdateandassignee = new System.Windows.Forms.CheckBox();
-            this.lblenddate = new System.Windows.Forms.Label();
-            this.lblstartdate = new System.Windows.Forms.Label();
-            this.btnprint = new System.Windows.Forms.Button();
-            this.picpdf = new System.Windows.Forms.PictureBox();
-            this.picexcel = new System.Windows.Forms.PictureBox();
+            this.dateFrom = new TMS.UI.Utilities.CustomDatetimePicker();
+            this.chkDateandAssignee = new System.Windows.Forms.CheckBox();
+            this.lblEndDate = new System.Windows.Forms.Label();
+            this.lblStartDate = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.picPdf = new System.Windows.Forms.PictureBox();
+            this.picExcel = new System.Windows.Forms.PictureBox();
             this.groupBoxforeTaskBasedReport = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dview = new System.Windows.Forms.DataGridView();
-            this.btnsave = new System.Windows.Forms.Button();
-            this.cmbstatus = new System.Windows.Forms.ComboBox();
-            this.lblstatus = new System.Windows.Forms.Label();
-            this.pnlouter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picpdf)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picexcel)).BeginInit();
+            this.Dview = new System.Windows.Forms.DataGridView();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.pnlOuter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPdf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picExcel)).BeginInit();
             this.groupBoxforeTaskBasedReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dview)).BeginInit();
             this.SuspendLayout();
             // 
-            // pnlouter
+            // pnlOuter
             // 
-            this.pnlouter.BackColor = System.Drawing.Color.White;
-            this.pnlouter.Controls.Add(this.btngetrecord);
-            this.pnlouter.Controls.Add(this.dateTo);
-            this.pnlouter.Controls.Add(this.datefrom);
-            this.pnlouter.Controls.Add(this.chkdateandassignee);
-            this.pnlouter.Controls.Add(this.lblenddate);
-            this.pnlouter.Controls.Add(this.lblstartdate);
-            this.pnlouter.Controls.Add(this.btnprint);
-            this.pnlouter.Controls.Add(this.picpdf);
-            this.pnlouter.Controls.Add(this.picexcel);
-            this.pnlouter.Controls.Add(this.groupBoxforeTaskBasedReport);
-            this.pnlouter.Controls.Add(this.cmbstatus);
-            this.pnlouter.Controls.Add(this.lblstatus);
-            this.pnlouter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlouter.Location = new System.Drawing.Point(0, 0);
-            this.pnlouter.Name = "pnlouter";
-            this.pnlouter.Size = new System.Drawing.Size(1115, 676);
-            this.pnlouter.TabIndex = 4;
+            this.pnlOuter.BackColor = System.Drawing.Color.White;
+            this.pnlOuter.Controls.Add(this.btnGetRecord);
+            this.pnlOuter.Controls.Add(this.dateTo);
+            this.pnlOuter.Controls.Add(this.dateFrom);
+            this.pnlOuter.Controls.Add(this.chkDateandAssignee);
+            this.pnlOuter.Controls.Add(this.lblEndDate);
+            this.pnlOuter.Controls.Add(this.lblStartDate);
+            this.pnlOuter.Controls.Add(this.btnPrint);
+            this.pnlOuter.Controls.Add(this.picPdf);
+            this.pnlOuter.Controls.Add(this.picExcel);
+            this.pnlOuter.Controls.Add(this.groupBoxforeTaskBasedReport);
+            this.pnlOuter.Controls.Add(this.cmbStatus);
+            this.pnlOuter.Controls.Add(this.lblStatus);
+            this.pnlOuter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlOuter.Location = new System.Drawing.Point(0, 0);
+            this.pnlOuter.Name = "pnlOuter";
+            this.pnlOuter.Size = new System.Drawing.Size(1115, 676);
+            this.pnlOuter.TabIndex = 4;
             // 
-            // btngetrecord
+            // btnGetRecord
             // 
-            this.btngetrecord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.btngetrecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btngetrecord.ForeColor = System.Drawing.Color.White;
-            this.btngetrecord.Location = new System.Drawing.Point(697, 92);
-            this.btngetrecord.Name = "btngetrecord";
-            this.btngetrecord.Size = new System.Drawing.Size(121, 31);
-            this.btngetrecord.TabIndex = 40;
-            this.btngetrecord.Text = "Get Report";
-            this.btngetrecord.UseVisualStyleBackColor = false;
-            this.btngetrecord.Click += new System.EventHandler(this.btngetrecord_Click);
+            this.btnGetRecord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnGetRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetRecord.ForeColor = System.Drawing.Color.White;
+            this.btnGetRecord.Location = new System.Drawing.Point(697, 92);
+            this.btnGetRecord.Name = "btnGetRecord";
+            this.btnGetRecord.Size = new System.Drawing.Size(121, 31);
+            this.btnGetRecord.TabIndex = 40;
+            this.btnGetRecord.Text = "Get Report";
+            this.btnGetRecord.UseVisualStyleBackColor = false;
+            this.btnGetRecord.Click += new System.EventHandler(this.btngetrecord_Click);
             // 
             // dateTo
             // 
@@ -99,97 +99,97 @@
             this.dateTo.TabIndex = 38;
             this.dateTo.Textcolor = System.Drawing.Color.White;
             // 
-            // datefrom
+            // dateFrom
             // 
-            this.datefrom.Bordercolor = System.Drawing.Color.Gray;
-            this.datefrom.BorderSize = 0;
-            this.datefrom.FillColor = System.Drawing.Color.LightSeaGreen;
-            this.datefrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F);
-            this.datefrom.Location = new System.Drawing.Point(395, 49);
-            this.datefrom.MinimumSize = new System.Drawing.Size(4, 35);
-            this.datefrom.Name = "datefrom";
-            this.datefrom.Size = new System.Drawing.Size(296, 35);
-            this.datefrom.TabIndex = 37;
-            this.datefrom.Textcolor = System.Drawing.Color.White;
+            this.dateFrom.Bordercolor = System.Drawing.Color.Gray;
+            this.dateFrom.BorderSize = 0;
+            this.dateFrom.FillColor = System.Drawing.Color.LightSeaGreen;
+            this.dateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F);
+            this.dateFrom.Location = new System.Drawing.Point(395, 49);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(4, 35);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(296, 35);
+            this.dateFrom.TabIndex = 37;
+            this.dateFrom.Textcolor = System.Drawing.Color.White;
             // 
-            // chkdateandassignee
+            // chkDateandAssignee
             // 
-            this.chkdateandassignee.AutoSize = true;
-            this.chkdateandassignee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkdateandassignee.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.chkdateandassignee.Location = new System.Drawing.Point(697, 46);
-            this.chkdateandassignee.Name = "chkdateandassignee";
-            this.chkdateandassignee.Size = new System.Drawing.Size(213, 24);
-            this.chkdateandassignee.TabIndex = 39;
-            this.chkdateandassignee.Text = "Time and Assignee Based";
-            this.chkdateandassignee.UseVisualStyleBackColor = true;
-            this.chkdateandassignee.CheckedChanged += new System.EventHandler(this.chkdateandassignee_CheckedChanged);
+            this.chkDateandAssignee.AutoSize = true;
+            this.chkDateandAssignee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkDateandAssignee.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.chkDateandAssignee.Location = new System.Drawing.Point(697, 46);
+            this.chkDateandAssignee.Name = "chkDateandAssignee";
+            this.chkDateandAssignee.Size = new System.Drawing.Size(213, 24);
+            this.chkDateandAssignee.TabIndex = 39;
+            this.chkDateandAssignee.Text = "Time and Assignee Based";
+            this.chkDateandAssignee.UseVisualStyleBackColor = true;
+            this.chkDateandAssignee.CheckedChanged += new System.EventHandler(this.chkdateandassignee_CheckedChanged);
             // 
-            // lblenddate
+            // lblEndDate
             // 
-            this.lblenddate.AutoSize = true;
-            this.lblenddate.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblenddate.Location = new System.Drawing.Point(264, 89);
-            this.lblenddate.Name = "lblenddate";
-            this.lblenddate.Size = new System.Drawing.Size(66, 19);
-            this.lblenddate.TabIndex = 36;
-            this.lblenddate.Text = "To Date";
+            this.lblEndDate.AutoSize = true;
+            this.lblEndDate.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEndDate.Location = new System.Drawing.Point(264, 89);
+            this.lblEndDate.Name = "lblEndDate";
+            this.lblEndDate.Size = new System.Drawing.Size(66, 19);
+            this.lblEndDate.TabIndex = 36;
+            this.lblEndDate.Text = "To Date";
             // 
-            // lblstartdate
+            // lblStartDate
             // 
-            this.lblstartdate.AutoSize = true;
-            this.lblstartdate.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblstartdate.Location = new System.Drawing.Point(264, 49);
-            this.lblstartdate.Name = "lblstartdate";
-            this.lblstartdate.Size = new System.Drawing.Size(88, 19);
-            this.lblstartdate.TabIndex = 35;
-            this.lblstartdate.Text = "From Date";
+            this.lblStartDate.AutoSize = true;
+            this.lblStartDate.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStartDate.Location = new System.Drawing.Point(264, 49);
+            this.lblStartDate.Name = "lblStartDate";
+            this.lblStartDate.Size = new System.Drawing.Size(88, 19);
+            this.lblStartDate.TabIndex = 35;
+            this.lblStartDate.Text = "From Date";
             // 
-            // btnprint
+            // btnPrint
             // 
-            this.btnprint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.btnprint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnprint.ForeColor = System.Drawing.Color.White;
-            this.btnprint.Location = new System.Drawing.Point(824, 92);
-            this.btnprint.Name = "btnprint";
-            this.btnprint.Size = new System.Drawing.Size(121, 31);
-            this.btnprint.TabIndex = 31;
-            this.btnprint.Text = "Print";
-            this.btnprint.UseVisualStyleBackColor = false;
-            this.btnprint.Click += new System.EventHandler(this.btnprint_Click);
+            this.btnPrint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.ForeColor = System.Drawing.Color.White;
+            this.btnPrint.Location = new System.Drawing.Point(824, 92);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(121, 31);
+            this.btnPrint.TabIndex = 31;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnprint_Click);
             // 
-            // picpdf
+            // picPdf
             // 
-            this.picpdf.Image = ((System.Drawing.Image)(resources.GetObject("picpdf.Image")));
-            this.picpdf.Location = new System.Drawing.Point(1015, 86);
-            this.picpdf.Name = "picpdf";
-            this.picpdf.Size = new System.Drawing.Size(37, 33);
-            this.picpdf.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picpdf.TabIndex = 21;
-            this.picpdf.TabStop = false;
-            this.picpdf.Visible = false;
-            this.picpdf.Click += new System.EventHandler(this.picpdf_Click);
-            this.picpdf.MouseHover += new System.EventHandler(this.picpdf_MouseHover);
+            this.picPdf.Image = ((System.Drawing.Image)(resources.GetObject("picPdf.Image")));
+            this.picPdf.Location = new System.Drawing.Point(1015, 86);
+            this.picPdf.Name = "picPdf";
+            this.picPdf.Size = new System.Drawing.Size(37, 33);
+            this.picPdf.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picPdf.TabIndex = 21;
+            this.picPdf.TabStop = false;
+            this.picPdf.Visible = false;
+            this.picPdf.Click += new System.EventHandler(this.picpdf_Click);
+            this.picPdf.MouseHover += new System.EventHandler(this.picpdf_MouseHover);
             // 
-            // picexcel
+            // picExcel
             // 
-            this.picexcel.Image = ((System.Drawing.Image)(resources.GetObject("picexcel.Image")));
-            this.picexcel.Location = new System.Drawing.Point(959, 86);
-            this.picexcel.Name = "picexcel";
-            this.picexcel.Size = new System.Drawing.Size(37, 33);
-            this.picexcel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picexcel.TabIndex = 19;
-            this.picexcel.TabStop = false;
-            this.picexcel.Visible = false;
-            this.picexcel.Click += new System.EventHandler(this.pictureBox1_Click);
-            this.picexcel.MouseHover += new System.EventHandler(this.picexcel_MouseHover);
+            this.picExcel.Image = ((System.Drawing.Image)(resources.GetObject("picExcel.Image")));
+            this.picExcel.Location = new System.Drawing.Point(959, 86);
+            this.picExcel.Name = "picExcel";
+            this.picExcel.Size = new System.Drawing.Size(37, 33);
+            this.picExcel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picExcel.TabIndex = 19;
+            this.picExcel.TabStop = false;
+            this.picExcel.Visible = false;
+            this.picExcel.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.picExcel.MouseHover += new System.EventHandler(this.picexcel_MouseHover);
             // 
             // groupBoxforeTaskBasedReport
             // 
             this.groupBoxforeTaskBasedReport.BackColor = System.Drawing.Color.White;
             this.groupBoxforeTaskBasedReport.Controls.Add(this.label1);
-            this.groupBoxforeTaskBasedReport.Controls.Add(this.dview);
-            this.groupBoxforeTaskBasedReport.Controls.Add(this.btnsave);
+            this.groupBoxforeTaskBasedReport.Controls.Add(this.Dview);
+            this.groupBoxforeTaskBasedReport.Controls.Add(this.btnSave);
             this.groupBoxforeTaskBasedReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxforeTaskBasedReport.Location = new System.Drawing.Point(12, 122);
             this.groupBoxforeTaskBasedReport.Name = "groupBoxforeTaskBasedReport";
@@ -207,45 +207,45 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "label1";
             // 
-            // dview
+            // Dview
             // 
-            this.dview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dview.GridColor = System.Drawing.Color.Gray;
-            this.dview.Location = new System.Drawing.Point(6, 25);
-            this.dview.Name = "dview";
-            this.dview.Size = new System.Drawing.Size(1081, 472);
-            this.dview.TabIndex = 0;
+            this.Dview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dview.GridColor = System.Drawing.Color.Gray;
+            this.Dview.Location = new System.Drawing.Point(6, 25);
+            this.Dview.Name = "Dview";
+            this.Dview.Size = new System.Drawing.Size(1081, 472);
+            this.Dview.TabIndex = 0;
             // 
-            // btnsave
+            // btnSave
             // 
-            this.btnsave.Location = new System.Drawing.Point(952, 521);
-            this.btnsave.Name = "btnsave";
-            this.btnsave.Size = new System.Drawing.Size(108, 31);
-            this.btnsave.TabIndex = 10;
-            this.btnsave.Text = "&Save";
-            this.btnsave.UseVisualStyleBackColor = true;
+            this.btnSave.Location = new System.Drawing.Point(952, 521);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(108, 31);
+            this.btnSave.TabIndex = 10;
+            this.btnSave.Text = "&Save";
+            this.btnSave.UseVisualStyleBackColor = true;
             // 
-            // cmbstatus
+            // cmbStatus
             // 
-            this.cmbstatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbstatus.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbstatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.cmbstatus.FormattingEnabled = true;
-            this.cmbstatus.Location = new System.Drawing.Point(395, 14);
-            this.cmbstatus.Name = "cmbstatus";
-            this.cmbstatus.Size = new System.Drawing.Size(296, 29);
-            this.cmbstatus.TabIndex = 9;
-            this.cmbstatus.SelectedIndexChanged += new System.EventHandler(this.cmbstatus_SelectedIndexChanged);
+            this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStatus.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Location = new System.Drawing.Point(395, 14);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(296, 29);
+            this.cmbStatus.TabIndex = 9;
+            this.cmbStatus.SelectedIndexChanged += new System.EventHandler(this.cmbstatus_SelectedIndexChanged);
             // 
-            // lblstatus
+            // lblStatus
             // 
-            this.lblstatus.AutoSize = true;
-            this.lblstatus.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblstatus.Location = new System.Drawing.Point(264, 14);
-            this.lblstatus.Name = "lblstatus";
-            this.lblstatus.Size = new System.Drawing.Size(102, 19);
-            this.lblstatus.TabIndex = 8;
-            this.lblstatus.Text = "Select Status";
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(264, 14);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(102, 19);
+            this.lblStatus.TabIndex = 8;
+            this.lblStatus.Text = "Select Status";
             // 
             // StatusBasedReport
             // 
@@ -253,38 +253,38 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1115, 676);
-            this.Controls.Add(this.pnlouter);
+            this.Controls.Add(this.pnlOuter);
             this.Name = "StatusBasedReport";
             this.Text = "Status Based Report";
             this.Load += new System.EventHandler(this.StatusBasedReport_Load);
-            this.pnlouter.ResumeLayout(false);
-            this.pnlouter.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picpdf)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picexcel)).EndInit();
+            this.pnlOuter.ResumeLayout(false);
+            this.pnlOuter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPdf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picExcel)).EndInit();
             this.groupBoxforeTaskBasedReport.ResumeLayout(false);
             this.groupBoxforeTaskBasedReport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dview)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlouter;
-        private System.Windows.Forms.DataGridView dview;
-        private System.Windows.Forms.ComboBox cmbstatus;
-        private System.Windows.Forms.Label lblstatus;
+        private System.Windows.Forms.Panel pnlOuter;
+        private System.Windows.Forms.DataGridView Dview;
+        private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.GroupBox groupBoxforeTaskBasedReport;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnsave;
-        private System.Windows.Forms.PictureBox picexcel;
-        private System.Windows.Forms.PictureBox picpdf;
-        private System.Windows.Forms.Button btnprint;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.PictureBox picExcel;
+        private System.Windows.Forms.PictureBox picPdf;
+        private System.Windows.Forms.Button btnPrint;
         private TMS.UI.Utilities.CustomDatetimePicker dateTo;
-        private TMS.UI.Utilities.CustomDatetimePicker datefrom;
-        private System.Windows.Forms.CheckBox chkdateandassignee;
-        private System.Windows.Forms.Label lblenddate;
-        private System.Windows.Forms.Label lblstartdate;
-        private System.Windows.Forms.Button btngetrecord;
+        private TMS.UI.Utilities.CustomDatetimePicker dateFrom;
+        private System.Windows.Forms.CheckBox chkDateandAssignee;
+        private System.Windows.Forms.Label lblEndDate;
+        private System.Windows.Forms.Label lblStartDate;
+        private System.Windows.Forms.Button btnGetRecord;
     }
 }

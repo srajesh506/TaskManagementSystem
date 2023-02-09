@@ -35,54 +35,54 @@ namespace TMS.UI
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
-            btnadd.ForeColor = ThemeColor.PrimaryColor;
-            btnsave.ForeColor = ThemeColor.PrimaryColor;
-            btnmodify.ForeColor = ThemeColor.PrimaryColor;
-            btncancel.ForeColor = ThemeColor.PrimaryColor;
+            btnAdd.ForeColor = ThemeColor.PrimaryColor;
+            btnSave.ForeColor = ThemeColor.PrimaryColor;
+            btnModify.ForeColor = ThemeColor.PrimaryColor;
+            btnCancel.ForeColor = ThemeColor.PrimaryColor;
             //lblremark.ForeColor = ThemeColor.SecondaryColor;
-            gbxtaskmanagement.ForeColor = ThemeColor.PrimaryColor;
+            gbxTaskManagement.ForeColor = ThemeColor.PrimaryColor;
             groupBoxforbutton.ForeColor = ThemeColor.PrimaryColor;
             groupBoxforexistingemployee.ForeColor = ThemeColor.PrimaryColor;
-            txttaskName.ForeColor = ThemeColor.SecondaryColor;
-            rtxtremark.ForeColor = ThemeColor.SecondaryColor;
-            chkactive.ForeColor = ThemeColor.SecondaryColor;
+            txtTaskName.ForeColor = ThemeColor.SecondaryColor;
+            rtxtRemark.ForeColor = ThemeColor.SecondaryColor;
+            chkActive.ForeColor = ThemeColor.SecondaryColor;
         }
         public void EnableDisableButtons(int flag)
         {
             if (flag == 0) //
             {
-                btnsave.Enabled = false;
-                btnmodify.Enabled = false;
-                btncancel.Enabled = false;
+                btnSave.Enabled = false;
+                btnModify.Enabled = false;
+                btnCancel.Enabled = false;
 
             }
             if (flag == 1) //Add Data
             {
-                txttaskName.Enabled = true;
-                txttaskName.Enabled = true;
-                txttaskName.Select();
-                btnsave.Enabled = true;
-                btncancel.Enabled = true;
-                rtxtremark.Enabled = true;
-                btnadd.Enabled = false;
+                txtTaskName.Enabled = true;
+                txtTaskName.Enabled = true;
+                txtTaskName.Select();
+                btnSave.Enabled = true;
+                btnCancel.Enabled = true;
+                rtxtRemark.Enabled = true;
+                btnAdd.Enabled = false;
             }
             if (flag == 2)//modify and Cancel
             {
-                txttaskName.Enabled = false;
-                rtxtremark.Enabled = false;
-                btnsave.Enabled = false;
-                btncancel.Enabled = false;
-                btnmodify.Enabled = false;
-                btnadd.Enabled = true;
+                txtTaskName.Enabled = false;
+                rtxtRemark.Enabled = false;
+                btnSave.Enabled = false;
+                btnCancel.Enabled = false;
+                btnModify.Enabled = false;
+                btnAdd.Enabled = true;
             }
             if (flag == 3)
             {
-                txttaskName.Enabled = true;
-                rtxtremark.Enabled = true;
-                btnadd.Enabled = false;
-                btnsave.Enabled = false;
-                btncancel.Enabled = true;
-                btnmodify.Enabled = true;
+                txtTaskName.Enabled = true;
+                rtxtRemark.Enabled = true;
+                btnAdd.Enabled = false;
+                btnSave.Enabled = false;
+                btnCancel.Enabled = true;
+                btnModify.Enabled = true;
                 //txttaskName.Enabled = false;
             }
         }
@@ -94,7 +94,7 @@ namespace TMS.UI
 
         private void btncancel_Click(object sender, EventArgs e)
         {
-            FormControlHandling.ClearControls(gbxtaskmanagement);
+            FormControlHandling.ClearControls(gbxTaskManagement);
             EnableDisableButtons(2);
         }
 
@@ -105,18 +105,18 @@ namespace TMS.UI
                 int val = Validation();
                 if (val == 1) return;
                 activity.ActivityId = activityid;
-                activity.ActivityName = txttaskName.Text;
-                activity.ActivityDescription = rtxtremark.Text;
-                activity.IsActive = chkactive.Checked;
+                activity.ActivityName = txtTaskName.Text;
+                activity.ActivityDescription = rtxtRemark.Text;
+                activity.IsActive = chkActive.Checked;
                 int returnvalue = taskManagement. AddUpdateActivity(activity,true);
                 if (returnvalue <= 0)
                 {
-                    PopupMessageBox.Show("Activity: '" + txttaskName.Text + "' doesnt exist in Database!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PopupMessageBox.Show("Activity: '" + txtTaskName.Text + "' doesnt exist in Database!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     GetAllData();
-                    FormControlHandling.ClearControls(gbxtaskmanagement);
+                    FormControlHandling.ClearControls(gbxTaskManagement);
                     EnableDisableButtons(2);
                     RightBottomMessageBox.Info("Data modify Successfully!");
                 }
@@ -133,23 +133,23 @@ namespace TMS.UI
             {
                 int val=Validation();
                 if (val == 1) return;
-                if (chkactive.Checked == false)
+                if (chkActive.Checked == false)
                 {
                     PopupMessageBox.Show("Please Confirm Active Activity!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                activity.ActivityName = txttaskName.Text;
-                activity.ActivityDescription = rtxtremark.Text;
-                activity.IsActive=chkactive.Checked;
+                activity.ActivityName = txtTaskName.Text;
+                activity.ActivityDescription = rtxtRemark.Text;
+                activity.IsActive=chkActive.Checked;
                 int returnvalue = taskManagement.AddUpdateActivity(activity);
                 if (returnvalue <= 0)
                 {
-                    PopupMessageBox.Show("Activity: '" + txttaskName.Text + "' already exists in Database!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PopupMessageBox.Show("Activity: '" + txtTaskName.Text + "' already exists in Database!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     GetAllData();
-                    FormControlHandling.ClearControls(gbxtaskmanagement);
+                    FormControlHandling.ClearControls(gbxTaskManagement);
                     EnableDisableButtons(2);
                     RightBottomMessageBox.Success("Data Saved Successfully!");
                 }
@@ -161,14 +161,14 @@ namespace TMS.UI
         }
         public void GetAllData()
         {
-            dview.DataSource = null;
-            dview.DataSource = taskManagement.GetActivities(true);
-            dview.Columns[0].Width = 150;
-            dview.Columns[1].Width = 400;
-            dview.Columns[2].Width = 500;
-            dview.Columns[3].Visible = false;
-            dview.Columns[4].Visible = false;
-            dview.ReadOnly = true;
+            Dview.DataSource = null;
+            Dview.DataSource = taskManagement.GetActivities(true);
+            Dview.Columns[0].Width = 150;
+            Dview.Columns[1].Width = 400;
+            Dview.Columns[2].Width = 500;
+            Dview.Columns[3].Visible = false;
+            Dview.Columns[4].Visible = false;
+            Dview.ReadOnly = true;
 
         }
 
@@ -177,14 +177,14 @@ namespace TMS.UI
             try
             {
                 activityid = 0;
-                int index = dview.CurrentRow.Index;
-                if (index <= dview.RowCount - 1)
+                int index = Dview.CurrentRow.Index;
+                if (index <= Dview.RowCount - 1)
                 {
 
-                    txttaskName.Text = Convert.ToString(dview.Rows[index].Cells[1].Value);
-                    rtxtremark.Text = Convert.ToString(dview.Rows[index].Cells[2].Value);
-                    activityid = Convert.ToInt32(dview.Rows[index].Cells[0].Value);
-                    chkactive.Checked = Convert.ToBoolean(dview.Rows[index].Cells[3].Value);
+                    txtTaskName.Text = Convert.ToString(Dview.Rows[index].Cells[1].Value);
+                    rtxtRemark.Text = Convert.ToString(Dview.Rows[index].Cells[2].Value);
+                    activityid = Convert.ToInt32(Dview.Rows[index].Cells[0].Value);
+                    chkActive.Checked = Convert.ToBoolean(Dview.Rows[index].Cells[3].Value);
                     EnableDisableButtons(3);
                 }
             }
@@ -195,16 +195,16 @@ namespace TMS.UI
         }
         public int Validation()
         {
-            if (txttaskName.Text == "")
+            if (txtTaskName.Text == "")
             {
                 PopupMessageBox.Show("Please enter Activity Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txttaskName.Select();
+                txtTaskName.Select();
                 return 1;
             }
-            if (rtxtremark.Text == "")
+            if (rtxtRemark.Text == "")
             {
                 PopupMessageBox.Show("Please enter Activity Description!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                rtxtremark.Select();
+                rtxtRemark.Select();
                 return 1;
             }
             return 0;

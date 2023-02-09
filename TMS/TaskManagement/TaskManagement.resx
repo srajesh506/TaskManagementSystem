@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnManagetask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnManageTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAABzdJREFUaEPN
         WltsFFUYnopiVDRGoGqiKCBeYqK+lOobN0mQdmYKWVAjaChUE0lEjZoo+iCtKIiAKNrggwLxoTtT4gUI
@@ -154,7 +154,7 @@
         apd4LuAVSvxulGOck2I1TOX+s4frbZFSNUxhdzLAZ7DxDDsYsqx/AV81j1PPn/xjAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btnmanageactivity.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnManageActivity.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAABzdJREFUaEPN
         WltsFFUYnopiVDRGoGqiKCBeYqK+lOobN0mQdmYKWVAjaChUE0lEjZoo+iCtKIiAKNrggwLxoTtT4gUI
@@ -190,7 +190,7 @@
         apd4LuAVSvxulGOck2I1TOX+s4frbZFSNUxhdzLAZ7DxDDsYsqx/AV81j1PPn/xjAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btnmanagesubtask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnManageSubTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAABzdJREFUaEPN
         WltsFFUYnopiVDRGoGqiKCBeYqK+lOobN0mQdmYKWVAjaChUE0lEjZoo+iCtKIiAKNrggwLxoTtT4gUI

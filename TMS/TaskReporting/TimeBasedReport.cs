@@ -24,7 +24,7 @@ namespace TMS.UI
             LoadTheme();
             //cmbassignee.SelectedText = "--Select Assignee--";
             //GetAllData("0");
-            btnprint.Enabled = false;
+            btnPrint.Enabled = false;
         }
         private void LoadTheme()
         {
@@ -40,9 +40,9 @@ namespace TMS.UI
                 }
             }
           
-            lblstartdate.ForeColor = ThemeColor.PrimaryColor;
-            lblenddate.ForeColor = ThemeColor.PrimaryColor;
-            dview.ForeColor = ThemeColor.PrimaryColor;
+            lblStartDate.ForeColor = ThemeColor.PrimaryColor;
+            lblEndDate.ForeColor = ThemeColor.PrimaryColor;
+            Dview.ForeColor = ThemeColor.PrimaryColor;
             //groupBoxforeTaskBasedReport.ForeColor = ThemeColor.PrimaryColor;
             //btngetrecord.ForeColor = ThemeColor.PrimaryColor;
             //btnprint.ForeColor = ThemeColor.PrimaryColor;
@@ -63,19 +63,19 @@ namespace TMS.UI
         
         public void GetAllData(DateTime datefrom, DateTime dateTo)
         {
-           if(this.datefrom.Value.ToString()!="" && this.dateTo.Value.ToString()!="")
+           if(this.dateFrom.Value.ToString()!="" && this.dateTo.Value.ToString()!="")
             {
-                dview.DataSource = null;
-                dview.DataSource = taskReporting.GetTimeBasedReport(datefrom, dateTo);
+                Dview.DataSource = null;
+                Dview.DataSource = taskReporting.GetTimeBasedReport(datefrom, dateTo);
 
-                dview.Columns[0].Width = 400;
-                dview.Columns[1].Width = 100;
-                dview.Columns[2].Width = 100;
-                dview.Columns[3].Width = 100;
-                dview.Columns[4].Width = 120;
-                dview.Columns[5].Width = 150;
-                dview.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                dview.ReadOnly = true;
+                Dview.Columns[0].Width = 400;
+                Dview.Columns[1].Width = 100;
+                Dview.Columns[2].Width = 100;
+                Dview.Columns[3].Width = 100;
+                Dview.Columns[4].Width = 120;
+                Dview.Columns[5].Width = 150;
+                Dview.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                Dview.ReadOnly = true;
                 
             }
                
@@ -100,17 +100,17 @@ namespace TMS.UI
             // changing the name of active sheet  
             worksheet.Name = "Status Based Report";
             // storing header part in Excel  
-            for (int i = 1; i < dview.Columns.Count + 1; i++)
+            for (int i = 1; i < Dview.Columns.Count + 1; i++)
             {
-                worksheet.Cells[1, i] = dview.Columns[i - 1].HeaderText;
+                worksheet.Cells[1, i] = Dview.Columns[i - 1].HeaderText;
            
             }
             // storing Each row and column value to excel sheet  
-            for (int i = 0; i < dview.Rows.Count - 1; i++)
+            for (int i = 0; i < Dview.Rows.Count - 1; i++)
             {
-                for (int j = 0; j < dview.Columns.Count; j++)
+                for (int j = 0; j < Dview.Columns.Count; j++)
                 {
-                    worksheet.Cells[i + 2, j + 1] = dview.Rows[i].Cells[j].Value.ToString();
+                    worksheet.Cells[i + 2, j + 1] = Dview.Rows[i].Cells[j].Value.ToString();
                 }
             }
             // save the application  
@@ -124,7 +124,7 @@ namespace TMS.UI
 
         private void picpdf_Click(object sender, EventArgs e)
         {
-            if (dview.Rows.Count > 0)
+            if (Dview.Rows.Count > 0)
             {
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.Filter = "PDF (*.pdf)|*.pdf";
@@ -149,18 +149,18 @@ namespace TMS.UI
                         try
                         {
                             
-                            PdfPTable pdfTable = new PdfPTable(dview.Columns.Count);
+                            PdfPTable pdfTable = new PdfPTable(Dview.Columns.Count);
                             pdfTable.DefaultCell.Padding = 3;
                             pdfTable.WidthPercentage = 100;
                             pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
-                            foreach (DataGridViewColumn column in dview.Columns)
+                            foreach (DataGridViewColumn column in Dview.Columns)
                             {
                                 PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
                                 pdfTable.AddCell(cell);
                             }
 
-                            foreach (DataGridViewRow row in dview.Rows)
+                            foreach (DataGridViewRow row in Dview.Rows)
                             {
                                 foreach (DataGridViewCell cell in row.Cells)
                                 {
@@ -197,14 +197,14 @@ namespace TMS.UI
         private void picexcel_MouseHover(object sender, EventArgs e)
         {
             ToolTip tt = new ToolTip();
-            tt.SetToolTip(this.picexcel, "Export into Excel");
+            tt.SetToolTip(this.picExcel, "Export into Excel");
             tt.ForeColor = Color.Yellow;
         }
 
         private void picpdf_MouseHover(object sender, EventArgs e)
         {
             ToolTip tt_pdf = new ToolTip();
-            tt_pdf.SetToolTip(this.picexcel, "Export into PDF");
+            tt_pdf.SetToolTip(this.picExcel, "Export into PDF");
             tt_pdf.ForeColor = Color.Yellow;
         }
 
@@ -213,21 +213,21 @@ namespace TMS.UI
             try
             {
                 TimeSpan span = new TimeSpan(0, 0, 2, 0);
-                if (datefrom.Value > dateTo.Value.Add(span))
+                if (dateFrom.Value > dateTo.Value.Add(span))
                 {
                     PopupMessageBox.Show("From date should not be greater than to date", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     dateTo.Value = DateTime.Now;
                 }
                 else
                 {
-                    GetAllData(datefrom.Value, dateTo.Value);
-                    btnprint.Enabled = false;
-                    if (dview.Rows.Count <= 1)
+                    GetAllData(dateFrom.Value, dateTo.Value);
+                    btnPrint.Enabled = false;
+                    if (Dview.Rows.Count <= 1)
                     {
                         PopupMessageBox.Show("No Record Found", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
-                    btnprint.Enabled = true;
+                    btnPrint.Enabled = true;
                 }
 
             }
@@ -243,7 +243,7 @@ namespace TMS.UI
             {
                 DataSet Ds = new DataSet();
                 DataTable dt = new DataTable();
-                dt= taskReporting.GetTimeBasedReport(datefrom.Value, dateTo.Value);
+                dt= taskReporting.GetTimeBasedReport(dateFrom.Value, dateTo.Value);
                 Ds.Tables.Add(dt);
                 Ds.WriteXmlSchema("TimeBasedReportSchema.xml");
                 ReportViewer fm = new ReportViewer();

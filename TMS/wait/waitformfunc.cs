@@ -5,7 +5,7 @@ namespace TMS.UI.wait
 {
     class waitformfunc
     {
-        waitfrm wait;
+        waitFrm wait;
         Thread loadthread;
         public void Show()
         {
@@ -30,13 +30,13 @@ namespace TMS.UI.wait
         }
         private void LoadingProcess()
         {
-            wait = new waitfrm();
+            wait = new waitFrm();
             wait.ShowDialog();
         }
         private void LoadingProcess(object parent)
         {
             Form parent1 = parent as Form;
-            wait = new waitfrm(parent1);
+            wait = new waitFrm(parent1);
             wait.ShowDialog(); 
         }
     }
