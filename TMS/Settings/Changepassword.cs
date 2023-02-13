@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Data;
 using System.Windows.Forms;
-using TMS.BusinessLogicLayer;
+
 using TMS.UI.Utilities;
+using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
 
 namespace TMS.UI
@@ -11,11 +11,13 @@ namespace TMS.UI
     {
         Settings settings = new Settings();
         Operations operations = new Operations();
-       
+
         public ChangePassword()
         {
             InitializeComponent();
         }
+
+
         private void picOldPwd_MouseDown(object sender, MouseEventArgs e)
         {
             txtOldPwd.UseSystemPasswordChar = false;
@@ -30,6 +32,7 @@ namespace TMS.UI
         {
             txtNewConfirmPwd.UseSystemPasswordChar = false;
         }
+
 
         private void picOldPwd_MouseUp(object sender, MouseEventArgs e)
         {
@@ -59,16 +62,6 @@ namespace TMS.UI
 
         }
 
-        private void txtOldPwd_MouseLeave(object sender, EventArgs e)
-        {
-            if (txtOldPwd.Text == "")
-            {
-                txtOldPwd.UseSystemPasswordChar = false;
-                txtOldPwd.Text = "Type your old Password";
-
-            }
-        }
-
         private void txtNewPwd_MouseEnter(object sender, EventArgs e)
         {
 
@@ -79,16 +72,6 @@ namespace TMS.UI
             }
         }
 
-        private void txtNewPwd_MouseLeave(object sender, EventArgs e)
-        {
-            if (txtNewPwd.Text == "")
-            {
-                txtNewPwd.UseSystemPasswordChar = false;
-                txtNewPwd.Text = "Type your New Password";
-
-            }
-        }
-
         private void txtNewConfirmPwd_MouseEnter(object sender, EventArgs e)
         {
 
@@ -96,6 +79,27 @@ namespace TMS.UI
             {
                 txtNewConfirmPwd.UseSystemPasswordChar = true;
                 txtNewConfirmPwd.Text = "";
+            }
+        }
+
+
+        private void txtOldPwd_MouseLeave(object sender, EventArgs e)
+        {
+            if (txtOldPwd.Text == "")
+            {
+                txtOldPwd.UseSystemPasswordChar = false;
+                txtOldPwd.Text = "Type your old Password";
+
+            }
+        }
+
+        private void txtNewPwd_MouseLeave(object sender, EventArgs e)
+        {
+            if (txtNewPwd.Text == "")
+            {
+                txtNewPwd.UseSystemPasswordChar = false;
+                txtNewPwd.Text = "Type your New Password";
+
             }
         }
 
@@ -117,7 +121,6 @@ namespace TMS.UI
                 empid = Global.GlobalVar;
                 if (txtOldPwd.Text == "Type your old Password")
                 {
-                    
                     PopupMessageBox.Show("Please enter your old Password!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     txtOldPwd.Select();
                     return;
@@ -133,15 +136,13 @@ namespace TMS.UI
                     PopupMessageBox.Show("Please enter Confirm Password!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     txtNewConfirmPwd.Select();
                     return;
-
-                    //Dear "+ obj.GetEmpnameandID("Employee","EmpName",int.Parse(Global.GlobalVar)) +"..
                 }
                 if (settings.CheckLogin(FormControlHandling.ClearUpperQmark(Global.GlobalVar), operations.Encrypt(txtOldPwd.Text)) == true)
                 {
                     if (txtNewPwd.Text == txtNewConfirmPwd.Text)
                     {
                         int temp = settings.ChangePwd(Global.GlobalVar, operations.Encrypt(txtNewConfirmPwd.Text));
-                        if (temp != 0)
+                        if (temp > 0)
                         {
                             FormControlHandling.ClearControls(grpBoxChangePwd);
                             PopupMessageBox.Show("Password Changed Successfully!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -156,7 +157,7 @@ namespace TMS.UI
                     }
                     else
                     {
-                        PopupMessageBox.Show("New Password and Confirm Password does not match!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        PopupMessageBox.Show("New Password and Confirm Password do not match!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         txtNewConfirmPwd.Text = "";
                         txtNewConfirmPwd.Select();
                     }
@@ -170,7 +171,7 @@ namespace TMS.UI
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("Password Change Operation Failure!!\n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

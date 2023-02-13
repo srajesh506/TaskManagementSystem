@@ -1,209 +1,120 @@
 ﻿using System;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using TMS.UI.wait;
-using System.Threading;
 using System.IO;
+using System.Drawing;
+using System.Windows.Forms;
+
+using TMS.UI;
 using TMS.UI.Utilities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
-using TMS.UI;
 
 namespace TMS.MDI
 {
     public partial class FormMainMenu : Form
     {
-        private Button CurrentButton;
-        private Random Random;
-        private int TempIndex;
-        bool Sidebarexpand = true;
-        bool HomeCollaps = true;
-        bool ReportCollaps = true;
-        bool SettingsCollaps = true;
-        bool WorkItemCollaps = true;
-        private Form ActiveFrm;
-        waitformfunc waitform = new waitformfunc();
-        TeamManagement teamManagement= new TeamManagement();
+        //Flags to store the expanded or collapsed status of Menu Options
+        private bool _sideBarExpand = true;
+        private bool _masterDataCollaps = true;
+        private bool _workItemCollaps = true;
+        private bool _reportCollaps = true;
+        private bool _settingsCollaps = true;
+
+        //String variable to hold the name of the control which triggered the Timer to start as part of Menu Expand/Collapse Functionality.
+        private String _timerStartControlName;
+
+        private Button _currentButton;
+        private Random _random;
+
+        private Form _activeForm;
+
+        TeamManagement teamManagement = new TeamManagement();
 
 
-        public FormMainMenu(string userid)
+        public FormMainMenu(string userId)
         {
-            InitializeComponent();
-            Random = new Random();
-            Global.GlobalVar = userid;
-            btnCloseChildForm.Visible = false;
-            this.Text = string.Empty;
-            this.ControlBox = false;
-            //this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-            if (File.Exists(Application.StartupPath + "\\Image\\" + userid + ".jpg"))
+            try
             {
-                picemp.Image = Image.FromFile(Application.StartupPath + "\\Image\\" + userid + ".jpg");
-                //lblwelcome.Text = "Employee ID: " + empid +"\n"+"Welcome "+ dboperations.GetEmpname(int.Parse(empid)); 
-                lblWelCome.Text = "Welcome " + teamManagement.GetEmployees(userid).Rows[0][0].ToString();
-            }
-            else
-            {
-                picemp.Image = Image.FromFile(Application.StartupPath + "\\Image\\noimageMDI.png");
-               lblWelCome.Text = "Welcome " + teamManagement.GetEmployees(userid).Rows[0][0].ToString();
-            }
-
-        }
-
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hwnd, int wMsg, int wParam, int lParam);
-        private Color SelectThemeColor()
-        {
-            int index = Random.Next(ThemeColor.ColorList.Count);
-            while (TempIndex == index)
-            {
-                index = Random.Next(ThemeColor.ColorList.Count);
-            }
-            TempIndex = index;
-            string color = ThemeColor.ColorList[index];
-            return ColorTranslator.FromHtml(color);
-        }
-        private void ActiveButton(object btnsender)
-        {
-            if (btnsender != null)
-            {
-                if (CurrentButton != (Button)btnsender)
+                InitializeComponent();
+                _random = new Random();
+                Global.GlobalVar = userId;
+                btnCloseChildForm.Visible = false;
+                this.Text = string.Empty;
+                this.ControlBox = false;
+                if (File.Exists(Application.StartupPath + "\\Images\\" + userId + ".jpg"))
                 {
-                    DisableButton();
-                    Color color = SelectThemeColor();
-                    CurrentButton = (Button)btnsender;
-                    CurrentButton.BackColor = color;
-                    CurrentButton.ForeColor = Color.White;
-                    CurrentButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    paneltitlebar.BackColor = color;
-                    panelLogo.BackColor = ThemeColor.ChangeColorBrightness(color, 0.3);
-                    ThemeColor.PrimaryColor = color;
-                    ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, 0.3);
-                    btnCloseChildForm.Visible = true;
+                    pbUser.Image = Image.FromFile(Application.StartupPath + "\\Images\\" + userId + ".jpg");
+                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][0].ToString();
+                }
+                else
+                {
+                    pbUser.Image = Image.FromFile(Application.StartupPath + "\\Images\\noimageMDI.png");
+                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][0].ToString();
                 }
             }
-        }
-
-        private void OpenChildForm(Form childform, Object btnsender)
-        {
-
-            if (ActiveFrm != null)
+            catch (Exception ex)
             {
-                ActiveFrm.Close();
+                PopupMessageBox.Show("TMSError - Failed to Load the Home Page!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            ActiveButton(btnsender);
-            ActiveFrm = childform;
-            childform.TopLevel = false;
-            childform.FormBorderStyle = FormBorderStyle.None;
-            childform.Dock = DockStyle.Fill;
-            this.panelDesktopPanel.Controls.Add(childform);
-            this.panelDesktopPanel.Tag = childform;
-            childform.BringToFront();
-            childform.Show();
-            lblTitle.Text = childform.Text;
         }
-        private void OpenDashBoardForm(Form childform)
-        {
 
-            if (ActiveFrm != null)
-            {
-                ActiveFrm.Close();
-            }
-            ActiveFrm = childform;
-            childform.TopLevel = false;
-            childform.FormBorderStyle = FormBorderStyle.None;
-            childform.Dock = DockStyle.Fill;
-            this.panelDesktopPanel.Controls.Add(childform);
-            this.panelDesktopPanel.Tag = childform;
-            childform.BringToFront();
-            childform.Show();
-            lblTitle.Text = childform.Text;
-        }
-        private void DisableButton()
+
+        //Form Load Event
+        private void FormMainMenu_Load(object sender, EventArgs e)
         {
-            foreach (Control previousbtn in Sidebar.Controls)
+            try
             {
-                foreach (Control btn in previousbtn.Controls)
+                OpenChildForm(new MDI.Dashboard());
+                Reset();
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to Load the Home Page!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //Logout Option Click Event
+        private void lblLogout_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (PopupMessageBox.Show("Do you want to close this application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    if (btn.GetType() == typeof(Button))
-                    {
-                        btn.BackColor = Color.FromArgb(35, 40, 45);
-                        btn.ForeColor = Color.Gainsboro;
-                        btn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    }
-                    foreach (Control Layer1btn in btn.Controls)
-                    {
-                        if (Layer1btn.GetType() == typeof(Button))
-                        {
-                            Layer1btn.BackColor = Color.FromArgb(35, 40, 45);
-                            Layer1btn.ForeColor = Color.Gainsboro;
-                            Layer1btn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                        }
-                    }
+                    this.Close();
+                    Login frm = new Login();
+                    frm.Show();
                 }
             }
-        }
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            Sidebartimer.Start();
-        }
-        private void Sidebartimer_Tick(object sender, EventArgs e)
-        {
-            //Set the Minimum and maximum size of sidebar panel
-            if (Sidebarexpand)
+            catch (Exception ex)
             {
-                Sidebar.Width = Sidebar.Width - 10;
-                if (Sidebar.Width == Sidebar.MinimumSize.Width)
-                {
-                    Sidebarexpand = false;
-                    Sidebartimer.Stop();
-                }
-            }
-            else
-            {
-                Sidebar.Width = Sidebar.Width + 10;
-                if (Sidebar.Width == Sidebar.MaximumSize.Width)
-                {
-                    Sidebarexpand = true;
-                    Sidebartimer.Stop();
-                }
+                PopupMessageBox.Show("TMSError - Error in Logout operation!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnmasterdata_Click(object sender, EventArgs e)
+
+        //Child Form Close Button Event
+        private void btnCloseChildForm_Click(object sender, EventArgs e)
         {
-            HomeTimer.Start();
-        }
-        private void btnclosechildform_Click(object sender, EventArgs e)
-        {
-            if (ActiveFrm != null)
-                ActiveFrm.Close();
-            OpenChildForm(new MDI.Dashboard(), sender);
-            Reset();
-        }
-        private void Reset()
-        {
-            DisableButton();
-            lblTitle.Text = "DASHBOARD";
-            paneltitlebar.BackColor = Color.FromArgb(0, 150, 136);
-            panelLogo.BackColor = Color.FromArgb(35, 40, 45);
-            CurrentButton = null;
-            btnCloseChildForm.Visible = false;
+            try
+            {
+                if (_activeForm != null)
+                    _activeForm.Close();
+                OpenChildForm(new MDI.Dashboard(), sender);
+                Reset();
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to close the last open form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void paneltitlebar_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            SendMessage(this.Handle, 0x112, 0xf012, 0);
-        }
-        private void btnclose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
+        //Minimize Application Window Event
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+        //Maximize Application Window Event
         private void btnMaximize_Click(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
@@ -215,249 +126,456 @@ namespace TMS.MDI
                 this.WindowState = FormWindowState.Normal;
             }
         }
-
-        private void btnMinimize_Click(object sender, EventArgs e)
+        //Close Application Window Event
+        private void btnClose_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
-        }
-        //Set the Minimum and maximum size of Home panel button to expand/Collaps Menus
-        private void HomeTimer_Tick(object sender, EventArgs e)
-        {
-            if (HomeCollaps)
-            {
-                HomeContainer.Height = HomeContainer.Height + 10;
-                if (HomeContainer.Height == HomeContainer.MaximumSize.Height)
-                {
-                    HomeCollaps = false;
-                    HomeTimer.Stop();
-                }
-            }
-            else
-            {
-                HomeContainer.Height = HomeContainer.Height - 10;
-                if (HomeContainer.Height == HomeContainer.MinimumSize.Height)
-                {
-                    HomeCollaps = true;
-                    HomeTimer.Stop();
-                }
-            }
-
-        }
-        //Set the Minimum and maximum size of Home panel on click of Report Analysis button to expand/Collaps Menus
-        private void ReportTimer_Tick(object sender, EventArgs e)
-        {
-            if (ReportCollaps)
-            {
-                panelReportAnalysis.Height = panelReportAnalysis.Height + 10;
-                if (panelReportAnalysis.Height == panelReportAnalysis.MaximumSize.Height)
-                {
-                    ReportCollaps = false;
-                    ReportTimer.Stop();
-                }
-            }
-            else
-            {
-                panelReportAnalysis.Height = panelReportAnalysis.Height - 10;
-                if (panelReportAnalysis.Height == panelReportAnalysis.MinimumSize.Height)
-                {
-                    ReportCollaps = true;
-                    ReportTimer.Stop();
-                }
-            }
-        }
-        private void btnreportanalysis_Click(object sender, EventArgs e)
-        {
-            //ActiveButton(sender);
-            ReportTimer.Start();
-        }
-        private void btnteamregister_Click(object sender, EventArgs e)
-        {
-            //this.btnteamregister.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnteamregister_Click);
-            //waitform.Show(this);
-            //Thread.Sleep(300);
-            OpenChildForm(new UI.FrmTeamRegister(), sender);
-            ActiveButton(sender);
-            //waitform.Close();
-        }
-        private void btngrouptask_Click(object sender, EventArgs e)
-        {
-            //waitform.Show(this);
-            //Thread.Sleep(2000);
-            OpenChildForm(new UI.TaskManagement(), sender);
-            ActiveButton(sender);
-            //waitform.Close();
-        }
-        private void btnstatusbasedreport_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new UI.StatusBasedReport(), sender);
-            //waitform.Show(this);
-            //Thread.Sleep(2000);
-            ActiveButton(sender);
-            //waitform.Close();
-        }
-        private void btnAssigneeBaseReport_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new UI.AssigneeBasedReport(), sender);
-            //waitform.Show(this);
-            //Thread.Sleep(2000);
-            ActiveButton(sender);
-            //waitform.Close();
-        }
-        private void btnTimeBasedReport_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new UI.TimeBasedReport(), sender);
-            //waitform.Show(this);
-            //Thread.Sleep(2000);
-            ActiveButton(sender);
-            //waitform.Close();
-        }
-        private void btnTG_Click(object sender, EventArgs e)
-        {
-            // OpenChildForm(new Home.GroupTask(), sender);
-            waitform.Show(this);
-            Thread.Sleep(50);
-            ActiveButton(sender);
-            waitform.Close();
-        }
-        private void Logout_Click_1(object sender, EventArgs e)
-        {
-            waitform.Show(this);
-            Thread.Sleep(50);
-            this.Hide();
-            Login frm = new Login();
-            frm.Show();
-            waitform.Close();
-        }
-        private void lbllogout_Click(object sender, EventArgs e)
-        {
-            if (PopupMessageBox.Show("Do you want to close this application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-            {
-                waitform.Show(this);
-                Thread.Sleep(50);
-                this.Hide();
-                Login frm = new Login();
-                frm.Show();
-                waitform.Close();
-            }
-        }
-        private void lbllogout_MouseEnter(object sender, EventArgs e)
-        {
-            lblLogOut.Font = new Font(lblLogOut.Font.Name, lblLogOut.Font.SizeInPoints, FontStyle.Bold);
-            lblLogOut.ForeColor = Color.Yellow;
-        }
-        private void lbllogout_MouseLeave(object sender, EventArgs e)
-        {
-            lblLogOut.Font = new Font(lblLogOut.Font.Name, lblLogOut.Font.SizeInPoints, FontStyle.Regular);
-            lblLogOut.ForeColor = Color.White;
-        }
-        private void lblwelcome_MouseEnter(object sender, EventArgs e)
-        {
-            lblWelCome.Font = new Font(lblWelCome.Font.Name, lblWelCome.Font.SizeInPoints, FontStyle.Bold);
-            lblWelCome.ForeColor = Color.Yellow;
-        }
-        private void lblwelcome_MouseLeave(object sender, EventArgs e)
-        {
-            lblWelCome.Font = new Font(lblWelCome.Font.Name, lblWelCome.Font.SizeInPoints, FontStyle.Regular);
-            lblWelCome.ForeColor = Color.White;
-        }
-        private void labelmenu_MouseEnter(object sender, EventArgs e)
-        {
-            lblMenu.Font = new Font(lblMenu.Font.Name, lblMenu.Font.SizeInPoints, FontStyle.Bold);
-            lblMenu.ForeColor = Color.Yellow;
+            Application.Exit();
         }
 
-        private void labelmenu_MouseLeave(object sender, EventArgs e)
-        {
-            lblMenu.Font = new Font(lblMenu.Font.Name, lblMenu.Font.SizeInPoints, FontStyle.Regular);
-            lblMenu.ForeColor = Color.White;
-        }
-        private void btnSettings_Click(object sender, EventArgs e)
-        {
-            SettingTimer.Start();
-        }
-        private void SettingTimer_Tick(object sender, EventArgs e)
-        {
-            if (SettingsCollaps)
-            {
-                pnlmainsettings.Height = pnlmainsettings.Height + 10;
-                if (pnlmainsettings.Height == pnlmainsettings.MaximumSize.Height)
-                {
-                    SettingsCollaps = false;
-                    SettingTimer.Stop();
-                }
-            }
-            else
-            {
-                pnlmainsettings.Height = pnlmainsettings.Height - 10;
-                if (pnlmainsettings.Height == pnlmainsettings.MinimumSize.Height)
-                {
-                    SettingsCollaps = true;
-                    SettingTimer.Stop();
-                }
-            }
-        }
-        private void btnupdatepwd_Click(object sender, EventArgs e)
-        {
-            waitform.Show(this);
-            Thread.Sleep(50);
-            OpenChildForm(new ChangePassword(), sender);
-            ActiveButton(sender);
-            waitform.Close();
-        }
 
-        private void btnassigntask_Click(object sender, EventArgs e)
-        {
-
-            waitform.Show(this);
-            Thread.Sleep(50);
-            OpenChildForm(new UI.CreateWorkItem(), sender);
-            ActiveButton(sender);
-            waitform.Close();
-        }
-
-        private void WorkITemtimer_Tick(object sender, EventArgs e)
-        {
-            if (WorkItemCollaps)
-            {
-                pnlmainworkitm.Height = pnlmainworkitm.Height + 10;
-                if (pnlmainworkitm.Height == pnlmainworkitm.MaximumSize.Height)
-                {
-                    WorkItemCollaps = false;
-                    WorkItemtimer.Stop();
-                }
-            }
-            else
-            {
-                pnlmainworkitm.Height = pnlmainworkitm.Height - 10;
-                if (pnlmainworkitm.Height == pnlmainworkitm.MinimumSize.Height)
-                {
-                    WorkItemCollaps = true;
-                    WorkItemtimer.Stop();
-                }
-            }
-        }
-        private void btnworkitem_Click(object sender, EventArgs e)
-        {
-            WorkItemtimer.Start();
-        }
-        private void btnassignworkItem_Click(object sender, EventArgs e)
-        {
-            waitform.Show(this);
-            Thread.Sleep(50);
-            OpenChildForm(new UI.WorkItemAssignments(), sender);
-            ActiveButton(sender);
-            waitform.Close();
-        }
-        private void FormMainMenu_Load(object sender, EventArgs e)
+        //Main Menu Button Click Event - Used in sidebar(Horizontal) expand/collapse of Main Menu using the timer
+        private void pbMenuButton_Click(object sender, EventArgs e)
         {
             try
             {
-                OpenDashBoardForm(new MDI.Dashboard());
-                Reset();
+                StartTimer(sender);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Error in Main Menu SideBar Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //Master Data Button Click Event - Used in Vertical expand/collapse of Master Data Menu in the Main Menu using the timer
+        private void btnMasterData_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                StartTimer(sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in Master Data Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Team Register Button Click Event - Opens the Team Register Form as ChildForm
+        private void btnTeamRegister_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new UI.FrmTeamRegister(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Team Register Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Task Management Button Click Event - Opens the Task Management Form as ChildForm
+        private void btnTaskManagement_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new UI.TaskManagementForm(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //WorkItem Button Click Event - Used in Vertical expand/collapse of WorkItem Menu in the Main Menu using the timer
+        private void btnWorkItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                StartTimer(sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in WorkItem Option Menu Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Create WorkItem Button Click Event - Opens the Create WorkItem Form as ChildForm
+        private void btnCreateWorkItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new UI.CreateWorkItem(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Create WorkItem Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Assign WorkItem Button Click Event - Opens the Assign WorkItem Form as ChildForm
+        private void btnAssignWorkItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new UI.WorkItemAssignments(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Assign WorkItem Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //Report Analysis Button Click Event - Used in Vertical expand/collapse of Report Analysis Menu in the Main Menu using the timer
+        private void btnReportAnalysis_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                StartTimer(sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in Report Analysis Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Status Based Report Button Click Event - Opens the Status Based Report Form as ChildForm
+        private void btnStatusBasedReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new UI.StatusBasedReport(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Status Based Report Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Assignee Based Report Button Click Event - Opens the Assignee Based Report Form as ChildForm
+        private void btnAssigneeBasedReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new UI.AssigneeBasedReport(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Assignee Based Report Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Time Based Report Button Click Event - Opens the Time Based Report Form as ChildForm
+        private void btnTimeBasedReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new UI.TimeBasedReport(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Time Based Report Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //Settings Button Click Event - Used in Vertical expand/collapse of Settings Menu in the Main Menu using the timer
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                StartTimer(sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in Settings Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Change password Button Click Event - Opens the Change Password Form as ChildForm
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new ChangePassword(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Settings - Change Password Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //Yellow highlight for Logout Label on Mouse Enter
+        private void lblLogout_MouseEnter(object sender, EventArgs e)
+        {
+            EnterMouse(lblLogOut);
+        }
+        //Yellow highlight for Welcome Label on Mouse Enter
+        private void lblWelcome_MouseEnter(object sender, EventArgs e)
+        {
+            EnterMouse(lblWelcome);
+        }
+        //Yellow highlight for Menu Label on Mouse Enter
+        private void lblMenu_MouseEnter(object sender, EventArgs e)
+        {
+            EnterMouse(lblMenu);
+        }
+
+
+        //Removes Yellow highlight for Logout Label on Mouse Leave
+        private void lblLogout_MouseLeave(object sender, EventArgs e)
+        {
+            LeaveMouse(lblLogOut);
+        }
+        //Removes Yellow highlight for Welcome Label on Mouse Leave
+        private void lblWelcome_MouseLeave(object sender, EventArgs e)
+        {
+            LeaveMouse(lblWelcome);
+        }
+        //Removes Yellow highlight for Menu Label on Mouse Leave
+        private void lblMenu_MouseLeave(object sender, EventArgs e)
+        {
+            LeaveMouse(lblMenu);
+        }
+
+
+        //Timer Tick Event - to Expand/Collapse the Menu option chosen
+        private void timerExpandCollapse_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                switch (_timerStartControlName)
+                {
+                    case "pbMenuButton":
+                        VerticalTimerTick();
+                        break;
+                    case "btnMasterData":
+                        _masterDataCollaps = HorizantalTimerTick(_masterDataCollaps, pnlMasterData);
+                        break;
+                    case "btnWorkItem":
+                        _workItemCollaps = HorizantalTimerTick(_workItemCollaps, pnlWorkItem);
+                        break;
+                    case "btnReportAnalysis":
+                        _reportCollaps = HorizantalTimerTick(_reportCollaps, pnlReportAnalysis);
+                        break;
+                    case "btnSettings":
+                        _settingsCollaps = HorizantalTimerTick(_settingsCollaps, pnlSettings);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //User Defined
+
+        //Function to reset the form back to Dashboard or Home screen
+        private void Reset()
+        {
+            try
+            {
+                DisableButton();
+                lblTitle.Text = "DASHBOARD";
+                pnlTitleBar.BackColor = Color.FromArgb(0, 150, 136);
+                pnlLogo.BackColor = Color.FromArgb(35, 40, 45);
+                _currentButton = null;
+                btnCloseChildForm.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Error in Form Reset operation!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+
+        //Theme Color Selection
+        private Color SelectThemeColor()
+        {
+            int index = _random.Next(ThemeColor.ColorList.Count);
+            string color = ThemeColor.ColorList[index];
+            return ColorTranslator.FromHtml(color);
+        }
+
+
+        private void DisableButton()
+        {
+            try
+            {
+                foreach (Control previousButton in pnlSideBar.Controls)
+                {
+                    foreach (Control button in previousButton.Controls)
+                    {
+                        if (button.GetType() == typeof(Button))
+                        {
+                            button.BackColor = Color.FromArgb(35, 40, 45);
+                            button.ForeColor = Color.Gainsboro;
+                            button.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        }
+                        foreach (Control layerButton in button.Controls)
+                        {
+                            if (layerButton.GetType() == typeof(Button))
+                            {
+                                layerButton.BackColor = Color.FromArgb(35, 40, 45);
+                                layerButton.ForeColor = Color.Gainsboro;
+                                layerButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Error in Disable Button operation!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+        private void ActiveButton(object btnSender)
+        {
+            try
+            {
+                if (btnSender != null)
+                {
+                    if (_currentButton != (Button)btnSender)
+                    {
+                        DisableButton();
+                        Color color = SelectThemeColor();
+                        _currentButton = (Button)btnSender;
+                        _currentButton.BackColor = color;
+                        _currentButton.ForeColor = Color.White;
+                        _currentButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        pnlTitleBar.BackColor = color;
+                        pnlLogo.BackColor = ThemeColor.ChangeColorBrightness(color, 0.3);
+                        ThemeColor.PrimaryColor = color;
+                        ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, 0.3);
+                        btnCloseChildForm.Visible = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Error in Activate Button operation!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+       
+
+        //Function to open Child Form Based on Menu Option Selected
+        private void OpenChildForm(Form childForm, Object btnSender = null)
+        {
+            try
+            {
+                if (_activeForm != null)
+                {
+                    _activeForm.Close();
+                }
+                if (btnSender != null)
+                {
+                    ActiveButton(btnSender);
+                }
+                _activeForm = childForm;
+                childForm.TopLevel = false;
+                childForm.FormBorderStyle = FormBorderStyle.None;
+                childForm.Dock = DockStyle.Fill;
+                this.pnlDesktopPanel.Controls.Add(childForm);
+                this.pnlDesktopPanel.Tag = childForm;
+                childForm.BringToFront();
+                childForm.Show();
+                lblTitle.Text = childForm.Text;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Error in loading Form!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+        
+
+        //Function for Mouse Enter - Yellow Highlight
+        private void EnterMouse(Label label)
+        {
+            label.Font = new Font(lblMenu.Font.Name, lblMenu.Font.SizeInPoints, FontStyle.Bold);
+            label.ForeColor = Color.Yellow;
+        }
+
+        //Function for Mouse Leave - Yellow Highlight Removal
+        private void LeaveMouse(Label label)
+        {
+            label.Font = new Font(lblMenu.Font.Name, lblMenu.Font.SizeInPoints, FontStyle.Regular);
+            label.ForeColor = Color.White;
+        }
+
+
+        //Function to vertical Expand/Collapse the Main Menu (SideBar)
+        private void VerticalTimerTick()
+        {
+            try
+            {
+                if (_sideBarExpand)
+                {
+                    pnlSideBar.Width = pnlSideBar.Width - 10;
+                    if (pnlSideBar.Width == pnlSideBar.MinimumSize.Width)
+                    {
+                        _sideBarExpand = false;
+                        timerExpandCollapse.Stop();
+                    }
+                }
+                else
+                {
+                    pnlSideBar.Width = pnlSideBar.Width + 10;
+                    if (pnlSideBar.Width == pnlSideBar.MaximumSize.Width)
+                    {
+                        _sideBarExpand = true;
+                        timerExpandCollapse.Stop();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in SideBar Menu Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Function to horizontal Expand/Collapse the Menu option supplied
+        private Boolean HorizantalTimerTick(Boolean collaps, Panel panel)
+        {
+            try
+            {
+                if (collaps)
+                {
+                    panel.Height = panel.Height + 10;
+                    if (panel.Height == panel.MaximumSize.Height)
+                    {
+                        collaps = false;
+                        timerExpandCollapse.Stop();
+                    }
+                }
+                else
+                {
+                    panel.Height = panel.Height - 10;
+                    if (panel.Height == panel.MinimumSize.Height)
+                    {
+                        collaps = true;
+                        timerExpandCollapse.Stop();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Error in Menu Options Expand/Collapse event!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+            return collaps;
+        }
+              
+
+        //Function to start timer and capture the name of control which triggered timer to start
+        private void StartTimer(object controlSender)
+        {
+            try
+            {
+                var temp = (Control)controlSender;
+                _timerStartControlName = temp.Name;
+                if (!timerExpandCollapse.Enabled)
+                    timerExpandCollapse.Start();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failure in Menu Option Expand/Collapse Event!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
     }

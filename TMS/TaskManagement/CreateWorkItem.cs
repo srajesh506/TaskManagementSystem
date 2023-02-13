@@ -2,32 +2,35 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+
+using TMS.UI.Utilities;
 using TMS.BusinessEntities;
 using TMS.BusinessLogicLayer;
-using TMS.UI.Utilities;
 using TMS.UI.CustomMessageBox;
-using System.Threading.Tasks;
 
 namespace TMS.UI
 {
     public partial class CreateWorkItem : Form
     {
-        static private string s_id;
-        static private string s_activity;
-        static private string s_task;
-        static private string s_subTask;
-        static private string s_remark;
+        private string _activityId;
+        private string _taskId;
+        private string _subTaskId;
+        private string _workItemId;
+        private string _workItemDescription;
 
-        TMS.BusinessLogicLayer.TaskManagement taskManagement = new TMS.BusinessLogicLayer.TaskManagement();
+        TaskManagement taskManagement = new TaskManagement();
         WorkItemManagement workItemManagement = new WorkItemManagement();
+
         public CreateWorkItem()
         {
             InitializeComponent();
             LoadTheme();
             GetDefaultControlValues();
-            GetAllData();
             EnableDisableButtons(2);
+            LoadWorkItemDataGrid(true, true);
         }
+
+        //Form Load event - Loads the activity combobox
         private void CreateWorkItem_Load(object sender, EventArgs e)
         {
             try
@@ -46,55 +49,141 @@ namespace TMS.UI
                 PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        //Add button click event to enable the form for adding new record
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EnableDisableButtons(1);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to open Create WorkItem form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Save button click event to save the form for adding new record
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveModifyWorkItemData("S");
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to save a new record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Modify button click event to enable the form for updating existing record
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveModifyWorkItemData("M");
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to update an existing record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Cancel button click event to cancel the last chosen active operation
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FormControlHandling.ClearControls(grpBoxInputControls);
+                EnableDisableButtons(2);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to cancel the active record add/update action!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //DataGridView cell click event to load the existing record in form for modification
+        private void dgView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int index = dgView.CurrentRow.Index;
+                if ((index >= 0) && (index <= dgView.RowCount - 1))
+                {
+                    _workItemId = Convert.ToString(dgView.Rows[index].Cells[8].Value);
+                    _activityId = Convert.ToString(dgView.Rows[index].Cells[6].Value);
+                    _taskId = Convert.ToString(dgView.Rows[index].Cells[5].Value);
+                    _subTaskId = Convert.ToString(dgView.Rows[index].Cells[7].Value);
+                    _workItemDescription = Convert.ToString(dgView.Rows[index].Cells[4].Value);
+
+
+                    cmbActivity.SelectedValue = _activityId;
+                    cmbTask.SelectedValue = _taskId;
+                    cmbSubTask.SelectedValue = _subTaskId;
+                    rtxtWorkItemDescription.Text = _workItemDescription;
+                    EnableDisableButtons(3);
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to load the selected DataGrid record in the Form fields !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Activity ComboBox Value change Event - to load the Task Records in Task Combobox based on Selected Activity record. Also reflect the update in GridView Data
         private void cmbActivity_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 if (cmbActivity.SelectedIndex > 0)
                 {
-                    DataTable dt_temp = new DataTable();
-                    dt_temp = taskManagement.GetTasks(false,-1, (Convert.ToInt32(cmbActivity.SelectedValue)));
-                    string[] selectedColumns = new[] { "TaskId", "Task Name" };
-                    DataTable dt = new DataView(dt_temp).ToTable(false, selectedColumns);
-                    DataRow dr_task;
-                    dr_task = dt.NewRow();
-                    dr_task.ItemArray = new object[] { 0, "--Select Task--" };
-                    dt.Rows.InsertAt(dr_task, 0);
-                    cmbTask.ValueMember = "TaskId";
-                    cmbTask.DisplayMember = "Task Name";
-                    cmbTask.DataSource = dt;
-                    GetCustomData();
-                    rtxtRemark.Text = "";
+                    DataTable dtTemp = new DataTable();
+                    dtTemp = taskManagement.GetTasks(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)));
+                    if (dtTemp.Rows.Count > 0)
+                    {
+                        cmbTask.Enabled = true;
+                        string[] selectedColumns = new[] { "TaskId", "Task Name" };
+                        DataTable dtTask = new DataView(dtTemp).ToTable(false, selectedColumns);
+                        DataRow drTask;
+                        drTask = dtTask.NewRow();
+                        drTask.ItemArray = new object[] { 0, "--Select Task--" };
+                        dtTask.Rows.InsertAt(drTask, 0);
+                        cmbTask.ValueMember = "TaskId";
+                        cmbTask.DisplayMember = "Task Name";
+                        cmbTask.DataSource = dtTask;
+                        LoadWorkItemDataGrid(true, true, Convert.ToInt32(cmbActivity.SelectedValue));
+                    }
                 }
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Failed to load the Task Records in dropdown list or GridView Data!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        //Task ComboBox Value change Event - to load the SubTasks Records in Subtask Combobox  based on activity & task selection. ALso reflect the update in GridView Data
         private void cmbTask_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 if (cmbTask.SelectedIndex > 0)
                 {
-                    DataTable dt_temp = new DataTable();
-                    dt_temp = taskManagement.GetSubTasks(false, -1,Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbActivity.SelectedValue));
-                    // ViewSubTasks(Convert.ToInt32(cmbActivity.SelectedValue), Convert.ToInt32(cmbTask.SelectedValue));
-                    if (dt_temp.Rows.Count > 0)
+                    DataTable dtTemp = new DataTable();
+                    dtTemp = taskManagement.GetSubTasks(false, -1, Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbActivity.SelectedValue));
+                    if (dtTemp.Rows.Count > 0)
                     {
                         cmbSubTask.Enabled = true;
                         string[] selectedColumns = new[] { "SubTaskId", "SubTask Name" };
-                        DataTable dt = new DataView(dt_temp).ToTable(false, selectedColumns);
-                        DataRow dr_Subtask;
-                        dr_Subtask = dt.NewRow();
-                        dr_Subtask.ItemArray = new object[] { 0, "--Select SubTask--" };
-                        dt.Rows.InsertAt(dr_Subtask, 0);
+                        DataTable dtSubTask = new DataView(dtTemp).ToTable(false, selectedColumns);
+                        DataRow drSubtask;
+                        drSubtask = dtSubTask.NewRow();
+                        drSubtask.ItemArray = new object[] { 0, "--Select SubTask--" };
+                        dtSubTask.Rows.InsertAt(drSubtask, 0);
                         cmbSubTask.ValueMember = "SubTaskId";
                         cmbSubTask.DisplayMember = "SubTask Name";
-                        cmbSubTask.DataSource = dt;
-                        GetCustomData();
-                        rtxtRemark.Text = "";
+                        cmbSubTask.DataSource = dtSubTask;
+                        LoadWorkItemDataGrid(true, true, Convert.ToInt32(cmbActivity.SelectedValue), Convert.ToInt32(cmbTask.SelectedValue));
                     }
                 }
             }
@@ -103,44 +192,177 @@ namespace TMS.UI
                 PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        //SubTask ComboBox Value change Event - to load the data in GridView based on selected activity, task & SubTask
         private void cmbSubTask_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbSubTask.SelectedIndex > 0)
-            {
-                GetCustomData();
-                rtxtRemark.Text = "";
-            }
-        }
-        private void btnadd_Click(object sender, EventArgs e)
-        {
-            EnableDisableButtons(1);
-        }
-        private void btnmodify_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!ValidateControls())
+                if (cmbActivity.SelectedIndex > 0 && cmbTask.SelectedIndex > 0 && cmbSubTask.SelectedIndex > 0)
                 {
-                    WorkItem workitem = new WorkItem();
-                    workitem.ActivityId = (int)cmbActivity.SelectedValue;
-                    workitem.TaskId = (int)cmbTask.SelectedValue;
-                    workitem.SubTaskId = (int)cmbSubTask.SelectedValue;
-                    workitem.WorkItemDescription = rtxtRemark.Text;
-                    workitem.WorkItemId = Convert.ToInt32(s_id);
-                    workItemManagement.AddUpdateWorkItem(workitem, true);
-                    GetAllData();
-                    FormControlHandling.ClearControls(grpBoxAssignTask);
-                    EnableDisableButtons(2);
-                    RightBottomMessageBox.Info("Data modify Successfully!");
+                    LoadWorkItemDataGrid(true, true, cmbActivity.SelectedIndex, cmbTask.SelectedIndex, cmbSubTask.SelectedIndex);
                 }
-
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Failed to load the GridView Data based on Activity,Task & SubTask Dropdown values!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnsave_Click(object sender, EventArgs e)
+
+        //User Defined
+        //Function to Load the Form Theme
+        private void LoadTheme()
+        {
+            try
+            {
+                foreach (Control btns in this.Controls)
+                {
+                    if (btns.GetType() == typeof(Button))
+                    {
+                        Button btn = (Button)btns;
+                        btn.BackColor = ThemeColor.PrimaryColor;
+                        btn.ForeColor = Color.White;
+                        btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                    }
+                }
+                btnAdd.ForeColor = ThemeColor.PrimaryColor;
+                btnSave.ForeColor = ThemeColor.PrimaryColor;
+                btnModify.ForeColor = ThemeColor.PrimaryColor;
+                btnCancel.ForeColor = ThemeColor.PrimaryColor;
+                grpBoxInputControls.ForeColor = ThemeColor.PrimaryColor;
+                grpBoxButtons.ForeColor = ThemeColor.PrimaryColor;
+                grpBoxWorkItemGridView.ForeColor = ThemeColor.PrimaryColor;
+                rtxtWorkItemDescription.ForeColor = ThemeColor.SecondaryColor;
+                cmbActivity.ForeColor = ThemeColor.SecondaryColor;
+                cmbTask.ForeColor = ThemeColor.SecondaryColor;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to load the Theme!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        //Function to Validate the mandatory controls are supplied with correct values
+        public bool ValidateControls()
+        {
+            try
+            {
+                if (cmbActivity.SelectedIndex == 0)
+                {
+                    PopupMessageBox.Show("Please Select Activity Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+                if (cmbTask.SelectedIndex == 0)
+                {
+                    PopupMessageBox.Show("Please Select Task Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+                if (cmbSubTask.SelectedIndex == 0)
+                {
+                    PopupMessageBox.Show("Please Select SubTask Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+                if (rtxtWorkItemDescription.Text == "")
+                {
+                    PopupMessageBox.Show("Please enter WorkItem Description!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    rtxtWorkItemDescription.Select();
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to validate the form controls!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        // Function to enable or disable the buttons based on the selected operation (ADD/MODIFY/SAVE/CANCEL) or GridView Selected or No of Records per Page changes) 
+        public void EnableDisableButtons(int flag)
+        {
+            try
+            {
+                if (flag == 0) //
+                {
+                    btnSave.Enabled = false;
+                    btnModify.Enabled = false;
+                    btnCancel.Enabled = false;
+                }
+                if (flag == 1) //Add Data
+                {
+
+                    btnSave.Enabled = true;
+                    btnCancel.Enabled = true;
+                    rtxtWorkItemDescription.Enabled = true;
+                    btnAdd.Enabled = false;
+                    cmbActivity.Enabled = true;
+                    cmbTask.Enabled = true;
+                    cmbSubTask.Enabled = true;
+                }
+                if (flag == 2)//modify and Cancel
+                {
+
+                    rtxtWorkItemDescription.Enabled = false;
+                    btnSave.Enabled = false;
+                    btnCancel.Enabled = false;
+                    btnModify.Enabled = false;
+                    btnAdd.Enabled = true;
+                    cmbActivity.Enabled = false;
+                    cmbTask.Enabled = false;
+                    cmbSubTask.Enabled = false;
+                }
+                if (flag == 3)
+                {
+                    rtxtWorkItemDescription.Enabled = true;
+                    btnAdd.Enabled = false;
+                    btnSave.Enabled = false;
+                    btnCancel.Enabled = true;
+                    btnModify.Enabled = true;
+                    cmbActivity.Enabled = true;
+                    cmbTask.Enabled = true;
+                    cmbSubTask.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to setup the Create WorkItem form button controls!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        //Function to load default values in the combobox controls
+        public void GetDefaultControlValues()
+        {
+            try
+            {
+                DataTable dtTask = new DataTable();
+                dtTask.Columns.Add(new DataColumn("TaskId", typeof(int)));
+                dtTask.Columns.Add(new DataColumn("Task Name", typeof(string)));
+                DataRow drTask = dtTask.NewRow();
+                drTask = dtTask.NewRow();
+                drTask.ItemArray = new object[] { 0, "--Select Task--" };
+                dtTask.Rows.InsertAt(drTask, 0);
+                cmbTask.ValueMember = "TaskId";
+                cmbTask.DisplayMember = "Task Name";
+                cmbTask.DataSource = dtTask;
+
+                DataTable dtSubTask = new DataTable();
+                dtSubTask.Columns.Add(new DataColumn("SubTaskid", typeof(int)));
+                dtSubTask.Columns.Add(new DataColumn("SubTask Name", typeof(string)));
+                DataRow drSubTask = dtSubTask.NewRow();
+                drSubTask = dtSubTask.NewRow();
+                drSubTask.ItemArray = new object[] { 0, "--Select SubTask--" };
+                dtSubTask.Rows.InsertAt(drSubTask, 0);
+                cmbSubTask.ValueMember = "SubTaskId";
+                cmbSubTask.DisplayMember = "SubTask Name";
+                cmbSubTask.DataSource = dtSubTask;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to setup default values in Dropdown controls!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        //Function to perform new record addition and existing record update
+        private void SaveModifyWorkItemData(String mode)
         {
             try
             {
@@ -150,215 +372,85 @@ namespace TMS.UI
                     workitem.ActivityId = (int)cmbActivity.SelectedValue;
                     workitem.TaskId = (int)cmbTask.SelectedValue;
                     workitem.SubTaskId = (int)cmbSubTask.SelectedValue;
-                    workitem.WorkItemDescription = rtxtRemark.Text;
-                    workItemManagement.AddUpdateWorkItem(workitem);
+                    workitem.WorkItemDescription = rtxtWorkItemDescription.Text;
+                    workitem.WorkItemId = Convert.ToInt32(_workItemId);
 
-                    GetAllData();
-                    FormControlHandling.ClearControls(grpBoxAssignTask);
+                    switch (mode)
+                    {
+                        case "S":
+                            if (workItemManagement.AddUpdateWorkItem(workitem) <= 0)
+                            {
+                                throw new Exception("WorkItem: '" + rtxtWorkItemDescription.Text + "' already exists in Database!");
+                            }
+                            break;
+                        case "M":
+                            if (workItemManagement.AddUpdateWorkItem(workitem, true) <= 0)
+                            {
+                                throw new Exception("WorkItem: '" + rtxtWorkItemDescription.Text + "' doesnt exist in Database!!");
+                            }
+                            break;
+                        default:
+                            throw new Exception("TMSError - Invalid Operation!! ");
+                    }
+                    LoadWorkItemDataGrid(true, true);
+                    FormControlHandling.ClearControls(grpBoxInputControls);
                     EnableDisableButtons(2);
                     RightBottomMessageBox.Success("Data Saved Successfully!");
                 }
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-        private void btncancel_Click(object sender, EventArgs e)
-        {
-            FormControlHandling.ClearControls(grpBoxAssignTask);
-            EnableDisableButtons(2);
-            GetAllData();
-        }
-        private void dview_CellClick(object sender, DataGridViewCellEventArgs e)
+
+        //Function to load the datagridview with the records and setup other options for datagridview
+        private void LoadWorkItemDataGrid(Boolean isActive, Boolean refresh = false, int activityId = -1, int taskId = -1, int subTaskId = -1)
         {
             try
             {
-                int index = dgView.CurrentRow.Index;
-                if (index <= dgView.RowCount - 1)
+                if (refresh)
                 {
-                    s_id = Convert.ToString(dgView.Rows[index].Cells[8].Value);
-                    s_activity = Convert.ToString(dgView.Rows[index].Cells[6].Value);
-                    s_task = Convert.ToString(dgView.Rows[index].Cells[5].Value);
-                    s_subTask = Convert.ToString(dgView.Rows[index].Cells[7].Value);
-                    s_remark = Convert.ToString(dgView.Rows[index].Cells[4].Value);
-
-
-                    cmbActivity.SelectedValue = s_activity;
-                    cmbTask.SelectedValue = s_task;
-                    cmbSubTask.SelectedValue = s_subTask;
-                    rtxtRemark.Text = s_remark;
-                    EnableDisableButtons(3);
+                    if (activityId != -1)
+                    {
+                        dgView.DataSource = null;
+                        if (taskId != -1)
+                        {
+                            if (subTaskId != -1)
+                            {
+                                dgView.DataSource = workItemManagement.GetWorkItems(activityId, taskId, subTaskId);
+                            }
+                            else
+                            {
+                                dgView.DataSource = workItemManagement.GetWorkItems(activityId,taskId);
+                            }
+                        }
+                        else
+                        {
+                            dgView.DataSource = workItemManagement.GetWorkItems(activityId);
+                        }
+                    }
+                    else
+                    {
+                        dgView.DataSource = workItemManagement.GetWorkItems();
+                    }
+                    dgView.Columns[0].Width = 70;
+                    dgView.Columns[1].Width = 150;
+                    dgView.Columns[2].Width = 300;
+                    dgView.Columns[3].Width = 200;
+                    dgView.Columns[4].Width = 300;
+                    dgView.Columns[5].Visible = false;
+                    dgView.Columns[6].Visible = false;
+                    dgView.Columns[7].Visible = false;
+                    dgView.Columns[8].Visible = false;
+                    dgView.ReadOnly = true;
                 }
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-        private void LoadTheme()
-        {
-            foreach (Control btns in this.Controls)
-            {
-                if (btns.GetType() == typeof(Button))
-                {
-                    Button btn = (Button)btns;
-                    btn.BackColor = ThemeColor.PrimaryColor;
-                    btn.ForeColor = Color.White;
-                    btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
-                }
-            }
-            btnAdd.ForeColor = ThemeColor.PrimaryColor;
-            btnSave.ForeColor = ThemeColor.PrimaryColor;
-            btnModify.ForeColor = ThemeColor.PrimaryColor;
-            btnCancel.ForeColor = ThemeColor.PrimaryColor;
-            grpBoxAssignTask.ForeColor = ThemeColor.PrimaryColor;
-            grpBoxButtons.ForeColor = ThemeColor.PrimaryColor;
-            grpBoxWorkItemGridView.ForeColor = ThemeColor.PrimaryColor;
-            rtxtRemark.ForeColor = ThemeColor.SecondaryColor;
-            cmbActivity.ForeColor = ThemeColor.SecondaryColor;
-            cmbTask.ForeColor = ThemeColor.SecondaryColor;
-        }
-        public bool ValidateControls()
-        {
-            if (cmbActivity.SelectedIndex == 0)
-            {
-                PopupMessageBox.Show("Please Select Activity Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return true;
-            }
-            if (cmbTask.SelectedIndex == 0)
-            {
-                PopupMessageBox.Show("Please Select Task Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return true;
-            }
-            if (cmbSubTask.SelectedIndex == 0)
-            {
-                PopupMessageBox.Show("Please Select SubTask Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return true;
-            }
-            if (rtxtRemark.Text == "")
-            {
-                PopupMessageBox.Show("Please enter Remark!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                rtxtRemark.Select();
-                return true;
-            }
-            return false;
-        }
-        public void GetDefaultControlValues()
-        {
-            DataTable dtTask = new DataTable();
-            dtTask.Columns.Add(new DataColumn("TaskId", typeof(int)));
-            dtTask.Columns.Add(new DataColumn("Task Name", typeof(string)));
-            DataRow drTask = dtTask.NewRow();
-            drTask = dtTask.NewRow();
-            drTask.ItemArray = new object[] { 0, "--Select Task--" };
-            dtTask.Rows.InsertAt(drTask, 0);
-            cmbTask.ValueMember = "TaskId";
-            cmbTask.DisplayMember = "Task Name";
-            cmbTask.DataSource = dtTask;
 
-            DataTable dtSubTask = new DataTable();
-            dtSubTask.Columns.Add(new DataColumn("SubTaskid", typeof(int)));
-            dtSubTask.Columns.Add(new DataColumn("SubTask Name", typeof(string)));
-            DataRow drSubTask = dtSubTask.NewRow();
-            drSubTask = dtSubTask.NewRow();
-            drSubTask.ItemArray = new object[] { 0, "--Select SubTask--" };
-            dtSubTask.Rows.InsertAt(drSubTask, 0);
-            cmbSubTask.ValueMember = "SubTaskId";
-            cmbSubTask.DisplayMember = "SubTask Name";
-            cmbSubTask.DataSource = dtSubTask;
-
-        }
-        public void GetAllData()
-        {
-            dgView.DataSource = null;
-            dgView.DataSource = workItemManagement.GetWorkItems();
-            dgView.Columns[0].Width = 70;
-            dgView.Columns[1].Width = 150;
-            dgView.Columns[2].Width = 300;
-            dgView.Columns[3].Width = 200;
-            dgView.Columns[4].Width = 300;
-            dgView.Columns[5].Visible = false;
-            dgView.Columns[6].Visible = false;
-            dgView.Columns[7].Visible = false;
-            dgView.Columns[8].Visible = false;
-            dgView.ReadOnly = true;
-        }
-        public void EnableDisableButtons(int flag)
-        {
-            if (flag == 0) //
-            {
-                btnSave.Enabled = false;
-                btnModify.Enabled = false;
-                btnCancel.Enabled = false;
-            }
-            if (flag == 1) //Add Data
-            {
-
-                btnSave.Enabled = true;
-                btnCancel.Enabled = true;
-                rtxtRemark.Enabled = true;
-                btnAdd.Enabled = false;
-                cmbActivity.Enabled = true;
-                cmbTask.Enabled = true;
-                cmbSubTask.Enabled = true;
-            }
-            if (flag == 2)//modify and Cancel
-            {
-
-                rtxtRemark.Enabled = false;
-                btnSave.Enabled = false;
-                btnCancel.Enabled = false;
-                btnModify.Enabled = false;
-                btnAdd.Enabled = true;
-                cmbActivity.Enabled = false;
-                cmbTask.Enabled = false;
-                cmbSubTask.Enabled = false;
-                //for (int i = 0; i < listemp.Items.Count; i++)
-                //{
-                //        listemp.SetItemChecked(i, false);
-                //}
-            }
-            if (flag == 3)
-            {
-                rtxtRemark.Enabled = true;
-                btnAdd.Enabled = false;
-                btnSave.Enabled = false;
-                btnCancel.Enabled = true;
-                btnModify.Enabled = true;
-                cmbActivity.Enabled = true;
-                cmbTask.Enabled = true;
-                cmbSubTask.Enabled = true;
-            }
-        }
-        public void GetCustomData()
-        {
-            if (cmbActivity.SelectedIndex > 0)
-            {
-                dgView.DataSource = null;
-                dgView.DataSource = workItemManagement.GetWorkItems(Convert.ToInt32(cmbActivity.SelectedValue));
-                if (cmbTask.SelectedIndex > 0)
-                {
-                    dgView.DataSource = null;
-                    dgView.DataSource = workItemManagement.GetWorkItems(Convert.ToInt32(cmbActivity.SelectedValue), Convert.ToInt32(cmbTask.SelectedValue));
-                    if (cmbSubTask.SelectedIndex > 0)
-                    {
-                        dgView.DataSource = null;
-                        dgView.DataSource = workItemManagement.GetWorkItems(Convert.ToInt32(cmbActivity.SelectedValue), Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbSubTask.SelectedValue));
-                    }
-                }
-                dgView.Columns[0].Width = 70;
-                dgView.Columns[1].Width = 150;
-                dgView.Columns[2].Width = 300;
-                dgView.Columns[3].Width = 200;
-                dgView.Columns[4].Width = 300;
-                dgView.Columns[5].Visible = false;
-                dgView.Columns[6].Visible = false;
-                dgView.Columns[7].Visible = false;
-                dgView.Columns[8].Visible = false;
-                dgView.ReadOnly = true;
-            }
-
-        }
     }
 }

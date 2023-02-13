@@ -1,345 +1,401 @@
 ﻿using System;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
-using TMS.BusinessEntities;
-using TMS.BusinessLogicLayer;
+
 using TMS.UI.Utilities;
-using System.Threading.Tasks;
+using TMS.BusinessEntities;
 using TMS.UI.CustomMessageBox;
-using TMS.UI;
+using TMS.BusinessLogicLayer;
 
 namespace TMS.UI
 {
     public partial class DefineSubTask : UserControl
     {
-        private static int s_activityId;
-        private static int s_taskId;
-        private static int s_subTaskId;
-        private static string s_subTaskName;
-        private static string s_subTaskDescription;
-        private static Boolean s_isActive;
+        private int _activityId;
+        private int _taskId;
+        private int _subTaskId;
+        private string _subTaskName;
+        private string _subTaskDescription;
+        private Boolean _isActive;
 
+        //private DataTable _subTasks;
 
+        TaskManagement taskManagement = new TaskManagement();
         SubTask subtask = new SubTask();
-
-        TMS.BusinessLogicLayer.TaskManagement taskManagement = new TMS.BusinessLogicLayer.TaskManagement();
 
         public DefineSubTask()
         {
-            InitializeComponent();
-            LoadTheme();
-            cmbTask.SelectedText = "--Select Task--";
-            GetAllData();
-            EnableDisableButtons(2);
-        }
-        private void LoadTheme()
-        {
-
-            foreach (Control btns in this.Controls)
+            try
             {
-                if (btns.GetType() == typeof(Button))
-                {
-                    Button btn = (Button)btns;
-                    btn.BackColor = ThemeColor.PrimaryColor;
-                    btn.ForeColor = Color.White;
-                    btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
-                }
+                InitializeComponent();
+                LoadTheme();
+                LoadSubTaskDataGrid(true, true);
+                EnableDisableButtons(2);
             }
-            btnAdd.ForeColor = ThemeColor.PrimaryColor;
-            btnSave.ForeColor = ThemeColor.PrimaryColor;
-            btnModify.ForeColor = ThemeColor.PrimaryColor;
-            btnCancel.ForeColor = ThemeColor.PrimaryColor;
-            //lblsubtaskremark.ForeColor = ThemeColor.SecondaryColor;
-            //lblsubtaskname.ForeColor = ThemeColor.SecondaryColor;
-            //lblactivity.ForeColor = ThemeColor.SecondaryColor;
-            //lbltask.ForeColor = ThemeColor.SecondaryColor;
-            gbxTaskManagement.ForeColor = ThemeColor.PrimaryColor;
-            groupBoxforbutton.ForeColor = ThemeColor.PrimaryColor;
-            groupBoxForSubTaskandDescription.ForeColor = ThemeColor.PrimaryColor;
-            txtSubTaskName.ForeColor = ThemeColor.SecondaryColor;
-            rtxtRemark.ForeColor = ThemeColor.SecondaryColor;
-            chkActive.ForeColor = ThemeColor.SecondaryColor;
-            cmbActivity.ForeColor = ThemeColor.SecondaryColor;
-            cmbTask.ForeColor = ThemeColor.SecondaryColor;
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to Load the Define SubTask Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        //Form Load event - Loads the activity combobox
         private void DefineSubTask_Load(object sender, EventArgs e)
         {
             try
             {
-                DataTable dt = new DataTable();
-                dt = taskManagement.GetActivities(true);
-                DataRow dr;
-                dr = dt.NewRow();
-                dr.ItemArray = new object[] { 0, "--Select Activity--" };
-                dt.Rows.InsertAt(dr, 0);
+                DataTable dtActivity = new DataTable();
+                dtActivity = taskManagement.GetActivities(true);
+                DataRow drActivity = dtActivity.NewRow();
+                drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
+                dtActivity.Rows.InsertAt(drActivity, 0);
                 cmbActivity.ValueMember = "ActivityId";
                 cmbActivity.DisplayMember = "ActivityName";
-                cmbActivity.DataSource = dt;
+                cmbActivity.DataSource = dtActivity;
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Failed to Load the Define SubTask Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void cmbactivity_SelectedIndexChanged(object sender, EventArgs e)
+        //Add button click event to enable the form for adding new record
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
-                DataTable dt_temp = new DataTable();
-                dt_temp = taskManagement.GetTasks(false,-1,(Convert.ToInt32(cmbActivity.SelectedValue)));
-                string[] selectedColumns = new[] { "TaskId", "Task Name" };
-                DataTable dt = new DataView(dt_temp).ToTable(false, selectedColumns);
-                DataRow dr_task;
-                dr_task = dt.NewRow();
-                dr_task.ItemArray = new object[] { 0, "--Select Task--" };
-                dt.Rows.InsertAt(dr_task, 0);
-                cmbTask.ValueMember = "TaskId";
-                cmbTask.DisplayMember = "Task Name";
-                cmbTask.DataSource = dt;
+                EnableDisableButtons(1);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to open Define SubTask form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Save button click event to save the form for adding new record
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveModifySubTaskData("S");
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to save a new record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Modify button click event to enable the form for updating existing record
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveModifySubTaskData("M");
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to update an existing record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Cancel button click event to cancel the last chosen active operation
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FormControlHandling.ClearControls(grpBoxInputControls);
+                EnableDisableButtons(2);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to cancel the active record add/update action!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //DataGridView cell click event to load the existing record in form for modification
+        private void dView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int index = dView.CurrentRow.Index;
+                if ((index >= 0) && (index <= dView.RowCount - 1))
+                {
+                    _activityId = Convert.ToInt32(dView.Rows[index].Cells[7].Value);
+                    _taskId = Convert.ToInt32(dView.Rows[index].Cells[6].Value);
+                    _subTaskName = Convert.ToString(dView.Rows[index].Cells[3].Value);
+                    _subTaskDescription = Convert.ToString(dView.Rows[index].Cells[4].Value);
+                    _isActive = Convert.ToBoolean(dView.Rows[index].Cells[5].Value);
+                    _subTaskId = Convert.ToInt32(dView.Rows[index].Cells[8].Value);
+
+                    cmbActivity.SelectedValue = Convert.ToString(_activityId);
+                    cmbTask.SelectedValue = Convert.ToString(_taskId);
+                    txtSubTaskName.Text = Convert.ToString(_subTaskName);
+                    rtxtSubTaskDescription.Text = Convert.ToString(_subTaskDescription);
+                    chkActive.Checked = Convert.ToBoolean(_isActive);
+                    EnableDisableButtons(3);
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to load the selected record in the Form fields from the DataGrid!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Activity ComboBox Value change Event - to load the Task Records in Task Combobox based on Selected Activity record. Also reflect the update in GridView Data
+        private void cmbActivity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
                 if (cmbActivity.SelectedIndex > 0)
                 {
-                    Dview.DataSource = null;
-                    Dview.DataSource = taskManagement.GetSubTasks(false,-1,-1,(Convert.ToInt32(cmbActivity.SelectedValue)));
-                    Dview.Columns[0].Width = 50;
-                    Dview.Columns[1].Width = 200;
-                    Dview.Columns[2].Width = 300;
-                    Dview.Columns[3].Width = 300;
-                    Dview.Columns[4].Width = 400;
-                    Dview.Columns[5].Visible = false;
-                    Dview.Columns[6].Visible = false;
-                    Dview.Columns[7].Visible = false;
-                    Dview.Columns[8].Visible = false;
-                    Dview.ReadOnly = true;
+                    DataTable dtTemp = new DataTable();
+                    dtTemp = taskManagement.GetTasks(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)));
+                    string[] selectedColumns = new[] { "TaskId", "Task Name" };
+                    DataTable dtTask = new DataView(dtTemp).ToTable(false, selectedColumns);
+                    DataRow drTask;
+                    drTask = dtTask.NewRow();
+                    drTask.ItemArray = new object[] { 0, "--Select Task--" };
+                    dtTask.Rows.InsertAt(drTask, 0);
+                    cmbTask.ValueMember = "TaskId";
+                    cmbTask.DisplayMember = "Task Name";
+                    cmbTask.DataSource = dtTask;
+                    LoadSubTaskDataGrid(true, true, cmbActivity.SelectedIndex);
                 }
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Failed to load the Task Records in dropdown list or GridView Data!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnsave_Click(object sender, EventArgs e)
+        //Task ComboBox Value change Event - to load the data in GridView based on selected activity and selected task
+        private void cmbTask_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                int val = Validation();
-                if (val == 1) return;
-                if (chkActive.Checked == false)
+                if (cmbActivity.SelectedIndex > 0 && cmbTask.SelectedIndex > 0)
                 {
-                    PopupMessageBox.Show("Please Confirm Active Activity!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    LoadSubTaskDataGrid(true, true, cmbActivity.SelectedIndex, cmbTask.SelectedIndex);
                 }
-                subtask.SubTaskName = txtSubTaskName.Text;
-                subtask.SubTaskDescription = rtxtRemark.Text;
-                subtask.ActivityId = Convert.ToInt32(cmbActivity.SelectedValue);
-                subtask.TaskId = Convert.ToInt32(cmbTask.SelectedValue);
-                subtask.IsActive = chkActive.Checked;
-           
-                int returnvalue = taskManagement.AddUpdateSubtask(subtask);
-                if (returnvalue <= 0)
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to load the GridView Data based on Activity & Task Dropdown values!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //User Defined
+        //Function to Load the Form Theme
+        private void LoadTheme()
+        {
+            try
+            {
+                foreach (Control btns in this.Controls)
                 {
-                    PopupMessageBox.Show("SubTask: '" + txtSubTaskName.Text + "' already exit in Database!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (btns.GetType() == typeof(Button))
+                    {
+                        Button btn = (Button)btns;
+                        btn.BackColor = ThemeColor.PrimaryColor;
+                        btn.ForeColor = Color.White;
+                        btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                    }
                 }
-                else
+                btnAdd.ForeColor = ThemeColor.PrimaryColor;
+                btnSave.ForeColor = ThemeColor.PrimaryColor;
+                btnModify.ForeColor = ThemeColor.PrimaryColor;
+                btnCancel.ForeColor = ThemeColor.PrimaryColor;
+                grpBoxInputControls.ForeColor = ThemeColor.PrimaryColor;
+                grpBoxButtons.ForeColor = ThemeColor.PrimaryColor;
+                grpBoxDataGrid.ForeColor = ThemeColor.PrimaryColor;
+                txtSubTaskName.ForeColor = ThemeColor.SecondaryColor;
+                rtxtSubTaskDescription.ForeColor = ThemeColor.SecondaryColor;
+                chkActive.ForeColor = ThemeColor.SecondaryColor;
+                cmbActivity.ForeColor = ThemeColor.SecondaryColor;
+                cmbTask.ForeColor = ThemeColor.SecondaryColor;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to load the Theme!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        //Function to Validate the mandatory controls are supplied with correct values
+        public Boolean ValidateControls(String mode)
+        {
+            try
+            {
+                if (mode == "S")
                 {
-                    GetAllData();
-                    FormControlHandling.ClearControls(gbxTaskManagement);
+                    if (chkActive.Checked == false)
+                    {
+                        PopupMessageBox.Show("Please Confirm Active status!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return false;
+                    }
+                }
+                if (cmbActivity.SelectedIndex == 0)
+                {
+                    PopupMessageBox.Show("Please Select Activity Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+                if (cmbTask.SelectedIndex == 0)
+                {
+                    PopupMessageBox.Show("Please Select Task Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+                if (txtSubTaskName.Text == "")
+                {
+                    PopupMessageBox.Show("Please Enter SubTask Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtSubTaskName.Select();
+                    return false;
+                }
+                if (rtxtSubTaskDescription.Text == "")
+                {
+                    PopupMessageBox.Show("Please enter SubTask Description!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    rtxtSubTaskDescription.Select();
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to validate the form controls!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        // Function to enable or disable the buttons based on the selected operation (ADD/MODIFY/SAVE/CANCEL) or GridView Page Selected or No of Records per Page changes) 
+        public void EnableDisableButtons(int flag)
+        {
+            try
+            {
+                if (flag == 0) //
+                {
+                    btnSave.Enabled = false;
+                    btnModify.Enabled = false;
+                    btnCancel.Enabled = false;
+                }
+                if (flag == 1) //Add Data
+                {
+                    txtSubTaskName.Enabled = true;
+                    txtSubTaskName.Enabled = true;
+                    txtSubTaskName.Select();
+                    btnSave.Enabled = true;
+                    btnCancel.Enabled = true;
+                    rtxtSubTaskDescription.Enabled = true;
+                    btnAdd.Enabled = false;
+                    cmbActivity.Enabled = true;
+                    cmbTask.Enabled = true;
+                }
+                if (flag == 2)//modify and Cancel
+                {
+                    txtSubTaskName.Enabled = false;
+                    rtxtSubTaskDescription.Enabled = false;
+                    btnSave.Enabled = false;
+                    btnCancel.Enabled = false;
+                    btnModify.Enabled = false;
+                    btnAdd.Enabled = true;
+                    cmbActivity.Enabled = false;
+                    cmbTask.Enabled = false;
+                }
+                if (flag == 3)
+                {
+                    txtSubTaskName.Enabled = true;
+                    rtxtSubTaskDescription.Enabled = true;
+                    btnAdd.Enabled = false;
+                    btnSave.Enabled = false;
+                    btnCancel.Enabled = true;
+                    btnModify.Enabled = true;
+                    cmbActivity.Enabled = true;
+                    cmbTask.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to setup the Create SubTask form button controls!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        //Function to perform new record addition and existing record update
+        private void SaveModifySubTaskData(String mode)
+        {
+            try
+            {
+                if (ValidateControls(mode))
+                {
+                    subtask.ActivityId = Convert.ToInt32(cmbActivity.SelectedValue);
+                    subtask.TaskId = Convert.ToInt32(cmbTask.SelectedValue);
+                    subtask.SubTaskName = txtSubTaskName.Text;
+                    subtask.SubTaskDescription = rtxtSubTaskDescription.Text;
+                    subtask.IsActive = chkActive.Checked;
+                    subtask.SubTaskId = _subTaskId;
+
+                    switch (mode)
+                    {
+                        case "S":
+                            if (taskManagement.AddUpdateSubtask(subtask) <= 0)
+                            {
+                                throw new Exception("SubTask: '" + txtSubTaskName.Text + "' already exists in Database!");
+                            }
+                            break;
+                        case "M":
+                            if (taskManagement.AddUpdateSubtask(subtask, true) <= 0)
+                            {
+                                throw new Exception("SubTask: '" + txtSubTaskName.Text + "' doesnt exist in Database!!");
+                            }
+                            break;
+                        default:
+                            throw new Exception("TMSError - Invalid Operation!! ");
+                    }
+                    LoadSubTaskDataGrid(true, true);
+                    FormControlHandling.ClearControls(grpBoxInputControls);
                     EnableDisableButtons(2);
                     RightBottomMessageBox.Success("Data Saved Successfully!");
                 }
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void EnableDisableButtons(int flag)
-        {
-            if (flag == 0) //
-            {
-                btnSave.Enabled = false;
-                btnModify.Enabled = false;
-                btnCancel.Enabled = false;
-
-            }
-            if (flag == 1) //Add Data
-            {
-                txtSubTaskName.Enabled = true;
-                txtSubTaskName.Enabled = true;
-                txtSubTaskName.Select();
-                btnSave.Enabled = true;
-                btnCancel.Enabled = true;
-                rtxtRemark.Enabled = true;
-                btnAdd.Enabled = false;
-                cmbActivity.Enabled = true;
-                cmbTask.Enabled = true;
-            }
-            if (flag == 2)//modify and Cancel
-            {
-                txtSubTaskName.Enabled = false;
-                rtxtRemark.Enabled = false;
-                btnSave.Enabled = false;
-                btnCancel.Enabled = false;
-                btnModify.Enabled = false;
-                btnAdd.Enabled = true;
-                cmbActivity.Enabled = false;
-                cmbTask.Enabled = false;
-            }
-            if (flag == 3)
-            {
-                txtSubTaskName.Enabled = true;
-                rtxtRemark.Enabled = true;
-                btnAdd.Enabled = false;
-                btnSave.Enabled = false;
-                btnCancel.Enabled = true;
-                btnModify.Enabled = true;
-                cmbActivity.Enabled = true;
-                cmbTask.Enabled = true;
+                throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
 
-        public void GetAllData()
-        {
-            Dview.DataSource = null;
-            Dview.DataSource = taskManagement.GetSubTasks();
-            Dview.Columns[0].Width = 50;
-            Dview.Columns[1].Width = 200;
-            Dview.Columns[2].Width = 300;
-            Dview.Columns[3].Width = 300;
-            Dview.Columns[4].Width = 400;
-            Dview.Columns[5].Visible = false;
-            Dview.Columns[6].Visible = false;
-            Dview.Columns[7].Visible = false;
-            Dview.Columns[8].Visible = false;
-            Dview.ReadOnly = true;
-
-        }
-
-        private void dview_CellClick(object sender, DataGridViewCellEventArgs e)
+        //Function to load the datagridview with the records and setup other options for datagridview
+        private void LoadSubTaskDataGrid(Boolean isActive, Boolean refresh = false, int activityId = -1, int taskId = -1)
         {
             try
             {
-                int index = Dview.CurrentRow.Index;
-                if (index <= Dview.RowCount - 1)
+                if (refresh)
                 {
-                    s_activityId = Convert.ToInt32(Dview.Rows[index].Cells[7].Value);
-                    s_taskId = Convert.ToInt32(Dview.Rows[index].Cells[6].Value);
-                    s_subTaskName = Convert.ToString(Dview.Rows[index].Cells[3].Value);
-                    s_subTaskDescription = Convert.ToString(Dview.Rows[index].Cells[4].Value);
-                    s_isActive = Convert.ToBoolean(Dview.Rows[index].Cells[5].Value);
-                    s_subTaskId = Convert.ToInt32(Dview.Rows[index].Cells[8].Value);
-
-                    cmbActivity.SelectedValue = Convert.ToString(s_activityId);
-                    cmbTask.SelectedValue = Convert.ToString(s_taskId);
-                    txtSubTaskName.Text = Convert.ToString(s_subTaskName);
-                    rtxtRemark.Text = Convert.ToString(s_subTaskDescription);
-                    chkActive.Checked = Convert.ToBoolean(s_isActive);
-                    EnableDisableButtons(3);
+                    if (activityId != -1)
+                    {
+                        dView.DataSource = null;
+                        if (taskId != -1)
+                        {
+                            dView.DataSource = taskManagement.GetSubTasks(false, -1, taskId, activityId);
+                        }
+                        else
+                        {
+                            dView.DataSource = taskManagement.GetSubTasks(false, -1, -1, activityId);
+                        }
+                    }
+                    else
+                    {
+                        dView.DataSource = taskManagement.GetSubTasks(isActive);
+                    }
+                    dView.Columns[0].Width = 50;
+                    dView.Columns[1].Width = 200;
+                    dView.Columns[2].Width = 300;
+                    dView.Columns[3].Width = 300;
+                    dView.Columns[4].Width = 400;
+                    dView.Columns[5].Visible = false;
+                    dView.Columns[6].Visible = false;
+                    dView.Columns[7].Visible = false;
+                    dView.Columns[8].Visible = false;
+                    dView.ReadOnly = true;
                 }
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
             }
-        }
-
-        private void btncancel_Click(object sender, EventArgs e)
-        {
-            FormControlHandling.ClearControls(gbxTaskManagement);
-            EnableDisableButtons(2);
-            GetAllData();
-        }
-
-        private void btnmodify_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int val = Validation();
-                if (val == 1) return;
-                subtask.SubTaskName = txtSubTaskName.Text;
-                subtask.SubTaskDescription = rtxtRemark.Text;
-                subtask.ActivityId = Convert.ToInt32(cmbActivity.SelectedValue);
-                subtask.TaskId = Convert.ToInt32(cmbTask.SelectedValue); ;
-                subtask.IsActive = chkActive.Checked;
-                subtask.SubTaskId = s_subTaskId;
-                int returnvalue = taskManagement.AddUpdateSubtask(subtask, true);
-                if (returnvalue <= 0)
-                {
-                    PopupMessageBox.Show("Subtask: '" + txtSubTaskName.Text + "' doesnt exist in Database!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    FormControlHandling.ClearControls(gbxTaskManagement);
-                    GetAllData();
-                    EnableDisableButtons(2);
-                    RightBottomMessageBox.Info("Data modify Successfully!");
-                }
-            }
-            catch (Exception ex)
-            {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnadd_Click(object sender, EventArgs e)
-        {
-            EnableDisableButtons(1);
-        }
-
-        private void cmbtask_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (cmbActivity.SelectedIndex > 0 && cmbTask.SelectedIndex > 0)
-                {
-                    Dview.DataSource = null;
-                    Dview.DataSource = taskManagement.GetSubTasks(false,-1,Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbActivity.SelectedValue));
-                    Dview.Columns[0].Width = 50;
-                    Dview.Columns[1].Width = 200;
-                    Dview.Columns[2].Width = 300;
-                    Dview.Columns[3].Width = 300;
-                    Dview.Columns[4].Width = 400;
-                    Dview.Columns[5].Visible = false;
-                    Dview.Columns[6].Visible = false;
-                    Dview.Columns[7].Visible = false;
-                    Dview.Columns[8].Visible = false;
-                    Dview.ReadOnly = true;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public int Validation()
-        {
-            if (cmbActivity.SelectedIndex == 0)
-            {
-                PopupMessageBox.Show("Please Select Activity Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return 1;
-            }
-            if (cmbTask.SelectedIndex == 0)
-            {
-                PopupMessageBox.Show("Please Select Task Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return 1;
-            }
-            if (txtSubTaskName.Text == "")
-            {
-                PopupMessageBox.Show("Please Enter SubTask Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtSubTaskName.Select();
-                return 1; 
-            }
-            if (rtxtRemark.Text == "")
-            {
-                PopupMessageBox.Show("Please enter SubTask Description!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                rtxtRemark.Select();
-                return 1;
-            }
-            return 0;
         }
     }
 }

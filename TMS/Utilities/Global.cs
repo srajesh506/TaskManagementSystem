@@ -2,16 +2,13 @@
 {
    static class Global
     {
-        //public static string ConnectedServerName=null;
-        //public static string connecteddatabasename=null;
-        //public static string dbname;
 
-        private static string _globalVar = "";
+        private static string s_globalVar = "";
 
         public static string GlobalVar
         {
-            get { return _globalVar; }
-            set { _globalVar = value; }
+            get { return s_globalVar; }
+            set { s_globalVar = value; }
         }
 
     }

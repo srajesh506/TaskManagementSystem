@@ -36,20 +36,20 @@
             this.btnModify = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.grpBoxAssignTask = new System.Windows.Forms.GroupBox();
+            this.grpBoxInputControls = new System.Windows.Forms.GroupBox();
             this.cmbSubTask = new System.Windows.Forms.ComboBox();
             this.cmbTask = new System.Windows.Forms.ComboBox();
             this.lblTask = new System.Windows.Forms.Label();
             this.cmbActivity = new System.Windows.Forms.ComboBox();
             this.lblActivity = new System.Windows.Forms.Label();
-            this.rtxtRemark = new System.Windows.Forms.RichTextBox();
-            this.lblSubTaskName = new System.Windows.Forms.Label();
-            this.lblSubTaskRemark = new System.Windows.Forms.Label();
+            this.rtxtWorkItemDescription = new System.Windows.Forms.RichTextBox();
+            this.lblSubTask = new System.Windows.Forms.Label();
+            this.lblWorkItemDescription = new System.Windows.Forms.Label();
             this.pnlOuter.SuspendLayout();
             this.grpBoxWorkItemGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.grpBoxButtons.SuspendLayout();
-            this.grpBoxAssignTask.SuspendLayout();
+            this.grpBoxInputControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlOuter
@@ -57,7 +57,7 @@
             this.pnlOuter.BackColor = System.Drawing.Color.White;
             this.pnlOuter.Controls.Add(this.grpBoxWorkItemGridView);
             this.pnlOuter.Controls.Add(this.grpBoxButtons);
-            this.pnlOuter.Controls.Add(this.grpBoxAssignTask);
+            this.pnlOuter.Controls.Add(this.grpBoxInputControls);
             this.pnlOuter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOuter.Location = new System.Drawing.Point(0, 0);
             this.pnlOuter.Name = "pnlOuter";
@@ -84,7 +84,7 @@
             this.dgView.Name = "dgView";
             this.dgView.Size = new System.Drawing.Size(1054, 248);
             this.dgView.TabIndex = 0;
-            this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dview_CellClick);
+            this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellClick);
             // 
             // grpBoxButtons
             // 
@@ -107,7 +107,7 @@
             this.btnSave.TabIndex = 10;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnsave_Click);
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnModify
             // 
@@ -117,7 +117,7 @@
             this.btnModify.TabIndex = 15;
             this.btnModify.Text = "&Modify";
             this.btnModify.UseVisualStyleBackColor = true;
-            this.btnModify.Click += new System.EventHandler(this.btnmodify_Click);
+            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             // 
             // btnCancel
             // 
@@ -127,7 +127,7 @@
             this.btnCancel.TabIndex = 16;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btncancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnAdd
             // 
@@ -137,25 +137,25 @@
             this.btnAdd.TabIndex = 12;
             this.btnAdd.Text = "&Add";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnadd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // grpBoxAssignTask
+            // grpBoxInputControls
             // 
-            this.grpBoxAssignTask.Controls.Add(this.cmbSubTask);
-            this.grpBoxAssignTask.Controls.Add(this.cmbTask);
-            this.grpBoxAssignTask.Controls.Add(this.lblTask);
-            this.grpBoxAssignTask.Controls.Add(this.cmbActivity);
-            this.grpBoxAssignTask.Controls.Add(this.lblActivity);
-            this.grpBoxAssignTask.Controls.Add(this.rtxtRemark);
-            this.grpBoxAssignTask.Controls.Add(this.lblSubTaskName);
-            this.grpBoxAssignTask.Controls.Add(this.lblSubTaskRemark);
-            this.grpBoxAssignTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.grpBoxAssignTask.Location = new System.Drawing.Point(12, 2);
-            this.grpBoxAssignTask.Name = "grpBoxAssignTask";
-            this.grpBoxAssignTask.Size = new System.Drawing.Size(1076, 228);
-            this.grpBoxAssignTask.TabIndex = 12;
-            this.grpBoxAssignTask.TabStop = false;
-            this.grpBoxAssignTask.Text = "Create WorkItem";
+            this.grpBoxInputControls.Controls.Add(this.cmbSubTask);
+            this.grpBoxInputControls.Controls.Add(this.cmbTask);
+            this.grpBoxInputControls.Controls.Add(this.lblTask);
+            this.grpBoxInputControls.Controls.Add(this.cmbActivity);
+            this.grpBoxInputControls.Controls.Add(this.lblActivity);
+            this.grpBoxInputControls.Controls.Add(this.rtxtWorkItemDescription);
+            this.grpBoxInputControls.Controls.Add(this.lblSubTask);
+            this.grpBoxInputControls.Controls.Add(this.lblWorkItemDescription);
+            this.grpBoxInputControls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.grpBoxInputControls.Location = new System.Drawing.Point(12, 2);
+            this.grpBoxInputControls.Name = "grpBoxInputControls";
+            this.grpBoxInputControls.Size = new System.Drawing.Size(1076, 228);
+            this.grpBoxInputControls.TabIndex = 12;
+            this.grpBoxInputControls.TabStop = false;
+            this.grpBoxInputControls.Text = "Create WorkItem";
             // 
             // cmbSubTask
             // 
@@ -213,34 +213,34 @@
             this.lblActivity.TabIndex = 8;
             this.lblActivity.Text = "Select Activity";
             // 
-            // rtxtRemark
+            // rtxtWorkItemDescription
             // 
-            this.rtxtRemark.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.rtxtRemark.Location = new System.Drawing.Point(478, 130);
-            this.rtxtRemark.Name = "rtxtRemark";
-            this.rtxtRemark.Size = new System.Drawing.Size(296, 62);
-            this.rtxtRemark.TabIndex = 6;
-            this.rtxtRemark.Text = "";
+            this.rtxtWorkItemDescription.Font = new System.Drawing.Font("Century Gothic", 12F);
+            this.rtxtWorkItemDescription.Location = new System.Drawing.Point(478, 130);
+            this.rtxtWorkItemDescription.Name = "rtxtWorkItemDescription";
+            this.rtxtWorkItemDescription.Size = new System.Drawing.Size(296, 62);
+            this.rtxtWorkItemDescription.TabIndex = 6;
+            this.rtxtWorkItemDescription.Text = "";
             // 
-            // lblSubTaskName
+            // lblSubTask
             // 
-            this.lblSubTaskName.AutoSize = true;
-            this.lblSubTaskName.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubTaskName.Location = new System.Drawing.Point(315, 95);
-            this.lblSubTaskName.Name = "lblSubTaskName";
-            this.lblSubTaskName.Size = new System.Drawing.Size(121, 19);
-            this.lblSubTaskName.TabIndex = 1;
-            this.lblSubTaskName.Text = "Select SubTask";
+            this.lblSubTask.AutoSize = true;
+            this.lblSubTask.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubTask.Location = new System.Drawing.Point(315, 95);
+            this.lblSubTask.Name = "lblSubTask";
+            this.lblSubTask.Size = new System.Drawing.Size(121, 19);
+            this.lblSubTask.TabIndex = 1;
+            this.lblSubTask.Text = "Select SubTask";
             // 
-            // lblSubTaskRemark
+            // lblWorkItemDescription
             // 
-            this.lblSubTaskRemark.AutoSize = true;
-            this.lblSubTaskRemark.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.lblSubTaskRemark.Location = new System.Drawing.Point(315, 130);
-            this.lblSubTaskRemark.Name = "lblSubTaskRemark";
-            this.lblSubTaskRemark.Size = new System.Drawing.Size(94, 19);
-            this.lblSubTaskRemark.TabIndex = 5;
-            this.lblSubTaskRemark.Text = "Description";
+            this.lblWorkItemDescription.AutoSize = true;
+            this.lblWorkItemDescription.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.lblWorkItemDescription.Location = new System.Drawing.Point(315, 130);
+            this.lblWorkItemDescription.Name = "lblWorkItemDescription";
+            this.lblWorkItemDescription.Size = new System.Drawing.Size(94, 19);
+            this.lblWorkItemDescription.TabIndex = 5;
+            this.lblWorkItemDescription.Text = "Description";
             // 
             // CreateWorkItem
             // 
@@ -255,8 +255,8 @@
             this.grpBoxWorkItemGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).EndInit();
             this.grpBoxButtons.ResumeLayout(false);
-            this.grpBoxAssignTask.ResumeLayout(false);
-            this.grpBoxAssignTask.PerformLayout();
+            this.grpBoxInputControls.ResumeLayout(false);
+            this.grpBoxInputControls.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -271,14 +271,14 @@
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.GroupBox grpBoxAssignTask;
+        private System.Windows.Forms.GroupBox grpBoxInputControls;
         private System.Windows.Forms.ComboBox cmbTask;
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.ComboBox cmbActivity;
         private System.Windows.Forms.Label lblActivity;
-        private System.Windows.Forms.RichTextBox rtxtRemark;
-        private System.Windows.Forms.Label lblSubTaskName;
-        private System.Windows.Forms.Label lblSubTaskRemark;
+        private System.Windows.Forms.RichTextBox rtxtWorkItemDescription;
+        private System.Windows.Forms.Label lblSubTask;
+        private System.Windows.Forms.Label lblWorkItemDescription;
         private System.Windows.Forms.ComboBox cmbSubTask;
     }
 }

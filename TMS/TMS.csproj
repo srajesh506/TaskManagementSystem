@@ -13,13 +13,28 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>.\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -129,17 +144,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageBox\FormMessageBox.cs">
+    <Compile Include="Utilities\FormMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MessageBox\FormMessageBox.Designer.cs">
+    <Compile Include="Utilities\FormMessageBox.Designer.cs">
       <DependentUpon>FormMessageBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="TaskReporting\CRTimeBasedReport.cs">
+    <Compile Include="TaskReporting\CrystalReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CRTimeBasedReport.rpt</DependentUpon>
+      <DependentUpon>CrystalReport.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="TaskReporting\ReportViewer.cs">
       <SubType>Form</SubType>
@@ -152,9 +168,6 @@
     </Compile>
     <Compile Include="TaskReporting\TimeBasedReport.Designer.cs">
       <DependentUpon>TimeBasedReport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\CustomComboBox.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Utilities\RightBottomMessageBox.cs" />
     <Compile Include="Utilities\FormControlHandling.cs" />
@@ -220,13 +233,13 @@
     <Compile Include="TeamManagement\TeamRegister.Designer.cs">
       <DependentUpon>TeamRegister.cs</DependentUpon>
     </Compile>
-    <Compile Include="wait\waiting.cs">
+    <Compile Include="Wait\WaitForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="wait\waiting.Designer.cs">
-      <DependentUpon>waiting.cs</DependentUpon>
+    <Compile Include="Wait\WaitForm.Designer.cs">
+      <DependentUpon>WaitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="wait\waitformfunc.cs" />
+    <Compile Include="Wait\Waiting.cs" />
     <Compile Include="Settings\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,12 +273,13 @@
     <Compile Include="TaskReporting\StatusBasedReport.Designer.cs">
       <DependentUpon>StatusBasedReport.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MessageBox\FormMessageBox.resx">
+    <EmbeddedResource Include="Utilities\FormMessageBox.resx">
       <DependentUpon>FormMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TaskReporting\CRTimeBasedReport.rpt">
+    <EmbeddedResource Include="TaskReporting\CrystalReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTimeBasedReport.cs</LastGenOutput>
+      <LastGenOutput>CrystalReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="TaskReporting\ReportViewer.resx">
       <DependentUpon>ReportViewer.cs</DependentUpon>
@@ -301,8 +315,8 @@
       <DependentUpon>TeamRegister.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="wait\waiting.resx">
-      <DependentUpon>waiting.cs</DependentUpon>
+    <EmbeddedResource Include="Wait\WaitForm.resx">
+      <DependentUpon>WaitForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -357,6 +371,42 @@
     <None Include="Resources\chat.png" />
     <None Include="Resources\dp.JPG" />
     <None Include="Resources\hoverIcon.JPG" />
+    <Content Include="Images\184877.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\506.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\noimage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\noimageMDI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\test.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\test1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Test123.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\test124.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\test125.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\test2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\testing.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Testinga.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TMS.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -374,6 +424,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ReferenceDLLs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

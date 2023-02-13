@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TMS.TaskReporting {
+namespace TMS.UI {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace TMS.TaskReporting {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CRTimeBasedReport : ReportClass {
+    public class CrystalReport : ReportClass {
         
-        public CRTimeBasedReport() {
+        public CrystalReport() {
         }
         
         public override string ResourceName {
             get {
-                return "CRTimeBasedReport.rpt";
+                return "CrystalReport.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace TMS.TaskReporting {
         
         public override string FullResourceName {
             get {
-                return "TMS.TaskReporting.CRTimeBasedReport.rpt";
+                return "TMS.TaskReporting.CrystalReport.rpt";
             }
             set {
                 // Do nothing
@@ -129,7 +129,7 @@ namespace TMS.TaskReporting {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CRTimeBasedReport rpt = new CRTimeBasedReport();
+            CrystalReport rpt = new CrystalReport();
             rpt.Site = this.Site;
             return rpt;
         }

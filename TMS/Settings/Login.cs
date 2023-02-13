@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
-using TMS.MDI;
-using TMS.UI.wait;
 using System.Threading;
-using TMS.BusinessLogicLayer;
+using System.Windows.Forms;
+
+using TMS.MDI;
+using TMS.UI.Wait;
 using TMS.UI.Utilities;
+using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
 
 namespace TMS.UI
@@ -14,21 +15,24 @@ namespace TMS.UI
     {
         Settings settings = new Settings();
         Operations operations = new Operations();
-        waitformfunc waitform = new waitformfunc();
+        WaitForm waitForm = new WaitForm();
 
         public Login()
         {
             InitializeComponent();
             txtUserName.Select();
         }
+       
         private void Login_Load(object sender, EventArgs e)
         {
             Focustxtusername();
         }
+       
         private void txtUserName_Click(object sender, EventArgs e)
         {
             Focustxtusername();
         }
+      
         private void txtUserName_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -42,40 +46,47 @@ namespace TMS.UI
                 e.Handled = true;
             }
         }
+       
         private void txtUserName_Leave(object sender, EventArgs e)
         {
             Focustxtpwd();
         }
+       
         private void txtPwd_Click(object sender, EventArgs e)
         {
             Focustxtpwd();
         }
+      
         private void pbPwdIcon_MouseDown(object sender, MouseEventArgs e)
         {
             txtPwd.UseSystemPasswordChar = false;
         }
+        
         private void pbPwdIcon_MouseUp(object sender, MouseEventArgs e)
         {
             txtPwd.UseSystemPasswordChar = true;
         }
+       
         private void btnClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+       
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
             {
-                waitform.Show(this);
+                waitForm.Show(this);
                 Thread.Sleep(50);
                 DoLogin();
-                waitform.Close();
+                waitForm.Close();
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Login Failed!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+      
         public void DoLogin()
         {
             if (txtUserName.Text == "")
@@ -102,6 +113,7 @@ namespace TMS.UI
                 PopupMessageBox.Show("Invalid Employee ID or Password!!", "TMS", MessageBoxButtons.OK,MessageBoxIcon.Stop);
             }
         }
+    
         public void Focustxtusername()
         {
             txtUserName.BackColor = Color.White;
@@ -109,6 +121,7 @@ namespace TMS.UI
             pnlPwd.BackColor = SystemColors.Control;
             txtPwd.BackColor = SystemColors.Control;
         }
+       
         public void Focustxtpwd()
         {
             txtPwd.BackColor = Color.White;

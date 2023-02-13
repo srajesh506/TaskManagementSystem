@@ -121,7 +121,7 @@
   <data name="lblLogOut.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAAAYVJREFUOE+1lE0ug1EUhmsFLW0NjA3asg4mGlpG2IRaAxESRk0pdlCJEMsgoUz9
+        DAAACwwBP0AiyAAAAYVJREFUOE+1lE0ug1EUhmsFLW0NjA3asg4mGlpG2IRaAxESRk0pdlCJEMsgoUz9
         7MEAk3qez9Fq+iVGfZMnOfe8597v/pw2M3b1er1JWIMGbMEq5ML+XxRPQxu+4B46wUPkjqEY5emiYA7e
         4BJKkcvDVMRluIJXqJgbEYY7cZEdmAAnzcAB7EdsTm8XXqAQ0wci6XHciYUb8A4rcBQYm1sHa66hFdN/
         RMKL9fwlmAcnLISXLBTxYniV4BOyeokY+DoPEZ9C/0vE/YUU8YlE/Aj1xFAMtqET8R3UEgMRH0oMHdfh
@@ -131,14 +131,14 @@
         QmCC
 </value>
   </data>
-  <data name="Menubutton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pbMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAADpJREFUSEvt
         0aENADAQw8Dff+mWWMoCBq82BwNMMvWRIyMb7BqytQnfaMgGu4ZsbcI3GrLBriFb75u5gfreMDJI+woA
         AAAASUVORK5CYII=
 </value>
   </data>
-  <data name="btnGroupTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnTaskManagement.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAWdJREFUOE+d
         kk9LAlEUxd+n6Q9F7Vr3BaLowwiCgpCpLdIZqE0mOS7KHDc5M1ZUIIFKSCXOIkfIwMXYpn+72jjNeb6B
@@ -202,7 +202,7 @@
         s/c8RJSaDX9B0sFN1jHX5OnnvGewMdh5bRvk71GpfAD+garp/hQzWwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="btnAssignTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnCreateWorkItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAWdJREFUOE+d
         kk9LAlEUxd+n6Q9F7Vr3BaLowwiCgpCpLdIZqE0mOS7KHDc5M1ZUIIFKSCXOIkfIwMXYpn+72jjNeb6B
@@ -264,7 +264,7 @@
         s/c8RJSaDX9B0sFN1jHX5OnnvGewMdh5bRvk71GpfAD+garp/hQzWwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="btnUpdatePwd.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnChangePassword.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAWdJREFUOE+d
         kk9LAlEUxd+n6Q9F7Vr3BaLowwiCgpCpLdIZqE0mOS7KHDc5M1ZUIIFKSCXOIkfIwMXYpn+72jjNeb6B
@@ -290,37 +290,6 @@
         s/c8RJSaDX9B0sFN1jHX5OnnvGewMdh5bRvk71GpfAD+garp/hQzWwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="btnTaskSheet.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAABGdBTUEAALGPC/xhBQAAAgdJREFUSEvN
-        VLtOAzEQTAM99HR0CAnuLgU9NfwAjwZBwbukAEqSH0CyL6KgpAFaHhKPXwBqfgDZRkKigTBztxY+kguB
-        SIiRrLVnZ/d89q4r/wIjR83+RLtZWqF6Q6LMZqzcWjZPzXSsbZOW61ibdQ7Of4VYuxMkfIO9gX1m8ty6
-        W9h3+kXaHRLlVhBYi5WZh7WSsGxY6iJt64yTFOWg8EsC7NCeRdocck0Lzbnwoa4mKcohO5YAd1fVZox8
-        VdtJcrRcJw0zTr/X4i7myLcFL45nCKE/isfRfTsg7pbkBP3UiR5xiJcCKACOVQgKvxppdxo13HCsmn3w
-        7+Q8LNbk6Q/1GG+lZ49AVgWS2qsodbuYv2C8ouTuJVhGtgZvX6ijnnyS2mtJ9YmsQfI69uW2Rb568DSE
-        +WXOubsotYvBhy7pp4564Z4TbaYKjcbOE2c+lF0QVyVO7R45JuY6UXYp04DPBAD1YTz+ZkZcvrXNFBwd
-        dm7uJfGDaLrbuUevZ474W0lVBBydq0W57YynLa8WPgmrkvIT7ep8ouEGxd22zumnTvTlde5R7FD8vrIR
-        +a/JyYfH1bFDPXB+LW8L6vcifFu4Jh9oeE91SVEO/ypyJ7Dfvoqiq+FilyVFd0DQMQbfc77f4XvOqiL/
-        s/c8RJSaDX9B0sFN1jHX5OnnvGewMdh5bRvk71GpfAD+garp/hQzWwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnTaskCalender.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAABGdBTUEAALGPC/xhBQAAAgdJREFUSEvN
-        VLtOAzEQTAM99HR0CAnuLgU9NfwAjwZBwbukAEqSH0CyL6KgpAFaHhKPXwBqfgDZRkKigTBztxY+kguB
-        SIiRrLVnZ/d89q4r/wIjR83+RLtZWqF6Q6LMZqzcWjZPzXSsbZOW61ibdQ7Of4VYuxMkfIO9gX1m8ty6
-        W9h3+kXaHRLlVhBYi5WZh7WSsGxY6iJt64yTFOWg8EsC7NCeRdocck0Lzbnwoa4mKcohO5YAd1fVZox8
-        VdtJcrRcJw0zTr/X4i7myLcFL45nCKE/isfRfTsg7pbkBP3UiR5xiJcCKACOVQgKvxppdxo13HCsmn3w
-        7+Q8LNbk6Q/1GG+lZ49AVgWS2qsodbuYv2C8ouTuJVhGtgZvX6ijnnyS2mtJ9YmsQfI69uW2Rb568DSE
-        +WXOubsotYvBhy7pp4564Z4TbaYKjcbOE2c+lF0QVyVO7R45JuY6UXYp04DPBAD1YTz+ZkZcvrXNFBwd
-        dm7uJfGDaLrbuUevZ474W0lVBBydq0W57YynLa8WPgmrkvIT7ep8ouEGxd22zumnTvTlde5R7FD8vrIR
-        +a/JyYfH1bFDPXB+LW8L6vcifFu4Jh9oeE91SVEO/ypyJ7Dfvoqiq+FilyVFd0DQMQbfc77f4XvOqiL/
-        s/c8RJSaDX9B0sFN1jHX5OnnvGewMdh5bRvk71GpfAD+garp/hQzWwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="Sidebartimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="btnMinimize.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAChJREFUOE9j
@@ -334,17 +303,8 @@
         AACsVXZ0HEm23gAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="HomeTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>138, 17</value>
-  </metadata>
-  <metadata name="ReportTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>254, 17</value>
-  </metadata>
-  <metadata name="SettingTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>373, 17</value>
-  </metadata>
-  <metadata name="WorkItemtimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>494, 17</value>
+  <metadata name="timerExpandCollapse.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>23, 18</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>83</value>

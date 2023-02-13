@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TMS.TaskReporting
+namespace TMS.UI
 {
     public partial class ReportViewer : Form
     {

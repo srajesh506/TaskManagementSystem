@@ -1,24 +1,24 @@
 ﻿using System;
-using System.Drawing;
 using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
-using TMS.UI;
+
 using TMS.UI.Utilities;
 
 namespace TMS.UI
 {
-    public partial class TaskManagement : Form
+    public partial class TaskManagementForm : Form
     {
-        public TaskManagement()
+        public TaskManagementForm()
         {
             InitializeComponent();
-            addControl(new DefineActivity());
+            AddControl(new DefineActivity());
             pnlManageActivity.BackColor = Color.Black;
         }
+       
         private void LoadTheme()
         {
-
-            foreach (Control btns in this.Controls) 
+            foreach (Control btns in this.Controls)
             {
                 if (btns.GetType() == typeof(Button))
                 {
@@ -28,37 +28,36 @@ namespace TMS.UI
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
-            //grpboxmember.ForeColor = ThemeColor.PrimaryColor;
-           
         }
-        private void addControl(Control usercontrol)
+
+        private void AddControl(Control userControl)
         {
-            
-            usercontrol.Dock = DockStyle.Fill;
-            panelMain.Controls.Clear();
-            panelMain.Controls.Add(usercontrol);
-            usercontrol.BringToFront();
+            userControl.Dock = DockStyle.Fill;
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(userControl);
+            userControl.BringToFront();
         }
-        private void btn_click(object sender, EventArgs e)
+
+        private void btnAll_Click(object sender, EventArgs e)
         {
-            foreach (var pnl in tableLayoutPanelMain.Controls.OfType<Panel>())
+            foreach (var pnl in tblLayoutPanelMain.Controls.OfType<Panel>())
             {
                 pnl.BackColor = Color.Silver;
             }
             Button btn = (Button)sender;
-            switch(btn.Name)
+            switch (btn.Name)
             {
-                case "btnmanageactivity":
-                    addControl(new DefineActivity());
+                case "btnManageActivity":
+                    AddControl(new DefineActivity());
                     pnlManageActivity.BackColor = Color.Black;
                     break;
-                case "btnManagetask":
-                    addControl(new DefineTask());
+                case "btnManageTask":
+                    AddControl(new DefineTask());
                     pnlManageTask.BackColor = Color.Black;
                     break;
-                case "btnmanagesubtask":
-                    addControl(new DefineSubTask());
-                    pnlManageSubtask.BackColor = Color.Black;
+                case "btnManageSubTask":
+                    AddControl(new DefineSubTask());
+                    pnlManageSubTask.BackColor = Color.Black;
                     break;
                 default:
                     break;

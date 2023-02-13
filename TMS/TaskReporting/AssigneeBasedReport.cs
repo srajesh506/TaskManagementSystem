@@ -1,143 +1,198 @@
 ﻿using System;
+using System.IO;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
+
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+
 using TMS.UI.Utilities;
 using TMS.BusinessLogicLayer;
-using TMS.TaskReporting;
-using CrystalDecisions.CrystalReports.Engine;
 using TMS.UI.CustomMessageBox;
+
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace TMS.UI
 {
     public partial class AssigneeBasedReport : Form
     {
-         private int _currentPage = 1;
+        private int _currentPage = 1;
         private int _noOfPages;
 
-        TMS.BusinessLogicLayer.TaskReporting taskReporting = new TMS.BusinessLogicLayer.TaskReporting();
+        TaskReporting taskReporting = new TaskReporting();
         WorkItemManagement workItemManagement = new WorkItemManagement();
         TeamManagement teamManagement = new TeamManagement();
+
         public AssigneeBasedReport()
         {
-            InitializeComponent();
-           
-        }
-        private void LoadTheme()
-        {
-
-            foreach (Control btns in this.Controls)
+            try
             {
-                if (btns.GetType() == typeof(Button))
-                {
-                    Button btn = (Button)btns;
-                    btn.BackColor = ThemeColor.PrimaryColor;
-                    btn.ForeColor = Color.White;
-                    btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
-                    btnPrint.ForeColor = ThemeColor.PrimaryColor;
-                }
+                InitializeComponent();
+                LoadTheme();
             }
-
-            lblAssignee.ForeColor = ThemeColor.PrimaryColor;
-            lblStartDate.ForeColor = ThemeColor.PrimaryColor;
-            lblEndDate.ForeColor = ThemeColor.PrimaryColor;
-            Dview.ForeColor = ThemeColor.PrimaryColor;
-            groupBoxforeTaskBasedReport.ForeColor = ThemeColor.PrimaryColor;
-            chkDateandAssignee.ForeColor = ThemeColor.PrimaryColor;
-            btnPrint.Enabled = false;
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to Load the Assignee Based Report Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        //Form Load event - Loads the default griddata along with values in the dropdown for Assignee
         private void AssigneeBasedReport_Load(object sender, EventArgs e)
         {
             try
             {
-                LoadTheme();
-                cmbAssignee.SelectedText = "--Select Assignee--";
-                GetAllData("0");
-                dateFrom.Enabled = false;
-                dateTo.Enabled = false;
+                dtpDateFrom.Enabled = false;
+                dtpDateTo.Enabled = false;
+                LoadAssigneeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, false);
 
-                DataTable dt = new DataTable();
-                dt = teamManagement.GetEmployees(null, true); //dt = workItemManagement.GetUserIdandNames();
-                //ds = obj.GetDataFromTable("Select empid,EmpName from UserMaster where isactive=1");
-                DataRow dr_Assignee;
-                dr_Assignee = dt.NewRow();
-                dr_Assignee.ItemArray = new object[] { 0, "--Select Assignee--" };
-                dt.Rows.InsertAt(dr_Assignee, 0);
+                DataTable dtAssignee = new DataTable();
+                dtAssignee = teamManagement.GetEmployees(null, true);
+                DataRow drAssignee;
+                drAssignee = dtAssignee.NewRow();
+                drAssignee.ItemArray = new object[] { 0, "--Select Assignee--" };
+                dtAssignee.Rows.InsertAt(drAssignee, 0);
                 cmbAssignee.ValueMember = "UserId";
                 cmbAssignee.DisplayMember = "EmpName";
-                cmbAssignee.DataSource = dt;
+                cmbAssignee.DataSource = dtAssignee;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                PopupMessageBox.Show("TMSError - Failed to Load the Assignee Based Report Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void GetAllData(string statusid) //Statusid 
+        //Assignee combobox value change event to load the gridview data based on selection of assignee
+        private void cmbAssignee_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbAssignee.SelectedIndex > 0)
+            try
             {
-                Dview.DataSource = null;
-                Dview.DataSource = taskReporting.GetAssigneeBasedReport(dateFrom.Value, dateTo.Value, chkDateandAssignee.Checked, cmbAssignee.SelectedValue.ToString());
+                if (cmbAssignee.SelectedIndex > 0)
+                    LoadAssigneeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, cmbAssignee.SelectedValue.ToString());
             }
-            else
+            catch (Exception ex)
             {
-                Dview.DataSource = null;
-                Dview.DataSource = taskReporting.GetAssigneeBasedReport(dateFrom.Value, dateTo.Value, chkDateandAssignee.Checked, null);
+                throw new Exception("TMSError - Failed to load the data in GridView based on Assignee selection!! \n" + ex.Message + "\n", ex.InnerException);
             }
-            Dview.Columns[0].Width = 400;
-            Dview.Columns[1].Width = 100;
-            Dview.Columns[2].Width = 100;
-            Dview.Columns[3].Width = 100;
-            Dview.Columns[4].Width = 120;
-            Dview.Columns[5].Width = 150;
-            Dview.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            Dview.ReadOnly = true;
-
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        //Checkbox Date and Assignee check/uncheck Event to enable/disable datefrom and dateto fields
+        private void chkDateAndAssignee_CheckedChanged(object sender, EventArgs e)
         {
-            // creating Excel Application  
-            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            // creating new WorkBook within Excel application  
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-            // creating new Excelsheet in workbook  
-            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-            // see the excel sheet behind the program  
-            app.Visible = true;
-            // get the reference of first sheet. By default its name is Sheet1.  
-            // store its reference to worksheet  
-            worksheet = workbook.Sheets["Sheet1"];
-            worksheet = workbook.ActiveSheet;
-            // changing the name of active sheet  
-            worksheet.Name = "Status Based Report";
-            // storing header part in Excel  
-            for (int i = 1; i < Dview.Columns.Count + 1; i++)
+            try
             {
-                worksheet.Cells[1, i] = Dview.Columns[i - 1].HeaderText;
-
-            }
-            // storing Each row and column value to excel sheet  
-            for (int i = 0; i < Dview.Rows.Count - 1; i++)
-            {
-                for (int j = 0; j < Dview.Columns.Count; j++)
+                if (chkDateAndAssignee.Checked == true)
                 {
-                    worksheet.Cells[i + 2, j + 1] = Dview.Rows[i].Cells[j].Value.ToString();
+                    dtpDateFrom.Enabled = true;
+                    dtpDateTo.Enabled = true;
+                }
+                else
+                {
+                    dtpDateFrom.Enabled = false;
+                    dtpDateTo.Enabled = false;
                 }
             }
-            // save the application  
-            //Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-            //excel.DisplayAlerts = false;
-            //workbook.SaveAs(Application.StartupPath + "\\Report\\" + "StatusBasedReport_" + DateTime.Now.ToString(), Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            //workbook.SaveAs(Microsoft.Office.Interop.Excel.Application.StartupPath + "\\Report\\" + "StatusBasedReport_" + DateTime.Now.ToString(), Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, true, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
-            // Exit from the application  
-            app.Quit();
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failure on checkbox check/uncheck to enable date control fields on the form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }          
         }
+
+        //Get Record button click event to retrive the records in gridview
+        private void btnGetRecord_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnPrint.Enabled = false;
+                if (cmbAssignee.SelectedIndex <= 0)
+                {
+                    PopupMessageBox.Show("Please Select Assignee!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    LoadAssigneeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, cmbAssignee.SelectedValue.ToString());
+                    if (dView.Rows.Count <= 1)
+                    {
+                        PopupMessageBox.Show("No Records Found!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    btnPrint.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to retrieve the records in GridView based on Assignee selection!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        //Print button click event - to print the report using crystal report
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if ((cmbAssignee.SelectedIndex <= 0 || chkDateAndAssignee.Checked == false) && (cmbAssignee.SelectedIndex <= 0 || chkDateAndAssignee.Checked == true))
+                {
+                    PopupMessageBox.Show("Please Select Assignee!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    DataSet Ds = new DataSet();
+                    DataTable dt = new DataTable();
+                    dt = taskReporting.GetAssigneeBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, cmbAssignee.SelectedValue.ToString());
+                    Ds.Tables.Add(dt);
+                    Ds.WriteXmlSchema("TimeBasedReportSchema.xml");
+                    ReportViewer fm = new ReportViewer();
+                    CrystalReport cr = new CrystalReport();
+
+                    CrystalDecisions.CrystalReports.Engine.TextObject txtReportHeader;
+                    txtReportHeader = cr.ReportDefinition.ReportObjects["Text7"] as TextObject;
+                    txtReportHeader.Text = "Assignee Based Report";
+                    cr.SetDataSource(Ds);
+                    fm.crystalReportViewer.ReportSource = cr;
+                    fm.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to print the report!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+       
+        //User Defined
+
+        // Function to Load the Form Theme
+        private void LoadTheme()
+        {
+            try
+            {
+                foreach (Control btns in this.Controls)
+                {
+                    if (btns.GetType() == typeof(Button))
+                    {
+                        Button btn = (Button)btns;
+                        btn.BackColor = ThemeColor.PrimaryColor;
+                        btn.ForeColor = Color.White;
+                        btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                        btnPrint.ForeColor = ThemeColor.PrimaryColor;
+                    }
+                }
+
+                lblAssignee.ForeColor = ThemeColor.PrimaryColor;
+                lblStartDate.ForeColor = ThemeColor.PrimaryColor;
+                lblEndDate.ForeColor = ThemeColor.PrimaryColor;
+                dView.ForeColor = ThemeColor.PrimaryColor;
+                grpBoxGridView.ForeColor = ThemeColor.PrimaryColor;
+                chkDateAndAssignee.ForeColor = ThemeColor.PrimaryColor;
+                btnPrint.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to load the Theme!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        // Function to enable or disable the buttons based on GridView Page Selected or No of Records per Page changes) 
         private void EnableDisableButtons(int flag)
         {
             try
@@ -179,170 +234,28 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to setup the form button controls!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-        private void picpdf_Click(object sender, EventArgs e)
-        {
-            if (Dview.Rows.Count > 0)
-            {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "PDF (*.pdf)|*.pdf";
-                sfd.FileName = "Output.pdf";
-                bool fileError = false;
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    if (File.Exists(sfd.FileName))
-                    {
-                        try
-                        {
-                            File.Delete(sfd.FileName);
-                        }
-                        catch (IOException ex)
-                        {
-                            fileError = true;
-                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
-                        }
-                    }
-                    if (!fileError)
-                    {
-                        try
-                        {
-                            PdfPTable pdfTable = new PdfPTable(Dview.Columns.Count);
-                            pdfTable.DefaultCell.Padding = 3;
-                            pdfTable.WidthPercentage = 100;
-                            pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
-                            foreach (DataGridViewColumn column in Dview.Columns)
-                            {
-                                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
-                                pdfTable.AddCell(cell);
-                            }
-
-                            foreach (DataGridViewRow row in Dview.Rows)
-                            {
-                                foreach (DataGridViewCell cell in row.Cells)
-                                {
-                                    if (cell.Value != null)
-                                    {
-                                        pdfTable.AddCell(cell.Value.ToString());
-                                    }
-                                }
-                            }
-                            using (FileStream stream = new FileStream(sfd.FileName, FileMode.Create))
-                            {
-                                Document pdfDoc = new Document(PageSize.A4, 10f, 20f, 20f, 10f);
-                                PdfWriter.GetInstance(pdfDoc, stream);
-                                pdfDoc.Open();
-                                pdfDoc.Add(pdfTable);
-                                pdfDoc.Close();
-                                stream.Close();
-                            }
-                            MessageBox.Show("Data Exported Successfully !!!", "Info");
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error :" + ex.Message);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("No Record To Export !!!", "Info");
-            }
-        }
-
-        private void picexcel_MouseHover(object sender, EventArgs e)
-        {
-            ToolTip tt = new ToolTip();
-            tt.SetToolTip(this.picExcel, "Export into Excel");
-            tt.ForeColor = Color.Yellow;
-        }
-
-        private void picpdf_MouseHover(object sender, EventArgs e)
-        {
-            ToolTip tt_pdf = new ToolTip();
-            tt_pdf.SetToolTip(this.picExcel, "Export into PDF");
-            tt_pdf.ForeColor = Color.Yellow;
-        }
-
-        private void btnprint_Click(object sender, EventArgs e)
-        {
-            if ((cmbAssignee.SelectedIndex <= 0 || chkDateandAssignee.Checked == false) && (cmbAssignee.SelectedIndex <= 0 || chkDateandAssignee.Checked == true))
-            {
-                PopupMessageBox.Show("Please Select Assignee!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                DataSet Ds = new DataSet();
-                DataTable dt = new DataTable();
-                dt = taskReporting.GetAssigneeBasedReport(dateFrom.Value, dateTo.Value, chkDateandAssignee.Checked, cmbAssignee.SelectedValue.ToString());
-                Ds.Tables.Add(dt);
-                Ds.WriteXmlSchema("TimeBasedReportSchema.xml");
-                ReportViewer fm = new ReportViewer();
-                CRTimeBasedReport cr = new CRTimeBasedReport();
-
-                CrystalDecisions.CrystalReports.Engine.TextObject txtReportHeader;
-                txtReportHeader = cr.ReportDefinition.ReportObjects["Text7"] as TextObject;
-                txtReportHeader.Text = "Assignee Based Report";
-                cr.SetDataSource(Ds);
-                fm.crystalReportViewer1.ReportSource = cr;
-                fm.Show();
-            }
-
-        }
-
-        private void chkdateandassignee_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkDateandAssignee.Checked == true)
-            {
-                dateFrom.Enabled = true;
-                dateTo.Enabled = true;
-            }
-            else
-            {
-                dateFrom.Enabled = false;
-                dateTo.Enabled = false;
-            }
-        }
-
-        private void btngetrecord_Click(object sender, EventArgs e)
+        //Function to load the datagridview with the records and setup other options for datagridview
+        public void LoadAssigneeBasedReportGrid(DateTime dateFrom, DateTime dateTo, Boolean flagDateAndAssignee = false, string userId = null)
         {
             try
             {
-                if ((cmbAssignee.SelectedIndex <= 0 || chkDateandAssignee.Checked == false) && (cmbAssignee.SelectedIndex <= 0 || chkDateandAssignee.Checked == true))
-                {
-                    PopupMessageBox.Show("Please Select Assignee!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    btnPrint.Enabled = false;
-                }
-                else
-                {
-                    GetAllData(cmbAssignee.SelectedValue.ToString());
-                    btnPrint.Enabled = false;
-                    if (Dview.Rows.Count <= 1)
-                    {
-                        PopupMessageBox.Show("No Record Found", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                    btnPrint.Enabled = true;
-                }
-
-
+                dView.DataSource = null;
+                dView.DataSource = taskReporting.GetAssigneeBasedReport(dateFrom, dateTo, flagDateAndAssignee, userId);
+                dView.Columns[0].Width = 400;
+                dView.Columns[1].Width = 100;
+                dView.Columns[2].Width = 100;
+                dView.Columns[3].Width = 100;
+                dView.Columns[4].Width = 120;
+                dView.Columns[5].Width = 150;
+                dView.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dView.ReadOnly = true;
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
 
-        private void cmbassignee_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                GetAllData(cmbAssignee.SelectedValue.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
     }
 }

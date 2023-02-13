@@ -1,44 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading;
 using System.Windows.Forms;
 
-namespace TMS.UI.wait
+namespace TMS.UI.Wait
 {
-    public partial class waitFrm : Form
+    class Waiting
     {
-        public waitFrm()
+        WaitForm wait;
+        Thread loadThread;
+        public void Show()
         {
-            InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterParent;
+            //loadthread
+            loadThread = new Thread(new ThreadStart(LoadingProcess));
+            loadThread.Start();
         }
-        public waitFrm(Form parent)
+        public void Show(Form parent)
         {
-            InitializeComponent();
-            if(parent!=null)
-            {
-                this.StartPosition = FormStartPosition.Manual;
-                this.Location = new Point(parent.Location.X + parent.Width / 2 - this.Width / 2, parent.Location.Y + parent.Height / 2 - this.Height/2);
-            }
-            else
-            { this.StartPosition = FormStartPosition.CenterParent; }
-
+            loadThread = new Thread(new ParameterizedThreadStart(LoadingProcess));
+            loadThread.Start(parent);
         }
-        public void closewaitform()
+        public void Close()
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-            if(lblimg.Image!=null)
+            if(wait!=null)
             {
-                lblimg.Image.Dispose();
-
+                wait.BeginInvoke(new System.Threading.ThreadStart(wait.CloseWaitForm));
+                wait = null;
+                loadThread = null;
             }
 
+        }
+        private void LoadingProcess()
+        {
+            wait = new WaitForm();
+            wait.ShowDialog();
+        }
+        private void LoadingProcess(object parent)
+        {
+            Form parent1 = parent as Form;
+            wait = new WaitForm(parent1);
+            wait.ShowDialog(); 
         }
     }
+   
 }

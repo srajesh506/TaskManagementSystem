@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using TMS.Properties;
+
+using CrystalDecisions.CrystalReports.Engine;
+
 
 namespace TMS.UI.Utilities
 {
     public static class FormControlHandling
     {
-        public static string ClearUpperQmark(string Str)
+        public static string ClearUpperQmark(string str)
         {
             string temp = "";
-            if (Str != null)
+            if (str != null)
             {
-                for (int m = 0; m <= Str.Length - 1; m++)
+                for (int m = 0; m <= str.Length - 1; m++)
                 {
-                    if (Str.Substring(m, 1) != Convert.ToString(39))
+                    if (str.Substring(m, 1) != Convert.ToString(39))
                     {
-                        temp = temp + Str.Substring(m, 1);
+                        temp = temp + str.Substring(m, 1);
                     }
                     else
                     {
@@ -26,17 +28,16 @@ namespace TMS.UI.Utilities
                 }
             }
             return temp;
-
         }
-        public static void ClearControls(GroupBox gp)
+       
+        public static void ClearControls(GroupBox groupBox)
         {
-            Control form_control = new Control();
             ComboBox cmb = new ComboBox();
             PictureBox pic = new PictureBox();
             CheckedListBox chkbox = new CheckedListBox();
             RichTextBox rtxt = new RichTextBox();
             CheckBox chk = new CheckBox();
-            foreach (Control frm in gp.Controls)
+            foreach (Control frm in groupBox.Controls)
             {
                 if (frm is TextBox)
                     frm.Text = "";
@@ -70,6 +71,7 @@ namespace TMS.UI.Utilities
 
             }
         }
+
         public static DataTable GetPageRecords(DataTable dataTable, int currentPage, int pageSize)
         {
             DataTable records = new DataTable();
@@ -91,5 +93,19 @@ namespace TMS.UI.Utilities
             }
             return records;
         }
+    
+        //public static void ReportPrint(string reportHeader, DataSet reportDataSet, object reportType)
+        //{
+        //    ReportViewer reportViewer = new ReportViewer();
+        //    CRTimeBasedReport cr = new CRTimeBasedReport();
+
+        //    TextObject txtReportHeader;
+        //    txtReportHeader = cr.ReportDefinition.ReportObjects["Text7"] as TextObject;
+        //    txtReportHeader.Text = "Assignee Based Report";
+        //    cr.SetDataSource(reportDataSet);
+        //    reportViewer.crystalReportViewer1.ReportSource = cr;
+        //    reportViewer.Show();
+        //}
+    
     }
 }

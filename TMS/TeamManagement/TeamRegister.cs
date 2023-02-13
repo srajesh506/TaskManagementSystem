@@ -39,7 +39,7 @@ namespace TMS.UI
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show("TMSError - Failed to Load the Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Failed to Load the Team Register Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -52,7 +52,7 @@ namespace TMS.UI
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show("TMSError - Failed to Load the Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Failed to Load the Team Register Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -152,21 +152,21 @@ namespace TMS.UI
                 int index = dgView.CurrentRow.Index;
                 if (index <= dgView.RowCount - 1)
                 {
-                    txtUserId.Text = Convert.ToString(dgView.Rows[index].Cells[0].Value);
-                    txtName.Text = Convert.ToString(dgView.Rows[index].Cells[1].Value);
-                    cmbRole.SelectedValue = Convert.ToString(dgView.Rows[index].Cells[7].Value);
-                    txtEmail.Text = Convert.ToString(dgView.Rows[index].Cells[3].Value);
-                    rtxtRemark.Text = Convert.ToString(dgView.Rows[index].Cells[4].Value);
-                    txtPwd.Text = operations.Decrypt(Convert.ToString(dgView.Rows[index].Cells[5].Value));
-                    chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[8].Value);
+                    txtUserId.Text = Convert.ToString(dgView.Rows[index].Cells[1].Value);
+                    txtName.Text = Convert.ToString(dgView.Rows[index].Cells[2].Value);
+                    cmbRole.SelectedValue = Convert.ToString(dgView.Rows[index].Cells[8].Value);
+                    txtEmail.Text = Convert.ToString(dgView.Rows[index].Cells[4].Value);
+                    rtxtRemark.Text = Convert.ToString(dgView.Rows[index].Cells[5].Value);
+                    txtPwd.Text = operations.Decrypt(Convert.ToString(dgView.Rows[index].Cells[6].Value));
+                    chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[9].Value);
                     EnableDisableButtons(3);
-                    if (File.Exists(Application.StartupPath + "\\Image\\" + txtUserId.Text + ".jpg"))
+                    if (File.Exists(Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg"))
                     {
-                        pbPic.Image = Image.FromFile(Application.StartupPath + "\\Image\\" + txtUserId.Text + ".jpg");
+                        pbPic.Image = Image.FromFile(Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg");
                     }
                     else
                     {
-                        pbPic.Image = Image.FromFile(Application.StartupPath + "\\Image\\noimage.png");
+                        pbPic.Image = Image.FromFile(Application.StartupPath + "\\Images\\noimage.png");
                     }
                 }
             }
@@ -521,7 +521,7 @@ namespace TMS.UI
             }
             catch (Exception ex)
             {
-                throw new Exception("TMSError - Failed to setup the form button controls!! \n" + ex.Message + "\n", ex.InnerException);
+                throw new Exception("TMSError - Failed to setup the Team Register form button controls!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
 
@@ -532,7 +532,7 @@ namespace TMS.UI
             {
                 if (ValidateControls(mode))
                 {
-                    if (!File.Exists(Application.StartupPath + "\\Image\\" + txtUserId.Text + ".jpg"))
+                    if (!File.Exists(Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg"))
                     {
                         if (pbPic.Image != null)
                         {
@@ -544,7 +544,7 @@ namespace TMS.UI
                             }
                             using (Bitmap bmb = (Bitmap)pbPic.Image.Clone())
                             {
-                                bmb.Save(Application.StartupPath + "\\Image\\" + txtUserId.Text + ".jpg", bmb.RawFormat);
+                                bmb.Save(Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg", bmb.RawFormat);
                             }
                         }
                     }
@@ -597,15 +597,16 @@ namespace TMS.UI
                 lblNoOfPages.Text = _noOfPages.ToString();
                 DataTable records = FormControlHandling.GetPageRecords(_employees, _currentPage, _pageSize);
                 dgView.DataSource = records;
-                dgView.Columns[0].Width = 150;
-                dgView.Columns[1].Width = 200;
-                dgView.Columns[2].Width = 150;
-                dgView.Columns[3].Width = 300;
+                dgView.Columns[0].Visible = false;
+                dgView.Columns[1].Width = 150;
+                dgView.Columns[2].Width = 200;
+                dgView.Columns[3].Width = 150;
                 dgView.Columns[4].Width = 300;
-                dgView.Columns[5].Visible = false;
+                dgView.Columns[5].Width = 300;
                 dgView.Columns[6].Visible = false;
                 dgView.Columns[7].Visible = false;
                 dgView.Columns[8].Visible = false;
+                dgView.Columns[9].Visible = false;
                 dgView.ReadOnly = true;
                 EnableDisableButtons(4);
             }

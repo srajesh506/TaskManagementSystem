@@ -33,36 +33,36 @@ namespace TMS.UI
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlOuter = new System.Windows.Forms.Panel();
-            this.grpBoxWorkItemAssignmentGridView = new System.Windows.Forms.GroupBox();
+            this.grpBoxGridView = new System.Windows.Forms.GroupBox();
             this.chkFilterActive = new System.Windows.Forms.CheckBox();
             this.dgView = new System.Windows.Forms.DataGridView();
             this.pnlOuter.SuspendLayout();
-            this.grpBoxWorkItemAssignmentGridView.SuspendLayout();
+            this.grpBoxGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlOuter
             // 
             this.pnlOuter.BackColor = System.Drawing.Color.White;
-            this.pnlOuter.Controls.Add(this.grpBoxWorkItemAssignmentGridView);
+            this.pnlOuter.Controls.Add(this.grpBoxGridView);
             this.pnlOuter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOuter.Location = new System.Drawing.Point(0, 0);
             this.pnlOuter.Name = "pnlOuter";
             this.pnlOuter.Size = new System.Drawing.Size(1119, 639);
             this.pnlOuter.TabIndex = 4;
             // 
-            // grpBoxWorkItemAssignmentGridView
+            // grpBoxGridView
             // 
-            this.grpBoxWorkItemAssignmentGridView.BackColor = System.Drawing.Color.White;
-            this.grpBoxWorkItemAssignmentGridView.Controls.Add(this.chkFilterActive);
-            this.grpBoxWorkItemAssignmentGridView.Controls.Add(this.dgView);
-            this.grpBoxWorkItemAssignmentGridView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpBoxWorkItemAssignmentGridView.Location = new System.Drawing.Point(3, 12);
-            this.grpBoxWorkItemAssignmentGridView.Name = "grpBoxWorkItemAssignmentGridView";
-            this.grpBoxWorkItemAssignmentGridView.Size = new System.Drawing.Size(1106, 618);
-            this.grpBoxWorkItemAssignmentGridView.TabIndex = 15;
-            this.grpBoxWorkItemAssignmentGridView.TabStop = false;
-            this.grpBoxWorkItemAssignmentGridView.Text = "Assign WorkItems";
+            this.grpBoxGridView.BackColor = System.Drawing.Color.White;
+            this.grpBoxGridView.Controls.Add(this.chkFilterActive);
+            this.grpBoxGridView.Controls.Add(this.dgView);
+            this.grpBoxGridView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpBoxGridView.Location = new System.Drawing.Point(3, 12);
+            this.grpBoxGridView.Name = "grpBoxGridView";
+            this.grpBoxGridView.Size = new System.Drawing.Size(1106, 618);
+            this.grpBoxGridView.TabIndex = 15;
+            this.grpBoxGridView.TabStop = false;
+            this.grpBoxGridView.Text = "Assign WorkItems";
             // 
             // chkFilterActive
             // 
@@ -94,10 +94,10 @@ namespace TMS.UI
             this.dgView.RowTemplate.Height = 30;
             this.dgView.Size = new System.Drawing.Size(1091, 565);
             this.dgView.TabIndex = 0;
-            this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dview_CellClick);
-            this.dgView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dview_CellFormatting);
-            this.dgView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.savetext);
-            this.dgView.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dview_RowStateChanged);
+            this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellClick);
+            this.dgView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgView_CellFormatting);
+            this.dgView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgViewSaveText);
+            this.dgView.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgView_RowStateChanged);
             // 
             // WorkItemAssignments
             // 
@@ -108,8 +108,8 @@ namespace TMS.UI
             this.Name = "WorkItemAssignments";
             this.Text = "Assign WorkItem";
             this.pnlOuter.ResumeLayout(false);
-            this.grpBoxWorkItemAssignmentGridView.ResumeLayout(false);
-            this.grpBoxWorkItemAssignmentGridView.PerformLayout();
+            this.grpBoxGridView.ResumeLayout(false);
+            this.grpBoxGridView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).EndInit();
             this.ResumeLayout(false);
 
@@ -118,7 +118,7 @@ namespace TMS.UI
         #endregion
 
         private System.Windows.Forms.Panel pnlOuter;
-        private System.Windows.Forms.GroupBox grpBoxWorkItemAssignmentGridView;
+        private System.Windows.Forms.GroupBox grpBoxGridView;
         private System.Windows.Forms.DataGridView dgView;
         private CheckBox chkFilterActive;
     }

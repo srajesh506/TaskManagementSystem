@@ -1,4 +1,6 @@
-﻿namespace TMS.MDI
+﻿using System.Web.UI.WebControls;
+
+namespace TMS.MDI
 {
     partial class FormMainMenu
     {
@@ -30,102 +32,91 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
-            this.Sidebar = new System.Windows.Forms.FlowLayoutPanel();
-            this.panelLogo = new System.Windows.Forms.Panel();
-            this.picemp = new TMS.UI.Utilities.RoundPictureBox();
+            this.pnlSideBar = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlLogo = new System.Windows.Forms.Panel();
+            this.pbUser = new TMS.UI.Utilities.RoundPictureBox();
             this.lblLogOut = new System.Windows.Forms.Label();
-            this.lblWelCome = new System.Windows.Forms.Label();
+            this.lblWelcome = new System.Windows.Forms.Label();
             this.lblMenu = new System.Windows.Forms.Label();
-            this.Menubutton = new System.Windows.Forms.PictureBox();
-            this.HomeContainer = new System.Windows.Forms.Panel();
-            this.panelTC = new System.Windows.Forms.Panel();
-            this.btnGroupTask = new System.Windows.Forms.Button();
-            this.panelTS = new System.Windows.Forms.Panel();
+            this.pbMenuButton = new System.Windows.Forms.PictureBox();
+            this.pnlMasterData = new System.Windows.Forms.Panel();
+            this.pnlTC = new System.Windows.Forms.Panel();
+            this.btnTaskManagement = new System.Windows.Forms.Button();
+            this.pnlTS = new System.Windows.Forms.Panel();
             this.btnTeamRegister = new System.Windows.Forms.Button();
-            this.HomeChildContainer = new System.Windows.Forms.Panel();
+            this.pnlHomeChildContainer = new System.Windows.Forms.Panel();
             this.btnMasterData = new System.Windows.Forms.Button();
-            this.pnlmainworkitm = new System.Windows.Forms.Panel();
+            this.pnlWorkItem = new System.Windows.Forms.Panel();
             this.btnAssignWorkItem = new System.Windows.Forms.Button();
             this.btnWorkItem = new System.Windows.Forms.Button();
-            this.btnAssignTask = new System.Windows.Forms.Button();
-            this.panelReportAnalysis = new System.Windows.Forms.Panel();
+            this.btnCreateWorkItem = new System.Windows.Forms.Button();
+            this.pnlReportAnalysis = new System.Windows.Forms.Panel();
             this.btnTimeBasedReport = new System.Windows.Forms.Button();
             this.btnAssigneeBasedReport = new System.Windows.Forms.Button();
             this.btnStatusBasedReport = new System.Windows.Forms.Button();
             this.btnReportAnalysis = new System.Windows.Forms.Button();
-            this.pnlmainsettings = new System.Windows.Forms.Panel();
-            this.btnUpdatePwd = new System.Windows.Forms.Button();
+            this.pnlSettings = new System.Windows.Forms.Panel();
+            this.btnChangePassword = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.panelTS1 = new System.Windows.Forms.Panel();
-            this.btnTaskSheet = new System.Windows.Forms.Button();
-            this.panelTC1 = new System.Windows.Forms.Panel();
-            this.btnTaskCalender = new System.Windows.Forms.Button();
-            this.Sidebartimer = new System.Windows.Forms.Timer(this.components);
-            this.paneltitlebar = new System.Windows.Forms.Panel();
+            this.pnlTitleBar = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnMaximize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnCloseChildForm = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.panelDesktopPanel = new System.Windows.Forms.Panel();
-            this.HomeTimer = new System.Windows.Forms.Timer(this.components);
-            this.ReportTimer = new System.Windows.Forms.Timer(this.components);
-            this.SettingTimer = new System.Windows.Forms.Timer(this.components);
-            this.WorkItemtimer = new System.Windows.Forms.Timer(this.components);
-            this.Sidebar.SuspendLayout();
-            this.panelLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picemp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Menubutton)).BeginInit();
-            this.HomeContainer.SuspendLayout();
-            this.panelTC.SuspendLayout();
-            this.panelTS.SuspendLayout();
-            this.HomeChildContainer.SuspendLayout();
-            this.pnlmainworkitm.SuspendLayout();
-            this.panelReportAnalysis.SuspendLayout();
-            this.pnlmainsettings.SuspendLayout();
-            this.panelTS1.SuspendLayout();
-            this.panelTC1.SuspendLayout();
-            this.paneltitlebar.SuspendLayout();
-            this.panelDesktopPanel.SuspendLayout();
+            this.pnlDesktopPanel = new System.Windows.Forms.Panel();
+            this.timerExpandCollapse = new System.Windows.Forms.Timer(this.components);
+            this.pnlSideBar.SuspendLayout();
+            this.pnlLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMenuButton)).BeginInit();
+            this.pnlMasterData.SuspendLayout();
+            this.pnlTC.SuspendLayout();
+            this.pnlTS.SuspendLayout();
+            this.pnlHomeChildContainer.SuspendLayout();
+            this.pnlWorkItem.SuspendLayout();
+            this.pnlReportAnalysis.SuspendLayout();
+            this.pnlSettings.SuspendLayout();
+            this.pnlTitleBar.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Sidebar
+            // pnlSideBar
             // 
-            this.Sidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.Sidebar.Controls.Add(this.panelLogo);
-            this.Sidebar.Controls.Add(this.HomeContainer);
-            this.Sidebar.Controls.Add(this.pnlmainworkitm);
-            this.Sidebar.Controls.Add(this.panelReportAnalysis);
-            this.Sidebar.Controls.Add(this.pnlmainsettings);
-            this.Sidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Sidebar.Location = new System.Drawing.Point(0, 0);
-            this.Sidebar.MaximumSize = new System.Drawing.Size(245, 800);
-            this.Sidebar.MinimumSize = new System.Drawing.Size(70, 800);
-            this.Sidebar.Name = "Sidebar";
-            this.Sidebar.Size = new System.Drawing.Size(245, 800);
-            this.Sidebar.TabIndex = 0;
+            this.pnlSideBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.pnlSideBar.Controls.Add(this.pnlLogo);
+            this.pnlSideBar.Controls.Add(this.pnlMasterData);
+            this.pnlSideBar.Controls.Add(this.pnlWorkItem);
+            this.pnlSideBar.Controls.Add(this.pnlReportAnalysis);
+            this.pnlSideBar.Controls.Add(this.pnlSettings);
+            this.pnlSideBar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlSideBar.Location = new System.Drawing.Point(0, 0);
+            this.pnlSideBar.MaximumSize = new System.Drawing.Size(245, 800);
+            this.pnlSideBar.MinimumSize = new System.Drawing.Size(70, 800);
+            this.pnlSideBar.Name = "pnlSideBar";
+            this.pnlSideBar.Size = new System.Drawing.Size(245, 800);
+            this.pnlSideBar.TabIndex = 0;
             // 
-            // panelLogo
+            // pnlLogo
             // 
-            this.panelLogo.Controls.Add(this.picemp);
-            this.panelLogo.Controls.Add(this.lblLogOut);
-            this.panelLogo.Controls.Add(this.lblWelCome);
-            this.panelLogo.Controls.Add(this.lblMenu);
-            this.panelLogo.Controls.Add(this.Menubutton);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelLogo.Location = new System.Drawing.Point(3, 3);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(240, 140);
-            this.panelLogo.TabIndex = 1;
+            this.pnlLogo.Controls.Add(this.pbUser);
+            this.pnlLogo.Controls.Add(this.lblLogOut);
+            this.pnlLogo.Controls.Add(this.lblWelcome);
+            this.pnlLogo.Controls.Add(this.lblMenu);
+            this.pnlLogo.Controls.Add(this.pbMenuButton);
+            this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlLogo.Location = new System.Drawing.Point(3, 3);
+            this.pnlLogo.Name = "pnlLogo";
+            this.pnlLogo.Size = new System.Drawing.Size(240, 140);
+            this.pnlLogo.TabIndex = 1;
             // 
-            // picemp
+            // pbUser
             // 
-            this.picemp.Location = new System.Drawing.Point(3, 6);
-            this.picemp.Name = "picemp";
-            this.picemp.Size = new System.Drawing.Size(59, 59);
-            this.picemp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picemp.TabIndex = 5;
-            this.picemp.TabStop = false;
+            this.pbUser.Location = new System.Drawing.Point(3, 6);
+            this.pbUser.Name = "pbUser";
+            this.pbUser.Size = new System.Drawing.Size(59, 59);
+            this.pbUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbUser.TabIndex = 5;
+            this.pbUser.TabStop = false;
             // 
             // lblLogOut
             // 
@@ -135,27 +126,27 @@
             this.lblLogOut.ForeColor = System.Drawing.Color.White;
             this.lblLogOut.Image = ((System.Drawing.Image)(resources.GetObject("lblLogOut.Image")));
             this.lblLogOut.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.lblLogOut.Location = new System.Drawing.Point(68, 52);
+            this.lblLogOut.Location = new System.Drawing.Point(68, 53);
             this.lblLogOut.Name = "lblLogOut";
             this.lblLogOut.Size = new System.Drawing.Size(86, 21);
             this.lblLogOut.TabIndex = 5;
             this.lblLogOut.Text = "     Logout?";
-            this.lblLogOut.Click += new System.EventHandler(this.lbllogout_Click);
-            this.lblLogOut.MouseEnter += new System.EventHandler(this.lbllogout_MouseEnter);
-            this.lblLogOut.MouseLeave += new System.EventHandler(this.lbllogout_MouseLeave);
+            this.lblLogOut.Click += new System.EventHandler(this.lblLogout_Click);
+            this.lblLogOut.MouseEnter += new System.EventHandler(this.lblLogout_MouseEnter);
+            this.lblLogOut.MouseLeave += new System.EventHandler(this.lblLogout_MouseLeave);
             // 
-            // lblWelCome
+            // lblWelcome
             // 
-            this.lblWelCome.AutoSize = true;
-            this.lblWelCome.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblWelCome.ForeColor = System.Drawing.Color.White;
-            this.lblWelCome.Location = new System.Drawing.Point(68, 6);
-            this.lblWelCome.Name = "lblWelCome";
-            this.lblWelCome.Size = new System.Drawing.Size(52, 21);
-            this.lblWelCome.TabIndex = 4;
-            this.lblWelCome.Text = "label1";
-            this.lblWelCome.MouseEnter += new System.EventHandler(this.lblwelcome_MouseEnter);
-            this.lblWelCome.MouseLeave += new System.EventHandler(this.lblwelcome_MouseLeave);
+            this.lblWelcome.AutoSize = true;
+            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.lblWelcome.ForeColor = System.Drawing.Color.White;
+            this.lblWelcome.Location = new System.Drawing.Point(68, 6);
+            this.lblWelcome.Name = "lblWelcome";
+            this.lblWelcome.Size = new System.Drawing.Size(135, 21);
+            this.lblWelcome.TabIndex = 4;
+            this.lblWelcome.Text = "WelcomeMessage";
+            this.lblWelcome.MouseEnter += new System.EventHandler(this.lblWelcome_MouseEnter);
+            this.lblWelcome.MouseLeave += new System.EventHandler(this.lblWelcome_MouseLeave);
             // 
             // lblMenu
             // 
@@ -168,72 +159,72 @@
             this.lblMenu.Size = new System.Drawing.Size(50, 21);
             this.lblMenu.TabIndex = 2;
             this.lblMenu.Text = "Menu";
-            this.lblMenu.MouseEnter += new System.EventHandler(this.labelmenu_MouseEnter);
-            this.lblMenu.MouseLeave += new System.EventHandler(this.labelmenu_MouseLeave);
+            this.lblMenu.MouseEnter += new System.EventHandler(this.lblMenu_MouseEnter);
+            this.lblMenu.MouseLeave += new System.EventHandler(this.lblMenu_MouseLeave);
             // 
-            // Menubutton
+            // pbMenuButton
             // 
-            this.Menubutton.Image = ((System.Drawing.Image)(resources.GetObject("Menubutton.Image")));
-            this.Menubutton.Location = new System.Drawing.Point(4, 99);
-            this.Menubutton.Name = "Menubutton";
-            this.Menubutton.Size = new System.Drawing.Size(48, 30);
-            this.Menubutton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Menubutton.TabIndex = 1;
-            this.Menubutton.TabStop = false;
-            this.Menubutton.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pbMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("pbMenuButton.Image")));
+            this.pbMenuButton.Location = new System.Drawing.Point(4, 99);
+            this.pbMenuButton.Name = "pbMenuButton";
+            this.pbMenuButton.Size = new System.Drawing.Size(48, 30);
+            this.pbMenuButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbMenuButton.TabIndex = 1;
+            this.pbMenuButton.TabStop = false;
+            this.pbMenuButton.Click += new System.EventHandler(this.pbMenuButton_Click);
             // 
-            // HomeContainer
+            // pnlMasterData
             // 
-            this.HomeContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
-            this.HomeContainer.Controls.Add(this.panelTC);
-            this.HomeContainer.Controls.Add(this.panelTS);
-            this.HomeContainer.Controls.Add(this.HomeChildContainer);
-            this.HomeContainer.Location = new System.Drawing.Point(3, 149);
-            this.HomeContainer.MaximumSize = new System.Drawing.Size(241, 143);
-            this.HomeContainer.MinimumSize = new System.Drawing.Size(241, 56);
-            this.HomeContainer.Name = "HomeContainer";
-            this.HomeContainer.Size = new System.Drawing.Size(241, 56);
-            this.HomeContainer.TabIndex = 6;
+            this.pnlMasterData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
+            this.pnlMasterData.Controls.Add(this.pnlTC);
+            this.pnlMasterData.Controls.Add(this.pnlTS);
+            this.pnlMasterData.Controls.Add(this.pnlHomeChildContainer);
+            this.pnlMasterData.Location = new System.Drawing.Point(3, 149);
+            this.pnlMasterData.MaximumSize = new System.Drawing.Size(241, 143);
+            this.pnlMasterData.MinimumSize = new System.Drawing.Size(241, 56);
+            this.pnlMasterData.Name = "pnlMasterData";
+            this.pnlMasterData.Size = new System.Drawing.Size(241, 56);
+            this.pnlMasterData.TabIndex = 6;
             // 
-            // panelTC
+            // pnlTC
             // 
-            this.panelTC.BackColor = System.Drawing.Color.White;
-            this.panelTC.Controls.Add(this.btnGroupTask);
-            this.panelTC.Location = new System.Drawing.Point(1, 93);
-            this.panelTC.MaximumSize = new System.Drawing.Size(241, 92);
-            this.panelTC.MinimumSize = new System.Drawing.Size(241, 50);
-            this.panelTC.Name = "panelTC";
-            this.panelTC.Size = new System.Drawing.Size(241, 50);
-            this.panelTC.TabIndex = 8;
+            this.pnlTC.BackColor = System.Drawing.Color.White;
+            this.pnlTC.Controls.Add(this.btnTaskManagement);
+            this.pnlTC.Location = new System.Drawing.Point(1, 93);
+            this.pnlTC.MaximumSize = new System.Drawing.Size(241, 92);
+            this.pnlTC.MinimumSize = new System.Drawing.Size(241, 50);
+            this.pnlTC.Name = "pnlTC";
+            this.pnlTC.Size = new System.Drawing.Size(241, 50);
+            this.pnlTC.TabIndex = 8;
             // 
-            // btnGroupTask
+            // btnTaskManagement
             // 
-            this.btnGroupTask.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
-            this.btnGroupTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGroupTask.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGroupTask.ForeColor = System.Drawing.Color.White;
-            this.btnGroupTask.Image = ((System.Drawing.Image)(resources.GetObject("btnGroupTask.Image")));
-            this.btnGroupTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGroupTask.Location = new System.Drawing.Point(-1, -1);
-            this.btnGroupTask.Name = "btnGroupTask";
-            this.btnGroupTask.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnGroupTask.Size = new System.Drawing.Size(245, 57);
-            this.btnGroupTask.TabIndex = 2;
-            this.btnGroupTask.Text = "        Task Management";
-            this.btnGroupTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGroupTask.UseVisualStyleBackColor = false;
-            this.btnGroupTask.Click += new System.EventHandler(this.btngrouptask_Click);
+            this.btnTaskManagement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
+            this.btnTaskManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTaskManagement.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTaskManagement.ForeColor = System.Drawing.Color.White;
+            this.btnTaskManagement.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskManagement.Image")));
+            this.btnTaskManagement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTaskManagement.Location = new System.Drawing.Point(-1, -1);
+            this.btnTaskManagement.Name = "btnTaskManagement";
+            this.btnTaskManagement.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnTaskManagement.Size = new System.Drawing.Size(245, 57);
+            this.btnTaskManagement.TabIndex = 2;
+            this.btnTaskManagement.Text = "        Task Management";
+            this.btnTaskManagement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTaskManagement.UseVisualStyleBackColor = false;
+            this.btnTaskManagement.Click += new System.EventHandler(this.btnTaskManagement_Click);
             // 
-            // panelTS
+            // pnlTS
             // 
-            this.panelTS.BackColor = System.Drawing.Color.White;
-            this.panelTS.Controls.Add(this.btnTeamRegister);
-            this.panelTS.Location = new System.Drawing.Point(1, 55);
-            this.panelTS.MaximumSize = new System.Drawing.Size(241, 92);
-            this.panelTS.MinimumSize = new System.Drawing.Size(241, 50);
-            this.panelTS.Name = "panelTS";
-            this.panelTS.Size = new System.Drawing.Size(241, 50);
-            this.panelTS.TabIndex = 7;
+            this.pnlTS.BackColor = System.Drawing.Color.White;
+            this.pnlTS.Controls.Add(this.btnTeamRegister);
+            this.pnlTS.Location = new System.Drawing.Point(1, 55);
+            this.pnlTS.MaximumSize = new System.Drawing.Size(241, 92);
+            this.pnlTS.MinimumSize = new System.Drawing.Size(241, 50);
+            this.pnlTS.Name = "pnlTS";
+            this.pnlTS.Size = new System.Drawing.Size(241, 50);
+            this.pnlTS.TabIndex = 7;
             // 
             // btnTeamRegister
             // 
@@ -251,18 +242,18 @@
             this.btnTeamRegister.Text = "        Team Management";
             this.btnTeamRegister.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTeamRegister.UseVisualStyleBackColor = false;
-            this.btnTeamRegister.Click += new System.EventHandler(this.btnteamregister_Click);
+            this.btnTeamRegister.Click += new System.EventHandler(this.btnTeamRegister_Click);
             // 
-            // HomeChildContainer
+            // pnlHomeChildContainer
             // 
-            this.HomeChildContainer.BackColor = System.Drawing.Color.White;
-            this.HomeChildContainer.Controls.Add(this.btnMasterData);
-            this.HomeChildContainer.Location = new System.Drawing.Point(1, 3);
-            this.HomeChildContainer.MaximumSize = new System.Drawing.Size(241, 92);
-            this.HomeChildContainer.MinimumSize = new System.Drawing.Size(241, 50);
-            this.HomeChildContainer.Name = "HomeChildContainer";
-            this.HomeChildContainer.Size = new System.Drawing.Size(241, 50);
-            this.HomeChildContainer.TabIndex = 5;
+            this.pnlHomeChildContainer.BackColor = System.Drawing.Color.White;
+            this.pnlHomeChildContainer.Controls.Add(this.btnMasterData);
+            this.pnlHomeChildContainer.Location = new System.Drawing.Point(1, 3);
+            this.pnlHomeChildContainer.MaximumSize = new System.Drawing.Size(241, 92);
+            this.pnlHomeChildContainer.MinimumSize = new System.Drawing.Size(241, 50);
+            this.pnlHomeChildContainer.Name = "pnlHomeChildContainer";
+            this.pnlHomeChildContainer.Size = new System.Drawing.Size(241, 50);
+            this.pnlHomeChildContainer.TabIndex = 5;
             // 
             // btnMasterData
             // 
@@ -280,21 +271,21 @@
             this.btnMasterData.Text = "        Master Data";
             this.btnMasterData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnMasterData.UseVisualStyleBackColor = false;
-            this.btnMasterData.Click += new System.EventHandler(this.btnmasterdata_Click);
+            this.btnMasterData.Click += new System.EventHandler(this.btnMasterData_Click);
             // 
-            // pnlmainworkitm
+            // pnlWorkItem
             // 
-            this.pnlmainworkitm.BackColor = System.Drawing.Color.White;
-            this.pnlmainworkitm.Controls.Add(this.btnAssignWorkItem);
-            this.pnlmainworkitm.Controls.Add(this.btnWorkItem);
-            this.pnlmainworkitm.Controls.Add(this.btnAssignTask);
-            this.pnlmainworkitm.ForeColor = System.Drawing.Color.White;
-            this.pnlmainworkitm.Location = new System.Drawing.Point(3, 211);
-            this.pnlmainworkitm.MaximumSize = new System.Drawing.Size(241, 170);
-            this.pnlmainworkitm.MinimumSize = new System.Drawing.Size(241, 50);
-            this.pnlmainworkitm.Name = "pnlmainworkitm";
-            this.pnlmainworkitm.Size = new System.Drawing.Size(241, 50);
-            this.pnlmainworkitm.TabIndex = 8;
+            this.pnlWorkItem.BackColor = System.Drawing.Color.White;
+            this.pnlWorkItem.Controls.Add(this.btnAssignWorkItem);
+            this.pnlWorkItem.Controls.Add(this.btnWorkItem);
+            this.pnlWorkItem.Controls.Add(this.btnCreateWorkItem);
+            this.pnlWorkItem.ForeColor = System.Drawing.Color.White;
+            this.pnlWorkItem.Location = new System.Drawing.Point(3, 211);
+            this.pnlWorkItem.MaximumSize = new System.Drawing.Size(241, 170);
+            this.pnlWorkItem.MinimumSize = new System.Drawing.Size(241, 50);
+            this.pnlWorkItem.Name = "pnlWorkItem";
+            this.pnlWorkItem.Size = new System.Drawing.Size(241, 50);
+            this.pnlWorkItem.TabIndex = 8;
             // 
             // btnAssignWorkItem
             // 
@@ -312,7 +303,7 @@
             this.btnAssignWorkItem.Text = "        Assign WorkItem";
             this.btnAssignWorkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAssignWorkItem.UseVisualStyleBackColor = false;
-            this.btnAssignWorkItem.Click += new System.EventHandler(this.btnassignworkItem_Click);
+            this.btnAssignWorkItem.Click += new System.EventHandler(this.btnAssignWorkItem_Click);
             // 
             // btnWorkItem
             // 
@@ -330,40 +321,40 @@
             this.btnWorkItem.Text = "        WorkItem";
             this.btnWorkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnWorkItem.UseVisualStyleBackColor = false;
-            this.btnWorkItem.Click += new System.EventHandler(this.btnworkitem_Click);
+            this.btnWorkItem.Click += new System.EventHandler(this.btnWorkItem_Click);
             // 
-            // btnAssignTask
+            // btnCreateWorkItem
             // 
-            this.btnAssignTask.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.btnAssignTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAssignTask.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAssignTask.ForeColor = System.Drawing.Color.White;
-            this.btnAssignTask.Image = ((System.Drawing.Image)(resources.GetObject("btnAssignTask.Image")));
-            this.btnAssignTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAssignTask.Location = new System.Drawing.Point(-1, 56);
-            this.btnAssignTask.Name = "btnAssignTask";
-            this.btnAssignTask.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnAssignTask.Size = new System.Drawing.Size(243, 58);
-            this.btnAssignTask.TabIndex = 2;
-            this.btnAssignTask.Text = "        Create WorkItem";
-            this.btnAssignTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAssignTask.UseVisualStyleBackColor = false;
-            this.btnAssignTask.Click += new System.EventHandler(this.btnassigntask_Click);
+            this.btnCreateWorkItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.btnCreateWorkItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreateWorkItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreateWorkItem.ForeColor = System.Drawing.Color.White;
+            this.btnCreateWorkItem.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateWorkItem.Image")));
+            this.btnCreateWorkItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateWorkItem.Location = new System.Drawing.Point(-1, 56);
+            this.btnCreateWorkItem.Name = "btnCreateWorkItem";
+            this.btnCreateWorkItem.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnCreateWorkItem.Size = new System.Drawing.Size(243, 58);
+            this.btnCreateWorkItem.TabIndex = 2;
+            this.btnCreateWorkItem.Text = "        Create WorkItem";
+            this.btnCreateWorkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateWorkItem.UseVisualStyleBackColor = false;
+            this.btnCreateWorkItem.Click += new System.EventHandler(this.btnCreateWorkItem_Click);
             // 
-            // panelReportAnalysis
+            // pnlReportAnalysis
             // 
-            this.panelReportAnalysis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
-            this.panelReportAnalysis.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelReportAnalysis.Controls.Add(this.btnTimeBasedReport);
-            this.panelReportAnalysis.Controls.Add(this.btnAssigneeBasedReport);
-            this.panelReportAnalysis.Controls.Add(this.btnStatusBasedReport);
-            this.panelReportAnalysis.Controls.Add(this.btnReportAnalysis);
-            this.panelReportAnalysis.Location = new System.Drawing.Point(3, 267);
-            this.panelReportAnalysis.MaximumSize = new System.Drawing.Size(241, 219);
-            this.panelReportAnalysis.MinimumSize = new System.Drawing.Size(241, 50);
-            this.panelReportAnalysis.Name = "panelReportAnalysis";
-            this.panelReportAnalysis.Size = new System.Drawing.Size(241, 50);
-            this.panelReportAnalysis.TabIndex = 7;
+            this.pnlReportAnalysis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(60)))));
+            this.pnlReportAnalysis.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlReportAnalysis.Controls.Add(this.btnTimeBasedReport);
+            this.pnlReportAnalysis.Controls.Add(this.btnAssigneeBasedReport);
+            this.pnlReportAnalysis.Controls.Add(this.btnStatusBasedReport);
+            this.pnlReportAnalysis.Controls.Add(this.btnReportAnalysis);
+            this.pnlReportAnalysis.Location = new System.Drawing.Point(3, 267);
+            this.pnlReportAnalysis.MaximumSize = new System.Drawing.Size(241, 219);
+            this.pnlReportAnalysis.MinimumSize = new System.Drawing.Size(241, 50);
+            this.pnlReportAnalysis.Name = "pnlReportAnalysis";
+            this.pnlReportAnalysis.Size = new System.Drawing.Size(241, 50);
+            this.pnlReportAnalysis.TabIndex = 7;
             // 
             // btnTimeBasedReport
             // 
@@ -399,7 +390,7 @@
             this.btnAssigneeBasedReport.Text = "        Assignee Based Report";
             this.btnAssigneeBasedReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAssigneeBasedReport.UseVisualStyleBackColor = false;
-            this.btnAssigneeBasedReport.Click += new System.EventHandler(this.btnAssigneeBaseReport_Click);
+            this.btnAssigneeBasedReport.Click += new System.EventHandler(this.btnAssigneeBasedReport_Click);
             // 
             // btnStatusBasedReport
             // 
@@ -417,7 +408,7 @@
             this.btnStatusBasedReport.Text = "        Status Based Report";
             this.btnStatusBasedReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStatusBasedReport.UseVisualStyleBackColor = false;
-            this.btnStatusBasedReport.Click += new System.EventHandler(this.btnstatusbasedreport_Click);
+            this.btnStatusBasedReport.Click += new System.EventHandler(this.btnStatusBasedReport_Click);
             // 
             // btnReportAnalysis
             // 
@@ -435,38 +426,38 @@
             this.btnReportAnalysis.Text = "        Report Analysis";
             this.btnReportAnalysis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReportAnalysis.UseVisualStyleBackColor = false;
-            this.btnReportAnalysis.Click += new System.EventHandler(this.btnreportanalysis_Click);
+            this.btnReportAnalysis.Click += new System.EventHandler(this.btnReportAnalysis_Click);
             // 
-            // pnlmainsettings
+            // pnlSettings
             // 
-            this.pnlmainsettings.BackColor = System.Drawing.Color.White;
-            this.pnlmainsettings.Controls.Add(this.btnUpdatePwd);
-            this.pnlmainsettings.Controls.Add(this.btnSettings);
-            this.pnlmainsettings.ForeColor = System.Drawing.Color.White;
-            this.pnlmainsettings.Location = new System.Drawing.Point(3, 323);
-            this.pnlmainsettings.MaximumSize = new System.Drawing.Size(241, 106);
-            this.pnlmainsettings.MinimumSize = new System.Drawing.Size(241, 50);
-            this.pnlmainsettings.Name = "pnlmainsettings";
-            this.pnlmainsettings.Size = new System.Drawing.Size(241, 50);
-            this.pnlmainsettings.TabIndex = 7;
+            this.pnlSettings.BackColor = System.Drawing.Color.White;
+            this.pnlSettings.Controls.Add(this.btnChangePassword);
+            this.pnlSettings.Controls.Add(this.btnSettings);
+            this.pnlSettings.ForeColor = System.Drawing.Color.White;
+            this.pnlSettings.Location = new System.Drawing.Point(3, 323);
+            this.pnlSettings.MaximumSize = new System.Drawing.Size(241, 106);
+            this.pnlSettings.MinimumSize = new System.Drawing.Size(241, 50);
+            this.pnlSettings.Name = "pnlSettings";
+            this.pnlSettings.Size = new System.Drawing.Size(241, 50);
+            this.pnlSettings.TabIndex = 7;
             // 
-            // btnUpdatePwd
+            // btnChangePassword
             // 
-            this.btnUpdatePwd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.btnUpdatePwd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdatePwd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdatePwd.ForeColor = System.Drawing.Color.White;
-            this.btnUpdatePwd.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdatePwd.Image")));
-            this.btnUpdatePwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdatePwd.Location = new System.Drawing.Point(0, 56);
-            this.btnUpdatePwd.Name = "btnUpdatePwd";
-            this.btnUpdatePwd.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnUpdatePwd.Size = new System.Drawing.Size(245, 52);
-            this.btnUpdatePwd.TabIndex = 2;
-            this.btnUpdatePwd.Text = "        Change Password";
-            this.btnUpdatePwd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdatePwd.UseVisualStyleBackColor = false;
-            this.btnUpdatePwd.Click += new System.EventHandler(this.btnupdatepwd_Click);
+            this.btnChangePassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.btnChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangePassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangePassword.ForeColor = System.Drawing.Color.White;
+            this.btnChangePassword.Image = ((System.Drawing.Image)(resources.GetObject("btnChangePassword.Image")));
+            this.btnChangePassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChangePassword.Location = new System.Drawing.Point(0, 56);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnChangePassword.Size = new System.Drawing.Size(245, 52);
+            this.btnChangePassword.TabIndex = 2;
+            this.btnChangePassword.Text = "        Change Password";
+            this.btnChangePassword.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChangePassword.UseVisualStyleBackColor = false;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // btnSettings
             // 
@@ -486,75 +477,19 @@
             this.btnSettings.UseVisualStyleBackColor = false;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // panelTS1
+            // pnlTitleBar
             // 
-            this.panelTS1.Controls.Add(this.btnTaskSheet);
-            this.panelTS1.Location = new System.Drawing.Point(513, 313);
-            this.panelTS1.Name = "panelTS1";
-            this.panelTS1.Size = new System.Drawing.Size(242, 37);
-            this.panelTS1.TabIndex = 4;
-            this.panelTS1.Visible = false;
-            // 
-            // btnTaskSheet
-            // 
-            this.btnTaskSheet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTaskSheet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTaskSheet.ForeColor = System.Drawing.Color.White;
-            this.btnTaskSheet.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskSheet.Image")));
-            this.btnTaskSheet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaskSheet.Location = new System.Drawing.Point(-1, -8);
-            this.btnTaskSheet.Name = "btnTaskSheet";
-            this.btnTaskSheet.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnTaskSheet.Size = new System.Drawing.Size(243, 58);
-            this.btnTaskSheet.TabIndex = 2;
-            this.btnTaskSheet.Text = "             Task Sheet";
-            this.btnTaskSheet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaskSheet.UseVisualStyleBackColor = true;
-            // 
-            // panelTC1
-            // 
-            this.panelTC1.Controls.Add(this.btnTaskCalender);
-            this.panelTC1.Location = new System.Drawing.Point(513, 356);
-            this.panelTC1.Name = "panelTC1";
-            this.panelTC1.Size = new System.Drawing.Size(242, 37);
-            this.panelTC1.TabIndex = 2;
-            this.panelTC1.Visible = false;
-            // 
-            // btnTaskCalender
-            // 
-            this.btnTaskCalender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTaskCalender.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTaskCalender.ForeColor = System.Drawing.Color.White;
-            this.btnTaskCalender.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskCalender.Image")));
-            this.btnTaskCalender.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaskCalender.Location = new System.Drawing.Point(-1, -8);
-            this.btnTaskCalender.Name = "btnTaskCalender";
-            this.btnTaskCalender.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnTaskCalender.Size = new System.Drawing.Size(243, 58);
-            this.btnTaskCalender.TabIndex = 2;
-            this.btnTaskCalender.Text = "             Task Calender";
-            this.btnTaskCalender.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaskCalender.UseVisualStyleBackColor = true;
-            // 
-            // Sidebartimer
-            // 
-            this.Sidebartimer.Interval = 10;
-            this.Sidebartimer.Tick += new System.EventHandler(this.Sidebartimer_Tick);
-            // 
-            // paneltitlebar
-            // 
-            this.paneltitlebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.paneltitlebar.Controls.Add(this.btnMinimize);
-            this.paneltitlebar.Controls.Add(this.btnMaximize);
-            this.paneltitlebar.Controls.Add(this.btnClose);
-            this.paneltitlebar.Controls.Add(this.btnCloseChildForm);
-            this.paneltitlebar.Controls.Add(this.lblTitle);
-            this.paneltitlebar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.paneltitlebar.Location = new System.Drawing.Point(245, 0);
-            this.paneltitlebar.Name = "paneltitlebar";
-            this.paneltitlebar.Size = new System.Drawing.Size(899, 65);
-            this.paneltitlebar.TabIndex = 1;
-            this.paneltitlebar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.paneltitlebar_MouseDown);
+            this.pnlTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.pnlTitleBar.Controls.Add(this.btnMinimize);
+            this.pnlTitleBar.Controls.Add(this.btnMaximize);
+            this.pnlTitleBar.Controls.Add(this.btnClose);
+            this.pnlTitleBar.Controls.Add(this.btnCloseChildForm);
+            this.pnlTitleBar.Controls.Add(this.lblTitle);
+            this.pnlTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTitleBar.Location = new System.Drawing.Point(245, 0);
+            this.pnlTitleBar.Name = "pnlTitleBar";
+            this.pnlTitleBar.Size = new System.Drawing.Size(899, 65);
+            this.pnlTitleBar.TabIndex = 1;
             // 
             // btnMinimize
             // 
@@ -599,7 +534,7 @@
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "x";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnclose_Click);
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnCloseChildForm
             // 
@@ -614,7 +549,7 @@
             this.btnCloseChildForm.TabIndex = 1;
             this.btnCloseChildForm.Text = "X";
             this.btnCloseChildForm.UseVisualStyleBackColor = true;
-            this.btnCloseChildForm.Click += new System.EventHandler(this.btnclosechildform_Click);
+            this.btnCloseChildForm.Click += new System.EventHandler(this.btnCloseChildForm_Click);
             // 
             // lblTitle
             // 
@@ -628,35 +563,18 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "DASHBOARD";
             // 
-            // panelDesktopPanel
+            // pnlDesktopPanel
             // 
-            this.panelDesktopPanel.Controls.Add(this.panelTS1);
-            this.panelDesktopPanel.Controls.Add(this.panelTC1);
-            this.panelDesktopPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDesktopPanel.Location = new System.Drawing.Point(245, 65);
-            this.panelDesktopPanel.Name = "panelDesktopPanel";
-            this.panelDesktopPanel.Size = new System.Drawing.Size(899, 613);
-            this.panelDesktopPanel.TabIndex = 2;
+            this.pnlDesktopPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDesktopPanel.Location = new System.Drawing.Point(245, 65);
+            this.pnlDesktopPanel.Name = "pnlDesktopPanel";
+            this.pnlDesktopPanel.Size = new System.Drawing.Size(899, 613);
+            this.pnlDesktopPanel.TabIndex = 2;
             // 
-            // HomeTimer
+            // timerExpandCollapse
             // 
-            this.HomeTimer.Interval = 10;
-            this.HomeTimer.Tick += new System.EventHandler(this.HomeTimer_Tick);
-            // 
-            // ReportTimer
-            // 
-            this.ReportTimer.Interval = 10;
-            this.ReportTimer.Tick += new System.EventHandler(this.ReportTimer_Tick);
-            // 
-            // SettingTimer
-            // 
-            this.SettingTimer.Interval = 10;
-            this.SettingTimer.Tick += new System.EventHandler(this.SettingTimer_Tick);
-            // 
-            // WorkItemtimer
-            // 
-            this.WorkItemtimer.Interval = 10;
-            this.WorkItemtimer.Tick += new System.EventHandler(this.WorkITemtimer_Tick);
+            this.timerExpandCollapse.Interval = 10;
+            this.timerExpandCollapse.Tick += new System.EventHandler(this.timerExpandCollapse_Tick);
             // 
             // FormMainMenu
             // 
@@ -664,78 +582,67 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1144, 678);
-            this.Controls.Add(this.panelDesktopPanel);
-            this.Controls.Add(this.paneltitlebar);
-            this.Controls.Add(this.Sidebar);
+            this.Controls.Add(this.pnlDesktopPanel);
+            this.Controls.Add(this.pnlTitleBar);
+            this.Controls.Add(this.pnlSideBar);
             this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "FormMainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Task Management System";
             this.Load += new System.EventHandler(this.FormMainMenu_Load);
-            this.Sidebar.ResumeLayout(false);
-            this.panelLogo.ResumeLayout(false);
-            this.panelLogo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picemp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Menubutton)).EndInit();
-            this.HomeContainer.ResumeLayout(false);
-            this.panelTC.ResumeLayout(false);
-            this.panelTS.ResumeLayout(false);
-            this.HomeChildContainer.ResumeLayout(false);
-            this.pnlmainworkitm.ResumeLayout(false);
-            this.panelReportAnalysis.ResumeLayout(false);
-            this.pnlmainsettings.ResumeLayout(false);
-            this.panelTS1.ResumeLayout(false);
-            this.panelTC1.ResumeLayout(false);
-            this.paneltitlebar.ResumeLayout(false);
-            this.paneltitlebar.PerformLayout();
-            this.panelDesktopPanel.ResumeLayout(false);
+            this.pnlSideBar.ResumeLayout(false);
+            this.pnlLogo.ResumeLayout(false);
+            this.pnlLogo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMenuButton)).EndInit();
+            this.pnlMasterData.ResumeLayout(false);
+            this.pnlTC.ResumeLayout(false);
+            this.pnlTS.ResumeLayout(false);
+            this.pnlHomeChildContainer.ResumeLayout(false);
+            this.pnlWorkItem.ResumeLayout(false);
+            this.pnlReportAnalysis.ResumeLayout(false);
+            this.pnlSettings.ResumeLayout(false);
+            this.pnlTitleBar.ResumeLayout(false);
+            this.pnlTitleBar.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel Sidebar;
-        private System.Windows.Forms.Panel panelLogo;
+        private System.Windows.Forms.FlowLayoutPanel pnlSideBar;
+        private System.Windows.Forms.Panel pnlLogo;
         private System.Windows.Forms.Button btnMasterData;
-        private System.Windows.Forms.Panel panelTC1;
-        private System.Windows.Forms.Button btnTaskCalender;
-        private System.Windows.Forms.Panel panelTS1;
-        private System.Windows.Forms.Button btnTaskSheet;
         private System.Windows.Forms.Label lblMenu;
-        private System.Windows.Forms.PictureBox Menubutton;
-        private System.Windows.Forms.Timer Sidebartimer;
-        private System.Windows.Forms.Panel paneltitlebar;
+        private System.Windows.Forms.PictureBox pbMenuButton;
+        private System.Windows.Forms.Panel pnlTitleBar;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Panel panelDesktopPanel;
+        private System.Windows.Forms.Panel pnlDesktopPanel;
         private System.Windows.Forms.Button btnCloseChildForm;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Button btnMaximize;
-        private System.Windows.Forms.Timer HomeTimer;
-        private System.Windows.Forms.Panel HomeContainer;
-        private System.Windows.Forms.Panel panelTS;
+        private System.Windows.Forms.Panel pnlMasterData;
+        private System.Windows.Forms.Panel pnlTS;
         private System.Windows.Forms.Button btnTeamRegister;
-        private System.Windows.Forms.Panel HomeChildContainer;
-        private System.Windows.Forms.Panel panelTC;
-        private System.Windows.Forms.Button btnGroupTask;
-        private System.Windows.Forms.Panel panelReportAnalysis;
+        private System.Windows.Forms.Panel pnlHomeChildContainer;
+        private System.Windows.Forms.Panel pnlTC;
+        private System.Windows.Forms.Button btnTaskManagement;
+        private System.Windows.Forms.Panel pnlReportAnalysis;
         private System.Windows.Forms.Button btnTimeBasedReport;
         private System.Windows.Forms.Button btnAssigneeBasedReport;
         private System.Windows.Forms.Button btnStatusBasedReport;
         private System.Windows.Forms.Button btnReportAnalysis;
-        private System.Windows.Forms.Timer ReportTimer;
-        private System.Windows.Forms.Label lblWelCome;
+        private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Label lblLogOut;
-        private System.Windows.Forms.Panel pnlmainsettings;
-        private System.Windows.Forms.Timer SettingTimer;
-        private System.Windows.Forms.Button btnUpdatePwd;
+        private System.Windows.Forms.Panel pnlSettings;
+        private System.Windows.Forms.Button btnChangePassword;
         private System.Windows.Forms.Button btnSettings;
-        private System.Windows.Forms.Button btnAssignTask;
-        private System.Windows.Forms.Panel pnlmainworkitm;
+        private System.Windows.Forms.Button btnCreateWorkItem;
+        private System.Windows.Forms.Panel pnlWorkItem;
         private System.Windows.Forms.Button btnAssignWorkItem;
         private System.Windows.Forms.Button btnWorkItem;
-        private System.Windows.Forms.Timer WorkItemtimer;
-        private TMS.UI.Utilities.RoundPictureBox picemp;
+        private System.Windows.Forms.Timer timerExpandCollapse;
+        private TMS.UI.Utilities.RoundPictureBox pbUser;
     }
 }

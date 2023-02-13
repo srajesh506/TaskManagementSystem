@@ -1,6 +1,6 @@
 ﻿namespace TMS.UI
 {
-    partial class TaskManagement
+    partial class TaskManagementForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,51 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskManagement));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskManagementForm));
             this.pnlTableLayout = new System.Windows.Forms.Panel();
-            this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.tblLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.pnlManageTask = new System.Windows.Forms.Panel();
             this.btnManageTask = new System.Windows.Forms.Button();
             this.pnlManageActivity = new System.Windows.Forms.Panel();
             this.btnManageActivity = new System.Windows.Forms.Button();
-            this.pnlManageSubtask = new System.Windows.Forms.Panel();
+            this.pnlManageSubTask = new System.Windows.Forms.Panel();
             this.btnManageSubTask = new System.Windows.Forms.Button();
-            this.panelMain = new System.Windows.Forms.Panel();
+            this.pnlMain = new System.Windows.Forms.Panel();
             this.pnlTableLayout.SuspendLayout();
-            this.tableLayoutPanelMain.SuspendLayout();
+            this.tblLayoutPanelMain.SuspendLayout();
             this.pnlManageTask.SuspendLayout();
             this.pnlManageActivity.SuspendLayout();
-            this.pnlManageSubtask.SuspendLayout();
+            this.pnlManageSubTask.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTableLayout
             // 
-            this.pnlTableLayout.Controls.Add(this.tableLayoutPanelMain);
+            this.pnlTableLayout.Controls.Add(this.tblLayoutPanelMain);
             this.pnlTableLayout.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTableLayout.Location = new System.Drawing.Point(5, 5);
             this.pnlTableLayout.Name = "pnlTableLayout";
             this.pnlTableLayout.Size = new System.Drawing.Size(990, 82);
             this.pnlTableLayout.TabIndex = 0;
             // 
-            // tableLayoutPanelMain
+            // tblLayoutPanelMain
             // 
-            this.tableLayoutPanelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.tableLayoutPanelMain.ColumnCount = 3;
-            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelMain.Controls.Add(this.pnlManageTask, 1, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.pnlManageActivity, 0, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.pnlManageSubtask, 3, 0);
-            this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelMain.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            this.tableLayoutPanelMain.RowCount = 1;
-            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Size = new System.Drawing.Size(990, 90);
-            this.tableLayoutPanelMain.TabIndex = 2;
+            this.tblLayoutPanelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.tblLayoutPanelMain.ColumnCount = 3;
+            this.tblLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblLayoutPanelMain.Controls.Add(this.pnlManageTask, 1, 0);
+            this.tblLayoutPanelMain.Controls.Add(this.pnlManageActivity, 0, 0);
+            this.tblLayoutPanelMain.Controls.Add(this.pnlManageSubTask, 3, 0);
+            this.tblLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tblLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
+            this.tblLayoutPanelMain.Margin = new System.Windows.Forms.Padding(0);
+            this.tblLayoutPanelMain.Name = "tblLayoutPanelMain";
+            this.tblLayoutPanelMain.RowCount = 1;
+            this.tblLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblLayoutPanelMain.Size = new System.Drawing.Size(990, 90);
+            this.tblLayoutPanelMain.TabIndex = 2;
             // 
             // pnlManageTask
             // 
@@ -102,7 +102,7 @@
             this.btnManageTask.Text = "Manage Task";
             this.btnManageTask.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnManageTask.UseVisualStyleBackColor = false;
-            this.btnManageTask.Click += new System.EventHandler(this.btn_click);
+            this.btnManageTask.Click += new System.EventHandler(this.btnAll_Click);
             // 
             // pnlManageActivity
             // 
@@ -132,19 +132,19 @@
             this.btnManageActivity.Text = "Manage Activity";
             this.btnManageActivity.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnManageActivity.UseVisualStyleBackColor = false;
-            this.btnManageActivity.Click += new System.EventHandler(this.btn_click);
+            this.btnManageActivity.Click += new System.EventHandler(this.btnAll_Click);
             // 
-            // pnlManageSubtask
+            // pnlManageSubTask
             // 
-            this.pnlManageSubtask.BackColor = System.Drawing.Color.Silver;
-            this.pnlManageSubtask.Controls.Add(this.btnManageSubTask);
-            this.pnlManageSubtask.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlManageSubtask.Location = new System.Drawing.Point(665, 5);
-            this.pnlManageSubtask.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.pnlManageSubtask.Name = "pnlManageSubtask";
-            this.pnlManageSubtask.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
-            this.pnlManageSubtask.Size = new System.Drawing.Size(320, 79);
-            this.pnlManageSubtask.TabIndex = 2;
+            this.pnlManageSubTask.BackColor = System.Drawing.Color.Silver;
+            this.pnlManageSubTask.Controls.Add(this.btnManageSubTask);
+            this.pnlManageSubTask.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlManageSubTask.Location = new System.Drawing.Point(665, 5);
+            this.pnlManageSubTask.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.pnlManageSubTask.Name = "pnlManageSubTask";
+            this.pnlManageSubTask.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
+            this.pnlManageSubTask.Size = new System.Drawing.Size(320, 79);
+            this.pnlManageSubTask.TabIndex = 2;
             // 
             // btnManageSubTask
             // 
@@ -163,22 +163,22 @@
             this.btnManageSubTask.Text = "Manage Subtask";
             this.btnManageSubTask.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnManageSubTask.UseVisualStyleBackColor = false;
-            this.btnManageSubTask.Click += new System.EventHandler(this.btn_click);
+            this.btnManageSubTask.Click += new System.EventHandler(this.btnAll_Click);
             // 
-            // panelMain
+            // pnlMain
             // 
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(5, 87);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(990, 458);
-            this.panelMain.TabIndex = 1;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(5, 87);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(990, 458);
+            this.pnlMain.TabIndex = 1;
             // 
             // TaskManagement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1000, 550);
-            this.Controls.Add(this.panelMain);
+            this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlTableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TaskManagement";
@@ -186,10 +186,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Task Management";
             this.pnlTableLayout.ResumeLayout(false);
-            this.tableLayoutPanelMain.ResumeLayout(false);
+            this.tblLayoutPanelMain.ResumeLayout(false);
             this.pnlManageTask.ResumeLayout(false);
             this.pnlManageActivity.ResumeLayout(false);
-            this.pnlManageSubtask.ResumeLayout(false);
+            this.pnlManageSubTask.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -197,13 +197,13 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlTableLayout;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
-        private System.Windows.Forms.Panel panelMain;
+        private System.Windows.Forms.TableLayoutPanel tblLayoutPanelMain;
+        private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Panel pnlManageTask;
         private System.Windows.Forms.Button btnManageTask;
         private System.Windows.Forms.Panel pnlManageActivity;
         private System.Windows.Forms.Button btnManageActivity;
-        private System.Windows.Forms.Panel pnlManageSubtask;
+        private System.Windows.Forms.Panel pnlManageSubTask;
         private System.Windows.Forms.Button btnManageSubTask;
     }
 }

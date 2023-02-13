@@ -1,4 +1,5 @@
-﻿namespace TMS.TaskReporting
+﻿using System.Windows.Forms;
+namespace TMS.UI
 {
     partial class ReportViewer
     {
@@ -28,29 +29,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
-            this.CRTimeBasedReport1 = new TMS.TaskReporting.CRTimeBasedReport();
+            this.crystalReportViewer = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.CrystalReport = new TMS.UI.CrystalReport();
             this.SuspendLayout();
             // 
-            // crystalReportViewer1
+            // crystalReportViewer
             // 
-            this.crystalReportViewer1.ActiveViewIndex = 0;
-            this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.crystalReportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.crystalReportViewer1.Name = "crystalReportViewer1";
-            this.crystalReportViewer1.ReportSource = "C:\\Karan\\TaskManagementSystem\\TMS\\TMS\\TaskReporting\\CRTimeBasedReport.rpt";
-            this.crystalReportViewer1.Size = new System.Drawing.Size(1197, 513);
-            this.crystalReportViewer1.TabIndex = 0;
-            this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            this.crystalReportViewer.ActiveViewIndex = -1;
+            this.crystalReportViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crystalReportViewer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.crystalReportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.crystalReportViewer.Location = new System.Drawing.Point(0, 0);
+            this.crystalReportViewer.Name = "crystalReportViewer";
+            this.crystalReportViewer.ReportSource = Application.StartupPath +  "\\TaskReporting\\CrystalReport.rpt";
+            this.crystalReportViewer.Size = new System.Drawing.Size(1197, 513);
+            this.crystalReportViewer.TabIndex = 0;
+            this.crystalReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
             // ReportViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1197, 513);
-            this.Controls.Add(this.crystalReportViewer1);
+            this.Controls.Add(this.crystalReportViewer);
             this.Name = "ReportViewer";
             this.Text = "ReportViewer";
             this.ResumeLayout(false);
@@ -59,7 +60,7 @@
 
         #endregion
 
-        public CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
-        private CRTimeBasedReport CRTimeBasedReport1;
+        public CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer;
+        private CrystalReport CrystalReport;
     }
 }
