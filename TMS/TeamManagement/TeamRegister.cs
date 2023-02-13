@@ -33,7 +33,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                LoadTheme();
+               
                 EnableDisableButtons(2);
                 LoadEmployeesDataGrid(true);        //True flag to make DB call for first time loading the grid
             }
@@ -48,6 +48,7 @@ namespace TMS.UI
         {
             try
             {
+                LoadTheme();
                 LoadRoles();
             }
             catch (Exception ex)
