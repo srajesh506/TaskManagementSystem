@@ -8,7 +8,7 @@
 /TMS/obj/
 *.vsidx
 *.lock
-.vs/TMS/v17/.suo
+.vs/
 Entities/bin/
 BusinessLayer/bin/
 DataAccess/bin/
