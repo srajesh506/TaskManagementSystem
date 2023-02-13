@@ -239,7 +239,6 @@
     <Compile Include="Wait\WaitForm.Designer.cs">
       <DependentUpon>WaitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wait\Waiting.cs" />
     <Compile Include="Settings\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,6 +272,7 @@
     <Compile Include="TaskReporting\StatusBasedReport.Designer.cs">
       <DependentUpon>StatusBasedReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wait\Waiting.cs" />
     <EmbeddedResource Include="Utilities\FormMessageBox.resx">
       <DependentUpon>FormMessageBox.cs</DependentUpon>
     </EmbeddedResource>
