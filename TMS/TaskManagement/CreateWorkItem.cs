@@ -7,27 +7,37 @@ using TMS.UI.Utilities;
 using TMS.BusinessEntities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
+using System.Linq;
 
 namespace TMS.UI
 {
     public partial class CreateWorkItem : Form
     {
+
+        //Paging Variables***********
+        private int _currentPage = 1;
+        private int _pageSize = 5;
+
+        private int _noOfPages;
+        private int _totalRecords;
+
+        private int _startPageInLocal;
+        private int _pagesInLocal;
+        //************
+
         private string _activityId;
         private string _taskId;
         private string _subTaskId;
         private string _workItemId;
         private string _workItemDescription;
-
+        private DataTable _WorkItem;
         TaskManagement taskManagement = new TaskManagement();
         WorkItemManagement workItemManagement = new WorkItemManagement();
 
         public CreateWorkItem()
         {
             InitializeComponent();
-            LoadTheme();
-            GetDefaultControlValues();
-            EnableDisableButtons(2);
-            LoadWorkItemDataGrid(true, true);
+           
         }
 
         //Form Load event - Loads the activity combobox
@@ -35,14 +45,20 @@ namespace TMS.UI
         {
             try
             {
+                LoadTheme();
+                GetDefaultControlValues();
+                EnableDisableButtons(2);
+                LoadWorkItemDataGrid(true, true);
+
                 DataTable dtActivity = new DataTable();
-                dtActivity = taskManagement.GetActivities(true);
-                DataRow drActivity = dtActivity.NewRow();
+                dtActivity = taskManagement.GetActivities_1(true);
+                var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "ActivityId", "ActivityName");
+                DataRow drActivity = dtActivityFilter.NewRow();
                 drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
-                dtActivity.Rows.InsertAt(drActivity, 0);
+                dtActivityFilter.Rows.InsertAt(drActivity, 0);
                 cmbActivity.ValueMember = "ActivityId";
                 cmbActivity.DisplayMember = "ActivityName";
-                cmbActivity.DataSource = dtActivity;
+                cmbActivity.DataSource = dtActivityFilter;
             }
             catch (Exception ex)
             {
@@ -96,6 +112,7 @@ namespace TMS.UI
             {
                 FormControlHandling.ClearControls(grpBoxInputControls);
                 EnableDisableButtons(2);
+                LoadWorkItemDataGrid(true, true);
             }
             catch (Exception ex)
             {
@@ -139,7 +156,7 @@ namespace TMS.UI
                 if (cmbActivity.SelectedIndex > 0)
                 {
                     DataTable dtTemp = new DataTable();
-                    dtTemp = taskManagement.GetTasks(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)));
+                    dtTemp = taskManagement.GetTasks_1(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)));
                     if (dtTemp.Rows.Count > 0)
                     {
                         cmbTask.Enabled = true;
@@ -170,7 +187,7 @@ namespace TMS.UI
                 if (cmbTask.SelectedIndex > 0)
                 {
                     DataTable dtTemp = new DataTable();
-                    dtTemp = taskManagement.GetSubTasks(false, -1, Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbActivity.SelectedValue));
+                    dtTemp = taskManagement.GetSubTasks_1(false, -1, Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbActivity.SelectedValue));
                     if (dtTemp.Rows.Count > 0)
                     {
                         cmbSubTask.Enabled = true;
@@ -200,7 +217,7 @@ namespace TMS.UI
             {
                 if (cmbActivity.SelectedIndex > 0 && cmbTask.SelectedIndex > 0 && cmbSubTask.SelectedIndex > 0)
                 {
-                    LoadWorkItemDataGrid(true, true, cmbActivity.SelectedIndex, cmbTask.SelectedIndex, cmbSubTask.SelectedIndex);
+                    LoadWorkItemDataGrid(true, true, Convert.ToInt32(cmbActivity.SelectedValue), Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbSubTask.SelectedValue));
                 }
             }
             catch (Exception ex)
@@ -321,6 +338,37 @@ namespace TMS.UI
                     cmbTask.Enabled = true;
                     cmbSubTask.Enabled = true;
                 }
+                if (flag == 4)                  //Grid Page no change or No of records per page change
+                {
+                    if (_currentPage == 1)
+                    {
+                        btnPrevious.Enabled = false;
+                        btnNext.Enabled = true;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = true;
+                    }
+                    if (_currentPage == _noOfPages)
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_noOfPages == 1))
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = false;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_currentPage > 1) && (_currentPage < _noOfPages))
+                    {
+                        btnNext.Enabled = true;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = true;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -366,7 +414,7 @@ namespace TMS.UI
         {
             try
             {
-                if (!ValidateControls())
+                if (ValidateControls())
                 {
                     WorkItem workitem = new WorkItem();
                     workitem.ActivityId = (int)cmbActivity.SelectedValue;
@@ -395,7 +443,10 @@ namespace TMS.UI
                     LoadWorkItemDataGrid(true, true);
                     FormControlHandling.ClearControls(grpBoxInputControls);
                     EnableDisableButtons(2);
-                    RightBottomMessageBox.Success("Data Saved Successfully!");
+                    if (mode == "S")
+                        RightBottomMessageBox.Success("Data saved Successfully!");
+                    else
+                        RightBottomMessageBox.Info("Data modify Successfully!");
                 }
             }
             catch (Exception ex)
@@ -403,14 +454,31 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
+        public void GetWorkItemsData(int pageNum, int pageSize)
+        {
+            try
+            {
+                _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, pageNum, pageSize);
+                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_WorkItem.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_WorkItem.Rows.Count / pageSize));
+                _pageSize = pageSize;
+                _startPageInLocal = pageNum;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to retrieve the Activities records!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
         //Function to load the datagridview with the records and setup other options for datagridview
         private void LoadWorkItemDataGrid(Boolean isActive, Boolean refresh = false, int activityId = -1, int taskId = -1, int subTaskId = -1)
         {
             try
             {
-                if (refresh)
+                if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
                 {
+                    GetWorkItemsData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                    lblCurrentPage.Text = _currentPage.ToString();
+                    lblNoOfPages.Text = _noOfPages.ToString();
                     if (activityId != -1)
                     {
                         dgView.DataSource = null;
@@ -418,21 +486,36 @@ namespace TMS.UI
                         {
                             if (subTaskId != -1)
                             {
-                                dgView.DataSource = workItemManagement.GetWorkItems(activityId, taskId, subTaskId);
+                                _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId, taskId, subTaskId);
+                                DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
+                                dgView.DataSource = null;
+                                dgView.DataSource = records;
+
+                              
                             }
                             else
                             {
-                                dgView.DataSource = workItemManagement.GetWorkItems(activityId,taskId);
+                                _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId, taskId);
+                                DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
+                                dgView.DataSource = null;
+                                dgView.DataSource = records;
                             }
                         }
                         else
                         {
-                            dgView.DataSource = workItemManagement.GetWorkItems(activityId);
+                            _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId);
+                            DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
+                            dgView.DataSource = null;
+                            dgView.DataSource = records;
+                            
                         }
                     }
                     else
                     {
-                        dgView.DataSource = workItemManagement.GetWorkItems();
+                        _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                        DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
+                        dgView.DataSource = null;
+                        dgView.DataSource = records;
                     }
                     dgView.Columns[0].Width = 70;
                     dgView.Columns[1].Width = 150;
@@ -444,6 +527,7 @@ namespace TMS.UI
                     dgView.Columns[7].Visible = false;
                     dgView.Columns[8].Visible = false;
                     dgView.ReadOnly = true;
+                    EnableDisableButtons(4);
                 }
             }
             catch (Exception ex)
@@ -452,5 +536,74 @@ namespace TMS.UI
             }
         }
 
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage += 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadWorkItemDataGrid(true, true);
+                else
+                    LoadWorkItemDataGrid(true, true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to next page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = _noOfPages;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadWorkItemDataGrid(true, true);
+                else
+                    LoadWorkItemDataGrid(true, true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage -= 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadWorkItemDataGrid(true, true);
+                else
+                    LoadWorkItemDataGrid(true, true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to previous page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = 1;
+                if (_startPageInLocal == 1)
+                    LoadWorkItemDataGrid(true, true);
+                else
+                    LoadWorkItemDataGrid(true, true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to the first page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbNoOfRecordsPerPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentPage = 1;
+            LoadWorkItemDataGrid(true, true);
+        }
     }
 }

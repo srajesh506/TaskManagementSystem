@@ -18,8 +18,7 @@ namespace TMS.UI
         public AddRole()
         {
             InitializeComponent();
-            LoadTheme();
-            lblCaption.Text = "Add Role";
+         
         }
        
         private void LoadTheme()
@@ -81,6 +80,21 @@ namespace TMS.UI
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+      
+
+        private void AddRole_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadTheme();
+                lblCaption.Text = "Add Role";
+            }
+            catch(Exception ex)
+            {
+                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

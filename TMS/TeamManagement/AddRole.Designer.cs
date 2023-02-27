@@ -118,6 +118,7 @@
             this.Name = "AddRole";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "addrole";
+            this.Load += new System.EventHandler(this.AddRole_Load);
             this.pnlTitleBar.ResumeLayout(false);
             this.pnlTitleBar.PerformLayout();
             this.ResumeLayout(false);

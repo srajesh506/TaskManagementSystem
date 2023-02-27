@@ -1,4 +1,6 @@
 ﻿using System.Windows.Forms;
+
+
 namespace TMS.UI
 {
     partial class ReportViewer
@@ -35,13 +37,13 @@ namespace TMS.UI
             // 
             // crystalReportViewer
             // 
-            this.crystalReportViewer.ActiveViewIndex = -1;
+            this.crystalReportViewer.ActiveViewIndex = 0;
             this.crystalReportViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.crystalReportViewer.Cursor = System.Windows.Forms.Cursors.Default;
             this.crystalReportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crystalReportViewer.Location = new System.Drawing.Point(0, 0);
             this.crystalReportViewer.Name = "crystalReportViewer";
-            this.crystalReportViewer.ReportSource = Application.StartupPath +  "\\TaskReporting\\CrystalReport.rpt";
+            this.crystalReportViewer.ReportSource = this.CrystalReport;
             this.crystalReportViewer.Size = new System.Drawing.Size(1197, 513);
             this.crystalReportViewer.TabIndex = 0;
             this.crystalReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;

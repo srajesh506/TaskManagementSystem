@@ -22,7 +22,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                LoadTheme();
+               
             }
             catch (Exception ex)
             {
@@ -35,6 +35,7 @@ namespace TMS.UI
         {
             try
             {
+                LoadTheme();
                 LoadTimeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value);
             }
             catch (Exception ex)
@@ -81,7 +82,7 @@ namespace TMS.UI
                 DataTable dt = new DataTable();
                 dt = taskReporting.GetTimeBasedReport(dtpDateFrom.Value, dtpDateTo.Value);
                 Ds.Tables.Add(dt);
-                Ds.WriteXmlSchema("TimeBasedReportSchema.xml");
+                Ds.WriteXmlSchema("TMSReporting.xml");
                 ReportViewer fm = new ReportViewer();
                 CrystalReport cr = new CrystalReport();
                 CrystalDecisions.CrystalReports.Engine.TextObject txtReportHeader;

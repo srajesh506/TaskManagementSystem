@@ -6,20 +6,33 @@ using System.Windows.Forms;
 using TMS.UI.Utilities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
+using System.Linq;
 
 namespace TMS.UI
 {
     public partial class WorkItemAssignments : Form
     {
+
+        //Paging Variables***********
+        private int _currentPage = 1;
+        private int _pageSize = 5;
+
+        private int _noOfPages;
+        private int _totalRecords;
+
+        private int _startPageInLocal;
+        private int _pagesInLocal;
+        //************
+
         private int _workItemAssignmentId;
         private int _workItemId;
         private int _status;
-        private int _userId;
+        private string _userId;
         private string _empName;
         private string _remarks;
         private int _modifiedColumn;
+        private DataTable _WorkItemAssignment;
 
-        
         WorkItemManagement workItemManagement= new WorkItemManagement();
         DBCommonOperations dBCommonOperations=new DBCommonOperations();
         TeamManagement teamManagement=new TeamManagement();
@@ -29,15 +42,55 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                LoadTheme();
-                LoadWorkItemAssignmentData(true, false);
+               
             }
             catch (Exception ex)
             {
                 PopupMessageBox.Show("TMSError - Failed to Load the WorkItem Assignment Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-       
+        public void EnableDisableButtons(int flag)
+        {
+            try
+            {
+                if (flag == 4)                  //Grid Page no change or No of records per page change
+                {
+                    if (_currentPage == 1)
+                    {
+                        btnPrevious.Enabled = false;
+                        btnNext.Enabled = true;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = true;
+                    }
+                    if (_currentPage == _noOfPages)
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_noOfPages == 1))
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = false;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_currentPage > 1) && (_currentPage < _noOfPages))
+                    {
+                        btnNext.Enabled = true;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to setup the Create WorkItem form button controls!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
         //Datagridview formatting Event to highlight records based on the status
         private void dgView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -45,22 +98,22 @@ namespace TMS.UI
             {
                 for (int i = 0; i < dgView.Rows.Count; i++)
                 {
-                    if (dgView.Rows[i].Cells[3].Value.ToString() == "Completed")
+                    if (dgView.Rows[i].Cells[4].Value.ToString() == "Completed")
                     {
                         dgView.Rows[i].DefaultCellStyle.BackColor = Color.Lavender;
                         dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
                     }
-                    else if (dgView.Rows[i].Cells[3].Value.ToString() == "HandedOver")
+                    else if (dgView.Rows[i].Cells[4].Value.ToString() == "HandedOver")
                     {
                         dgView.Rows[i].DefaultCellStyle.BackColor = Color.LightYellow;
                         dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
                     }
-                    else if (dgView.Rows[i].Cells[3].Value.ToString() == "Pending")
+                    else if (dgView.Rows[i].Cells[4].Value.ToString() == "Pending")
                     {
                         dgView.Rows[i].DefaultCellStyle.BackColor = Color.Red;
                         dgView.Rows[i].DefaultCellStyle.ForeColor = Color.WhiteSmoke;
                     }
-                    else if (dgView.Rows[i].Cells[3].Value.ToString() == "InProgress" || dgView.Rows[i].Cells[3].Value.ToString() == "Monitoring")
+                    else if (dgView.Rows[i].Cells[4].Value.ToString() == "InProgress" || dgView.Rows[i].Cells[3].Value.ToString() == "Monitoring")
                     {
                         dgView.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
                         dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
@@ -89,22 +142,22 @@ namespace TMS.UI
                 if (e.RowIndex != -1)
                 {
                     dgView.Controls.Clear();
-                    if (dgView.CurrentRow.Cells[3].Value.ToString() != "Completed" && dgView.CurrentRow.Cells[3].Value.ToString() != "HandedOver")
+                    if (dgView.CurrentRow.Cells[4].Value.ToString() != "Completed" && dgView.CurrentRow.Cells[4].Value.ToString() != "HandedOver")
                     {
                         int index = dgView.CurrentRow.Index;
                         if (index <= dgView.RowCount - 1)
                         {
-                            _workItemAssignmentId = (int)dgView.Rows[index].Cells[0].Value;
-                            _empName = dgView.Rows[index].Cells[4].Value.ToString();
-                            _workItemId = (int)dgView.Rows[index].Cells[1].Value;
+                            _workItemAssignmentId = (int)dgView.Rows[index].Cells[1].Value;
+                            _empName = dgView.Rows[index].Cells[5].Value.ToString();
+                            _workItemId = (int)dgView.Rows[index].Cells[2].Value;
                             _modifiedColumn = (int)e.ColumnIndex;
                         }
-                        if (e.ColumnIndex == 8)
+                        if (e.ColumnIndex == 9)
                         {
                             dgView.CurrentCell.ReadOnly = false;
                             _remarks = dgView.CurrentCell.Value.ToString();
                         }
-                        if (e.ColumnIndex == 4)
+                        if (e.ColumnIndex == 5)
                         {
                             dgView.CurrentCell.ReadOnly = false;
                             DataTable dtTemp = new DataTable();
@@ -128,9 +181,9 @@ namespace TMS.UI
                             EmpNamecombo.Show();
                             EmpNamecombo.SelectedIndex = EmpNamecombo.FindString(dgView.CurrentCell.Value.ToString());
                         }
-                        if (e.ColumnIndex == 3)
+                        if (e.ColumnIndex == 4)
                         {
-                            if (dgView.CurrentRow.Cells[4].Value.ToString() != "--Choose--")
+                            if (dgView.CurrentRow.Cells[5].Value.ToString() != "--Choose--")
                             {
                                 dgView.CurrentCell.ReadOnly = false;
                                 DataTable dtStatus = new DataTable();
@@ -215,40 +268,65 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to load the Theme!! \n" + ex.Message + "\n", ex.InnerException);
             }    
         }
-
+        public void GetWorkItemsAssignmentData(int pageNum, int pageSize)
+        {
+            try
+            {
+                _WorkItemAssignment = workItemManagement.GetWorkItemAssignments(out _totalRecords, pageNum, pageSize);
+                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_WorkItemAssignment.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_WorkItemAssignment.Rows.Count / pageSize));
+                _pageSize = pageSize;
+                _startPageInLocal = pageNum;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to retrieve the Activities records!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
         //Function to load the datagridview with the records and setup other options for datagridview
         private void LoadWorkItemAssignmentData(Boolean refresh = false, Boolean filterflag = false)
         {
             try
             {
-                if (refresh)
+                if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
                 {
                     dgView.DataSource = null;
+                    GetWorkItemsAssignmentData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                    lblCurrentPage.Text = _currentPage.ToString();
+                    lblNoOfPages.Text = _noOfPages.ToString();
                     if (filterflag)
                     {
-                        dgView.DataSource = workItemManagement.GetWorkItemAssignments(true);
+                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignments(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), true);
+                        DataTable records = FormControlHandling.GetPageRecords(_WorkItemAssignment, _currentPage, _pageSize);
+                        dgView.DataSource = null;
+                        dgView.DataSource = records;
                     }
                     else
                     {
-                        dgView.DataSource = workItemManagement.GetWorkItemAssignments();
+                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignments(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                        DataTable records = FormControlHandling.GetPageRecords(_WorkItemAssignment, _currentPage, _pageSize);
+                        dgView.DataSource = null;
+                        dgView.DataSource = records;
                     }
-                    dgView.Columns[0].Visible = false;               //Id
-                    dgView.Columns[1].Visible = false;               //WorkitemId
-                    dgView.Columns[2].Width = 175;                   //WorkItemDescription
-                    dgView.Columns[3].Width = 90;                    //Status
-                    dgView.Columns[4].Width = 100;                   //AssignedTo
-                    dgView.Columns[5].Width = 150;                   //StartDate
-                    dgView.Columns[6].Width = 150;                   //ClosedDate
-                    dgView.Columns[7].Width = 105;                   //HandedOverTo
-                    dgView.Columns[8].Width = 300;                   //Remarks
+                    dgView.Columns[0].Visible = false;               //SLNO
+                    dgView.Columns[1].Visible = false;               //ID
+                    dgView.Columns[2].Visible = false;               //WorkitemId
+                    dgView.Columns[3].Width = 175;                   //WorkItemDescription
+                    dgView.Columns[4].Width = 90;                    //Status
+                    dgView.Columns[5].Width = 100;                   //AssignedTo
+                    dgView.Columns[6].Width = 150;                   //StartDate
+                    dgView.Columns[7].Width = 150;                   //ClosedDate
+                    dgView.Columns[8].Width = 105;                   //HandedOverTo
+                    dgView.Columns[9].Width = 300;                   //Remarks
 
-                    dgView.Columns[2].ReadOnly = true;
                     dgView.Columns[3].ReadOnly = true;
                     dgView.Columns[4].ReadOnly = true;
                     dgView.Columns[5].ReadOnly = true;
                     dgView.Columns[6].ReadOnly = true;
                     dgView.Columns[7].ReadOnly = true;
                     dgView.Columns[8].ReadOnly = true;
+                    dgView.Columns[9].ReadOnly = true;
+                    EnableDisableButtons(4);
                 }
             }
             catch (Exception)
@@ -275,11 +353,11 @@ namespace TMS.UI
         {
             try
             {
-                if (_modifiedColumn == 8)    // Status
+                if (_modifiedColumn == 9)    // Status
                 {
                     if (_remarks != dgView.CurrentCell.Value.ToString())
                     {
-                        workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, 0, 0, dgView.CurrentCell.Value.ToString());
+                        workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, 0, dgView.CurrentCell.Value.ToString());
                     }
                 }
                 FilterData(chkFilterActive.Checked);
@@ -296,16 +374,16 @@ namespace TMS.UI
             try
             {
                 ComboBox temp = (ComboBox)sender;
-                if (_modifiedColumn == 3)    // Status
+                if (_modifiedColumn == 4)    // Status
                 {
                     _status = Convert.ToInt32(temp.SelectedValue);
-                    workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, 0, _status, "");
+                    workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status, "");
                 }
-                else if (_modifiedColumn == 4) // UserId
+                else if (_modifiedColumn == 5) // UserId
                 {
                     if (_empName != temp.Text)
                     {
-                        _userId = Convert.ToInt32(temp.SelectedValue);
+                        _userId = Convert.ToString(temp.SelectedValue);
                         workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, 0, "");
                     }
                     else
@@ -313,6 +391,7 @@ namespace TMS.UI
                         PopupMessageBox.Show("Assigned To Value has not changed. Please choose a different value than currently assigned", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+                temp.Hide();
                 FilterData(chkFilterActive.Checked);
             }
             catch (Exception ex)
@@ -321,5 +400,87 @@ namespace TMS.UI
             }
         }
 
+        private void WorkItemAssignments_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadTheme();
+                LoadWorkItemAssignmentData(true, false);
+            }
+            catch(Exception ex)
+            {
+                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage += 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadWorkItemAssignmentData(true, false);
+                else
+                    LoadWorkItemAssignmentData(true, false);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to next page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = _noOfPages;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadWorkItemAssignmentData(true, false);
+                else
+                    LoadWorkItemAssignmentData(true, false);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage -= 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadWorkItemAssignmentData(true, false);
+                else
+                    LoadWorkItemAssignmentData(true, false);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to previous page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = 1;
+                if (_startPageInLocal == 1)
+                    LoadWorkItemAssignmentData(true, false);
+                else
+                    LoadWorkItemAssignmentData(true, false);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to the first page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbNoOfRecordsPerPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentPage = 1;
+            LoadWorkItemAssignmentData(true, false);
+        }
     }
 }

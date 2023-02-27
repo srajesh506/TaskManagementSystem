@@ -9,6 +9,7 @@ using TMS.UI.CustomMessageBox;
 
 using CrystalDecisions.CrystalReports.Engine;
 
+
 namespace TMS.UI
 {
     public partial class StatusBasedReport : Form
@@ -22,7 +23,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                LoadTheme();
+               
             }
             catch (Exception ex)
             {
@@ -35,6 +36,8 @@ namespace TMS.UI
         {
             try
             {
+                LoadTheme();
+
                 dtpDateFrom.Enabled = false;
                 dtpDateTo.Enabled = false;
                 LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, false);
@@ -130,9 +133,10 @@ namespace TMS.UI
                 {
                     DataSet Ds = new DataSet();
                     DataTable dt = new DataTable();
-                    dt = taskReporting.GetStatusBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                    //dt = taskReporting.GetStatusBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                    dt= taskReporting.GetStatusBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
                     Ds.Tables.Add(dt);
-                   // Ds.WriteXmlSchema("TimeBasedReportSchema.xml");
+                    Ds.WriteXmlSchema("TMSReporting.xml");
                     ReportViewer fm = new ReportViewer();
                     CrystalReport cr = new CrystalReport();
                     CrystalDecisions.CrystalReports.Engine.TextObject txtReportHeader;

@@ -13,6 +13,7 @@ using TMS.UI.CustomMessageBox;
 
 using CrystalDecisions.CrystalReports.Engine;
 
+
 namespace TMS.UI
 {
     public partial class AssigneeBasedReport : Form
@@ -29,7 +30,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                LoadTheme();
+                
             }
             catch (Exception ex)
             {
@@ -42,6 +43,7 @@ namespace TMS.UI
         {
             try
             {
+                LoadTheme();
                 dtpDateFrom.Enabled = false;
                 dtpDateTo.Enabled = false;
                 LoadAssigneeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, false);
@@ -140,7 +142,7 @@ namespace TMS.UI
                     DataTable dt = new DataTable();
                     dt = taskReporting.GetAssigneeBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, cmbAssignee.SelectedValue.ToString());
                     Ds.Tables.Add(dt);
-                    Ds.WriteXmlSchema("TimeBasedReportSchema.xml");
+                    Ds.WriteXmlSchema("TMSReporting.xml");
                     ReportViewer fm = new ReportViewer();
                     CrystalReport cr = new CrystalReport();
 

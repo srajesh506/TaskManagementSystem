@@ -20,11 +20,12 @@ namespace TMS.UI
         public Login()
         {
             InitializeComponent();
-            txtUserName.Select();
+           
         }
        
         private void Login_Load(object sender, EventArgs e)
         {
+            txtUserName.Select();
             Focustxtusername();
         }
        
@@ -76,10 +77,10 @@ namespace TMS.UI
         {
             try
             {
-                waitForm.Show(this);
-                Thread.Sleep(50);
+                //waitForm.Show(this);
+                //Thread.Sleep(50);
                 DoLogin();
-                waitForm.Close();
+                //waitForm.Close();
             }
             catch (Exception ex)
             {

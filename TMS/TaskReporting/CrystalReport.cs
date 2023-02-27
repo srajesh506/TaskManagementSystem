@@ -90,9 +90,9 @@ namespace TMS.UI {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCRTimeBasedReport : Component, ICachedReport {
+    public class CachedCrystalReport : Component, ICachedReport {
         
-        public CachedCRTimeBasedReport() {
+        public CachedCrystalReport() {
         }
         
         [Browsable(false)]

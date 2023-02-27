@@ -8,11 +8,24 @@ using TMS.UI.Utilities;
 using TMS.BusinessEntities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
+using System.Linq;
 
 namespace TMS.UI
 {
     public partial class DefineActivity : UserControl
     {
+
+        //Paging Variables***********
+        private int _currentPage = 1;
+        private int _pageSize = 5;
+
+        private int _noOfPages;
+        private int _totalRecords;
+
+        private int _startPageInLocal;
+        private int _pagesInLocal;
+        //************
+
         private int _activityId = 0;
 
         private DataTable _activities;
@@ -25,9 +38,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                LoadTheme();
-                EnableDisableButtons(2);
-                LoadActivityDataGrid(true);
+             
             }
             catch (Exception ex)
             {
@@ -53,7 +64,7 @@ namespace TMS.UI
         {
             try
             {
-                SaveModifyActivityData("S");
+                SaveModifyActivityData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),"S");
             }
             catch (Exception ex)
             {
@@ -66,7 +77,7 @@ namespace TMS.UI
         {
             try
             {
-                SaveModifyActivityData("S");
+                SaveModifyActivityData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), "M");
             }
             catch (Exception ex)
             {
@@ -96,10 +107,10 @@ namespace TMS.UI
                 int index = dView.CurrentRow.Index;
                 if ((index >= 0) && (index <= dView.RowCount - 1))
                 {
-                    _activityId = Convert.ToInt32(dView.Rows[index].Cells[0].Value);
-                    txtTaskName.Text = Convert.ToString(dView.Rows[index].Cells[1].Value);
-                    rtxtActivityDescription.Text = Convert.ToString(dView.Rows[index].Cells[2].Value);
-                    chkActive.Checked = Convert.ToBoolean(dView.Rows[index].Cells[3].Value);
+                    _activityId = Convert.ToInt32(dView.Rows[index].Cells[1].Value);
+                    txtTaskName.Text = Convert.ToString(dView.Rows[index].Cells[2].Value);
+                    rtxtActivityDescription.Text = Convert.ToString(dView.Rows[index].Cells[3].Value);
+                    chkActive.Checked = Convert.ToBoolean(dView.Rows[index].Cells[4].Value);
                     EnableDisableButtons(3);
                 }
                 else
@@ -149,11 +160,15 @@ namespace TMS.UI
         }
 
         // Function to retrive the Activity table data for GridView DataSource
-        public void GetActivityData()
+        public void GetActivityData(int pageNum, int pageSize)
         {
             try
             {
-                _activities = taskManagement.GetActivities(true);
+                _activities = taskManagement.GetActivities(out _totalRecords,pageNum, pageSize,true);
+                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize));
+                _pageSize = pageSize;
+                _startPageInLocal = pageNum;
             }
             catch (Exception ex)
             {
@@ -233,6 +248,37 @@ namespace TMS.UI
                     btnCancel.Enabled = true;
                     btnModify.Enabled = true;
                 }
+                if (flag == 4)                  //Grid Page no change or No of records per page change
+                {
+                    if (_currentPage == 1)
+                    {
+                        btnPrevious.Enabled = false;
+                        btnNext.Enabled = true;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = true;
+                    }
+                    if (_currentPage == _noOfPages)
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_noOfPages == 1))
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = false;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_currentPage > 1) && (_currentPage < _noOfPages))
+                    {
+                        btnNext.Enabled = true;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = true;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -242,7 +288,7 @@ namespace TMS.UI
 
 
         //Function to perform new Employee addition and existing Employee update
-        private void SaveModifyActivityData(String mode)
+        private void SaveModifyActivityData(int pageNum, int pageSize,String mode)
         {
             try
             {
@@ -273,7 +319,10 @@ namespace TMS.UI
                     LoadActivityDataGrid(true);
                     FormControlHandling.ClearControls(grpBoxInputControls);
                     EnableDisableButtons(2);
-                    RightBottomMessageBox.Success("Data Saved Successfully!");
+                    if (mode == "S")
+                        RightBottomMessageBox.Success("Data saved Successfully!");
+                    else
+                        RightBottomMessageBox.Info("Data modify Successfully!");
                 }
             }
             catch (Exception ex)
@@ -287,21 +336,120 @@ namespace TMS.UI
         {
             try
             {
-                if (refresh)
-                {
-                    GetActivityData();
-                }
-                dView.DataSource = _activities;
+                if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
+                    GetActivityData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                    lblCurrentPage.Text = _currentPage.ToString();
+                    lblNoOfPages.Text = _noOfPages.ToString();
+                    DataTable records = FormControlHandling.GetPageRecords(_activities, _currentPage, _pageSize);
+                    dView.DataSource = records;
                 dView.Columns[0].Width = 150;
-                dView.Columns[1].Width = 400;
-                dView.Columns[2].Width = 500;
-                dView.Columns[3].Visible = false;
+                dView.Columns[2].Width = 400;
+                dView.Columns[3].Width = 500;
+                dView.Columns[1].Visible = false;
                 dView.Columns[4].Visible = false;
+                dView.Columns[5].Visible = false;
+                dView.Columns[6].Visible = false;
                 dView.ReadOnly = true;
+                EnableDisableButtons(4);
+                
             }
             catch (Exception ex)
             {
                 throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        private void DefineActivity_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadTheme();
+                EnableDisableButtons(2);
+                LoadActivityDataGrid(true);
+            }
+            catch(Exception ex)
+            {
+                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage -= 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadActivityDataGrid();
+                else
+                {
+                    LoadActivityDataGrid(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to previous page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = 1;
+                if (_startPageInLocal == 1)
+                    LoadActivityDataGrid();
+                else
+                    LoadActivityDataGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to the first page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage += 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadActivityDataGrid();
+                else
+                    LoadActivityDataGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to next page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = _noOfPages;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadActivityDataGrid();
+                else
+                    LoadActivityDataGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbNoOfRecordsPerPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = 1;
+                LoadActivityDataGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to load selected no. of records on grid page!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

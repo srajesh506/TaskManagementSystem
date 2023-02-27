@@ -7,18 +7,31 @@ using TMS.UI.Utilities;
 using TMS.BusinessEntities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
+using System.Linq;
 
 namespace TMS.UI
 {
     public partial class DefineTask : UserControl
     {
+
+        //Paging Variables***********
+        private int _currentPage = 1;
+        private int _pageSize = 5;
+
+        private int _noOfPages;
+        private int _totalRecords;
+
+        private int _startPageInLocal;
+        private int _pagesInLocal;
+        //************
+
         private int _activityId;
         private int _taskId;
         private string _taskName;
         private string _taskDescription;
         private Boolean _isActive;
 
-        //private DataTable _tasks;
+        private DataTable _tasks;
 
         Task task = new Task();
         TaskManagement taskManagement = new TaskManagement();
@@ -28,9 +41,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                LoadTheme();
-                LoadTaskDataGrid(true, true);
-                EnableDisableButtons(2);
+            
             }
             catch (Exception ex)
             {
@@ -43,14 +54,19 @@ namespace TMS.UI
         {
             try
             {
+                LoadTheme();
+                LoadTaskDataGrid(true);
+                EnableDisableButtons(2);
+
                 DataTable dtActivity = new DataTable();
-                dtActivity = taskManagement.GetActivities(true);
-                DataRow drActivity = dtActivity.NewRow();
+                dtActivity = taskManagement.GetActivities_1(true);
+                var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "ActivityId","ActivityName");
+                DataRow drActivity = dtActivityFilter.NewRow();
                 drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
-                dtActivity.Rows.InsertAt(drActivity, 0);
+                dtActivityFilter.Rows.InsertAt(drActivity, 0);
                 cmbActivity.ValueMember = "ActivityId";
                 cmbActivity.DisplayMember = "ActivityName";
-                cmbActivity.DataSource = dtActivity;
+                cmbActivity.DataSource = dtActivityFilter;
             }
             catch (Exception ex)
             {
@@ -104,6 +120,7 @@ namespace TMS.UI
             {
                 FormControlHandling.ClearControls(grpBoxInputControls);
                 EnableDisableButtons(2);
+                LoadTaskDataGrid(true);
             }
             catch (Exception ex)
             {
@@ -129,7 +146,7 @@ namespace TMS.UI
                     txtTaskName.Text = _taskName;
                     rtxtTaskDescription.Text = _taskDescription;
                     chkActive.Checked = _isActive;
-
+                    LoadTaskDataGrid(true, Convert.ToInt32(cmbActivity.SelectedValue));
                     EnableDisableButtons(3);
                 }
             }
@@ -146,7 +163,7 @@ namespace TMS.UI
             {
                 if (cmbActivity.SelectedIndex > 0)
                 {
-                    LoadTaskDataGrid(true, true, cmbActivity.SelectedIndex);
+                    LoadTaskDataGrid(true, Convert.ToInt32(cmbActivity.SelectedValue));
                 }
             }
             catch (Exception ex)
@@ -272,6 +289,37 @@ namespace TMS.UI
                     btnModify.Enabled = true;
                     cmbActivity.Enabled = true;
                 }
+                if (flag == 4)                  //Grid Page no change or No of records per page change
+                {
+                    if (_currentPage == 1)
+                    {
+                        btnPrevious.Enabled = false;
+                        btnNext.Enabled = true;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = true;
+                    }
+                    if (_currentPage == _noOfPages)
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_noOfPages == 1))
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = false;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_currentPage > 1) && (_currentPage < _noOfPages))
+                    {
+                        btnNext.Enabled = true;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = true;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -308,10 +356,13 @@ namespace TMS.UI
                         default:
                             throw new Exception("TMSError - Invalid Operation!! ");
                     }
-                    LoadTaskDataGrid(true, true);
+                    LoadTaskDataGrid(true);
                     FormControlHandling.ClearControls(grpBoxInputControls);
                     EnableDisableButtons(2);
-                    RightBottomMessageBox.Success("Data Saved Successfully!");
+                    if (mode == "S")
+                        RightBottomMessageBox.Success("Data saved Successfully!");
+                    else
+                        RightBottomMessageBox.Info("Data modify Successfully!");
                 }
             }
             catch (Exception ex)
@@ -321,21 +372,34 @@ namespace TMS.UI
         }
 
         //Function to load the datagridview with the records and setup other options for datagridview
-        private void LoadTaskDataGrid(Boolean isActive, Boolean refresh = false, int activityId = -1)
+        private void LoadTaskDataGrid(Boolean refresh = false, int activityId = -1)
         {
             try
             {
-                if (refresh)
+                if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
                 {
                     if (activityId != -1)
                     {
+                        GetTaskData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                        lblCurrentPage.Text = _currentPage.ToString();
+                        lblNoOfPages.Text = _noOfPages.ToString();
+                        _tasks = taskManagement.GetTasks(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), false, -1, activityId);
+                        DataTable records = FormControlHandling.GetPageRecords(_tasks, _currentPage, _pageSize);
                         dView.DataSource = null;
-                        dView.DataSource = taskManagement.GetTasks(false, -1, activityId);
+                        dView.DataSource = records;
+                       
                     }
                     else
                     {
-                        dView.DataSource = taskManagement.GetTasks(isActive);
+                        GetTaskData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                        _tasks = taskManagement.GetTasks(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),true);
+                        lblCurrentPage.Text = _currentPage.ToString();
+                        lblNoOfPages.Text = _noOfPages.ToString();
+                        DataTable records = FormControlHandling.GetPageRecords(_tasks, _currentPage, _pageSize);
+                        dView.DataSource = records;
                     }
+
+
                     dView.Columns[0].Width = 50;
                     dView.Columns[1].Width = 200;
                     dView.Columns[2].Width = 300;
@@ -344,6 +408,7 @@ namespace TMS.UI
                     dView.Columns[5].Visible = false;
                     dView.Columns[6].Visible = false;
                     dView.ReadOnly = true;
+                    EnableDisableButtons(4);
                 }
             }
             catch (Exception ex)
@@ -351,7 +416,90 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
+        public void GetTaskData(int pageNum, int pageSize)
+        {
+            try
+            {
+                _tasks = taskManagement.GetTasks(out _totalRecords, pageNum, pageSize, true);
+                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_tasks.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_tasks.Rows.Count / pageSize));
+                _pageSize = pageSize;
+                _startPageInLocal = pageNum;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to retrieve the Activities records!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
 
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage += 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                LoadTaskDataGrid(true);
+                else
+                    LoadTaskDataGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to next page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = _noOfPages;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadTaskDataGrid(false);
+                else
+                    LoadTaskDataGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage -= 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadTaskDataGrid(false);
+                else
+                    LoadTaskDataGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to previous page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = 1;
+                if (_startPageInLocal == 1)
+                    LoadTaskDataGrid(false);
+                else
+                    LoadTaskDataGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to the first page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbNoOfRecordsPerPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentPage = 1;
+            LoadTaskDataGrid(true);
+        }
     }
 }

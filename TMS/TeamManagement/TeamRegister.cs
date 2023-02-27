@@ -33,9 +33,6 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-               
-                EnableDisableButtons(2);
-                LoadEmployeesDataGrid(true);        //True flag to make DB call for first time loading the grid
             }
             catch (Exception ex)
             {
@@ -50,6 +47,8 @@ namespace TMS.UI
             {
                 LoadTheme();
                 LoadRoles();
+                EnableDisableButtons(2);
+                LoadEmployeesDataGrid(true);        //True flag to make DB call for first time loading the grid
             }
             catch (Exception ex)
             {
@@ -578,7 +577,10 @@ namespace TMS.UI
                     LoadEmployeesDataGrid(true);    //True flag to make DB call for refreshing the grid
                     FormControlHandling.ClearControls(grpBoxRegistrationForm);
                     EnableDisableButtons(2);
-                    RightBottomMessageBox.Info("Data saved Successfully!");
+                    if(mode=="S")
+                    RightBottomMessageBox.Success("Data saved Successfully!");
+                    else
+                        RightBottomMessageBox.Info("Data modify Successfully!");
                 }
             }
             catch (Exception ex)
@@ -616,5 +618,7 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
+
+       
     }
 }

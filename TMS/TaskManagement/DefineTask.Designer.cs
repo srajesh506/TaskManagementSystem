@@ -29,6 +29,17 @@
         private void InitializeComponent()
         {
             this.pnlOuter = new System.Windows.Forms.Panel();
+            this.lblNoOfRecordPerPage = new System.Windows.Forms.Label();
+            this.cmbNoOfRecordsPerPage = new System.Windows.Forms.ComboBox();
+            this.grpBoxPaging = new System.Windows.Forms.GroupBox();
+            this.btnLastPage = new System.Windows.Forms.Button();
+            this.btnFirstPage = new System.Windows.Forms.Button();
+            this.lblPages = new System.Windows.Forms.Label();
+            this.lblNoOfPages = new System.Windows.Forms.Label();
+            this.lblSeperator = new System.Windows.Forms.Label();
+            this.lblCurrentPage = new System.Windows.Forms.Label();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrevious = new System.Windows.Forms.Button();
             this.grpBoxDataGrid = new System.Windows.Forms.GroupBox();
             this.dView = new System.Windows.Forms.DataGridView();
             this.grpBoxButtons = new System.Windows.Forms.GroupBox();
@@ -45,6 +56,7 @@
             this.lblTaskDescription = new System.Windows.Forms.Label();
             this.txtTaskName = new System.Windows.Forms.TextBox();
             this.pnlOuter.SuspendLayout();
+            this.grpBoxPaging.SuspendLayout();
             this.grpBoxDataGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dView)).BeginInit();
             this.grpBoxButtons.SuspendLayout();
@@ -54,6 +66,9 @@
             // pnlOuter
             // 
             this.pnlOuter.BackColor = System.Drawing.Color.White;
+            this.pnlOuter.Controls.Add(this.lblNoOfRecordPerPage);
+            this.pnlOuter.Controls.Add(this.cmbNoOfRecordsPerPage);
+            this.pnlOuter.Controls.Add(this.grpBoxPaging);
             this.pnlOuter.Controls.Add(this.grpBoxDataGrid);
             this.pnlOuter.Controls.Add(this.grpBoxButtons);
             this.pnlOuter.Controls.Add(this.grpBoxInputControls);
@@ -63,6 +78,123 @@
             this.pnlOuter.Size = new System.Drawing.Size(1097, 636);
             this.pnlOuter.TabIndex = 2;
             // 
+            // lblNoOfRecordPerPage
+            // 
+            this.lblNoOfRecordPerPage.AutoSize = true;
+            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(641, 573);
+            this.lblNoOfRecordPerPage.Name = "lblNoOfRecordPerPage";
+            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(125, 13);
+            this.lblNoOfRecordPerPage.TabIndex = 23;
+            this.lblNoOfRecordPerPage.Text = "No Of Records Per Page";
+            // 
+            // cmbNoOfRecordsPerPage
+            // 
+            this.cmbNoOfRecordsPerPage.FormattingEnabled = true;
+            this.cmbNoOfRecordsPerPage.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "20",
+            "50",
+            "100"});
+            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(769, 569);
+            this.cmbNoOfRecordsPerPage.Name = "cmbNoOfRecordsPerPage";
+            this.cmbNoOfRecordsPerPage.Size = new System.Drawing.Size(45, 21);
+            this.cmbNoOfRecordsPerPage.TabIndex = 22;
+            this.cmbNoOfRecordsPerPage.Text = "5";
+            this.cmbNoOfRecordsPerPage.SelectedIndexChanged += new System.EventHandler(this.cmbNoOfRecordsPerPage_SelectedIndexChanged);
+            // 
+            // grpBoxPaging
+            // 
+            this.grpBoxPaging.Controls.Add(this.btnLastPage);
+            this.grpBoxPaging.Controls.Add(this.btnFirstPage);
+            this.grpBoxPaging.Controls.Add(this.lblPages);
+            this.grpBoxPaging.Controls.Add(this.lblNoOfPages);
+            this.grpBoxPaging.Controls.Add(this.lblSeperator);
+            this.grpBoxPaging.Controls.Add(this.lblCurrentPage);
+            this.grpBoxPaging.Controls.Add(this.btnNext);
+            this.grpBoxPaging.Controls.Add(this.btnPrevious);
+            this.grpBoxPaging.Location = new System.Drawing.Point(365, 554);
+            this.grpBoxPaging.Name = "grpBoxPaging";
+            this.grpBoxPaging.Size = new System.Drawing.Size(269, 51);
+            this.grpBoxPaging.TabIndex = 18;
+            this.grpBoxPaging.TabStop = false;
+            // 
+            // btnLastPage
+            // 
+            this.btnLastPage.Location = new System.Drawing.Point(231, 19);
+            this.btnLastPage.Name = "btnLastPage";
+            this.btnLastPage.Size = new System.Drawing.Size(31, 23);
+            this.btnLastPage.TabIndex = 7;
+            this.btnLastPage.Text = ">>";
+            this.btnLastPage.UseVisualStyleBackColor = true;
+            this.btnLastPage.Click += new System.EventHandler(this.btnLastPage_Click);
+            // 
+            // btnFirstPage
+            // 
+            this.btnFirstPage.Location = new System.Drawing.Point(7, 19);
+            this.btnFirstPage.Name = "btnFirstPage";
+            this.btnFirstPage.Size = new System.Drawing.Size(35, 23);
+            this.btnFirstPage.TabIndex = 6;
+            this.btnFirstPage.Text = "<<";
+            this.btnFirstPage.UseVisualStyleBackColor = true;
+            this.btnFirstPage.Click += new System.EventHandler(this.btnFirstPage_Click);
+            // 
+            // lblPages
+            // 
+            this.lblPages.AutoSize = true;
+            this.lblPages.Location = new System.Drawing.Point(150, 24);
+            this.lblPages.Name = "lblPages";
+            this.lblPages.Size = new System.Drawing.Size(37, 13);
+            this.lblPages.TabIndex = 5;
+            this.lblPages.Text = "Pages";
+            // 
+            // lblNoOfPages
+            // 
+            this.lblNoOfPages.AutoSize = true;
+            this.lblNoOfPages.Location = new System.Drawing.Point(130, 24);
+            this.lblNoOfPages.Name = "lblNoOfPages";
+            this.lblNoOfPages.Size = new System.Drawing.Size(13, 13);
+            this.lblNoOfPages.TabIndex = 4;
+            this.lblNoOfPages.Text = "n";
+            // 
+            // lblSeperator
+            // 
+            this.lblSeperator.AutoSize = true;
+            this.lblSeperator.Location = new System.Drawing.Point(112, 24);
+            this.lblSeperator.Name = "lblSeperator";
+            this.lblSeperator.Size = new System.Drawing.Size(12, 13);
+            this.lblSeperator.TabIndex = 3;
+            this.lblSeperator.Text = "/";
+            // 
+            // lblCurrentPage
+            // 
+            this.lblCurrentPage.AutoSize = true;
+            this.lblCurrentPage.Location = new System.Drawing.Point(93, 24);
+            this.lblCurrentPage.Name = "lblCurrentPage";
+            this.lblCurrentPage.Size = new System.Drawing.Size(13, 13);
+            this.lblCurrentPage.TabIndex = 2;
+            this.lblCurrentPage.Text = "c";
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(193, 19);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(32, 23);
+            this.btnNext.TabIndex = 1;
+            this.btnNext.Text = ">";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Location = new System.Drawing.Point(48, 19);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(39, 23);
+            this.btnPrevious.TabIndex = 0;
+            this.btnPrevious.Text = "<";
+            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
             // grpBoxDataGrid
             // 
             this.grpBoxDataGrid.BackColor = System.Drawing.Color.White;
@@ -70,7 +202,7 @@
             this.grpBoxDataGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpBoxDataGrid.Location = new System.Drawing.Point(12, 290);
             this.grpBoxDataGrid.Name = "grpBoxDataGrid";
-            this.grpBoxDataGrid.Size = new System.Drawing.Size(1076, 278);
+            this.grpBoxDataGrid.Size = new System.Drawing.Size(1076, 262);
             this.grpBoxDataGrid.TabIndex = 15;
             this.grpBoxDataGrid.TabStop = false;
             this.grpBoxDataGrid.Text = "Existing Task and Description";
@@ -81,7 +213,7 @@
             this.dView.GridColor = System.Drawing.Color.Gray;
             this.dView.Location = new System.Drawing.Point(6, 24);
             this.dView.Name = "dView";
-            this.dView.Size = new System.Drawing.Size(1054, 248);
+            this.dView.Size = new System.Drawing.Size(1054, 230);
             this.dView.TabIndex = 0;
             this.dView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dView_CellClick);
             // 
@@ -235,6 +367,9 @@
             this.Size = new System.Drawing.Size(1097, 636);
             this.Load += new System.EventHandler(this.DefineTask_Load);
             this.pnlOuter.ResumeLayout(false);
+            this.pnlOuter.PerformLayout();
+            this.grpBoxPaging.ResumeLayout(false);
+            this.grpBoxPaging.PerformLayout();
             this.grpBoxDataGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dView)).EndInit();
             this.grpBoxButtons.ResumeLayout(false);
@@ -262,5 +397,16 @@
         private System.Windows.Forms.TextBox txtTaskName;
         private System.Windows.Forms.Label lblActivity;
         private System.Windows.Forms.ComboBox cmbActivity;
+        private System.Windows.Forms.GroupBox grpBoxPaging;
+        private System.Windows.Forms.Button btnLastPage;
+        private System.Windows.Forms.Button btnFirstPage;
+        private System.Windows.Forms.Label lblPages;
+        private System.Windows.Forms.Label lblNoOfPages;
+        private System.Windows.Forms.Label lblSeperator;
+        private System.Windows.Forms.Label lblCurrentPage;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnPrevious;
+        private System.Windows.Forms.Label lblNoOfRecordPerPage;
+        private System.Windows.Forms.ComboBox cmbNoOfRecordsPerPage;
     }
 }
