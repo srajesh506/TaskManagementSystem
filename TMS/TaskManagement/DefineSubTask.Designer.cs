@@ -83,11 +83,11 @@
             // lblNoOfRecordPerPage
             // 
             this.lblNoOfRecordPerPage.AutoSize = true;
-            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(639, 568);
+            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(15, 548);
             this.lblNoOfRecordPerPage.Name = "lblNoOfRecordPerPage";
-            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(125, 13);
+            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(55, 13);
             this.lblNoOfRecordPerPage.TabIndex = 21;
-            this.lblNoOfRecordPerPage.Text = "No Of Records Per Page";
+            this.lblNoOfRecordPerPage.Text = "Page Size";
             // 
             // cmbNoOfRecordsPerPage
             // 
@@ -98,7 +98,7 @@
             "20",
             "50",
             "100"});
-            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(767, 564);
+            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(72, 545);
             this.cmbNoOfRecordsPerPage.Name = "cmbNoOfRecordsPerPage";
             this.cmbNoOfRecordsPerPage.Size = new System.Drawing.Size(45, 21);
             this.cmbNoOfRecordsPerPage.TabIndex = 20;
@@ -123,22 +123,26 @@
             // 
             // btnLastPage
             // 
+            this.btnLastPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnLastPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLastPage.Location = new System.Drawing.Point(231, 19);
             this.btnLastPage.Name = "btnLastPage";
             this.btnLastPage.Size = new System.Drawing.Size(31, 23);
             this.btnLastPage.TabIndex = 7;
             this.btnLastPage.Text = ">>";
-            this.btnLastPage.UseVisualStyleBackColor = true;
+            this.btnLastPage.UseVisualStyleBackColor = false;
             this.btnLastPage.Click += new System.EventHandler(this.btnLastPage_Click);
             // 
             // btnFirstPage
             // 
+            this.btnFirstPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnFirstPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFirstPage.Location = new System.Drawing.Point(7, 19);
             this.btnFirstPage.Name = "btnFirstPage";
             this.btnFirstPage.Size = new System.Drawing.Size(35, 23);
             this.btnFirstPage.TabIndex = 6;
             this.btnFirstPage.Text = "<<";
-            this.btnFirstPage.UseVisualStyleBackColor = true;
+            this.btnFirstPage.UseVisualStyleBackColor = false;
             this.btnFirstPage.Click += new System.EventHandler(this.btnFirstPage_Click);
             // 
             // lblPages
@@ -179,22 +183,26 @@
             // 
             // btnNext
             // 
+            this.btnNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNext.Location = new System.Drawing.Point(193, 19);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(32, 23);
             this.btnNext.TabIndex = 1;
             this.btnNext.Text = ">";
-            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.UseVisualStyleBackColor = false;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnPrevious
             // 
+            this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrevious.Location = new System.Drawing.Point(48, 19);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(39, 23);
             this.btnPrevious.TabIndex = 0;
             this.btnPrevious.Text = "<";
-            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.UseVisualStyleBackColor = false;
             this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // grpBoxDataGrid

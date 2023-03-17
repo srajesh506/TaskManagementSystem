@@ -12,14 +12,25 @@ using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
 
 using CrystalDecisions.CrystalReports.Engine;
-
+using System.Linq;
 
 namespace TMS.UI
 {
     public partial class AssigneeBasedReport : Form
     {
+        //Paging Variables***********
         private int _currentPage = 1;
+        private int _pageSize = 5;
+
         private int _noOfPages;
+        private int _totalRecords;
+
+        private int _startPageInLocal;
+        private int _pagesInLocal;
+        //************
+
+        private DataTable _taskReporting;
+
 
         TaskReporting taskReporting = new TaskReporting();
         WorkItemManagement workItemManagement = new WorkItemManagement();
@@ -46,7 +57,7 @@ namespace TMS.UI
                 LoadTheme();
                 dtpDateFrom.Enabled = false;
                 dtpDateTo.Enabled = false;
-                LoadAssigneeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, false);
+                LoadAssigneeBasedReportGrid(true);
 
                 DataTable dtAssignee = new DataTable();
                 dtAssignee = teamManagement.GetEmployees(null, true);
@@ -69,12 +80,12 @@ namespace TMS.UI
         {
             try
             {
-                if (cmbAssignee.SelectedIndex > 0)
-                    LoadAssigneeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, cmbAssignee.SelectedValue.ToString());
+                //if (cmbAssignee.SelectedIndex > 0)
+                    LoadAssigneeBasedReportGrid(true);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                throw new Exception("TMSError - Failed to load the data in GridView based on Assignee selection!! \n" + ex.Message + "\n", ex.InnerException);
+                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -112,7 +123,7 @@ namespace TMS.UI
                 }
                 else
                 {
-                    LoadAssigneeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, cmbAssignee.SelectedValue.ToString());
+                    LoadAssigneeBasedReportGrid(true);
                     if (dView.Rows.Count <= 1)
                     {
                         PopupMessageBox.Show("No Records Found!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -160,6 +171,7 @@ namespace TMS.UI
             }
         }
 
+
        
         //User Defined
 
@@ -194,11 +206,11 @@ namespace TMS.UI
             }
         }
 
-        // Function to enable or disable the buttons based on GridView Page Selected or No of Records per Page changes) 
-        private void EnableDisableButtons(int flag)
+        public void EnableDisableButtons(int flag)
         {
             try
             {
+               
                 if (flag == 4)                  //Grid Page no change or No of records per page change
                 {
                     if (_currentPage == 1)
@@ -233,25 +245,50 @@ namespace TMS.UI
             }
             catch (Exception ex)
             {
-                throw new Exception("TMSError - Failed to setup the form button controls!! \n" + ex.Message + "\n", ex.InnerException);
+                throw new Exception("TMSError - Failed to setup the Create Activity form button controls!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
 
-        //Function to load the datagridview with the records and setup other options for datagridview
-        public void LoadAssigneeBasedReportGrid(DateTime dateFrom, DateTime dateTo, Boolean flagDateAndAssignee = false, string userId = null)
+        // Function to enable or disable the buttons based on GridView Page Selected or No of Records per Page changes) 
+        public void GGetAssigneeBasedReportData(int pageNum, int pageSize)
         {
             try
             {
-                dView.DataSource = null;
-                dView.DataSource = taskReporting.GetAssigneeBasedReport(dateFrom, dateTo, flagDateAndAssignee, userId);
-                dView.Columns[0].Width = 400;
-                dView.Columns[1].Width = 100;
+                _taskReporting = taskReporting.GetAssigneeBasedReportUsingPaging(out _totalRecords, pageNum, pageSize, dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, Convert.ToString(cmbAssignee.SelectedValue)=="0" ? null : Convert.ToString(cmbAssignee.SelectedValue));
+                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize));
+                _pageSize = pageSize;
+                _startPageInLocal = pageNum;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to retrieve the Activities records!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+        //Function to load the datagridview with the records and setup other options for datagridview
+        public void LoadAssigneeBasedReportGrid(Boolean refresh = false)
+        {
+            try
+            {
+                if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
+                    GGetAssigneeBasedReportData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                lblCurrentPage.Text = _currentPage.ToString();
+                lblNoOfPages.Text = _noOfPages.ToString();
+                DataTable records = FormControlHandling.GetPageRecords(_taskReporting, _currentPage, _pageSize);
+                dView.DataSource = records;
+                //dView.DataSource = null;
+                //dView.DataSource = taskReporting.GetAssigneeBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, Convert.ToString(cmbAssignee.SelectedValue));
+                
+                dView.Columns[1].Width = 450;
                 dView.Columns[2].Width = 100;
                 dView.Columns[3].Width = 100;
                 dView.Columns[4].Width = 120;
                 dView.Columns[5].Width = 150;
-                dView.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dView.Columns[6].Width = 150;
+                dView.Columns[1].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dView.Columns[0].Visible = false;
                 dView.ReadOnly = true;
+                EnableDisableButtons(4);
             }
             catch (Exception ex)
             {
@@ -259,5 +296,74 @@ namespace TMS.UI
             }
         }
 
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage += 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadAssigneeBasedReportGrid();
+                else
+                    LoadAssigneeBasedReportGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to next page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = _noOfPages;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadAssigneeBasedReportGrid();
+                else
+                    LoadAssigneeBasedReportGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage -= 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadAssigneeBasedReportGrid();
+                else
+                    LoadAssigneeBasedReportGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to previous page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = 1;
+                if (_startPageInLocal == 1)
+                    LoadAssigneeBasedReportGrid();
+                else
+                    LoadAssigneeBasedReportGrid(true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to the first page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbNoOfRecordsPerPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentPage = 1;
+            LoadAssigneeBasedReportGrid(true);
+        }
     }
 }

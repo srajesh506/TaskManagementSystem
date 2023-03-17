@@ -59,7 +59,7 @@ namespace TMS.UI
                 EnableDisableButtons(2);
 
                 DataTable dtActivity = new DataTable();
-                dtActivity = taskManagement.GetActivities_1(true);
+                dtActivity = taskManagement.GetActivities(true);
                 var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "ActivityId","ActivityName");
                 DataRow drActivity = dtActivityFilter.NewRow();
                 drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
@@ -383,7 +383,7 @@ namespace TMS.UI
                         GetTaskData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
                         lblCurrentPage.Text = _currentPage.ToString();
                         lblNoOfPages.Text = _noOfPages.ToString();
-                        _tasks = taskManagement.GetTasks(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), false, -1, activityId);
+                        _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), false, -1, activityId);
                         DataTable records = FormControlHandling.GetPageRecords(_tasks, _currentPage, _pageSize);
                         dView.DataSource = null;
                         dView.DataSource = records;
@@ -392,7 +392,7 @@ namespace TMS.UI
                     else
                     {
                         GetTaskData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
-                        _tasks = taskManagement.GetTasks(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),true);
+                        _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),true);
                         lblCurrentPage.Text = _currentPage.ToString();
                         lblNoOfPages.Text = _noOfPages.ToString();
                         DataTable records = FormControlHandling.GetPageRecords(_tasks, _currentPage, _pageSize);
@@ -420,7 +420,7 @@ namespace TMS.UI
         {
             try
             {
-                _tasks = taskManagement.GetTasks(out _totalRecords, pageNum, pageSize, true);
+                _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, pageNum, pageSize, true);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_tasks.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_tasks.Rows.Count / pageSize));
                 _pageSize = pageSize;

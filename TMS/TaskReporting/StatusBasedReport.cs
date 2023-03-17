@@ -8,13 +8,25 @@ using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
 
 using CrystalDecisions.CrystalReports.Engine;
-
+using System.Linq;
 
 namespace TMS.UI
 {
     public partial class StatusBasedReport : Form
     {
-        
+        //Paging Variables***********
+        private int _currentPage = 1;
+        private int _pageSize = 5;
+
+        private int _noOfPages;
+        private int _totalRecords;
+
+        private int _startPageInLocal;
+        private int _pagesInLocal;
+        //************
+
+        private DataTable _taskReporting;
+
         TaskReporting taskReporting = new TaskReporting();
         DBCommonOperations dBCommonOperations = new DBCommonOperations();
 
@@ -37,10 +49,9 @@ namespace TMS.UI
             try
             {
                 LoadTheme();
-
                 dtpDateFrom.Enabled = false;
                 dtpDateTo.Enabled = false;
-                LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, false);
+                LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, false, Convert.ToInt32(cmbStatus.SelectedValue) == 0 ? 0 : Convert.ToInt32(cmbStatus.SelectedValue), true);
 
                 DataTable dtStatus = new DataTable();
                 dtStatus = dBCommonOperations.GetStatus();
@@ -63,8 +74,8 @@ namespace TMS.UI
         {
             try
             {
-                if (cmbStatus.SelectedIndex > 0)
-                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                //if (cmbStatus.SelectedIndex > 0)
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue) == 0 ? -1 : Convert.ToInt32(cmbStatus.SelectedValue), true);
             }
             catch (Exception ex)
             {
@@ -106,7 +117,7 @@ namespace TMS.UI
                 }
                 else
                 {
-                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue),true);
                     if (dView.Rows.Count <= 1)
                     {
                         PopupMessageBox.Show("No Records Found!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -183,29 +194,165 @@ namespace TMS.UI
             }     
         }
 
-        //Function to load the datagridview with the records and setup other options for datagridview
-        public void LoadStatusBasedReportGrid(DateTime dateFrom, DateTime dateTo, Boolean flagDateAndStatus = false, int statusId = -1)
+        public void GetStatusBasedReportData(int pageNum, int pageSize)
         {
             try
             {
-                dView.DataSource = null;
-                dView.DataSource = taskReporting.GetStatusBasedReport(dateFrom, dateTo, flagDateAndStatus, statusId);
+                _taskReporting = taskReporting.GetStatusBasedReportusingPaging(out _totalRecords, pageNum, pageSize, dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue) == 0 ? -1 : Convert.ToInt32(cmbStatus.SelectedValue));
+                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize));
+                _pageSize = pageSize;
+                _startPageInLocal = pageNum;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to retrieve the Activities records!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
 
-                dView.Columns[0].Width = 400;
-                dView.Columns[1].Width = 100;
-                dView.Columns[2].Width = 100;
-                dView.Columns[3].Width = 100;
+        //Function to load the datagridview with the records and setup other options for datagridview
+        public void LoadStatusBasedReportGrid(DateTime dateFrom, DateTime dateTo, Boolean flagDateAndStatus = false, int statusId = -1, Boolean refresh = false)
+        {
+            try
+            {
+                if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
+                GetStatusBasedReportData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                lblCurrentPage.Text = _currentPage.ToString();
+                lblNoOfPages.Text = _noOfPages.ToString();
+                DataTable records = FormControlHandling.GetPageRecords(_taskReporting, _currentPage, _pageSize);
+                dView.DataSource = records;
+
+                //dView.DataSource = null;
+                //dView.DataSource = taskReporting.GetStatusBasedReport(dateFrom, dateTo, flagDateAndStatus, statusId);
+
+                
+                dView.Columns[1].Width = 400;
+                dView.Columns[2].Width = 125;
+                dView.Columns[3].Width = 125;
                 dView.Columns[4].Width = 120;
                 dView.Columns[5].Width = 150;
+                dView.Columns[6].Width = 150;
                 dView.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dView.Columns[0].Visible = false;
                 dView.ReadOnly = true;
+                EnableDisableButtons(4);
             }
             catch (Exception ex)
             {
                 throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
+        public void EnableDisableButtons(int flag)
+        {
+            try
+            {
 
+                if (flag == 4)                  //Grid Page no change or No of records per page change
+                {
+                    if (_currentPage == 1)
+                    {
+                        btnPrevious.Enabled = false;
+                        btnNext.Enabled = true;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = true;
+                    }
+                    if (_currentPage == _noOfPages)
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_noOfPages == 1))
+                    {
+                        btnNext.Enabled = false;
+                        btnPrevious.Enabled = false;
+                        btnFirstPage.Enabled = false;
+                        btnLastPage.Enabled = false;
+                    }
+                    if ((_currentPage > 1) && (_currentPage < _noOfPages))
+                    {
+                        btnNext.Enabled = true;
+                        btnPrevious.Enabled = true;
+                        btnFirstPage.Enabled = true;
+                        btnLastPage.Enabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to setup the Create Activity form button controls!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
 
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage -= 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                else
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue), true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to previous page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage += 1;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                else
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue), true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to next page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = _noOfPages;
+                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                else
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue),true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentPage = 1;
+                if (_startPageInLocal == 1)
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                else
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue), true);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to move to the first page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbNoOfRecordsPerPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentPage = 1;
+            LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue), true);
+        }
     }
 }

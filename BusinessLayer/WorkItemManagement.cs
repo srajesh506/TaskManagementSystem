@@ -12,7 +12,7 @@ namespace TMS.BusinessLogicLayer
         DbConnection dbConnection = new DbConnection();
 
         // Returns the Workitems based on the criteria supplied for Activity and/or Task and/or SubTask Values
-        public DataTable GetWorkItems(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, int activityId = -1, int taskId = -1, int subTaskId = -1)
+        public DataTable GetWorkItemsUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, int activityId = -1, int taskId = -1, int subTaskId = -1)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Retrieving WorkItems!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataTable GetWorkItems_1(int activityId = -1, int taskId = -1, int subTaskId = -1)
+        public DataTable GetWorkItems(int activityId = -1, int taskId = -1, int subTaskId = -1)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace TMS.BusinessLogicLayer
         }
 
         // Returns the WorkitemAssignments based on the criteria whether to return all records or only active assignments (excluding completed/handedover
-        public DataTable GetWorkItemAssignments(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, bool filterFlag = false)
+        public DataTable GetWorkItemAssignmentsUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, bool filterFlag = false)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Retrieving WorkItems Assignments!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataTable GetWorkItemAssignments_1(bool filterFlag = false)
+        public DataTable GetWorkItemAssignments(bool filterFlag = false)
         {
             try
             {

@@ -37,20 +37,20 @@
             this.chkDateAndAssignee = new System.Windows.Forms.CheckBox();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnGetRecord = new System.Windows.Forms.Button();
-            this.dtpDateFrom = new TMS.UI.Utilities.CustomDatetimePicker();
-            this.dtpDateTo = new TMS.UI.Utilities.CustomDatetimePicker();
             this.grpBoxPaging = new System.Windows.Forms.GroupBox();
-            this.btnPrevious = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.lblCurrentPage = new System.Windows.Forms.Label();
-            this.lblSeperator = new System.Windows.Forms.Label();
-            this.lblNoOfPages = new System.Windows.Forms.Label();
-            this.lblPages = new System.Windows.Forms.Label();
-            this.btnFirstPage = new System.Windows.Forms.Button();
             this.btnLastPage = new System.Windows.Forms.Button();
+            this.btnFirstPage = new System.Windows.Forms.Button();
+            this.lblPages = new System.Windows.Forms.Label();
+            this.lblNoOfPages = new System.Windows.Forms.Label();
+            this.lblSeperator = new System.Windows.Forms.Label();
+            this.lblCurrentPage = new System.Windows.Forms.Label();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrevious = new System.Windows.Forms.Button();
             this.cmbNoOfRecordsPerPage = new System.Windows.Forms.ComboBox();
             this.lblNoOfRecordPerPage = new System.Windows.Forms.Label();
             this.pnlOuter = new System.Windows.Forms.Panel();
+            this.dtpDateTo = new TMS.UI.Utilities.CustomDatetimePicker();
+            this.dtpDateFrom = new TMS.UI.Utilities.CustomDatetimePicker();
             this.grpBoxGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dView)).BeginInit();
             this.grpBoxPaging.SuspendLayout();
@@ -159,32 +159,6 @@
             this.btnGetRecord.UseVisualStyleBackColor = false;
             this.btnGetRecord.Click += new System.EventHandler(this.btnGetRecord_Click);
             // 
-            // dtpDateFrom
-            // 
-            this.dtpDateFrom.Bordercolor = System.Drawing.Color.Gray;
-            this.dtpDateFrom.BorderSize = 0;
-            this.dtpDateFrom.FillColor = System.Drawing.Color.LightSeaGreen;
-            this.dtpDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F);
-            this.dtpDateFrom.Location = new System.Drawing.Point(457, 52);
-            this.dtpDateFrom.MinimumSize = new System.Drawing.Size(4, 35);
-            this.dtpDateFrom.Name = "dtpDateFrom";
-            this.dtpDateFrom.Size = new System.Drawing.Size(296, 35);
-            this.dtpDateFrom.TabIndex = 32;
-            this.dtpDateFrom.Textcolor = System.Drawing.Color.White;
-            // 
-            // dtpDateTo
-            // 
-            this.dtpDateTo.Bordercolor = System.Drawing.Color.Gray;
-            this.dtpDateTo.BorderSize = 0;
-            this.dtpDateTo.FillColor = System.Drawing.Color.LightSeaGreen;
-            this.dtpDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F);
-            this.dtpDateTo.Location = new System.Drawing.Point(457, 92);
-            this.dtpDateTo.MinimumSize = new System.Drawing.Size(4, 35);
-            this.dtpDateTo.Name = "dtpDateTo";
-            this.dtpDateTo.Size = new System.Drawing.Size(296, 35);
-            this.dtpDateTo.TabIndex = 33;
-            this.dtpDateTo.Textcolor = System.Drawing.Color.White;
-            // 
             // grpBoxPaging
             // 
             this.grpBoxPaging.Controls.Add(this.btnLastPage);
@@ -201,50 +175,29 @@
             this.grpBoxPaging.TabIndex = 35;
             this.grpBoxPaging.TabStop = false;
             // 
-            // btnPrevious
+            // btnLastPage
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(48, 19);
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(39, 23);
-            this.btnPrevious.TabIndex = 0;
-            this.btnPrevious.Text = "<";
-            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnLastPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnLastPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLastPage.Location = new System.Drawing.Point(231, 19);
+            this.btnLastPage.Name = "btnLastPage";
+            this.btnLastPage.Size = new System.Drawing.Size(31, 23);
+            this.btnLastPage.TabIndex = 7;
+            this.btnLastPage.Text = ">>";
+            this.btnLastPage.UseVisualStyleBackColor = false;
+            this.btnLastPage.Click += new System.EventHandler(this.btnLastPage_Click);
             // 
-            // btnNext
+            // btnFirstPage
             // 
-            this.btnNext.Location = new System.Drawing.Point(193, 19);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(32, 23);
-            this.btnNext.TabIndex = 1;
-            this.btnNext.Text = ">";
-            this.btnNext.UseVisualStyleBackColor = true;
-            // 
-            // lblCurrentPage
-            // 
-            this.lblCurrentPage.AutoSize = true;
-            this.lblCurrentPage.Location = new System.Drawing.Point(93, 24);
-            this.lblCurrentPage.Name = "lblCurrentPage";
-            this.lblCurrentPage.Size = new System.Drawing.Size(13, 13);
-            this.lblCurrentPage.TabIndex = 2;
-            this.lblCurrentPage.Text = "c";
-            // 
-            // lblSeperator
-            // 
-            this.lblSeperator.AutoSize = true;
-            this.lblSeperator.Location = new System.Drawing.Point(112, 24);
-            this.lblSeperator.Name = "lblSeperator";
-            this.lblSeperator.Size = new System.Drawing.Size(12, 13);
-            this.lblSeperator.TabIndex = 3;
-            this.lblSeperator.Text = "/";
-            // 
-            // lblNoOfPages
-            // 
-            this.lblNoOfPages.AutoSize = true;
-            this.lblNoOfPages.Location = new System.Drawing.Point(130, 24);
-            this.lblNoOfPages.Name = "lblNoOfPages";
-            this.lblNoOfPages.Size = new System.Drawing.Size(13, 13);
-            this.lblNoOfPages.TabIndex = 4;
-            this.lblNoOfPages.Text = "n";
+            this.btnFirstPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnFirstPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFirstPage.Location = new System.Drawing.Point(7, 19);
+            this.btnFirstPage.Name = "btnFirstPage";
+            this.btnFirstPage.Size = new System.Drawing.Size(35, 23);
+            this.btnFirstPage.TabIndex = 6;
+            this.btnFirstPage.Text = "<<";
+            this.btnFirstPage.UseVisualStyleBackColor = false;
+            this.btnFirstPage.Click += new System.EventHandler(this.btnFirstPage_Click);
             // 
             // lblPages
             // 
@@ -255,23 +208,56 @@
             this.lblPages.TabIndex = 5;
             this.lblPages.Text = "Pages";
             // 
-            // btnFirstPage
+            // lblNoOfPages
             // 
-            this.btnFirstPage.Location = new System.Drawing.Point(7, 19);
-            this.btnFirstPage.Name = "btnFirstPage";
-            this.btnFirstPage.Size = new System.Drawing.Size(35, 23);
-            this.btnFirstPage.TabIndex = 6;
-            this.btnFirstPage.Text = "<<";
-            this.btnFirstPage.UseVisualStyleBackColor = true;
+            this.lblNoOfPages.AutoSize = true;
+            this.lblNoOfPages.Location = new System.Drawing.Point(130, 24);
+            this.lblNoOfPages.Name = "lblNoOfPages";
+            this.lblNoOfPages.Size = new System.Drawing.Size(13, 13);
+            this.lblNoOfPages.TabIndex = 4;
+            this.lblNoOfPages.Text = "n";
             // 
-            // btnLastPage
+            // lblSeperator
             // 
-            this.btnLastPage.Location = new System.Drawing.Point(231, 19);
-            this.btnLastPage.Name = "btnLastPage";
-            this.btnLastPage.Size = new System.Drawing.Size(31, 23);
-            this.btnLastPage.TabIndex = 7;
-            this.btnLastPage.Text = ">>";
-            this.btnLastPage.UseVisualStyleBackColor = true;
+            this.lblSeperator.AutoSize = true;
+            this.lblSeperator.Location = new System.Drawing.Point(112, 24);
+            this.lblSeperator.Name = "lblSeperator";
+            this.lblSeperator.Size = new System.Drawing.Size(12, 13);
+            this.lblSeperator.TabIndex = 3;
+            this.lblSeperator.Text = "/";
+            // 
+            // lblCurrentPage
+            // 
+            this.lblCurrentPage.AutoSize = true;
+            this.lblCurrentPage.Location = new System.Drawing.Point(93, 24);
+            this.lblCurrentPage.Name = "lblCurrentPage";
+            this.lblCurrentPage.Size = new System.Drawing.Size(13, 13);
+            this.lblCurrentPage.TabIndex = 2;
+            this.lblCurrentPage.Text = "c";
+            // 
+            // btnNext
+            // 
+            this.btnNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNext.Location = new System.Drawing.Point(193, 19);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(32, 23);
+            this.btnNext.TabIndex = 1;
+            this.btnNext.Text = ">";
+            this.btnNext.UseVisualStyleBackColor = false;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrevious.Location = new System.Drawing.Point(48, 19);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(39, 23);
+            this.btnPrevious.TabIndex = 0;
+            this.btnPrevious.Text = "<";
+            this.btnPrevious.UseVisualStyleBackColor = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // cmbNoOfRecordsPerPage
             // 
@@ -282,20 +268,21 @@
             "20",
             "50",
             "100"});
-            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(824, 634);
+            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(76, 612);
             this.cmbNoOfRecordsPerPage.Name = "cmbNoOfRecordsPerPage";
             this.cmbNoOfRecordsPerPage.Size = new System.Drawing.Size(45, 21);
             this.cmbNoOfRecordsPerPage.TabIndex = 36;
             this.cmbNoOfRecordsPerPage.Text = "5";
+            this.cmbNoOfRecordsPerPage.SelectedIndexChanged += new System.EventHandler(this.cmbNoOfRecordsPerPage_SelectedIndexChanged);
             // 
             // lblNoOfRecordPerPage
             // 
             this.lblNoOfRecordPerPage.AutoSize = true;
-            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(693, 639);
+            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(15, 615);
             this.lblNoOfRecordPerPage.Name = "lblNoOfRecordPerPage";
-            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(125, 13);
+            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(55, 13);
             this.lblNoOfRecordPerPage.TabIndex = 37;
-            this.lblNoOfRecordPerPage.Text = "No Of Records Per Page";
+            this.lblNoOfRecordPerPage.Text = "Page Size";
             // 
             // pnlOuter
             // 
@@ -318,6 +305,32 @@
             this.pnlOuter.Name = "pnlOuter";
             this.pnlOuter.Size = new System.Drawing.Size(1118, 672);
             this.pnlOuter.TabIndex = 4;
+            // 
+            // dtpDateTo
+            // 
+            this.dtpDateTo.Bordercolor = System.Drawing.Color.Gray;
+            this.dtpDateTo.BorderSize = 0;
+            this.dtpDateTo.FillColor = System.Drawing.Color.LightSeaGreen;
+            this.dtpDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F);
+            this.dtpDateTo.Location = new System.Drawing.Point(457, 92);
+            this.dtpDateTo.MinimumSize = new System.Drawing.Size(4, 35);
+            this.dtpDateTo.Name = "dtpDateTo";
+            this.dtpDateTo.Size = new System.Drawing.Size(296, 35);
+            this.dtpDateTo.TabIndex = 33;
+            this.dtpDateTo.Textcolor = System.Drawing.Color.White;
+            // 
+            // dtpDateFrom
+            // 
+            this.dtpDateFrom.Bordercolor = System.Drawing.Color.Gray;
+            this.dtpDateFrom.BorderSize = 0;
+            this.dtpDateFrom.FillColor = System.Drawing.Color.LightSeaGreen;
+            this.dtpDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F);
+            this.dtpDateFrom.Location = new System.Drawing.Point(457, 52);
+            this.dtpDateFrom.MinimumSize = new System.Drawing.Size(4, 35);
+            this.dtpDateFrom.Name = "dtpDateFrom";
+            this.dtpDateFrom.Size = new System.Drawing.Size(296, 35);
+            this.dtpDateFrom.TabIndex = 32;
+            this.dtpDateFrom.Textcolor = System.Drawing.Color.White;
             // 
             // AssigneeBasedReport
             // 

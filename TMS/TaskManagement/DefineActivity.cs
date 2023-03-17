@@ -64,7 +64,7 @@ namespace TMS.UI
         {
             try
             {
-                SaveModifyActivityData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),"S");
+                SaveModifyActivityData("S");
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace TMS.UI
         {
             try
             {
-                SaveModifyActivityData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), "M");
+                SaveModifyActivityData("M");
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace TMS.UI
         {
             try
             {
-                _activities = taskManagement.GetActivities(out _totalRecords,pageNum, pageSize,true);
+                _activities = taskManagement.GetActivitiesUsingPaging(out _totalRecords,pageNum, pageSize,true);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -288,7 +288,7 @@ namespace TMS.UI
 
 
         //Function to perform new Employee addition and existing Employee update
-        private void SaveModifyActivityData(int pageNum, int pageSize,String mode)
+        private void SaveModifyActivityData(String mode)
         {
             try
             {

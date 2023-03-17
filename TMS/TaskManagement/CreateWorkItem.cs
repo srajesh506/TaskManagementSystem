@@ -51,7 +51,7 @@ namespace TMS.UI
                 LoadWorkItemDataGrid(true, true);
 
                 DataTable dtActivity = new DataTable();
-                dtActivity = taskManagement.GetActivities_1(true);
+                dtActivity = taskManagement.GetActivities(true);
                 var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "ActivityId", "ActivityName");
                 DataRow drActivity = dtActivityFilter.NewRow();
                 drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
@@ -156,7 +156,7 @@ namespace TMS.UI
                 if (cmbActivity.SelectedIndex > 0)
                 {
                     DataTable dtTemp = new DataTable();
-                    dtTemp = taskManagement.GetTasks_1(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)));
+                    dtTemp = taskManagement.GetTasks(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)));
                     if (dtTemp.Rows.Count > 0)
                     {
                         cmbTask.Enabled = true;
@@ -187,7 +187,7 @@ namespace TMS.UI
                 if (cmbTask.SelectedIndex > 0)
                 {
                     DataTable dtTemp = new DataTable();
-                    dtTemp = taskManagement.GetSubTasks_1(false, -1, Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbActivity.SelectedValue));
+                    dtTemp = taskManagement.GetSubTasks(false, -1, Convert.ToInt32(cmbTask.SelectedValue), Convert.ToInt32(cmbActivity.SelectedValue));
                     if (dtTemp.Rows.Count > 0)
                     {
                         cmbSubTask.Enabled = true;
@@ -458,7 +458,7 @@ namespace TMS.UI
         {
             try
             {
-                _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, pageNum, pageSize);
+                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, pageNum, pageSize);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_WorkItem.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_WorkItem.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -486,37 +486,27 @@ namespace TMS.UI
                         {
                             if (subTaskId != -1)
                             {
-                                _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId, taskId, subTaskId);
-                                DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
-                                dgView.DataSource = null;
-                                dgView.DataSource = records;
-
-                              
+                                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId, taskId, subTaskId);
                             }
                             else
                             {
-                                _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId, taskId);
-                                DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
-                                dgView.DataSource = null;
-                                dgView.DataSource = records;
+                                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId, taskId);
                             }
+                           
                         }
                         else
                         {
-                            _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId);
-                            DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
-                            dgView.DataSource = null;
-                            dgView.DataSource = records;
-                            
+                            _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId);
                         }
                     }
                     else
                     {
-                        _WorkItem = workItemManagement.GetWorkItems(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
-                        DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
-                        dgView.DataSource = null;
-                        dgView.DataSource = records;
+                        _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
                     }
+                    DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
+                    dgView.DataSource = null;
+                    dgView.DataSource = records;
+
                     dgView.Columns[0].Width = 70;
                     dgView.Columns[1].Width = 150;
                     dgView.Columns[2].Width = 300;
@@ -541,9 +531,7 @@ namespace TMS.UI
             try
             {
                 _currentPage += 1;
-                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
-                    LoadWorkItemDataGrid(true, true);
-                else
+                if ((_currentPage >= _startPageInLocal) || (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
                     LoadWorkItemDataGrid(true, true);
             }
             catch (Exception ex)
@@ -557,9 +545,7 @@ namespace TMS.UI
             try
             {
                 _currentPage = _noOfPages;
-                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
-                    LoadWorkItemDataGrid(true, true);
-                else
+                if ((_currentPage >= _startPageInLocal) || (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
                     LoadWorkItemDataGrid(true, true);
             }
             catch (Exception ex)
@@ -573,9 +559,7 @@ namespace TMS.UI
             try
             {
                 _currentPage -= 1;
-                if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
-                    LoadWorkItemDataGrid(true, true);
-                else
+                if ((_currentPage >= _startPageInLocal) || (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
                     LoadWorkItemDataGrid(true, true);
             }
             catch (Exception ex)
@@ -589,9 +573,7 @@ namespace TMS.UI
             try
             {
                 _currentPage = 1;
-                if (_startPageInLocal == 1)
-                    LoadWorkItemDataGrid(true, true);
-                else
+                if (_startPageInLocal >= 1)
                     LoadWorkItemDataGrid(true, true);
             }
             catch (Exception ex)

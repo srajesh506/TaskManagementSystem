@@ -14,7 +14,7 @@ namespace TMS.BusinessLogicLayer
         //Returns the Activities Data based on activityId/activityName and/Or isActive Flag
         //if activityId/activityName is supplied then it returns specific record only
         //if isActive flag is true, it returns active records only
-        public DataTable GetActivities(out Int32 totalRecords, Int32 pageNum, Int32 pageSize,Boolean isActive = false, int activityId = -1, string activityName = null)
+        public DataTable GetActivitiesUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize,Boolean isActive = false, int activityId = -1, string activityName = null)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace TMS.BusinessLogicLayer
             }
 
         }
-        public DataTable GetActivities_1(Boolean isActive = false, int activityId = -1, string activityName = null)
+        public DataTable GetActivities(Boolean isActive = false, int activityId = -1, string activityName = null)
         {
             try
             {
@@ -61,8 +61,8 @@ namespace TMS.BusinessLogicLayer
         {
             try
             {
-                if (((updateFlag == true) && (GetActivities_1(false,activity.ActivityId, activity.ActivityName).Rows.Count > 0))
-                    || ((updateFlag == false) && (GetActivities_1(false, activity.ActivityId, activity.ActivityName).Rows.Count <= 0)))
+                if (((updateFlag == true) && (GetActivities(false,activity.ActivityId, activity.ActivityName).Rows.Count > 0))
+                    || ((updateFlag == false) && (GetActivities(false, activity.ActivityId, activity.ActivityName).Rows.Count <= 0)))
                 {
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -88,7 +88,7 @@ namespace TMS.BusinessLogicLayer
         //Returns the Tasks Data based on taskId/taskName and/Or isActive Flag
         //if taskId/taskName is supplied then it returns specific record only
         //if isActive flag is true, it returns active records only
-        public DataTable GetTasks(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null)
+        public DataTable GetTasksUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace TMS.BusinessLogicLayer
                 
             }
         }
-        public DataTable GetTasks_1(Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null)
+        public DataTable GetTasks(Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null)
         {
             try
             {
@@ -136,7 +136,7 @@ namespace TMS.BusinessLogicLayer
         //Returns the SubTasks Data based on subTaskId/subTtaskName and/Or isActive Flag
         //if subTaskId/subTaskName is supplied then it returns specific record only
         //if isActive flag is true, it returns active records only
-        public DataTable GetSubTasks(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, Boolean isActive=false, int subTaskId = -1, int taskId = -1, int activityId = -1, string subTaskName=null)
+        public DataTable GetSubTasksUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, Boolean isActive=false, int subTaskId = -1, int taskId = -1, int activityId = -1, string subTaskName=null)
         {
             try
             {
@@ -160,7 +160,7 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in fetching SubTasks Data!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataTable GetSubTasks_1(Boolean isActive = false, int subTaskId = -1, int taskId = -1, int activityId = -1, string subTaskName = null)
+        public DataTable GetSubTasks(Boolean isActive = false, int subTaskId = -1, int taskId = -1, int activityId = -1, string subTaskName = null)
         {
             try
             {
@@ -188,8 +188,8 @@ namespace TMS.BusinessLogicLayer
         {
             try
             {
-                if (((updateFlag==true) && (GetTasks_1(false, task.TaskId, task.ActivityId, task.TaskName).Rows.Count > 0))
-                    || ((updateFlag==false) && (GetTasks_1(false, task.TaskId, task.ActivityId, task.TaskName).Rows.Count <= 0)))
+                if (((updateFlag==true) && (GetTasks(false, task.TaskId, task.ActivityId, task.TaskName).Rows.Count > 0))
+                    || ((updateFlag==false) && (GetTasks(false, task.TaskId, task.ActivityId, task.TaskName).Rows.Count <= 0)))
                 {
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -218,8 +218,8 @@ namespace TMS.BusinessLogicLayer
         {
             try
             {
-                if (((updateFlag == true) && (GetSubTasks_1(false, subTask.SubTaskId, subTask.TaskId, subTask.ActivityId, subTask.SubTaskName).Rows.Count > 0))
-                    || ((updateFlag == false) && (GetSubTasks_1(false, subTask.SubTaskId, subTask.TaskId, subTask.ActivityId, subTask.SubTaskName).Rows.Count <= 0)))
+                if (((updateFlag == true) && (GetSubTasks(false, subTask.SubTaskId, subTask.TaskId, subTask.ActivityId, subTask.SubTaskName).Rows.Count > 0))
+                    || ((updateFlag == false) && (GetSubTasks(false, subTask.SubTaskId, subTask.TaskId, subTask.ActivityId, subTask.SubTaskName).Rows.Count <= 0)))
                 {
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = CommandType.StoredProcedure;

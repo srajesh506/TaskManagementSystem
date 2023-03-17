@@ -272,7 +272,7 @@ namespace TMS.UI
         {
             try
             {
-                _WorkItemAssignment = workItemManagement.GetWorkItemAssignments(out _totalRecords, pageNum, pageSize);
+                _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, pageNum, pageSize);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_WorkItemAssignment.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_WorkItemAssignment.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -296,14 +296,14 @@ namespace TMS.UI
                     lblNoOfPages.Text = _noOfPages.ToString();
                     if (filterflag)
                     {
-                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignments(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), true);
+                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), true);
                         DataTable records = FormControlHandling.GetPageRecords(_WorkItemAssignment, _currentPage, _pageSize);
                         dgView.DataSource = null;
                         dgView.DataSource = records;
                     }
                     else
                     {
-                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignments(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
                         DataTable records = FormControlHandling.GetPageRecords(_WorkItemAssignment, _currentPage, _pageSize);
                         dgView.DataSource = null;
                         dgView.DataSource = records;
