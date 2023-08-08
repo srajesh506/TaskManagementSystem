@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 
 using TMS.DataAccess;
 using TMS.BusinessEntities;
+using System.Runtime.InteropServices;
 
 namespace TMS.BusinessLogicLayer
 {
@@ -80,27 +81,21 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Retrieving WorkItems Assignments!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataTable GetWorkItemAssignments(bool filterFlag = false)
+
+        public DataTable GetWorkItemAssignmentsHistory(int WorkItemId)
         {
             try
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.CommandText = "uspGetWorkItemAssignments";
-                if (filterFlag)
-                {
-                    sqlCommand.Parameters.Add("@FilterFlag", SqlDbType.Int).Value = 1;
-                }
-                else
-                {
-                    sqlCommand.Parameters.Add("@FilterFlag", SqlDbType.Int).Value = 0;
-                }
+                sqlCommand.CommandText = "uspGetWorkItemAssignmentsHistory"; //Stored Procedure to get data by passing @workItemid as Parameter
+                sqlCommand.Parameters.Add("@WorkitemId", SqlDbType.Int).Value = WorkItemId;
                 DataTable dataTable = dbConnection.ExeReader(sqlCommand);
-                return dataTable;
+                return dataTable; //This function is returning datatable 
             }
             catch (Exception ex)
             {
-                throw new Exception("BLLError - Failure in Retrieving WorkItems Assignments!! " + "\n'" + ex.Message + "'", ex.InnerException);
+                throw new Exception("BLLError - Failure in Retrieving WorkItems History!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
 
