@@ -38,6 +38,8 @@ namespace TMS.WorkitemHistory
             Dviewhistory.Columns[5].Width = 150;                   //StartDate
             Dviewhistory.Columns[6].Width = 150;                   //ClosedDate
             Dviewhistory.Columns[8].Width = 450;
+            Dviewhistory.Columns["Remarks"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            Dviewhistory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
         }
 
         private void btnPrint_Click(object sender, EventArgs e) //On button Click DataTable Get Data from the Following Function

@@ -154,5 +154,27 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Adding/Updating WorkItems Assignments!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
+        public bool GetRemarksUsingID(int ID)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "uspGetWorkItemRemarks";
+                sqlCommand.Parameters.Add("@Id", SqlDbType.Int).Value = ID;
+                SqlParameter returnvalue = sqlCommand.Parameters.Add("@ReturnValue", SqlDbType.Int);
+                returnvalue.Direction = ParameterDirection.ReturnValue;
+                //object result = dbConnection.ExeNonQuery(sqlCommand);
+                dbConnection.ExeNonQuery(sqlCommand);
+                int result=Convert.ToInt32(returnvalue.Value);
+                if (result==1) 
+                return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("BLLError - Failure in Adding/Updating WorkItems Assignments!! " + "\n'" + ex.Message + "'", ex.InnerException);
+            }
+        }
     }
 }
