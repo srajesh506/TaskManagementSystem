@@ -99,6 +99,23 @@ namespace TMS.BusinessLogicLayer
             }
         }
 
+        public DataTable GetWorkItemFinalStatus(int WorkItemId)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "uspGetFinalStatus"; //Stored Procedure to get data by passing @workItemid as Parameter
+                sqlCommand.Parameters.Add("@WorkitemId", SqlDbType.Int).Value = WorkItemId;
+                DataTable dataTable = dbConnection.ExeReader(sqlCommand);
+                return dataTable; //This function is returning datatable 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("BLLError - Failure in Retrieving WorkItems History!! " + "\n'" + ex.Message + "'", ex.InnerException);
+            }
+        }
+
         //Add a new Workitem in the WorkItem Table along with its entry in WorkItemAssignment Table (with status as Open) based on updateFlag value
         //OR
         //Update an existing WorkItem in the WorkItem table only based on updateFlag value

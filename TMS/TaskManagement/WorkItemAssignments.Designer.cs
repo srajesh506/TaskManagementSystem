@@ -62,16 +62,18 @@ namespace TMS.UI
             this.pnlOuter.Controls.Add(this.grpBoxGridView);
             this.pnlOuter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOuter.Location = new System.Drawing.Point(0, 0);
+            this.pnlOuter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlOuter.Name = "pnlOuter";
-            this.pnlOuter.Size = new System.Drawing.Size(1119, 690);
+            this.pnlOuter.Size = new System.Drawing.Size(1678, 979);
             this.pnlOuter.TabIndex = 4;
             // 
             // lblNoOfRecordPerPage
             // 
             this.lblNoOfRecordPerPage.AutoSize = true;
-            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(6, 634);
+            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(9, 902);
+            this.lblNoOfRecordPerPage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNoOfRecordPerPage.Name = "lblNoOfRecordPerPage";
-            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(55, 13);
+            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(81, 20);
             this.lblNoOfRecordPerPage.TabIndex = 25;
             this.lblNoOfRecordPerPage.Text = "Page Size";
             // 
@@ -84,9 +86,10 @@ namespace TMS.UI
             "20",
             "50",
             "100"});
-            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(65, 631);
+            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(98, 898);
+            this.cmbNoOfRecordsPerPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbNoOfRecordsPerPage.Name = "cmbNoOfRecordsPerPage";
-            this.cmbNoOfRecordsPerPage.Size = new System.Drawing.Size(45, 21);
+            this.cmbNoOfRecordsPerPage.Size = new System.Drawing.Size(66, 28);
             this.cmbNoOfRecordsPerPage.TabIndex = 24;
             this.cmbNoOfRecordsPerPage.Text = "5";
             this.cmbNoOfRecordsPerPage.SelectedIndexChanged += new System.EventHandler(this.cmbNoOfRecordsPerPage_SelectedIndexChanged);
@@ -101,9 +104,11 @@ namespace TMS.UI
             this.grpBoxPaging.Controls.Add(this.lblCurrentPage);
             this.grpBoxPaging.Controls.Add(this.btnNext);
             this.grpBoxPaging.Controls.Add(this.btnPrevious);
-            this.grpBoxPaging.Location = new System.Drawing.Point(370, 632);
+            this.grpBoxPaging.Location = new System.Drawing.Point(555, 894);
+            this.grpBoxPaging.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpBoxPaging.Name = "grpBoxPaging";
-            this.grpBoxPaging.Size = new System.Drawing.Size(269, 51);
+            this.grpBoxPaging.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpBoxPaging.Size = new System.Drawing.Size(404, 78);
             this.grpBoxPaging.TabIndex = 19;
             this.grpBoxPaging.TabStop = false;
             // 
@@ -111,9 +116,10 @@ namespace TMS.UI
             // 
             this.btnLastPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnLastPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLastPage.Location = new System.Drawing.Point(231, 19);
+            this.btnLastPage.Location = new System.Drawing.Point(346, 29);
+            this.btnLastPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLastPage.Name = "btnLastPage";
-            this.btnLastPage.Size = new System.Drawing.Size(31, 23);
+            this.btnLastPage.Size = new System.Drawing.Size(46, 35);
             this.btnLastPage.TabIndex = 7;
             this.btnLastPage.Text = ">>";
             this.btnLastPage.UseVisualStyleBackColor = false;
@@ -123,9 +129,10 @@ namespace TMS.UI
             // 
             this.btnFirstPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnFirstPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFirstPage.Location = new System.Drawing.Point(7, 19);
+            this.btnFirstPage.Location = new System.Drawing.Point(10, 29);
+            this.btnFirstPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnFirstPage.Name = "btnFirstPage";
-            this.btnFirstPage.Size = new System.Drawing.Size(35, 23);
+            this.btnFirstPage.Size = new System.Drawing.Size(52, 35);
             this.btnFirstPage.TabIndex = 6;
             this.btnFirstPage.Text = "<<";
             this.btnFirstPage.UseVisualStyleBackColor = false;
@@ -134,36 +141,40 @@ namespace TMS.UI
             // lblPages
             // 
             this.lblPages.AutoSize = true;
-            this.lblPages.Location = new System.Drawing.Point(150, 24);
+            this.lblPages.Location = new System.Drawing.Point(225, 37);
+            this.lblPages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPages.Name = "lblPages";
-            this.lblPages.Size = new System.Drawing.Size(37, 13);
+            this.lblPages.Size = new System.Drawing.Size(54, 20);
             this.lblPages.TabIndex = 5;
             this.lblPages.Text = "Pages";
             // 
             // lblNoOfPages
             // 
             this.lblNoOfPages.AutoSize = true;
-            this.lblNoOfPages.Location = new System.Drawing.Point(130, 24);
+            this.lblNoOfPages.Location = new System.Drawing.Point(195, 37);
+            this.lblNoOfPages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNoOfPages.Name = "lblNoOfPages";
-            this.lblNoOfPages.Size = new System.Drawing.Size(13, 13);
+            this.lblNoOfPages.Size = new System.Drawing.Size(18, 20);
             this.lblNoOfPages.TabIndex = 4;
             this.lblNoOfPages.Text = "n";
             // 
             // lblSeperator
             // 
             this.lblSeperator.AutoSize = true;
-            this.lblSeperator.Location = new System.Drawing.Point(112, 24);
+            this.lblSeperator.Location = new System.Drawing.Point(168, 37);
+            this.lblSeperator.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSeperator.Name = "lblSeperator";
-            this.lblSeperator.Size = new System.Drawing.Size(12, 13);
+            this.lblSeperator.Size = new System.Drawing.Size(13, 20);
             this.lblSeperator.TabIndex = 3;
             this.lblSeperator.Text = "/";
             // 
             // lblCurrentPage
             // 
             this.lblCurrentPage.AutoSize = true;
-            this.lblCurrentPage.Location = new System.Drawing.Point(93, 24);
+            this.lblCurrentPage.Location = new System.Drawing.Point(140, 37);
+            this.lblCurrentPage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCurrentPage.Name = "lblCurrentPage";
-            this.lblCurrentPage.Size = new System.Drawing.Size(13, 13);
+            this.lblCurrentPage.Size = new System.Drawing.Size(17, 20);
             this.lblCurrentPage.TabIndex = 2;
             this.lblCurrentPage.Text = "c";
             // 
@@ -171,9 +182,10 @@ namespace TMS.UI
             // 
             this.btnNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNext.Location = new System.Drawing.Point(193, 19);
+            this.btnNext.Location = new System.Drawing.Point(290, 29);
+            this.btnNext.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(32, 23);
+            this.btnNext.Size = new System.Drawing.Size(48, 35);
             this.btnNext.TabIndex = 1;
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = false;
@@ -183,9 +195,10 @@ namespace TMS.UI
             // 
             this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrevious.Location = new System.Drawing.Point(48, 19);
+            this.btnPrevious.Location = new System.Drawing.Point(72, 29);
+            this.btnPrevious.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(39, 23);
+            this.btnPrevious.Size = new System.Drawing.Size(58, 35);
             this.btnPrevious.TabIndex = 0;
             this.btnPrevious.Text = "<";
             this.btnPrevious.UseVisualStyleBackColor = false;
@@ -197,9 +210,11 @@ namespace TMS.UI
             this.grpBoxGridView.Controls.Add(this.chkFilterActive);
             this.grpBoxGridView.Controls.Add(this.dgView);
             this.grpBoxGridView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpBoxGridView.Location = new System.Drawing.Point(3, 12);
+            this.grpBoxGridView.Location = new System.Drawing.Point(4, 18);
+            this.grpBoxGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpBoxGridView.Name = "grpBoxGridView";
-            this.grpBoxGridView.Size = new System.Drawing.Size(1106, 618);
+            this.grpBoxGridView.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpBoxGridView.Size = new System.Drawing.Size(1659, 873);
             this.grpBoxGridView.TabIndex = 15;
             this.grpBoxGridView.TabStop = false;
             this.grpBoxGridView.Text = "Assign WorkItems";
@@ -207,9 +222,10 @@ namespace TMS.UI
             // chkFilterActive
             // 
             this.chkFilterActive.AutoSize = true;
-            this.chkFilterActive.Location = new System.Drawing.Point(689, 14);
+            this.chkFilterActive.Location = new System.Drawing.Point(1034, 22);
+            this.chkFilterActive.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkFilterActive.Name = "chkFilterActive";
-            this.chkFilterActive.Size = new System.Drawing.Size(189, 24);
+            this.chkFilterActive.Size = new System.Drawing.Size(284, 33);
             this.chkFilterActive.TabIndex = 1;
             this.chkFilterActive.Text = "Filter Active Workitems";
             this.chkFilterActive.UseVisualStyleBackColor = true;
@@ -229,22 +245,26 @@ namespace TMS.UI
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgView.GridColor = System.Drawing.Color.Black;
-            this.dgView.Location = new System.Drawing.Point(6, 44);
+            this.dgView.Location = new System.Drawing.Point(9, 68);
+            this.dgView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgView.Name = "dgView";
+            this.dgView.RowHeadersWidth = 62;
             this.dgView.RowTemplate.Height = 30;
-            this.dgView.Size = new System.Drawing.Size(1091, 565);
+            this.dgView.Size = new System.Drawing.Size(1636, 788);
             this.dgView.TabIndex = 0;
             this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellClick);
+            this.dgView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
             this.dgView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgView_CellFormatting);
             this.dgView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgViewSaveText);
             this.dgView.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgView_RowStateChanged);
             // 
             // WorkItemAssignments
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1119, 690);
+            this.ClientSize = new System.Drawing.Size(1678, 979);
             this.Controls.Add(this.pnlOuter);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "WorkItemAssignments";
             this.Text = "Assign WorkItem";
             this.Load += new System.EventHandler(this.WorkItemAssignments_Load);

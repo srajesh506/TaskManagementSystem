@@ -7,6 +7,8 @@ using TMS.UI.Utilities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
 using System.Linq;
+using TMS.WorkitemHistory;
+using System.Reflection;
 
 namespace TMS.UI
 {
@@ -26,6 +28,7 @@ namespace TMS.UI
 
         private int _workItemAssignmentId;
         private int _workItemId;
+        private int _Id;
         private int _status;
         private string _userId;
         private string _empName;
@@ -33,16 +36,16 @@ namespace TMS.UI
         private int _modifiedColumn;
         private DataTable _WorkItemAssignment;
 
-        WorkItemManagement workItemManagement= new WorkItemManagement();
-        DBCommonOperations dBCommonOperations=new DBCommonOperations();
-        TeamManagement teamManagement=new TeamManagement();
+        WorkItemManagement workItemManagement = new WorkItemManagement();
+        DBCommonOperations dBCommonOperations = new DBCommonOperations();
+        TeamManagement teamManagement = new TeamManagement();
 
         public WorkItemAssignments()
         {
             try
             {
                 InitializeComponent();
-               
+
             }
             catch (Exception ex)
             {
@@ -96,24 +99,30 @@ namespace TMS.UI
         {
             try
             {
+
                 for (int i = 0; i < dgView.Rows.Count; i++)
                 {
-                    if (dgView.Rows[i].Cells[4].Value.ToString() == "Completed")
+                    //int index = dgView.CurrentRow.Index;
+                    //_Id = (int)dgView.Rows[index].Cells[2].Value;
+                    DataTable dtfinalstatus = new DataTable();
+                    dtfinalstatus = workItemManagement.GetWorkItemFinalStatus(Convert.ToInt32(dgView.Rows[i].Cells[2].Value));
+
+                    if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Completed")
                     {
                         dgView.Rows[i].DefaultCellStyle.BackColor = Color.Lavender;
                         dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-                    }
-                    else if (dgView.Rows[i].Cells[4].Value.ToString() == "HandedOver")
+                    } //dgView.Rows[i].Cells[4].Value.ToString()
+                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "HandedOver")
                     {
                         dgView.Rows[i].DefaultCellStyle.BackColor = Color.LightYellow;
                         dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
                     }
-                    else if (dgView.Rows[i].Cells[4].Value.ToString() == "Pending")
+                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Pending")
                     {
                         dgView.Rows[i].DefaultCellStyle.BackColor = Color.Red;
                         dgView.Rows[i].DefaultCellStyle.ForeColor = Color.WhiteSmoke;
                     }
-                    else if (dgView.Rows[i].Cells[4].Value.ToString() == "InProgress" || dgView.Rows[i].Cells[3].Value.ToString() == "Monitoring")
+                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "InProgress" || dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Monitoring")
                     {
                         dgView.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
                         dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
@@ -142,9 +151,15 @@ namespace TMS.UI
                 if (e.RowIndex != -1)
                 {
                     dgView.Controls.Clear();
-                    if (dgView.CurrentRow.Cells[4].Value.ToString() != "Completed" && dgView.CurrentRow.Cells[4].Value.ToString() != "HandedOver")
+                    int index = dgView.CurrentRow.Index;
+                    _Id = (int)dgView.Rows[index].Cells[2].Value;
+                    DataTable dtfinalstatus = new DataTable();
+                    dtfinalstatus = workItemManagement.GetWorkItemFinalStatus(_Id);
+                    //if (dgView.CurrentRow.Cells[4].Value.ToString() != "Completed" && dgView.CurrentRow.Cells[4].Value.ToString() != "HandedOver")
+                    //{
+                    if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() != "Completed" && dgView.CurrentRow.Cells[4].Value.ToString() != "HandedOver")
                     {
-                        int index = dgView.CurrentRow.Index;
+                        //int index = dgView.CurrentRow.Index;
                         if (index <= dgView.RowCount - 1)
                         {
                             _workItemAssignmentId = (int)dgView.Rows[index].Cells[1].Value;
@@ -215,7 +230,13 @@ namespace TMS.UI
                     }
                     else
                     {
-                        PopupMessageBox.Show("WorkItem is already closed or handed over. Please choose other workitems", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (e.ColumnIndex == 3)
+                        {
+                            _workItemId = (int)dgView.Rows[dgView.CurrentRow.Index].Cells[2].Value;
+                            FrmWorkItemHistory objfrm = new FrmWorkItemHistory(_workItemId);
+                            objfrm.Show();
+                        }
+                        //PopupMessageBox.Show("WorkItem is already closed or handed over. Please choose other workitems", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -244,7 +265,7 @@ namespace TMS.UI
             }
         }
 
-       
+
         //User Defined
         //Function to Load the Form Theme
         private void LoadTheme()
@@ -266,7 +287,7 @@ namespace TMS.UI
             catch (Exception ex)
             {
                 throw new Exception("TMSError - Failed to load the Theme!! \n" + ex.Message + "\n", ex.InnerException);
-            }    
+            }
         }
         public void GetWorkItemsAssignmentData(int pageNum, int pageSize)
         {
@@ -319,7 +340,7 @@ namespace TMS.UI
                     dgView.Columns[8].Width = 105;                   //HandedOverTo
                     dgView.Columns[9].Width = 300;                   //Remarks
 
-                    dgView.Columns[3].ReadOnly = true;
+                    //dgView.Columns[3].ReadOnly = true;
                     dgView.Columns[4].ReadOnly = true;
                     dgView.Columns[5].ReadOnly = true;
                     dgView.Columns[6].ReadOnly = true;
@@ -327,6 +348,8 @@ namespace TMS.UI
                     dgView.Columns[8].ReadOnly = true;
                     dgView.Columns[9].ReadOnly = true;
                     EnableDisableButtons(4);
+                    dgView.Columns["Remarks"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                    dgView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
                 }
             }
             catch (Exception)
@@ -373,33 +396,71 @@ namespace TMS.UI
         {
             try
             {
-                ComboBox temp = (ComboBox)sender;
-                if (_modifiedColumn == 4)    // Status
+                int index = dgView.CurrentRow.Index;
+                _remarks = dgView.Rows[index].Cells[9].Value.ToString();
+                DataTable usertbl = new DataTable();
+                usertbl = teamManagement.GetEmployees(Global.GlobalVar);
+                if (!string.IsNullOrWhiteSpace(dgView.Rows[index].Cells[9].Value.ToString().ToString().Trim()))
                 {
-                    _status = Convert.ToInt32(temp.SelectedValue);
-                    workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status, "");
+                    ComboBox temp = (ComboBox)sender;
+                    if (_modifiedColumn == 4)    // Status
+                    {
+                        _Id = (int)dgView.Rows[index].Cells[1].Value;
+                        if (Isremarksexitsindatabase(_Id))
+                        {
+                            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter mandatory remarks:", "Mandatory Remarks", "");
+                            if (!string.IsNullOrWhiteSpace(input))
+                            {
+                                _status = Convert.ToInt32(temp.SelectedValue);
+                                workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status,  _remarks + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ":" + input + "(" + DateTime.Now.ToString() + ")");
+                            }
+                        }
+                        else
+                        {
+                            _status = Convert.ToInt32(temp.SelectedValue);
+                            workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status, usertbl.Rows[0]["EmpName"].ToString() + ":" + _remarks + "(" + DateTime.Now.ToString() + ")");
+                        }
+                    }
+                    else if (_modifiedColumn == 5) // UserId
+                    {
+                        if (_empName != temp.Text)
+                        {
+                            _Id = (int)dgView.Rows[index].Cells[1].Value;
+                            if (Isremarksexitsindatabase(_Id))
+                            {
+                                string input = Microsoft.VisualBasic.Interaction.InputBox("Enter mandatory remarks:", "Mandatory Remarks", "");
+                                if (!string.IsNullOrWhiteSpace(input))
+                                {
+                                    _userId = Convert.ToString(temp.SelectedValue);
+                                    workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, 0, _remarks + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ":" + input + "(" + DateTime.Now.ToString() + ")");
+                                }
+                            }
+                            else
+                            {
+                                _userId = Convert.ToString(temp.SelectedValue);
+                                workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, 0, usertbl.Rows[0]["EmpName"].ToString() + ":" + _remarks + "(" + DateTime.Now.ToString() + ")");
+                            }
+                        }
+                        else
+                        {
+                            PopupMessageBox.Show("Assigned To Value has not changed. Please choose a different value than currently assigned", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    temp.Hide();
+                    FilterData(chkFilterActive.Checked);
                 }
-                else if (_modifiedColumn == 5) // UserId
+                else
                 {
-                    if (_empName != temp.Text)
-                    {
-                        _userId = Convert.ToString(temp.SelectedValue);
-                        workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, 0, "");
-                    }
-                    else
-                    {
-                        PopupMessageBox.Show("Assigned To Value has not changed. Please choose a different value than currently assigned", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    dgView.Rows[index].Cells[9].Value = Microsoft.VisualBasic.Interaction.InputBox("Remarks are mandatory.Please put appropiate remarks.", "Mandatory Remarks", "");
+                    //PopupMessageBox.Show("Remarks are mandatory.Please put appropiate remarks.", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                temp.Hide();
-                FilterData(chkFilterActive.Checked);
+
             }
             catch (Exception ex)
             {
                 PopupMessageBox.Show("TMSError - Failed to update Employee name or Status in the selected record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void WorkItemAssignments_Load(object sender, EventArgs e)
         {
             try
@@ -407,7 +468,7 @@ namespace TMS.UI
                 LoadTheme();
                 LoadWorkItemAssignmentData(true, false);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -482,5 +543,34 @@ namespace TMS.UI
             _currentPage = 1;
             LoadWorkItemAssignmentData(true, false);
         }
+
+        private void dgViewSaveText(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 3)
+                {
+                    int index = dgView.CurrentRow.Index;
+                    _workItemId = (int)dgView.Rows[index].Cells[2].Value;
+                    FrmWorkItemHistory objfrm = new FrmWorkItemHistory(_workItemId);
+                    objfrm.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private bool Isremarksexitsindatabase(int id)
+        {
+            bool _remarks = Convert.ToBoolean(workItemManagement.GetRemarksUsingID(id));
+            return _remarks;
+        }
+
     }
 }
