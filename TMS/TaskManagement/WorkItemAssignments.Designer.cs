@@ -252,6 +252,7 @@ namespace TMS.UI
             this.dgView.RowTemplate.Height = 30;
             this.dgView.Size = new System.Drawing.Size(1636, 788);
             this.dgView.TabIndex = 0;
+            this.dgView.VirtualMode = true;
             this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellClick);
             this.dgView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
             this.dgView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgView_CellFormatting);

@@ -93,13 +93,59 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to setup the Create WorkItem form button controls!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
+        int count = 0;
         //Datagridview formatting Event to highlight records based on the status
         private void dgView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             try
             {
+                count += 1;
+                //for (int i = 0; i < dgView.Rows.Count; i++)
+                //{
+                    //int index = dgView.CurrentRow.Index;
+                    //_Id = (int)dgView.Rows[index].Cells[2].Value;
+                    DataTable dtfinalstatus = new DataTable();
+                    dtfinalstatus = workItemManagement.GetWorkItemFinalStatus(Convert.ToInt32(dgView.Rows[e.RowIndex].Cells[2].Value));
 
+                    if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Completed")
+                    {
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Lavender;
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+                    } //dgView.Rows[i].Cells[4].Value.ToString()
+                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "HandedOver")
+                    {
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+                    }
+                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Pending")
+                    {
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.WhiteSmoke;
+                    }
+                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "InProgress" || dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Monitoring")
+                    {
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+                    }
+                    else
+                    {
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
+                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+                    }
+
+                //}
+                e.CellStyle.ForeColor = Color.Black;
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Failed to format the records in the DataGridView!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public void changerowcolor()
+        {
+            try
+            {
+                count += 1;
                 for (int i = 0; i < dgView.Rows.Count; i++)
                 {
                     //int index = dgView.CurrentRow.Index;
@@ -134,14 +180,13 @@ namespace TMS.UI
                     }
 
                 }
-                e.CellStyle.ForeColor = Color.Black;
+                //e.CellStyle.ForeColor = Color.Black;
             }
             catch (Exception ex)
             {
                 PopupMessageBox.Show("TMSError - Failed to format the records in the DataGridView!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         //DataGridView cell click event to modify the selected record
         private void dgView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -282,7 +327,7 @@ namespace TMS.UI
                         btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                     }
                 }
-                grpBoxGridView.ForeColor = ThemeColor.PrimaryColor;
+                //grpBoxGridView.ForeColor = ThemeColor.PrimaryColor;
             }
             catch (Exception ex)
             {
@@ -350,6 +395,7 @@ namespace TMS.UI
                     EnableDisableButtons(4);
                     dgView.Columns["Remarks"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                     dgView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+                    
                 }
             }
             catch (Exception)
@@ -364,6 +410,7 @@ namespace TMS.UI
             try
             {
                 LoadWorkItemAssignmentData(true, filterFlag);
+                
             }
             catch (Exception ex)
             {
@@ -467,11 +514,13 @@ namespace TMS.UI
             {
                 LoadTheme();
                 LoadWorkItemAssignmentData(true, false);
+                
             }
             catch (Exception ex)
             {
                 PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+           
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -572,5 +621,16 @@ namespace TMS.UI
             return _remarks;
         }
 
+        //private void dgView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        //{
+        //    //count += 1;
+        //    //if(count==1)
+        //    //{
+        //    //    changerowcolor();
+        //    //    dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+        //    //}
+        //    changerowcolor();
+        //    dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+        //}
     }
 }
