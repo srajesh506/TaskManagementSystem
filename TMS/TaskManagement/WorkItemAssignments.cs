@@ -529,9 +529,9 @@ namespace TMS.UI
             {
                 _currentPage += 1;
                 if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
-                    LoadWorkItemAssignmentData(true, false);
+                    LoadWorkItemAssignmentData(true, chkFilterActive.Checked);
                 else
-                    LoadWorkItemAssignmentData(true, false);
+                    LoadWorkItemAssignmentData(true, chkFilterActive.Checked);
             }
             catch (Exception ex)
             {
