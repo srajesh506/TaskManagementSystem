@@ -252,11 +252,11 @@ namespace TMS.UI
             this.dgView.RowTemplate.Height = 30;
             this.dgView.Size = new System.Drawing.Size(1636, 788);
             this.dgView.TabIndex = 0;
-            this.dgView.VirtualMode = true;
             this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellClick);
             this.dgView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
             this.dgView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgView_CellFormatting);
             this.dgView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgViewSaveText);
+            this.dgView.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgView_CellValueNeeded);
             this.dgView.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgView_RowStateChanged);
             // 
             // WorkItemAssignments

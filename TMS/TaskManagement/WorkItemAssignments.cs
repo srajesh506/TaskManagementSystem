@@ -9,6 +9,7 @@ using TMS.UI.CustomMessageBox;
 using System.Linq;
 using TMS.WorkitemHistory;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace TMS.UI
 {
@@ -95,45 +96,80 @@ namespace TMS.UI
         }
         int count = 0;
         //Datagridview formatting Event to highlight records based on the status
+        //private void dgView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        //{
+        //    try
+        //    {
+        //        count += 1;
+        //        //for (int i = 0; i < dgView.Rows.Count; i++)
+        //        //{
+        //        //int index = dgView.CurrentRow.Index;
+        //        //_Id = (int)dgView.Rows[index].Cells[2].Value;
+        //        DataTable dtfinalstatus = new DataTable();
+        //        dtfinalstatus = workItemManagement.GetWorkItemFinalStatus(Convert.ToInt32(dgView.Rows[e.RowIndex].Cells[2].Value));
+
+        //        if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Completed")
+        //        {
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Lavender;
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+        //        } //dgView.Rows[i].Cells[4].Value.ToString()
+        //        else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "HandedOver")
+        //        {
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+        //        }
+        //        else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Pending")
+        //        {
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.WhiteSmoke;
+        //        }
+        //        else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "InProgress" || dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Monitoring")
+        //        {
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+        //        }
+        //        else
+        //        {
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
+        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+        //        }
+
+        //        //}
+        //        e.CellStyle.ForeColor = Color.Black;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        PopupMessageBox.Show("TMSError - Failed to format the records in the DataGridView!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+
         private void dgView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             try
             {
-                count += 1;
-                //for (int i = 0; i < dgView.Rows.Count; i++)
-                //{
-                    //int index = dgView.CurrentRow.Index;
-                    //_Id = (int)dgView.Rows[index].Cells[2].Value;
-                    DataTable dtfinalstatus = new DataTable();
-                    dtfinalstatus = workItemManagement.GetWorkItemFinalStatus(Convert.ToInt32(dgView.Rows[e.RowIndex].Cells[2].Value));
-
-                    if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Completed")
+                if (e.RowIndex >= 0 && e.RowIndex < dgView.Rows.Count)
+                {
+                    var statusColorDict = new Dictionary<string, Color>
+                            {
+                                { "Completed", Color.Lavender },
+                                { "HandedOver", Color.LightYellow },
+                                { "Pending", Color.Red },
+                                { "InProgress", Color.LightGreen },
+                                { "Monitoring", Color.LightGreen }
+                            };
+                    DataGridViewRow row = dgView.Rows[e.RowIndex];
+                    string statusDescription = row.Cells["FinalStatus"].Value.ToString();
+                    if (statusColorDict.ContainsKey(statusDescription))
                     {
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Lavender;
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-                    } //dgView.Rows[i].Cells[4].Value.ToString()
-                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "HandedOver")
-                    {
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-                    }
-                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Pending")
-                    {
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.WhiteSmoke;
-                    }
-                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "InProgress" || dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Monitoring")
-                    {
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+                        row.DefaultCellStyle.BackColor = statusColorDict[statusDescription];
+                        row.DefaultCellStyle.ForeColor = statusDescription == "Pending" ? Color.WhiteSmoke : System.Drawing.Color.FromArgb(0, 181, 171);
                     }
                     else
                     {
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
-                        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
+                        row.DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
+                        row.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(0, 181, 171);
                     }
-
-                //}
+                }
                 e.CellStyle.ForeColor = Color.Black;
             }
             catch (Exception ex)
@@ -141,52 +177,7 @@ namespace TMS.UI
                 PopupMessageBox.Show("TMSError - Failed to format the records in the DataGridView!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public void changerowcolor()
-        {
-            try
-            {
-                count += 1;
-                for (int i = 0; i < dgView.Rows.Count; i++)
-                {
-                    //int index = dgView.CurrentRow.Index;
-                    //_Id = (int)dgView.Rows[index].Cells[2].Value;
-                    DataTable dtfinalstatus = new DataTable();
-                    dtfinalstatus = workItemManagement.GetWorkItemFinalStatus(Convert.ToInt32(dgView.Rows[i].Cells[2].Value));
 
-                    if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Completed")
-                    {
-                        dgView.Rows[i].DefaultCellStyle.BackColor = Color.Lavender;
-                        dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-                    } //dgView.Rows[i].Cells[4].Value.ToString()
-                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "HandedOver")
-                    {
-                        dgView.Rows[i].DefaultCellStyle.BackColor = Color.LightYellow;
-                        dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-                    }
-                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Pending")
-                    {
-                        dgView.Rows[i].DefaultCellStyle.BackColor = Color.Red;
-                        dgView.Rows[i].DefaultCellStyle.ForeColor = Color.WhiteSmoke;
-                    }
-                    else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "InProgress" || dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Monitoring")
-                    {
-                        dgView.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
-                        dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-                    }
-                    else
-                    {
-                        dgView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
-                        dgView.Rows[i].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-                    }
-
-                }
-                //e.CellStyle.ForeColor = Color.Black;
-            }
-            catch (Exception ex)
-            {
-                PopupMessageBox.Show("TMSError - Failed to format the records in the DataGridView!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
         //DataGridView cell click event to modify the selected record
         private void dgView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -200,10 +191,10 @@ namespace TMS.UI
                     _Id = (int)dgView.Rows[index].Cells[2].Value;
                     DataTable dtfinalstatus = new DataTable();
                     dtfinalstatus = workItemManagement.GetWorkItemFinalStatus(_Id);
-                    //if (dgView.CurrentRow.Cells[4].Value.ToString() != "Completed" && dgView.CurrentRow.Cells[4].Value.ToString() != "HandedOver")
-                    //{
-                    if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() != "Completed" && dgView.CurrentRow.Cells[4].Value.ToString() != "HandedOver")
+                    if (dgView.CurrentRow.Cells[10].Value.ToString() != "Completed" && dgView.CurrentRow.Cells[10].Value.ToString() != "HandedOver")
                     {
+                        //if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() != "Completed" && dgView.CurrentRow.Cells[4].Value.ToString() != "HandedOver")
+                        //{
                         //int index = dgView.CurrentRow.Index;
                         if (index <= dgView.RowCount - 1)
                         {
@@ -376,7 +367,8 @@ namespace TMS.UI
                     }
                     dgView.Columns[0].Visible = false;               //SLNO
                     dgView.Columns[1].Visible = false;               //ID
-                    dgView.Columns[2].Visible = false;               //WorkitemId
+                    dgView.Columns[2].Visible = false;
+                    dgView.Columns[10].Visible = false;              //Final Status
                     dgView.Columns[3].Width = 175;                   //WorkItemDescription
                     dgView.Columns[4].Width = 90;                    //Status
                     dgView.Columns[5].Width = 100;                   //AssignedTo
@@ -395,9 +387,9 @@ namespace TMS.UI
                     EnableDisableButtons(4);
                     dgView.Columns["Remarks"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                     dgView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-                    
+                    //changerowcolor();
                 }
-            }
+           }
             catch (Exception)
             {
                 throw;
@@ -410,14 +402,12 @@ namespace TMS.UI
             try
             {
                 LoadWorkItemAssignmentData(true, filterFlag);
-                
             }
             catch (Exception ex)
             {
                 PopupMessageBox.Show("TMSError - Failed to load the DataGridView data on Filter checkbox check/uncheck event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         //DataGridView cell value change event to save remarks for the work item assignment field
         private void dgViewSaveText(object sender, EventArgs e)
         {
@@ -459,7 +449,7 @@ namespace TMS.UI
                             if (!string.IsNullOrWhiteSpace(input))
                             {
                                 _status = Convert.ToInt32(temp.SelectedValue);
-                                workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status,  _remarks + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ":" + input + "(" + DateTime.Now.ToString() + ")");
+                                workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status, _remarks + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ":" + input + "(" + DateTime.Now.ToString() + ")");
                             }
                         }
                         else
@@ -508,19 +498,81 @@ namespace TMS.UI
                 PopupMessageBox.Show("TMSError - Failed to update Employee name or Status in the selected record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        //private void comboLeave(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        int index = dgView.CurrentRow.Index;
+        //        _remarks = dgView.Rows[index].Cells[9].Value.ToString().Trim();
+        //        DataTable usertbl = teamManagement.GetEmployees(Global.GlobalVar);
+        //        if (!string.IsNullOrWhiteSpace(_remarks))
+        //        {
+        //            ComboBox temp = (ComboBox)sender;
+        //            if (_modifiedColumn == 4) // Status
+        //            {
+        //                _status = Convert.ToInt32(temp.SelectedValue);
+        //                string newRemark = GetNewRemark(usertbl, _remarks);
+        //                UpdateWorkItemAssignment(_status, newRemark);
+        //            }
+        //            else if (_modifiedColumn == 5) // UserId
+        //            {
+        //                string selectedEmpName = temp.Text;
+        //                if (_empName != selectedEmpName)
+        //                {
+        //                    _userId = Convert.ToString(temp.SelectedValue);
+        //                    string newRemark = GetNewRemark(usertbl, _remarks);
+        //                    UpdateWorkItemAssignment(0, newRemark);
+        //                }
+        //                else
+        //                {
+        //                    PopupMessageBox.Show("Assigned To Value has not changed. Please choose a different value than currently assigned", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //                }
+        //            }
+        //            temp.Hide();
+        //            FilterData(chkFilterActive.Checked);
+        //        }
+        //        else
+        //        {
+        //            dgView.Rows[index].Cells[9].Value = Microsoft.VisualBasic.Interaction.InputBox("Remarks are mandatory. Please put appropriate remarks.", "Mandatory Remarks", "");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        PopupMessageBox.Show("TMSError - Failed to update Employee name or Status in the selected record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+        //private string GetNewRemark(DataTable usertbl, string existingRemark)
+        //{
+        //    if (Isremarksexitsindatabase(_Id))
+        //    {
+        //        string input = Microsoft.VisualBasic.Interaction.InputBox("Enter mandatory remarks:", "Mandatory Remarks", "");
+        //        if (!string.IsNullOrWhiteSpace(input))
+        //        {
+        //            return existingRemark + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ": " + input + " (" + DateTime.Now.ToString() + ")";
+        //        }
+        //        return existingRemark;
+        //    }
+        //    return usertbl.Rows[0]["EmpName"].ToString() + ": " + existingRemark + " (" + DateTime.Now.ToString() + ")";
+        //}
+        //private void UpdateWorkItemAssignment(int status, string newRemark)
+        //{
+        //    workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, status, newRemark);
+        //}
         private void WorkItemAssignments_Load(object sender, EventArgs e)
         {
             try
             {
                 LoadTheme();
                 LoadWorkItemAssignmentData(true, false);
-                
+
             }
             catch (Exception ex)
             {
                 PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -621,14 +673,19 @@ namespace TMS.UI
             return _remarks;
         }
 
+        private void dgView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+
+        }
+
         //private void dgView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         //{
-        //    //count += 1;
-        //    //if(count==1)
-        //    //{
-        //    //    changerowcolor();
-        //    //    dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
-        //    //}
+        //    count += 1;
+        //    if (count == 1)
+        //    {
+        //        changerowcolor();
+        //        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+        //    }
         //    changerowcolor();
         //    dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
         //}
