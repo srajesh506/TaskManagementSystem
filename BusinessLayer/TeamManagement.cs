@@ -68,6 +68,37 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Fetching Roles Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
+        public DataTable GetProjectMemberByProjectId(string ProjectId = null)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "uspGetProjectMemberByProjectId";
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = ProjectId;
+                return dbConnection.ExeReader(sqlCommand);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("BLLError - Failure in Fetching Roles Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
+            }
+        }
+        public DataSet GetRolebyUserId(string UserId = null)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "uspGetRolebyUserId";
+                sqlCommand.Parameters.Add("@userid", SqlDbType.NVarChar).Value = UserId;
+                DataSet dataset = dbConnection.ExeDataAdapter(sqlCommand);
+                return dataset;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("BLLError - Failure in Fetching Roles Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
+            }
+        }
 
         //Adds a new role in Database 
         public int AddRole(Role role)
@@ -117,6 +148,13 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@Password", SqlDbType.NVarChar).Value = employee.Password;
                 sqlCommand.Parameters.Add("@Email", SqlDbType.NVarChar).Value = employee.Email;
                 sqlCommand.Parameters.Add("@Pic", SqlDbType.NVarChar).Value = employee.Pic;
+                DataTable dt2 = new DataTable();
+                dt2.Columns.Add("ProjectId", typeof(int));
+                foreach (var item in employee.ProjectID)
+                {
+                    dt2.Rows.Add(item);
+                }
+                sqlCommand.Parameters.Add("@ProjectIdList", SqlDbType.Structured).Value = dt2;
                 return dbConnection.ExeNonQuery(sqlCommand);
             }
             catch (Exception ex)
@@ -124,5 +162,6 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Adding/Updating Employee Record!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
+       
     }
 }

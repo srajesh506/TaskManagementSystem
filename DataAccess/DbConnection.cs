@@ -80,5 +80,33 @@ namespace TMS.DataAccess
             }
             return dataTable;
         }
+        public DataSet ExeDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCommand);
+            DataSet dataset = new DataSet();
+            try
+            {
+                // Set the connection if it's not already set
+                if (sqlCommand.Connection == null)
+                {
+                    sqlCommand.Connection = GetCon();
+                }
+                // Use the SqlDataAdapter to fill the DataTable
+                dataAdapter.Fill(dataset);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("DAError Failure !!" + "\n" + ex.Message, ex.InnerException);
+            }
+            finally
+            {
+                // Close the connection if it was opened in this method
+                if (sqlCommand.Connection != null && sqlCommand.Connection.State == ConnectionState.Open)
+                {
+                    sqlCommand.Connection.Close();
+                }
+            }
+            return dataset;
+        }
     }
 }

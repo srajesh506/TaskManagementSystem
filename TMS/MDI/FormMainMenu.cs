@@ -7,6 +7,11 @@ using TMS.UI;
 using TMS.UI.Utilities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
+using System.Data;
+using CrystalDecisions.ReportAppServer.DataDefModel;
+using DataSet = System.Data.DataSet;
+using TMS.BusinessEntities;
+using System.Diagnostics.Eventing.Reader;
 
 namespace TMS.MDI
 {
@@ -36,19 +41,57 @@ namespace TMS.MDI
             {
                 InitializeComponent();
                 _random = new Random();
-                Global.GlobalVar = userId;
+                UserInfo.userId = userId;
                 btnCloseChildForm.Visible = false;
                 this.Text = string.Empty;
                 this.ControlBox = false;
                 if (File.Exists(Application.StartupPath + "\\Images\\" + userId + ".jpg"))
                 {
                     pbUser.Image = Image.FromFile(Application.StartupPath + "\\Images\\" + userId + ".jpg");
-                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][0].ToString();
+                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][1].ToString();
                 }
                 else
                 {
                     pbUser.Image = Image.FromFile(Application.StartupPath + "\\Images\\noimageMDI.png");
-                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][0].ToString();
+                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][1].ToString();
+                }
+                DataSet dsrole = new DataSet();
+                dsrole = teamManagement.GetRolebyUserId(userId);
+                if (dsrole != null)
+                {
+                    if (dsrole.Tables[0].Rows.Count > 0)
+                    {
+                        UserInfo.roleID = dsrole.Tables[0].Rows[0][1].ToString();
+
+                            //Manager RoleId is 2 
+                            if (UserInfo.roleID == "2")
+                        {
+                            pnlAdmin.Visible = false;
+                        }
+                        else if(UserInfo.roleID == "3") //Team Member RoleID is 3
+                        {
+                            pnlAdmin.Visible = false;
+                            pnlMasterData.Visible = false;
+                        }
+                            else                   //Admin RoleId is 1
+                        {
+                            pnlAdmin.Visible = true;
+                            pnlMasterData.Visible = true;
+                        }
+                    }
+                    DataTable dataTable = new DataTable();
+                    dataTable = dsrole.Tables[1];
+                    DataRow dataRow = dataTable.NewRow();
+                    dataRow.ItemArray = new object[] { 0, "--Select Project--" };
+                    dataTable.Rows.InsertAt(dataRow, 0);
+                    if (dsrole.Tables[1].Rows.Count > 0)
+                    {
+                        cmbprojects.ValueMember = "projectid";
+                        cmbprojects.DisplayMember = "projectname";
+                        cmbprojects.DataSource = dataTable;
+                    }
+                        lblprojectname.Visible = dsrole.Tables[0].Rows[0][1].ToString() == "1" ? false : true;
+                        cmbprojects.Visible = dsrole.Tables[0].Rows[0][1].ToString() == "1"  ? false : true; 
                 }
             }
             catch (Exception ex)
@@ -56,15 +99,16 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Failed to Load the Home Page!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        
 
         //Form Load Event
         private void FormMainMenu_Load(object sender, EventArgs e)
         {
             try
             {
-                OpenChildForm(new MDI.Dashboard());
+                //OpenChildForm(new MDI.Dashboard());
                 Reset();
+                //pnlAdmin.Visible = false;
             }
             catch (Exception ex)
             {
@@ -99,7 +143,7 @@ namespace TMS.MDI
             {
                 if (_activeForm != null)
                     _activeForm.Close();
-                OpenChildForm(new MDI.Dashboard(), sender);
+                //OpenChildForm(new MDI.Dashboard(), sender);
                 Reset();
             }
             catch (Exception ex)
@@ -168,7 +212,7 @@ namespace TMS.MDI
             }
             catch (Exception ex)
             {
-                PopupMessageBox.Show("TMSError - Error in loading Team Register Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //Task Management Button Click Event - Opens the Task Management Form as ChildForm
@@ -343,6 +387,9 @@ namespace TMS.MDI
                     case "pbMenuButton":
                         VerticalTimerTick();
                         break;
+                    case "btnAdmin":
+                        _masterDataCollaps = HorizantalTimerTick(_masterDataCollaps, pnlAdmin);
+                        break;
                     case "btnMasterData":
                         _masterDataCollaps = HorizantalTimerTick(_masterDataCollaps, pnlMasterData);
                         break;
@@ -374,7 +421,7 @@ namespace TMS.MDI
             try
             {
                 DisableButton();
-                lblTitle.Text = "DASHBOARD";
+                lblTitle.Text = "TASK MANAGEMENT SYSTEM";
                 pnlTitleBar.BackColor = Color.FromArgb(0, 150, 136);
                 pnlLogo.BackColor = Color.FromArgb(35, 40, 45);
                 _currentButton = null;
@@ -484,7 +531,50 @@ namespace TMS.MDI
                 throw new Exception("TMSError - Error in loading Form!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-        
+
+
+        private void OpenChildForm(string childFormName, object btnSender = null)
+        {
+            try
+            {
+                if (_activeForm != null)
+                {
+                    _activeForm.Close();
+                }
+
+                if (btnSender != null)
+                {
+                    ActiveButton(btnSender);
+                }
+
+                // Use reflection to create an instance of the child form by its name
+                Type formType = Type.GetType(childFormName);
+                if (formType != null)
+                {
+                    Form childForm = (Form)Activator.CreateInstance(formType);
+
+                    _activeForm = childForm;
+                    childForm.TopLevel = false;
+                    childForm.FormBorderStyle = FormBorderStyle.None;
+                    childForm.Dock = DockStyle.Fill;
+                    pnlDesktopPanel.Controls.Add(childForm);
+                    pnlDesktopPanel.Tag = childForm;
+                    childForm.BringToFront();
+                    childForm.Show();
+
+                    lblTitle.Text = childForm.Text;
+                }
+                else
+                {
+                    MessageBox.Show("Child form not found: " + childFormName, "Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error");
+            }
+        }
+
 
         //Function for Mouse Enter - Yellow Highlight
         private void EnterMouse(Label label)
@@ -576,6 +666,66 @@ namespace TMS.MDI
             catch (Exception ex)
             {
                 throw new Exception("TMSError - Failure in Menu Option Expand/Collapse Event!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+
+        private void btnProjectAssignment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var temp = (Control)sender;
+                UserInfo.formname = temp.Text.Replace(" ","");
+                OpenChildForm(new UI.ProjectAssignment(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnProjectManagement_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenChildForm(new UI.FrmAssignProject(), sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                StartTimer(sender);
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in Master Data Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbprojects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+               UserInfo.projectID = cmbprojects.SelectedIndex > 0 ?  Convert.ToString(cmbprojects.SelectedValue) : null;
+            try
+            {
+                if (cmbprojects.SelectedIndex > 0)
+                {
+                    string formname = "UI."+UserInfo.formname+"";
+                    Type formtype = Type.GetType(formname);
+                    if (formtype != null )
+                    {
+                        Form form = (Form)Activator.CreateInstance(formtype);
+                        OpenChildForm(formname);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

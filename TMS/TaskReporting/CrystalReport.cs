@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TMS.UI {
+namespace TMS.TaskReporting {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;

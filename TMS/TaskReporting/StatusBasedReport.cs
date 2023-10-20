@@ -6,9 +6,11 @@ using System.Windows.Forms;
 using TMS.UI.Utilities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
+using TMS.TaskReporting;
 
 using CrystalDecisions.CrystalReports.Engine;
 using System.Linq;
+
 
 namespace TMS.UI
 {
@@ -27,7 +29,7 @@ namespace TMS.UI
 
         private DataTable _taskReporting;
 
-        TaskReporting taskReporting = new TaskReporting();
+       BusinessLogicLayer.TaskReporting taskReporting = new BusinessLogicLayer.TaskReporting();
         DBCommonOperations dBCommonOperations = new DBCommonOperations();
 
         public StatusBasedReport()

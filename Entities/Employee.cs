@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TMS.BusinessEntities
 {
@@ -14,6 +15,8 @@ namespace TMS.BusinessEntities
         public string Password { get; set; }
         public string Email { get; set; }
         public string Pic { get; set; }
+
+        public List<int> ProjectID { get; set; }
 
     }
 }

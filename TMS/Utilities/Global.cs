@@ -1,15 +1,35 @@
-﻿namespace TMS.UI.Utilities
+﻿//namespace TMS.UI.Utilities
+namespace TMS.BusinessEntities
 {
-   static class Global
+   static class UserInfo
     {
 
-        private static string s_globalVar = "";
+        private static string UserID = "";
 
-        public static string GlobalVar
+        public static string userId
         {
-            get { return s_globalVar; }
-            set { s_globalVar = value; }
+            get { return UserID; }
+            set { UserID = value; }
         }
+        private static string RoleID = "";
+        public static string roleID
+        {
+            get { return RoleID; }
+            set { RoleID = value; }
+        }
+        private static string ProjectID = "";
+        public static string projectID
+        {
+            get { return ProjectID; }
+            set { ProjectID = value; }
+        }
+        private static string FormName = "";
+        public static string formname
+        {
+            get { return FormName.Trim(); }
+            set { FormName = value; }
+        }
+
 
     }
 }

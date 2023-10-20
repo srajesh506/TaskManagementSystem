@@ -1,11 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 
 using TMS.UI.Utilities;
 using TMS.BusinessLogicLayer;
@@ -13,6 +9,7 @@ using TMS.UI.CustomMessageBox;
 
 using CrystalDecisions.CrystalReports.Engine;
 using System.Linq;
+using TMS.TaskReporting;
 
 namespace TMS.UI
 {
@@ -31,8 +28,9 @@ namespace TMS.UI
 
         private DataTable _taskReporting;
 
+        BusinessLogicLayer.TaskReporting taskReporting = new BusinessLogicLayer.TaskReporting();
 
-        TaskReporting taskReporting = new TaskReporting();
+       // TaskReporting  = new TaskReporting();
         WorkItemManagement workItemManagement = new WorkItemManagement();
         TeamManagement teamManagement = new TeamManagement();
 

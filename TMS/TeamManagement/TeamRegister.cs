@@ -9,6 +9,13 @@ using TMS.BusinessEntities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
 using System.Linq;
+using System.Collections.Generic;
+using System.Web.UI.WebControls;
+using Image = System.Drawing.Image;
+using TextBox = System.Windows.Forms.TextBox;
+using Button = System.Windows.Forms.Button;
+using static System.Windows.Forms.LinkLabel;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace TMS.UI
 {
@@ -28,11 +35,13 @@ namespace TMS.UI
         Employee employee = new Employee();
         TeamManagement teamManagement = new TeamManagement();
         Operations operations = new Operations();
+        ProjectManagementBL projectData = new ProjectManagementBL();
         public FrmTeamRegister()
         {
             try
             {
                 InitializeComponent();
+                chkSelectAll.CheckedChanged += checkBox1_CheckedChanged;
             }
             catch (Exception ex)
             {
@@ -47,6 +56,7 @@ namespace TMS.UI
             {
                 LoadTheme();
                 LoadRoles();
+                LoadProject();
                 EnableDisableButtons(2);
                 LoadEmployeesDataGrid(true);        //True flag to make DB call for first time loading the grid
             }
@@ -154,11 +164,39 @@ namespace TMS.UI
                 {
                     txtUserId.Text = Convert.ToString(dgView.Rows[index].Cells[1].Value);
                     txtName.Text = Convert.ToString(dgView.Rows[index].Cells[2].Value);
-                    cmbRole.SelectedValue = Convert.ToString(dgView.Rows[index].Cells[8].Value);
+                    cmbRole.SelectedValue = Convert.ToString(dgView.Rows[index].Cells[9].Value);
                     txtEmail.Text = Convert.ToString(dgView.Rows[index].Cells[4].Value);
                     rtxtRemark.Text = Convert.ToString(dgView.Rows[index].Cells[5].Value);
-                    txtPwd.Text = operations.Decrypt(Convert.ToString(dgView.Rows[index].Cells[6].Value));
-                    chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[9].Value);
+                    for (int i = 0; i < chklstbxProject.Items.Count; i++)
+                    {
+                        chklstbxProject.SetItemChecked(i, false);
+                    }
+                        DataRow[] dr = _employees.Select("[User Id] = '"+ txtUserId.Text + "' and IsActive =1");
+                    if (dr.Length > 0)
+                    {
+                        foreach (DataRow dr2 in dr)
+                        {
+                            if (!string.IsNullOrEmpty(Convert.ToString(dr2["projectid"])))
+                            {
+                                int projectid = Convert.ToInt32(dr2["projectid"]);
+                                // Find the corresponding item in the CheckedListBox and check/uncheck it
+                                for (int i = 0; i < chklstbxProject.Items.Count; i++)
+                                {
+                                    //chklstbxProject.SetItemChecked(i, false);
+                                    ListItem item = chklstbxProject.Items[i] as ListItem;
+                                    if (item != null && item.Value == dr2["projectid"].ToString())
+                                    {
+                                        // Toggle the item's checked state
+                                        //chklstbxProject.SetItemChecked(i, !chklstbxProject.GetItemChecked(i));
+                                        chklstbxProject.SetItemChecked(i, true);
+                                        break; // Exit the loop once the item is found
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    txtPwd.Text = operations.Decrypt(Convert.ToString(dgView.Rows[index].Cells[7].Value));
+                    chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[10].Value);
                     EnableDisableButtons(3);
                     if (File.Exists(Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg"))
                     {
@@ -308,7 +346,6 @@ namespace TMS.UI
                 btnSave.ForeColor = ThemeColor.PrimaryColor;
                 btnModify.ForeColor = ThemeColor.PrimaryColor;
                 btnCancel.ForeColor = ThemeColor.PrimaryColor;
-                lblReg.BackColor = ThemeColor.SecondaryColor;
                 lblUserId.ForeColor = ThemeColor.SecondaryColor;
                 lblName.ForeColor = ThemeColor.SecondaryColor;
                 lblRole.ForeColor = ThemeColor.SecondaryColor;
@@ -354,12 +391,13 @@ namespace TMS.UI
             }
         }
 
+
         // Function to retrive the Employee table data for GridView DataSource
         private void GetEmployeesData(int pageNum, int pageSize)
         {
             try
             {
-                _employees = teamManagement.GetEmployeesRoles(out _totalRecords, pageNum , pageSize);
+                _employees = teamManagement.GetEmployeesRoles(out _totalRecords, pageNum, pageSize);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_employees.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_employees.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -556,6 +594,24 @@ namespace TMS.UI
                     employee.IsActive = chkActive.Checked;
                     employee.Password = operations.Encrypt(txtPwd.Text);
                     employee.Pic = pbPic.Image == null ? null : txtUserId.Text + ".jpg";
+                    List<int> ProjectIdList = new List<int>();
+                    if (chklstbxProject.CheckedItems.Count > 0)
+                    {
+                        foreach (ListItem item in chklstbxProject.CheckedItems)
+                        {
+                            string projectID = item.Value.ToString() != null ? item.Value.ToString() : null;
+                            string projecttext = item.Text.ToString() != null ? item.Text.ToString() : null;
+                            ProjectIdList.Add(Convert.ToInt32(projectID));
+                            //employee.ProjectID = Convert.ToInt32(projectID);
+                        }
+                        employee.ProjectID = ProjectIdList;
+                    }
+                    else
+                    {
+                        ProjectIdList.Add(0);
+                        employee.ProjectID = ProjectIdList;
+                    }
+
                     switch (mode)
                     {
                         case "S":
@@ -573,15 +629,15 @@ namespace TMS.UI
                         default:
                             throw new Exception("TMSError - Invalid Operation!! ");
                     }
-                    _currentPage = 1;               //Freshly Load the grid with Page 1
-                    LoadEmployeesDataGrid(true);    //True flag to make DB call for refreshing the grid
-                    FormControlHandling.ClearControls(grpBoxRegistrationForm);
-                    EnableDisableButtons(2);
-                    if(mode=="S")
-                    RightBottomMessageBox.Success("Data saved Successfully!");
-                    else
-                        RightBottomMessageBox.Info("Data modify Successfully!");
                 }
+                _currentPage = 1;               //Freshly Load the grid with Page 1
+                LoadEmployeesDataGrid(true);    //True flag to make DB call for refreshing the grid
+                FormControlHandling.ClearControls(grpBoxRegistrationForm);
+                EnableDisableButtons(2);
+                if (mode == "S")
+                    RightBottomMessageBox.Success("Data saved Successfully!");
+                else
+                    RightBottomMessageBox.Info("Data modify Successfully!");
             }
             catch (Exception ex)
             {
@@ -606,10 +662,11 @@ namespace TMS.UI
                 dgView.Columns[3].Width = 150;
                 dgView.Columns[4].Width = 300;
                 dgView.Columns[5].Width = 300;
-                dgView.Columns[6].Visible = false;
                 dgView.Columns[7].Visible = false;
                 dgView.Columns[8].Visible = false;
                 dgView.Columns[9].Visible = false;
+                dgView.Columns[10].Visible = false;
+                dgView.Columns[11].Visible = false;
                 dgView.ReadOnly = true;
                 EnableDisableButtons(4);
             }
@@ -618,7 +675,85 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
+        List<string> listcollection = new List<string>();
+        Dictionary<string, bool> checkedState = new Dictionary<string, bool>();
+        private void txtsearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = txtsearch.Text.ToLower();
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                chklstbxProject.Items.Clear();
+                foreach (string str in listcollection)
+                {
+                    if (str.ToLower().StartsWith(searchText))// Use Contains for partial matches
+                    {
+                        chklstbxProject.Items.Add(str, checkedState.ContainsKey(str)); // Maintain checked state
+                    }
+                }
+            }
+            else
+            {
+                chklstbxProject.Items.Clear();
+                foreach (string str in listcollection)
+                {
+                    chklstbxProject.Items.Add(str, checkedState.ContainsKey(str)); // Maintain checked state
+                }
+            }
+        }
+        private void LoadProject()
+        {
+            try
+            {
+                DataTable dataTable = new DataTable();
+                dataTable = projectData.GetALLProject();
+                // Clear existing items in the CheckBoxList
+                chklstbxProject.Items.Clear();
 
-       
+                // Loop through the DataTable and add items to the CheckBoxList and listcollection
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    // Assuming "projectid" and "Project Name" are column names in the DataTable
+                    string projectID = row["projectid"].ToString();
+                    string projectName = row["projectname"].ToString();
+                    bool isChecked = false;
+                    if (checkedState.ContainsKey(projectName))
+                    {
+                        isChecked = checkedState[projectName];
+                    }
+                    // Create a new ListItem for each item and add it to the CheckBoxList
+                    chklstbxProject.Items.Add(new ListItem(projectName, projectID));
+                    listcollection.Add(projectName);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to Load the Projects!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+        // Event handler to track checked state changes
+        private void chklstbxProject_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            string itemName = chklstbxProject.Items[e.Index].ToString();
+            bool isChecked = (e.NewValue == CheckState.Checked);
+            if (checkedState.ContainsKey(itemName))
+            {
+                checkedState[itemName] = isChecked;
+            }
+            else
+            {
+                checkedState.Add(itemName, isChecked);
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            bool isChecked = chkSelectAll.Checked;
+            for (int i = 0; i < chklstbxProject.Items.Count; i++)
+            {
+                chklstbxProject.SetItemChecked(i, isChecked);
+            }
+        }
     }
 }
+
+

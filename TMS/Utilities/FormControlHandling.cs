@@ -68,7 +68,14 @@ namespace TMS.UI.Utilities
                     chk = frm as CheckBox;
                     chk.Checked = false;
                 }
-
+                if (frm is CheckedListBox)
+                {
+                    chkbox = frm as CheckedListBox;
+                    for (int i = 0; i < chkbox.Items.Count; i++)
+                    {
+                        chkbox.SetItemChecked(i, false);
+                    }
+                }
             }
         }
 

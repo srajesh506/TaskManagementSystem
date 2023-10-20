@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-
+using TMS.TaskReporting;
 
 namespace TMS.UI
 {
@@ -32,7 +32,7 @@ namespace TMS.UI
         private void InitializeComponent()
         {
             this.crystalReportViewer = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
-            this.CrystalReport = new TMS.UI.CrystalReport();
+            this.CrystalReport = new TMS.TaskReporting.CrystalReport();
             this.SuspendLayout();
             // 
             // crystalReportViewer
