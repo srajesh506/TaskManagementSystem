@@ -28,8 +28,8 @@
         private void InitializeComponent()
         {
             this.grpBoxRegistrationForm = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblAssignedTeamMember = new System.Windows.Forms.Label();
+            this.lblAvailableTeamMember = new System.Windows.Forms.Label();
             this.btnArrowLeft = new System.Windows.Forms.Button();
             this.btnArrowRight = new System.Windows.Forms.Button();
             this.lstAssignedTeamMember = new System.Windows.Forms.ListBox();
@@ -41,8 +41,8 @@
             // 
             // grpBoxRegistrationForm
             // 
-            this.grpBoxRegistrationForm.Controls.Add(this.label2);
-            this.grpBoxRegistrationForm.Controls.Add(this.label1);
+            this.grpBoxRegistrationForm.Controls.Add(this.lblAssignedTeamMember);
+            this.grpBoxRegistrationForm.Controls.Add(this.lblAvailableTeamMember);
             this.grpBoxRegistrationForm.Controls.Add(this.btnArrowLeft);
             this.grpBoxRegistrationForm.Controls.Add(this.btnArrowRight);
             this.grpBoxRegistrationForm.Controls.Add(this.lstAssignedTeamMember);
@@ -57,27 +57,27 @@
             this.grpBoxRegistrationForm.TabStop = false;
             this.grpBoxRegistrationForm.Text = "Project Assignment Form";
             // 
-            // label2
+            // lblAssignedTeamMember
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(942, 128);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(296, 28);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "&Assigned Team Member";
+            this.lblAssignedTeamMember.AutoSize = true;
+            this.lblAssignedTeamMember.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssignedTeamMember.Location = new System.Drawing.Point(942, 121);
+            this.lblAssignedTeamMember.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAssignedTeamMember.Name = "lblAssignedTeamMember";
+            this.lblAssignedTeamMember.Size = new System.Drawing.Size(302, 30);
+            this.lblAssignedTeamMember.TabIndex = 13;
+            this.lblAssignedTeamMember.Text = "&Assigned Team Member";
             // 
-            // label1
+            // lblAvailableTeamMember
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(203, 128);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(301, 28);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "&Available Team Member";
+            this.lblAvailableTeamMember.AutoSize = true;
+            this.lblAvailableTeamMember.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAvailableTeamMember.Location = new System.Drawing.Point(203, 121);
+            this.lblAvailableTeamMember.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAvailableTeamMember.Name = "lblAvailableTeamMember";
+            this.lblAvailableTeamMember.Size = new System.Drawing.Size(310, 30);
+            this.lblAvailableTeamMember.TabIndex = 12;
+            this.lblAvailableTeamMember.Text = "&Available Team Member";
             // 
             // btnArrowLeft
             // 
@@ -107,6 +107,7 @@
             this.lstAssignedTeamMember.ItemHeight = 29;
             this.lstAssignedTeamMember.Location = new System.Drawing.Point(947, 159);
             this.lstAssignedTeamMember.Name = "lstAssignedTeamMember";
+            this.lstAssignedTeamMember.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstAssignedTeamMember.Size = new System.Drawing.Size(554, 613);
             this.lstAssignedTeamMember.TabIndex = 9;
             // 
@@ -116,7 +117,7 @@
             this.lstTeamMembers.ItemHeight = 29;
             this.lstTeamMembers.Location = new System.Drawing.Point(208, 159);
             this.lstTeamMembers.Name = "lstTeamMembers";
-            this.lstTeamMembers.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lstTeamMembers.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstTeamMembers.Size = new System.Drawing.Size(554, 613);
             this.lstTeamMembers.TabIndex = 8;
             // 
@@ -156,7 +157,7 @@
         private System.Windows.Forms.Button btnArrowLeft;
         private System.Windows.Forms.Button btnArrowRight;
         private System.Windows.Forms.ListBox lstAssignedTeamMember;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAssignedTeamMember;
+        private System.Windows.Forms.Label lblAvailableTeamMember;
     }
 }

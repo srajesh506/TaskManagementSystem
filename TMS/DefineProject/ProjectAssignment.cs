@@ -39,9 +39,10 @@ namespace TMS.UI
             try
             {
                 LoadTheme();
-                LoadProject();
-                LoadAvailableTeamMember();
-                LoadAssignedTeamMember();
+                // To load available team members:
+                LoadTeamMembers(lstTeamMembers, 0);
+                // To load assigned team members:
+                LoadTeamMembers(lstAssignedTeamMember, 1);
             }
             catch (Exception ex)
             {
@@ -64,6 +65,10 @@ namespace TMS.UI
                         btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                     }
                 }
+                lblAvailableTeamMember.ForeColor = ThemeColor.SecondaryColor;
+                lblAssignedTeamMember.ForeColor = ThemeColor.SecondaryColor;
+                lstTeamMembers.BackColor = ThemeColor.PrimaryColor;
+                lstAssignedTeamMember.BackColor = ThemeColor.PrimaryColor;
                 grpBoxRegistrationForm.ForeColor = ThemeColor.PrimaryColor;
              
                 
@@ -74,51 +79,18 @@ namespace TMS.UI
             }
 
         }
-
-        // Function to Load the Roles in the Form Combobox.
-        private void LoadProject()
+        private void LoadTeamMembers(ListBox listBox, int flag)
         {
             try
             {
-                DataTable dataTable = new DataTable();
-                dataTable = teamManagement.GetRoles("Project");
-                DataRow dataRow = dataTable.NewRow();
-                dataRow.ItemArray = new object[] { 0, "--Select Project--" };
-                dataTable.Rows.InsertAt(dataRow, 0);
+                DataTable dataTable = teamManagement.GetProjectMemberByProjectId(UserInfo.projectID, flag);
+                listBox.DataSource = dataTable;
+                listBox.ValueMember = "UserId";
+                listBox.DisplayMember = "EmployeeName";
             }
             catch (Exception ex)
             {
-                throw new Exception("TMSError - Failed to Load the Roles!! \n" + ex.Message + "\n", ex.InnerException);
-            }
-        }
-        private void LoadAvailableTeamMember()
-        {
-            try
-            {
-                DataTable dataTable = new DataTable();
-                dataTable = teamManagement.GetProjectMemberByProjectId(UserInfo.projectID);
-                lstTeamMembers.DataSource = dataTable;
-                lstTeamMembers.ValueMember = "UserId";
-                lstTeamMembers.DisplayMember= "EmployeeName";
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("TMSError - Failed to Load the Roles!! \n" + ex.Message + "\n", ex.InnerException);
-            }
-        }
-        private void LoadAssignedTeamMember()
-        {
-            try
-            {
-                DataTable dataTable = new DataTable();
-                dataTable = teamManagement.GetProjectMemberByProjectId(UserInfo.projectID,flag:1);
-                lstAssignedTeamMember.DataSource = dataTable;
-                lstAssignedTeamMember.ValueMember = "UserId";
-                lstAssignedTeamMember.DisplayMember = "EmployeeName";
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("TMSError - Failed to Load the Roles!! \n" + ex.Message + "\n", ex.InnerException);
+                throw new Exception("TMSError - Failed to load the team members!!\n" + ex.Message, ex.InnerException);
             }
         }
 
@@ -126,16 +98,7 @@ namespace TMS.UI
         {
             try
             {
-                string SelectedUserId;
-                string SelectedUserName;
-                foreach (var item in lstTeamMembers.SelectedItems)
-                {
-                    SelectedUserId = ((DataRowView)item).Row["UserId"].ToString();
-                    SelectedUserName = ((DataRowView)item).Row["EmployeeName"].ToString();
-                    teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.projectID), SelectedUserId);
-                    LoadAssignedTeamMember();
-                    LoadAvailableTeamMember();
-                }
+                AddUpdateListBoxItem(lstTeamMembers);
             }
             catch (Exception ex)
             {
@@ -146,20 +109,27 @@ namespace TMS.UI
         {
             try
             {
-                string SelectedUserId;
-                string SelectedUserName;
-                foreach (var item in lstAssignedTeamMember.SelectedItems)
-                {
-                    SelectedUserId = ((DataRowView)item).Row["UserId"].ToString();
-                    SelectedUserName = ((DataRowView)item).Row["EmployeeName"].ToString();
-                    teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.projectID), SelectedUserId);
-                    LoadAssignedTeamMember();
-                    LoadAvailableTeamMember();
-                }
+                AddUpdateListBoxItem(lstAssignedTeamMember);
+               
             }
             catch (Exception ex)
             {
                 throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
+        private void AddUpdateListBoxItem(ListBox lstbox)
+        {
+            string SelectedUserId;
+            string SelectedUserName;
+            foreach (var item in lstbox.SelectedItems)
+            {
+                SelectedUserId = ((DataRowView)item).Row["UserId"].ToString();
+                SelectedUserName = ((DataRowView)item).Row["EmployeeName"].ToString();
+                teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.projectID), SelectedUserId);
+                // To load available team members:
+                LoadTeamMembers(lstTeamMembers, 0);
+                // To load assigned team members:
+                LoadTeamMembers(lstAssignedTeamMember, 1);
             }
         }
     }
