@@ -714,9 +714,9 @@ namespace TMS.MDI
             {
                 if (cmbprojects.SelectedIndex > 0)
                 {
-                    string formname = "UI."+UserInfo.formname+"";
+                    string formname = "UI." + UserInfo.formname + "";
                     Type formtype = Type.GetType(formname);
-                    if (formtype != null )
+                    if (formtype != null)
                     {
                         Form form = (Form)Activator.CreateInstance(formtype);
                         OpenChildForm(formname);

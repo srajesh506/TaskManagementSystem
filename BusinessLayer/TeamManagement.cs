@@ -68,7 +68,7 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Fetching Roles Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataTable GetProjectMemberByProjectId(string ProjectId = null)
+        public DataTable GetProjectMemberByProjectId(string ProjectId = null, int flag=0)
         {
             try
             {
@@ -76,6 +76,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.CommandText = "uspGetProjectMemberByProjectId";
                 sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = ProjectId;
+                sqlCommand.Parameters.Add("@flag", SqlDbType.Int).Value = flag;
                 return dbConnection.ExeReader(sqlCommand);
             }
             catch (Exception ex)
@@ -110,6 +111,22 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.CommandText = "uspAddRole";
                 sqlCommand.Parameters.Add("@RoleName", SqlDbType.NVarChar).Value = role.RoleName;
                 sqlCommand.Parameters.Add("@IsAdmin", SqlDbType.Bit).Value = role.IsAdmin;
+                return dbConnection.ExeNonQuery(sqlCommand);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("BLLError - Failure in Adding a new Role!! " + "\n'" + ex.Message + "'", ex.InnerException);
+            }
+        }
+        public int AssignedProjectMember(int Projectid, string UserID)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "uspAddUpdateProjectMember";
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = Projectid;
+                sqlCommand.Parameters.Add("@UserId", SqlDbType.NVarChar).Value = UserID;
                 return dbConnection.ExeNonQuery(sqlCommand);
             }
             catch (Exception ex)

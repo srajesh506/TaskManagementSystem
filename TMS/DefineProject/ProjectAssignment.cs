@@ -41,6 +41,7 @@ namespace TMS.UI
                 LoadTheme();
                 LoadProject();
                 LoadAvailableTeamMember();
+                LoadAssignedTeamMember();
             }
             catch (Exception ex)
             {
@@ -63,7 +64,6 @@ namespace TMS.UI
                         btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                     }
                 }
-                lblProject.ForeColor = ThemeColor.SecondaryColor;
                 grpBoxRegistrationForm.ForeColor = ThemeColor.PrimaryColor;
              
                 
@@ -85,9 +85,6 @@ namespace TMS.UI
                 DataRow dataRow = dataTable.NewRow();
                 dataRow.ItemArray = new object[] { 0, "--Select Project--" };
                 dataTable.Rows.InsertAt(dataRow, 0);
-                cmbProject.ValueMember = "RoleId";
-                cmbProject.DisplayMember = "RoleName";
-                cmbProject.DataSource = dataTable;
             }
             catch (Exception ex)
             {
@@ -109,60 +106,61 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to Load the Roles!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-        //Function to perform new Employee addition and existing Employee update
-        private void SaveModifyEmployeesData(String mode)
+        private void LoadAssignedTeamMember()
         {
             try
             {
-                //if (ValidateControls(mode))
-                //{
+                DataTable dataTable = new DataTable();
+                dataTable = teamManagement.GetProjectMemberByProjectId(UserInfo.projectID,flag:1);
+                lstAssignedTeamMember.DataSource = dataTable;
+                lstAssignedTeamMember.ValueMember = "UserId";
+                lstAssignedTeamMember.DisplayMember = "EmployeeName";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to Load the Roles!! \n" + ex.Message + "\n", ex.InnerException);
+            }
+        }
 
-                //    employee.UserId = txt.Text;
-                //    employee.EmpName = txtProjectName.Text;
-                //    employee.RoleId = cmbRole.SelectedIndex;
-                //    employee.Remark = rtxtProjectDescription.Text;
-                //    employee.IsActive = chkActive.Checked;
-                    switch (mode)
-                    {
-                        case "S":
-                            if (teamManagement.AddUpdateEmployee(employee) <= 0)
-                            {
-                                //throw new Exception("TMSError - User ID: '" + txt.Text + "' already exists in Database!! ");
-                            }
-                            break;
-                        case "M":
-                            if (teamManagement.AddUpdateEmployee(employee, true) <= 0)
-                            {
-                                //throw new Exception("TMSError - User ID: '" + txt.Text + "' does not exist in Database!! ");
-                            }
-                            break;
-                        default:
-                            throw new Exception("TMSError - Invalid Operation!! ");
-                    }
-                //    _currentPage = 1;               //Freshly Load the grid with Page 1
-                //    LoadEmployeesDataGrid(true);    //True flag to make DB call for refreshing the grid
-                //    FormControlHandling.ClearControls(grpBoxRegistrationForm);
-                //    EnableDisableButtons(2);
-                //    if (mode == "S")
-                //        RightBottomMessageBox.Success("Data saved Successfully!");
-                //    else
-                //        RightBottomMessageBox.Info("Data modify Successfully!");
-                //}
+        private void btnArrowRight_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string SelectedUserId;
+                string SelectedUserName;
+                foreach (var item in lstTeamMembers.SelectedItems)
+                {
+                    SelectedUserId = ((DataRowView)item).Row["UserId"].ToString();
+                    SelectedUserName = ((DataRowView)item).Row["EmployeeName"].ToString();
+                    teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.projectID), SelectedUserId);
+                    LoadAssignedTeamMember();
+                    LoadAvailableTeamMember();
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
-        private void btnArrowRight_Click(object sender, EventArgs e)
-        {
-            SaveModifyEmployeesData("S");  // S for Add
-        }
-
         private void btnArrowLeft_Click(object sender, EventArgs e)
         {
-            SaveModifyEmployeesData("R"); //R for Remove
+            try
+            {
+                string SelectedUserId;
+                string SelectedUserName;
+                foreach (var item in lstAssignedTeamMember.SelectedItems)
+                {
+                    SelectedUserId = ((DataRowView)item).Row["UserId"].ToString();
+                    SelectedUserName = ((DataRowView)item).Row["EmployeeName"].ToString();
+                    teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.projectID), SelectedUserId);
+                    LoadAssignedTeamMember();
+                    LoadAvailableTeamMember();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message + "\n", ex.InnerException);
+            }
         }
     }
 }
