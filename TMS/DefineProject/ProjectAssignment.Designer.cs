@@ -61,7 +61,7 @@
             // 
             this.lblAssignedTeamMember.AutoSize = true;
             this.lblAssignedTeamMember.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAssignedTeamMember.Location = new System.Drawing.Point(942, 121);
+            this.lblAssignedTeamMember.Location = new System.Drawing.Point(897, 121);
             this.lblAssignedTeamMember.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAssignedTeamMember.Name = "lblAssignedTeamMember";
             this.lblAssignedTeamMember.Size = new System.Drawing.Size(302, 30);
@@ -72,7 +72,7 @@
             // 
             this.lblAvailableTeamMember.AutoSize = true;
             this.lblAvailableTeamMember.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAvailableTeamMember.Location = new System.Drawing.Point(203, 121);
+            this.lblAvailableTeamMember.Location = new System.Drawing.Point(114, 121);
             this.lblAvailableTeamMember.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAvailableTeamMember.Name = "lblAvailableTeamMember";
             this.lblAvailableTeamMember.Size = new System.Drawing.Size(310, 30);
@@ -82,9 +82,9 @@
             // btnArrowLeft
             // 
             this.btnArrowLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArrowLeft.Location = new System.Drawing.Point(812, 496);
+            this.btnArrowLeft.Location = new System.Drawing.Point(702, 475);
             this.btnArrowLeft.Name = "btnArrowLeft";
-            this.btnArrowLeft.Size = new System.Drawing.Size(73, 52);
+            this.btnArrowLeft.Size = new System.Drawing.Size(159, 52);
             this.btnArrowLeft.TabIndex = 11;
             this.btnArrowLeft.Text = "<<";
             this.btnArrowLeft.UseVisualStyleBackColor = true;
@@ -93,9 +93,9 @@
             // btnArrowRight
             // 
             this.btnArrowRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.btnArrowRight.Location = new System.Drawing.Point(812, 418);
+            this.btnArrowRight.Location = new System.Drawing.Point(702, 369);
             this.btnArrowRight.Name = "btnArrowRight";
-            this.btnArrowRight.Size = new System.Drawing.Size(73, 52);
+            this.btnArrowRight.Size = new System.Drawing.Size(159, 52);
             this.btnArrowRight.TabIndex = 10;
             this.btnArrowRight.Text = ">>";
             this.btnArrowRight.UseVisualStyleBackColor = true;
@@ -105,7 +105,7 @@
             // 
             this.lstAssignedTeamMember.FormattingEnabled = true;
             this.lstAssignedTeamMember.ItemHeight = 29;
-            this.lstAssignedTeamMember.Location = new System.Drawing.Point(947, 159);
+            this.lstAssignedTeamMember.Location = new System.Drawing.Point(898, 159);
             this.lstAssignedTeamMember.Name = "lstAssignedTeamMember";
             this.lstAssignedTeamMember.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstAssignedTeamMember.Size = new System.Drawing.Size(554, 613);
@@ -115,12 +115,11 @@
             // 
             this.lstTeamMembers.FormattingEnabled = true;
             this.lstTeamMembers.ItemHeight = 29;
-            this.lstTeamMembers.Location = new System.Drawing.Point(208, 159);
+            this.lstTeamMembers.Location = new System.Drawing.Point(117, 159);
             this.lstTeamMembers.Name = "lstTeamMembers";
             this.lstTeamMembers.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstTeamMembers.Size = new System.Drawing.Size(554, 613);
             this.lstTeamMembers.TabIndex = 8;
-            // 
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
