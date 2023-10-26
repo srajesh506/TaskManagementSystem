@@ -363,7 +363,7 @@
             this.chkSelectAll.TabIndex = 23;
             this.chkSelectAll.Text = "Select All Project";
             this.chkSelectAll.UseVisualStyleBackColor = true;
-            this.chkSelectAll.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.chkSelectAll.CheckedChanged += new System.EventHandler(this.chkSelectAll_CheckedChanged);
             // 
             // txtsearch
             // 

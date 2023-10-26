@@ -377,7 +377,7 @@ namespace TMS.MDI
             this.btnProjectAssignment.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.btnProjectAssignment.Size = new System.Drawing.Size(368, 88);
             this.btnProjectAssignment.TabIndex = 2;
-            this.btnProjectAssignment.Text = "        Project Assignement";
+            this.btnProjectAssignment.Text = "        Project Assignment";
             this.btnProjectAssignment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProjectAssignment.UseVisualStyleBackColor = false;
             this.btnProjectAssignment.Click += new System.EventHandler(this.btnProjectAssignment_Click);

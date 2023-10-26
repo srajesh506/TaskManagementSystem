@@ -140,16 +140,16 @@ namespace TMS.BusinessLogicLayer
         {
             try
             {
-                DataTable dt = new DataTable();
+                DataTable DtActiveEmployee = new DataTable();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.CommandText = "uspAddUpdateEmployee";
-                dt = GetEmployees(employee.UserId);
-                if ((dt.Rows.Count <= 0) && (updateflag == false))
+                DtActiveEmployee = GetEmployees(employee.UserId);
+                if ((DtActiveEmployee.Rows.Count <= 0) && (updateflag == false))
                 {
                     sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Int).Value = 0;
                 }
-                else if ((dt.Rows.Count > 0) && (updateflag == true))
+                else if ((DtActiveEmployee.Rows.Count > 0) && (updateflag == true))
                 {
                     sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Int).Value = 1;
                 }
@@ -165,13 +165,13 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@Password", SqlDbType.NVarChar).Value = employee.Password;
                 sqlCommand.Parameters.Add("@Email", SqlDbType.NVarChar).Value = employee.Email;
                 sqlCommand.Parameters.Add("@Pic", SqlDbType.NVarChar).Value = employee.Pic;
-                DataTable dt2 = new DataTable();
-                dt2.Columns.Add("ProjectId", typeof(int));
+                DataTable DtProject = new DataTable();
+                DtProject.Columns.Add("ProjectId", typeof(int));
                 foreach (var item in employee.ProjectID)
                 {
-                    dt2.Rows.Add(item);
+                    DtProject.Rows.Add(item);
                 }
-                sqlCommand.Parameters.Add("@ProjectIdList", SqlDbType.Structured).Value = dt2;
+                sqlCommand.Parameters.Add("@ProjectIdList", SqlDbType.Structured).Value = DtProject;
                 return dbConnection.ExeNonQuery(sqlCommand);
             }
             catch (Exception ex)

@@ -40,6 +40,7 @@ namespace TMS.MDI
             try
             {
                 InitializeComponent();
+                IsMdiContainer = true;
                 _random = new Random();
                 UserInfo.userId = userId;
                 btnCloseChildForm.Visible = false;
@@ -48,12 +49,12 @@ namespace TMS.MDI
                 if (File.Exists(Application.StartupPath + "\\Images\\" + userId + ".jpg"))
                 {
                     pbUser.Image = Image.FromFile(Application.StartupPath + "\\Images\\" + userId + ".jpg");
-                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][1].ToString();
+                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][0].ToString();
                 }
                 else
                 {
                     pbUser.Image = Image.FromFile(Application.StartupPath + "\\Images\\noimageMDI.png");
-                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][1].ToString();
+                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][0].ToString();
                 }
                 DataSet dsrole = new DataSet();
                 dsrole = teamManagement.GetRolebyUserId(userId);
@@ -508,15 +509,21 @@ namespace TMS.MDI
         {
             try
             {
-                if (_activeForm != null)
+                //if (_activeForm != null)
+                //{
+                //    _activeForm.Close();
+                //}
+                if(ActiveMdiChild !=null)
                 {
-                    _activeForm.Close();
+                    ActiveMdiChild.Close();
                 }
                 if (btnSender != null)
                 {
                     ActiveButton(btnSender);
                 }
                 _activeForm = childForm;
+                childForm.MdiParent = this;
+                childForm.Show();
                 childForm.TopLevel = false;
                 childForm.FormBorderStyle = FormBorderStyle.None;
                 childForm.Dock = DockStyle.Fill;
@@ -668,7 +675,6 @@ namespace TMS.MDI
                 throw new Exception("TMSError - Failure in Menu Option Expand/Collapse Event!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
         private void btnProjectAssignment_Click(object sender, EventArgs e)
         {
             try
@@ -712,15 +718,18 @@ namespace TMS.MDI
                UserInfo.projectID = cmbprojects.SelectedIndex > 0 ?  Convert.ToString(cmbprojects.SelectedValue) : null;
             try
             {
-                if (cmbprojects.SelectedIndex > 0)
+                if (cmbprojects.SelectedIndex > 0 && ActiveMdiChild !=null)
                 {
-                    string formname = "UI." + UserInfo.formname + "";
-                    Type formtype = Type.GetType(formname);
-                    if (formtype != null)
-                    {
-                        Form form = (Form)Activator.CreateInstance(formtype);
-                        OpenChildForm(formname);
-                    }
+                    Type childType=ActiveMdiChild.GetType();
+                    Form newChild = (Form)Activator.CreateInstance(childType);
+                    OpenChildForm(newChild);
+                    //string formname = "TMS.UI." + UserInfo.formname + "";
+                    //Type formtype = Type.GetType(formname);
+                    //if (formtype != null)
+                    //{
+                    //    Form form = (Form)Activator.CreateInstance(formtype);
+                    //    OpenChildForm(formname);
+                    //}
                 }
             }
             catch (Exception ex)

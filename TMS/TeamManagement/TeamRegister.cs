@@ -35,13 +35,13 @@ namespace TMS.UI
         Employee employee = new Employee();
         TeamManagement teamManagement = new TeamManagement();
         Operations operations = new Operations();
-        ProjectManagementBL projectData = new ProjectManagementBL();
+        ProjectManagement projectData = new ProjectManagement();
         public FrmTeamRegister()
         {
             try
             {
                 InitializeComponent();
-                chkSelectAll.CheckedChanged += checkBox1_CheckedChanged;
+                chkSelectAll.CheckedChanged += chkSelectAll_CheckedChanged;
             }
             catch (Exception ex)
             {
@@ -705,7 +705,7 @@ namespace TMS.UI
             try
             {
                 DataTable dataTable = new DataTable();
-                dataTable = projectData.GetALLProject();
+                dataTable = projectData.GetAllProject();
                 // Clear existing items in the CheckBoxList
                 chklstbxProject.Items.Clear();
 
@@ -745,7 +745,7 @@ namespace TMS.UI
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void chkSelectAll_CheckedChanged(object sender, EventArgs e)
         {
             bool isChecked = chkSelectAll.Checked;
             for (int i = 0; i < chklstbxProject.Items.Count; i++)

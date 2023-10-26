@@ -26,7 +26,7 @@ namespace TMS.UI
         private DataTable _projectdetails;
 
         Project ProjectData = new Project();
-        ProjectManagementBL ProjectManagement = new ProjectManagementBL();
+        ProjectManagement ProjectManagement = new ProjectManagement();
         Operations operations = new Operations();
         public FrmAssignProject()
         {
@@ -277,26 +277,6 @@ namespace TMS.UI
 
         }
 
-        // Function to Load the Manager Roles in the Form Combobox.
-        //private void LoadRoles()
-        //{
-        //    try
-        //    {
-        //        DataTable dataTable = new DataTable();
-        //        dataTable = ProjectManagement.GetProjectManager();
-        //        DataRow dataRow = dataTable.NewRow();
-        //        dataRow.ItemArray = new object[] { 0, "--Select Manager--" };
-        //        dataTable.Rows.InsertAt(dataRow, 0);
-        //        cmbProjectManager.ValueMember = "userid";
-        //        cmbProjectManager.DisplayMember = "EmpName";
-        //        cmbProjectManager.DataSource = dataTable;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("TMSError - Failed to Load the Manager!! \n" + ex.Message + "\n", ex.InnerException);
-        //    }
-        //}
-
         // Function to retrive the Project table data for GridView DataSource
         private void GetProjectData(int pageNum, int pageSize) 
         {
@@ -500,6 +480,7 @@ namespace TMS.UI
                 
                 dgView.Columns[1].Visible = false;
                 dgView.Columns[2].Visible = false;
+                dgView.Columns[3].Visible = false;
                 dgView.Columns[6].Visible = false;
                 dgView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
                 dgView.ReadOnly = true;
