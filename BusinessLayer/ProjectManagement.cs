@@ -7,46 +7,22 @@ using TMS.BusinessEntities;
 
 namespace TMS.BusinessLogicLayer
 {
-    public class ProjectManagementBL
+    public class ProjectManagement
     {
         DbConnection dbConnection = new DbConnection();
 
-
-        public DataTable GetProjectManager()
-        {
-            try
-            {
-                SqlCommand sqlCommand = new SqlCommand();
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.CommandText = "GetProjectManager";
-                return dbConnection.ExeReader(sqlCommand);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("BLLError - Failure in Fetching Roles Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
-            }
-        }
         //Adds or Updates Project in the database
-        public int AddUpdateProject(Project projectData, Boolean updateflag = false)
+        public int AddUpdateProject(Project projectData, Boolean updateFlag = false)
         {
             try
             {
-                DataTable dt = new DataTable();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.CommandText = "uspAddUpdateProject";
-                if (updateflag == false)
-                {
-                    sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Int).Value = 0;
-                }
-                else
-                {
-                    sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Int).Value = 1;
-                }
-                sqlCommand.Parameters.Add("@projectid", SqlDbType.NVarChar).Value = projectData.ProjectId;
-                //sqlCommand.Parameters.Add("@projectmanager", SqlDbType.NVarChar).Value = projectData.ProjectManagerId;
-                sqlCommand.Parameters.Add("@projectname", SqlDbType.NVarChar).Value = projectData.ProjectName;
-                sqlCommand.Parameters.Add("@projectdescription", SqlDbType.NVarChar).Value = projectData.ProjectDescription;
+                sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Int).Value= (updateFlag == false) ? 0 : 1;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.NVarChar).Value = projectData.ProjectId;
+                sqlCommand.Parameters.Add("@ProjectName", SqlDbType.NVarChar).Value = projectData.ProjectName;
+                sqlCommand.Parameters.Add("@ProjectDescription", SqlDbType.NVarChar).Value = projectData.ProjectDescription;
                 sqlCommand.Parameters.Add("@IsActive", SqlDbType.Bit).Value = projectData.IsActive;
               
                 return dbConnection.ExeNonQuery(sqlCommand);
@@ -75,7 +51,7 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Fetching Project Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataTable GetALLProject()
+        public DataTable GetAllProject()
         {
             try
             {

@@ -76,7 +76,6 @@ namespace TMS.MDI
             this.btnCloseChildForm = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlDesktopPanel = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlSideBar.SuspendLayout();
             this.pnlLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUser)).BeginInit();
@@ -94,8 +93,6 @@ namespace TMS.MDI
             this.pnlSettings.SuspendLayout();
             this.pnltop.SuspendLayout();
             this.pnlTitleBar.SuspendLayout();
-            this.pnlDesktopPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlSideBar
@@ -761,21 +758,11 @@ namespace TMS.MDI
             // 
             // pnlDesktopPanel
             // 
-            this.pnlDesktopPanel.Controls.Add(this.pictureBox1);
             this.pnlDesktopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlDesktopPanel.Location = new System.Drawing.Point(368, 129);
             this.pnlDesktopPanel.Name = "pnlDesktopPanel";
             this.pnlDesktopPanel.Size = new System.Drawing.Size(1348, 968);
             this.pnlDesktopPanel.TabIndex = 5;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1348, 968);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // FormMainMenu
             // 
@@ -814,8 +801,6 @@ namespace TMS.MDI
             this.pnltop.PerformLayout();
             this.pnlTitleBar.ResumeLayout(false);
             this.pnlTitleBar.PerformLayout();
-            this.pnlDesktopPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -866,6 +851,5 @@ namespace TMS.MDI
         private System.Windows.Forms.Button btnCloseChildForm;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel pnlDesktopPanel;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

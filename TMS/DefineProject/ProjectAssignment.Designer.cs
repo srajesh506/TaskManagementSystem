@@ -28,10 +28,12 @@
         private void InitializeComponent()
         {
             this.grpBoxRegistrationForm = new System.Windows.Forms.GroupBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.lblAssignedTeamMember = new System.Windows.Forms.Label();
             this.lblAvailableTeamMember = new System.Windows.Forms.Label();
-            this.btnArrowLeft = new System.Windows.Forms.Button();
-            this.btnArrowRight = new System.Windows.Forms.Button();
+            this.btnRemoveItems = new System.Windows.Forms.Button();
+            this.btnAddItems = new System.Windows.Forms.Button();
             this.lstAssignedTeamMember = new System.Windows.Forms.ListBox();
             this.lstTeamMembers = new System.Windows.Forms.ListBox();
             this.pnlMain = new System.Windows.Forms.Panel();
@@ -41,10 +43,12 @@
             // 
             // grpBoxRegistrationForm
             // 
+            this.grpBoxRegistrationForm.Controls.Add(this.btnSave);
+            this.grpBoxRegistrationForm.Controls.Add(this.btnCancel);
             this.grpBoxRegistrationForm.Controls.Add(this.lblAssignedTeamMember);
             this.grpBoxRegistrationForm.Controls.Add(this.lblAvailableTeamMember);
-            this.grpBoxRegistrationForm.Controls.Add(this.btnArrowLeft);
-            this.grpBoxRegistrationForm.Controls.Add(this.btnArrowRight);
+            this.grpBoxRegistrationForm.Controls.Add(this.btnRemoveItems);
+            this.grpBoxRegistrationForm.Controls.Add(this.btnAddItems);
             this.grpBoxRegistrationForm.Controls.Add(this.lstAssignedTeamMember);
             this.grpBoxRegistrationForm.Controls.Add(this.lstTeamMembers);
             this.grpBoxRegistrationForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -56,6 +60,26 @@
             this.grpBoxRegistrationForm.TabIndex = 11;
             this.grpBoxRegistrationForm.TabStop = false;
             this.grpBoxRegistrationForm.Text = "Project Assignment Form";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(898, 807);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(123, 50);
+            this.btnSave.TabIndex = 15;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(756, 807);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(123, 50);
+            this.btnCancel.TabIndex = 14;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblAssignedTeamMember
             // 
@@ -79,27 +103,27 @@
             this.lblAvailableTeamMember.TabIndex = 12;
             this.lblAvailableTeamMember.Text = "&Available Team Member";
             // 
-            // btnArrowLeft
+            // btnRemoveItems
             // 
-            this.btnArrowLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArrowLeft.Location = new System.Drawing.Point(702, 475);
-            this.btnArrowLeft.Name = "btnArrowLeft";
-            this.btnArrowLeft.Size = new System.Drawing.Size(159, 52);
-            this.btnArrowLeft.TabIndex = 11;
-            this.btnArrowLeft.Text = "<<";
-            this.btnArrowLeft.UseVisualStyleBackColor = true;
-            this.btnArrowLeft.Click += new System.EventHandler(this.btnArrowLeft_Click);
+            this.btnRemoveItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveItems.Location = new System.Drawing.Point(702, 437);
+            this.btnRemoveItems.Name = "btnRemoveItems";
+            this.btnRemoveItems.Size = new System.Drawing.Size(159, 52);
+            this.btnRemoveItems.TabIndex = 11;
+            this.btnRemoveItems.Text = "<<";
+            this.btnRemoveItems.UseVisualStyleBackColor = true;
+            this.btnRemoveItems.Click += new System.EventHandler(this.btnRemoveItems_Click);
             // 
-            // btnArrowRight
+            // btnAddItems
             // 
-            this.btnArrowRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.btnArrowRight.Location = new System.Drawing.Point(702, 369);
-            this.btnArrowRight.Name = "btnArrowRight";
-            this.btnArrowRight.Size = new System.Drawing.Size(159, 52);
-            this.btnArrowRight.TabIndex = 10;
-            this.btnArrowRight.Text = ">>";
-            this.btnArrowRight.UseVisualStyleBackColor = true;
-            this.btnArrowRight.Click += new System.EventHandler(this.btnArrowRight_Click);
+            this.btnAddItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.btnAddItems.Location = new System.Drawing.Point(702, 369);
+            this.btnAddItems.Name = "btnAddItems";
+            this.btnAddItems.Size = new System.Drawing.Size(159, 52);
+            this.btnAddItems.TabIndex = 10;
+            this.btnAddItems.Text = ">>";
+            this.btnAddItems.UseVisualStyleBackColor = true;
+            this.btnAddItems.Click += new System.EventHandler(this.btnAddItems_Click);
             // 
             // lstAssignedTeamMember
             // 
@@ -120,6 +144,7 @@
             this.lstTeamMembers.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstTeamMembers.Size = new System.Drawing.Size(554, 613);
             this.lstTeamMembers.TabIndex = 8;
+            // 
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
@@ -153,10 +178,12 @@
         private System.Windows.Forms.GroupBox grpBoxRegistrationForm;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.ListBox lstTeamMembers;
-        private System.Windows.Forms.Button btnArrowLeft;
-        private System.Windows.Forms.Button btnArrowRight;
+        private System.Windows.Forms.Button btnRemoveItems;
+        private System.Windows.Forms.Button btnAddItems;
         private System.Windows.Forms.ListBox lstAssignedTeamMember;
         private System.Windows.Forms.Label lblAssignedTeamMember;
         private System.Windows.Forms.Label lblAvailableTeamMember;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

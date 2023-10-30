@@ -85,14 +85,18 @@ namespace TMS.MDI
                     DataRow dataRow = dataTable.NewRow();
                     dataRow.ItemArray = new object[] { 0, "--Select Project--" };
                     dataTable.Rows.InsertAt(dataRow, 0);
-                    if (dsrole.Tables[1].Rows.Count > 0)
+                    if (dsrole.Tables[1].Rows.Count > 0 )
                     {
                         cmbprojects.ValueMember = "projectid";
                         cmbprojects.DisplayMember = "projectname";
                         cmbprojects.DataSource = dataTable;
+                        cmbprojects.SelectedIndex = (dataTable.Rows.Count > 1)? 1 : 0;
                     }
                         lblprojectname.Visible = dsrole.Tables[0].Rows[0][1].ToString() == "1" ? false : true;
-                        cmbprojects.Visible = dsrole.Tables[0].Rows[0][1].ToString() == "1"  ? false : true; 
+                        cmbprojects.Visible = dsrole.Tables[0].Rows[0][1].ToString() == "1"  ? false : true;
+                   
+
+
                 }
             }
             catch (Exception ex)
@@ -532,6 +536,21 @@ namespace TMS.MDI
                 childForm.BringToFront();
                 childForm.Show();
                 lblTitle.Text = childForm.Text;
+                UserInfo.formname= childForm.GetType().Name;
+                if(UserInfo.roleID == "1")
+                {
+                    if (UserInfo.formname == "ProjectAssignment" || UserInfo.formname == "TaskManagementForm")
+                    {
+                        lblprojectname.Visible = true;
+                        cmbprojects.Visible = true;
+                    }
+                    else
+                    {
+                        lblprojectname.Visible = false;
+                        cmbprojects.Visible = false;
+                    }
+                }
+                
             }
             catch (Exception ex)
             {
@@ -679,8 +698,7 @@ namespace TMS.MDI
         {
             try
             {
-                var temp = (Control)sender;
-                UserInfo.formname = temp.Text.Replace(" ","");
+               
                 OpenChildForm(new UI.ProjectAssignment(), sender);
             }
             catch (Exception ex)
@@ -716,20 +734,15 @@ namespace TMS.MDI
         private void cmbprojects_SelectedIndexChanged(object sender, EventArgs e)
         {
                UserInfo.projectID = cmbprojects.SelectedIndex > 0 ?  Convert.ToString(cmbprojects.SelectedValue) : null;
+         
             try
             {
                 if (cmbprojects.SelectedIndex > 0 && ActiveMdiChild !=null)
                 {
-                    Type childType=ActiveMdiChild.GetType();
+                    Type childType = ActiveMdiChild.GetType();
+                    
                     Form newChild = (Form)Activator.CreateInstance(childType);
                     OpenChildForm(newChild);
-                    //string formname = "TMS.UI." + UserInfo.formname + "";
-                    //Type formtype = Type.GetType(formname);
-                    //if (formtype != null)
-                    //{
-                    //    Form form = (Form)Activator.CreateInstance(formtype);
-                    //    OpenChildForm(formname);
-                    //}
                 }
             }
             catch (Exception ex)

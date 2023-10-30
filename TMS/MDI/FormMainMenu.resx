@@ -118,18 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnProjectAssignment.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAWdJREFUOE+d
-        kk9LAlEUxd+n6Q9F7Vr3BaLowwiCgpCpLdIZqE0mOS7KHDc5M1ZUIIFKSCXOIkfIwMXYpn+72jjNeb6B
-        0XkzRAd+8Jh7z3vcO4fwFMo251Oyvp2udA8BzuGjxhwr+ytVfFgW1N5Fuf3+VTNH1u2rRcHZ/vYpqMZ5
-        TLpfYu2TShT1zUJz+OKY/JCaZj9x2tlgtrHw8l/MDlLD7McKrUVmJ0RUjSteYxCi2tOoOWIvDPPxmoIo
-        2Z5QrjVLkrKecC/M4XrwbUX2jik4T9drw5G1U9bjJKN0c9NFAOPK6holun/iqYPdSjeLC7K84uQFRU8d
-        pM+eDghC4jcCXob5ZvDjqWOElNzZoqn7zxLlx7cPukTIHuOS1xSEqPUUaoYQTySM18gjXzefo/n2ArOP
-        hXgiYTyDG5jt2deZbVKIp6AZVYQES3JMOGPmjGJUPS/zhOXg7+AXg2RJj4eluxlWdomQXytCrMnaB9pt
-        AAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="lblLogOut.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -189,6 +177,18 @@
 </value>
   </data>
   <data name="btnTaskManagement.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAWdJREFUOE+d
+        kk9LAlEUxd+n6Q9F7Vr3BaLowwiCgpCpLdIZqE0mOS7KHDc5M1ZUIIFKSCXOIkfIwMXYpn+72jjNeb6B
+        0XkzRAd+8Jh7z3vcO4fwFMo251Oyvp2udA8BzuGjxhwr+ytVfFgW1N5Fuf3+VTNH1u2rRcHZ/vYpqMZ5
+        TLpfYu2TShT1zUJz+OKY/JCaZj9x2tlgtrHw8l/MDlLD7McKrUVmJ0RUjSteYxCi2tOoOWIvDPPxmoIo
+        2Z5QrjVLkrKecC/M4XrwbUX2jik4T9drw5G1U9bjJKN0c9NFAOPK6holun/iqYPdSjeLC7K84uQFRU8d
+        pM+eDghC4jcCXob5ZvDjqWOElNzZoqn7zxLlx7cPukTIHuOS1xSEqPUUaoYQTySM18gjXzefo/n2ArOP
+        hXgiYTyDG5jt2deZbVKIp6AZVYQES3JMOGPmjGJUPS/zhOXg7+AXg2RJj4eluxlWdomQXytCrMnaB9pt
+        AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnProjectAssignment.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAWdJREFUOE+d
         kk9LAlEUxd+n6Q9F7Vr3BaLowwiCgpCpLdIZqE0mOS7KHDc5M1ZUIIFKSCXOIkfIwMXYpn+72jjNeb6B
