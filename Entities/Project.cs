@@ -15,6 +15,9 @@ namespace TMS.BusinessEntities
         public Boolean IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifyDate { get; set; }
-      
+
+        public List<string> UserId { get; set; }
+
+
     }
 }

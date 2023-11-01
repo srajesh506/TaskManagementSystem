@@ -26,15 +26,10 @@ namespace TMS.MDI
 
         //String variable to hold the name of the control which triggered the Timer to start as part of Menu Expand/Collapse Functionality.
         private String _timerStartControlName;
-
         private Button _currentButton;
         private Random _random;
-
         private Form _activeForm;
-
         TeamManagement teamManagement = new TeamManagement();
-
-
         public FormMainMenu(string userId)
         {
             try
@@ -46,57 +41,50 @@ namespace TMS.MDI
                 btnCloseChildForm.Visible = false;
                 this.Text = string.Empty;
                 this.ControlBox = false;
-                if (File.Exists(Application.StartupPath + "\\Images\\" + userId + ".jpg"))
+                DataTable employeeDetails = new DataTable();
+                employeeDetails = teamManagement.GetEmployees(userId);
+                pbUser.Image = File.Exists(Application.StartupPath + "\\Images\\" + userId + ".jpg") ? Image.FromFile(Application.StartupPath + "\\Images\\" + userId + ".jpg") : Image.FromFile(Application.StartupPath + "\\Images\\noimageMDI.png");
+                lblWelcome.Text = "Welcome " + employeeDetails.Rows[0][0].ToString();
+                UserInfo.roleID = employeeDetails.Rows[0]["RoleId"].ToString();
+                DataTable employeeProjectAssignedRecord = new DataTable();
+                employeeProjectAssignedRecord = teamManagement.GetProjectbyUserId(userId);
+                if (employeeProjectAssignedRecord != null)
                 {
-                    pbUser.Image = Image.FromFile(Application.StartupPath + "\\Images\\" + userId + ".jpg");
-                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][0].ToString();
-                }
-                else
-                {
-                    pbUser.Image = Image.FromFile(Application.StartupPath + "\\Images\\noimageMDI.png");
-                    lblWelcome.Text = "Welcome " + teamManagement.GetEmployees(userId).Rows[0][0].ToString();
-                }
-                DataSet dsrole = new DataSet();
-                dsrole = teamManagement.GetRolebyUserId(userId);
-                if (dsrole != null)
-                {
-                    if (dsrole.Tables[0].Rows.Count > 0)
-                    {
-                        UserInfo.roleID = dsrole.Tables[0].Rows[0][1].ToString();
-
-                            //Manager RoleId is 2 
-                            if (UserInfo.roleID == "2")
-                        {
-                            pnlAdmin.Visible = false;
-                        }
-                        else if(UserInfo.roleID == "3") //Team Member RoleID is 3
-                        {
-                            pnlAdmin.Visible = false;
-                            pnlMasterData.Visible = false;
-                        }
-                            else                   //Admin RoleId is 1
-                        {
-                            pnlAdmin.Visible = true;
-                            pnlMasterData.Visible = true;
-                        }
-                    }
-                    DataTable dataTable = new DataTable();
-                    dataTable = dsrole.Tables[1];
-                    DataRow dataRow = dataTable.NewRow();
+                    DataTable tempRecord = new DataTable();
+                    tempRecord = employeeProjectAssignedRecord;
+                    DataRow dataRow = tempRecord.NewRow();
                     dataRow.ItemArray = new object[] { 0, "--Select Project--" };
-                    dataTable.Rows.InsertAt(dataRow, 0);
-                    if (dsrole.Tables[1].Rows.Count > 0 )
+                    tempRecord.Rows.InsertAt(dataRow, 0);
+                    if (employeeProjectAssignedRecord.Rows.Count > 0)
                     {
                         cmbprojects.ValueMember = "projectid";
                         cmbprojects.DisplayMember = "projectname";
-                        cmbprojects.DataSource = dataTable;
-                        cmbprojects.SelectedIndex = (dataTable.Rows.Count > 1)? 1 : 0;
+                        cmbprojects.DataSource = tempRecord;
+                        cmbprojects.SelectedIndex = (tempRecord.Rows.Count > 1) ? 1 : 0;
+                        switch (UserInfo.roleID)
+                        {
+                            case "1": // Admin Role
+                                pnlAdmin.Visible = true;
+                                pnlMasterData.Visible = true;
+                                lblprojectname.Visible = false;
+                                cmbprojects.Visible = false;
+                                break;
+                            case "2": // Manager Role
+                                pnlAdmin.Visible = false;
+                                lblprojectname.Visible = true;
+                                cmbprojects.Visible = true;
+                                break;
+                            case "3": // Team Member Role
+                                pnlAdmin.Visible = false;
+                                pnlMasterData.Visible = false;
+                                lblprojectname.Visible = true;
+                                cmbprojects.Visible = true;
+                                break;
+                            default:
+                                // Handle other cases, if necessary
+                                break;
+                        }
                     }
-                        lblprojectname.Visible = dsrole.Tables[0].Rows[0][1].ToString() == "1" ? false : true;
-                        cmbprojects.Visible = dsrole.Tables[0].Rows[0][1].ToString() == "1"  ? false : true;
-                   
-
-
                 }
             }
             catch (Exception ex)
@@ -104,8 +92,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Failed to Load the Home Page!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
-
         //Form Load Event
         private void FormMainMenu_Load(object sender, EventArgs e)
         {
@@ -120,8 +106,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Failed to Load the Home Page!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         //Logout Option Click Event
         private void lblLogout_Click(object sender, EventArgs e)
         {
@@ -156,8 +140,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Failed to close the last open form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         //Minimize Application Window Event
         private void btnMinimize_Click(object sender, EventArgs e)
         {
@@ -180,8 +162,6 @@ namespace TMS.MDI
         {
             Application.Exit();
         }
-
-
         //Main Menu Button Click Event - Used in sidebar(Horizontal) expand/collapse of Main Menu using the timer
         private void pbMenuButton_Click(object sender, EventArgs e)
         {
@@ -194,8 +174,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in Main Menu SideBar Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         //Master Data Button Click Event - Used in Vertical expand/collapse of Master Data Menu in the Main Menu using the timer
         private void btnMasterData_Click(object sender, EventArgs e)
         {
@@ -232,8 +210,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         //WorkItem Button Click Event - Used in Vertical expand/collapse of WorkItem Menu in the Main Menu using the timer
         private void btnWorkItem_Click(object sender, EventArgs e)
         {
@@ -270,8 +246,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in loading Assign WorkItem Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         //Report Analysis Button Click Event - Used in Vertical expand/collapse of Report Analysis Menu in the Main Menu using the timer
         private void btnReportAnalysis_Click(object sender, EventArgs e)
         {
@@ -320,8 +294,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in loading Time Based Report Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         //Settings Button Click Event - Used in Vertical expand/collapse of Settings Menu in the Main Menu using the timer
         private void btnSettings_Click(object sender, EventArgs e)
         {
@@ -380,8 +352,6 @@ namespace TMS.MDI
         {
             LeaveMouse(lblMenu);
         }
-
-
         //Timer Tick Event - to Expand/Collapse the Menu option chosen
         private void timerExpandCollapse_Tick(object sender, EventArgs e)
         {
@@ -416,10 +386,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-        //User Defined
-
         //Function to reset the form back to Dashboard or Home screen
         private void Reset()
         {
@@ -437,8 +403,6 @@ namespace TMS.MDI
                 throw new Exception("TMSError - Error in Form Reset operation!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
-
         //Theme Color Selection
         private Color SelectThemeColor()
         {
@@ -446,8 +410,6 @@ namespace TMS.MDI
             string color = ThemeColor.ColorList[index];
             return ColorTranslator.FromHtml(color);
         }
-
-
         private void DisableButton()
         {
             try
@@ -506,18 +468,12 @@ namespace TMS.MDI
                 throw new Exception("TMSError - Error in Activate Button operation!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-       
-
         //Function to open Child Form Based on Menu Option Selected
         private void OpenChildForm(Form childForm, Object btnSender = null)
         {
             try
             {
-                //if (_activeForm != null)
-                //{
-                //    _activeForm.Close();
-                //}
-                if(ActiveMdiChild !=null)
+                if (ActiveMdiChild != null)
                 {
                     ActiveMdiChild.Close();
                 }
@@ -536,29 +492,30 @@ namespace TMS.MDI
                 childForm.BringToFront();
                 childForm.Show();
                 lblTitle.Text = childForm.Text;
-                UserInfo.formname= childForm.GetType().Name;
-                if(UserInfo.roleID == "1")
+                UserInfo.formname = childForm.GetType().Name;
+                if (UserInfo.roleID == "1")
                 {
-                    if (UserInfo.formname == "ProjectAssignment" || UserInfo.formname == "TaskManagementForm")
+                    switch (UserInfo.formname)
                     {
-                        lblprojectname.Visible = true;
-                        cmbprojects.Visible = true;
-                    }
-                    else
-                    {
-                        lblprojectname.Visible = false;
-                        cmbprojects.Visible = false;
+                        case "ProjectAssignment":
+                        case "TaskManagementForm":
+                        case "CreateWorkItem":
+                        case "WorkItemAssignments":
+                        case "StatusBasedReport":
+                        case "AssigneeBasedReport":
+                        case "TimeBasedReport":
+                            lblprojectname.Visible = true;
+                            cmbprojects.Visible = true;
+                            break;
+                        default: lblprojectname.Visible = false; cmbprojects.Visible = false; break;
                     }
                 }
-                
             }
             catch (Exception ex)
             {
                 throw new Exception("TMSError - Error in loading Form!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
-
         private void OpenChildForm(string childFormName, object btnSender = null)
         {
             try
@@ -600,23 +557,18 @@ namespace TMS.MDI
                 MessageBox.Show("An error occurred: " + ex.Message, "Error");
             }
         }
-
-
         //Function for Mouse Enter - Yellow Highlight
         private void EnterMouse(Label label)
         {
             label.Font = new Font(lblMenu.Font.Name, lblMenu.Font.SizeInPoints, FontStyle.Bold);
             label.ForeColor = Color.Yellow;
         }
-
         //Function for Mouse Leave - Yellow Highlight Removal
         private void LeaveMouse(Label label)
         {
             label.Font = new Font(lblMenu.Font.Name, lblMenu.Font.SizeInPoints, FontStyle.Regular);
             label.ForeColor = Color.White;
         }
-
-
         //Function to vertical Expand/Collapse the Main Menu (SideBar)
         private void VerticalTimerTick()
         {
@@ -677,8 +629,6 @@ namespace TMS.MDI
             }
             return collaps;
         }
-              
-
         //Function to start timer and capture the name of control which triggered timer to start
         private void StartTimer(object controlSender)
         {
@@ -698,7 +648,7 @@ namespace TMS.MDI
         {
             try
             {
-               
+
                 OpenChildForm(new UI.ProjectAssignment(), sender);
             }
             catch (Exception ex)
@@ -706,7 +656,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btnProjectManagement_Click(object sender, EventArgs e)
         {
             try
@@ -718,7 +667,6 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btnAdmin_Click(object sender, EventArgs e)
         {
             try
@@ -730,17 +678,14 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in Master Data Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void cmbprojects_SelectedIndexChanged(object sender, EventArgs e)
         {
-               UserInfo.projectID = cmbprojects.SelectedIndex > 0 ?  Convert.ToString(cmbprojects.SelectedValue) : null;
-         
+            UserInfo.projectID = cmbprojects.SelectedIndex > 0 ? Convert.ToString(cmbprojects.SelectedValue) : null;
             try
             {
-                if (cmbprojects.SelectedIndex > 0 && ActiveMdiChild !=null)
+                if (cmbprojects.SelectedIndex > 0 && ActiveMdiChild != null)
                 {
                     Type childType = ActiveMdiChild.GetType();
-                    
                     Form newChild = (Form)Activator.CreateInstance(childType);
                     OpenChildForm(newChild);
                 }

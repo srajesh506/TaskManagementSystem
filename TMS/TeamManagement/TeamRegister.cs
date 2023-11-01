@@ -16,6 +16,7 @@ using TextBox = System.Windows.Forms.TextBox;
 using Button = System.Windows.Forms.Button;
 using static System.Windows.Forms.LinkLabel;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Drawing.Imaging;
 
 namespace TMS.UI
 {
@@ -562,7 +563,6 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to setup the Team Register form button controls!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
         //Function to perform new Employee addition and existing Employee update
         private void SaveModifyEmployeesData(String mode)
         {
@@ -570,6 +570,37 @@ namespace TMS.UI
             {
                 if (ValidateControls(mode))
                 {
+                    //string imagePath = Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg";
+
+                    //if (File.Exists(imagePath) && pbPic.Image != null)
+                    //{
+                    //    using (Bitmap newImage = new Bitmap(pbPic.Image))
+                    //    {
+                    //        using (MemoryStream memoryStream = new MemoryStream())
+                    //        {
+                    //            newImage.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //            pbPic.Image = Image.FromStream(memoryStream);
+                    //        }
+                    //        using (Bitmap imageToSave = (Bitmap)pbPic.Image.Clone())
+                    //        {
+                    //            imageToSave.Save(imagePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //        }
+                    //    }
+                    //}
+                    //string imagePath = Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg";
+
+                    //if (File.Exists(imagePath) && pbPic.Image != null)
+                    //{
+                    //    using (Bitmap newImage = new Bitmap(pbPic.Image))
+                    //    {
+                    //        using (MemoryStream memoryStream = new MemoryStream())
+                    //        {
+                    //            newImage.Save(memoryStream, ImageFormat.Jpeg);
+                    //            pbPic.Image = Image.FromStream(memoryStream);
+                    //        }
+                    //        pbPic.Image.Save(imagePath, ImageFormat.Jpeg);
+                    //    }
+                    //}
                     if (!File.Exists(Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg"))
                     {
                         if (pbPic.Image != null)

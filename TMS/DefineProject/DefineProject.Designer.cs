@@ -75,8 +75,6 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1563, 883);
             this.pnlMain.TabIndex = 0;
-            this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
-            // 
             // cmbNoOfRecordsPerPage
             // 
             this.cmbNoOfRecordsPerPage.FormattingEnabled = true;

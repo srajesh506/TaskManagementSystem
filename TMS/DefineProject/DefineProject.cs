@@ -46,7 +46,6 @@ namespace TMS.UI
             try
             {
                 LoadTheme();
-                //LoadRoles();
                 EnableDisableButtons(2);
                 LoadProjectDataGrid(true);        //True flag to make DB call for first time loading the grid
             }
@@ -119,7 +118,6 @@ namespace TMS.UI
                 if (index <= dgView.RowCount - 1)
                 {
                     ProjectData.ProjectId = Convert.ToInt32(dgView.Rows[index].Cells[1].Value);
-                    //cmbProjectManager.SelectedValue = Convert.ToString(dgView.Rows[index].Cells[2].Value);
                     txtProjectName.Text = Convert.ToString(dgView.Rows[index].Cells[4].Value);
                     rtxtProjectDescription.Text = Convert.ToString(dgView.Rows[index].Cells[5].Value);
                     chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[6].Value);
@@ -148,11 +146,7 @@ namespace TMS.UI
         }
 
         //PictureBox Password Icon Mouse Down event to allow reading the password
-       
-
         //PictureBox Password Icon Mouse Up event to disallow reading the password
-      
-
         //Previous Page button click event to move to previous page of datagridview
         private void btnPrevious_Click(object sender, EventArgs e)
         {
@@ -238,9 +232,7 @@ namespace TMS.UI
                 PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         //User Defined
-
         // Function to Load the Form Theme
         private void LoadTheme()
         {
@@ -274,9 +266,7 @@ namespace TMS.UI
             {
                 throw new Exception("TMSError - Failed to load the Theme!! \n" + ex.Message + "\n", ex.InnerException);
             }
-
         }
-
         // Function to retrive the Project table data for GridView DataSource
         private void GetProjectData(int pageNum, int pageSize) 
         {
@@ -292,26 +282,18 @@ namespace TMS.UI
             {
                 throw new Exception("TMSError - Failed to retrieve the Employees records!! \n" + ex.Message + "\n", ex.InnerException);
             }
-
         }
-
         //Function to Validate the mandatory controls are supplied with correct values
         private Boolean ValidateControls(String mode)
         {
             try
             {
-                //if (cmbProjectManager.SelectedIndex == 0)
-                //{
-                //    PopupMessageBox.Show("Please Select Manager!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    return false;
-                //}
                 if (txtProjectName.Text == "")
                 {
                     PopupMessageBox.Show("Please enter Project Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtProjectName.Select();
                     return false;
                 }
-
                 if (rtxtProjectDescription.Text == "")
                 {
                     PopupMessageBox.Show("Please enter project description!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -332,9 +314,7 @@ namespace TMS.UI
             {
                 throw new Exception("TMSError - Failed to validate the form controls!! \n" + ex.Message + "\n", ex.InnerException);
             }
-
         }
-
         // Function to enable or disable the buttons based on the selected operation (ADD/MODIFY/SAVE/CANCEL) or GridView Page Selected or No of Records per Page changes) 
         private void EnableDisableButtons(int flag)
         {
@@ -416,12 +396,6 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to setup the Team Register form button controls!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
-        private void pnlMain_Paint(object sender, PaintEventArgs e)
-        {
-
-            }
-
         //Function to perform new Project addition and existing Project update
         private void SaveModifyEmployeesData(String mode)
         {

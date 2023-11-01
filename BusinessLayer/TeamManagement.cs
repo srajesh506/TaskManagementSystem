@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 
 using TMS.DataAccess;
 using TMS.BusinessEntities;
+using System.Collections.Generic;
 
 namespace TMS.BusinessLogicLayer
 {
@@ -30,7 +31,6 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Fetching Employees Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-
         //Returns the active employees records from the database along with role information
         public DataTable GetEmployeesRoles(out Int32 totalRecords,Int32 pageNum = 1, Int32 pageSize = 5)
         {
@@ -84,23 +84,21 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Fetching Roles Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataSet GetRolebyUserId(string UserId = null)
+        public DataTable GetProjectbyUserId(string UserId = null)
         {
             try
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.CommandText = "uspGetRolebyUserId";
+                sqlCommand.CommandText = "uspGetProjectbyUserId";
                 sqlCommand.Parameters.Add("@userid", SqlDbType.NVarChar).Value = UserId;
-                DataSet dataset = dbConnection.ExeDataAdapter(sqlCommand);
-                return dataset;
+                return dbConnection.ExeReader(sqlCommand);
             }
             catch (Exception ex)
             {
                 throw new Exception("BLLError - Failure in Fetching Roles Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-
         //Adds a new role in Database 
         public int AddRole(Role role)
         {
