@@ -72,16 +72,18 @@
             this.pnlOuter.Controls.Add(this.grpBoxInputControls);
             this.pnlOuter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOuter.Location = new System.Drawing.Point(0, 0);
+            this.pnlOuter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlOuter.Name = "pnlOuter";
-            this.pnlOuter.Size = new System.Drawing.Size(1097, 636);
+            this.pnlOuter.Size = new System.Drawing.Size(1646, 780);
             this.pnlOuter.TabIndex = 1;
             // 
             // lblNoOfRecordPerPage
             // 
             this.lblNoOfRecordPerPage.AutoSize = true;
-            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(16, 532);
+            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(24, 690);
+            this.lblNoOfRecordPerPage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNoOfRecordPerPage.Name = "lblNoOfRecordPerPage";
-            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(55, 13);
+            this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(81, 20);
             this.lblNoOfRecordPerPage.TabIndex = 19;
             this.lblNoOfRecordPerPage.Text = "Page Size";
             // 
@@ -94,9 +96,10 @@
             "20",
             "50",
             "100"});
-            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(77, 529);
+            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(116, 686);
+            this.cmbNoOfRecordsPerPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbNoOfRecordsPerPage.Name = "cmbNoOfRecordsPerPage";
-            this.cmbNoOfRecordsPerPage.Size = new System.Drawing.Size(45, 21);
+            this.cmbNoOfRecordsPerPage.Size = new System.Drawing.Size(66, 28);
             this.cmbNoOfRecordsPerPage.TabIndex = 18;
             this.cmbNoOfRecordsPerPage.Text = "5";
             this.cmbNoOfRecordsPerPage.SelectedIndexChanged += new System.EventHandler(this.cmbNoOfRecordsPerPage_SelectedIndexChanged);
@@ -111,9 +114,11 @@
             this.grpBoxPaging.Controls.Add(this.lblCurrentPage);
             this.grpBoxPaging.Controls.Add(this.btnNext);
             this.grpBoxPaging.Controls.Add(this.btnPrevious);
-            this.grpBoxPaging.Location = new System.Drawing.Point(355, 532);
+            this.grpBoxPaging.Location = new System.Drawing.Point(532, 690);
+            this.grpBoxPaging.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpBoxPaging.Name = "grpBoxPaging";
-            this.grpBoxPaging.Size = new System.Drawing.Size(269, 51);
+            this.grpBoxPaging.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpBoxPaging.Size = new System.Drawing.Size(404, 78);
             this.grpBoxPaging.TabIndex = 16;
             this.grpBoxPaging.TabStop = false;
             // 
@@ -121,9 +126,10 @@
             // 
             this.btnLastPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnLastPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLastPage.Location = new System.Drawing.Point(231, 19);
+            this.btnLastPage.Location = new System.Drawing.Point(346, 29);
+            this.btnLastPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLastPage.Name = "btnLastPage";
-            this.btnLastPage.Size = new System.Drawing.Size(31, 23);
+            this.btnLastPage.Size = new System.Drawing.Size(46, 35);
             this.btnLastPage.TabIndex = 7;
             this.btnLastPage.Text = ">>";
             this.btnLastPage.UseVisualStyleBackColor = false;
@@ -133,9 +139,10 @@
             // 
             this.btnFirstPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnFirstPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFirstPage.Location = new System.Drawing.Point(7, 19);
+            this.btnFirstPage.Location = new System.Drawing.Point(10, 29);
+            this.btnFirstPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnFirstPage.Name = "btnFirstPage";
-            this.btnFirstPage.Size = new System.Drawing.Size(35, 23);
+            this.btnFirstPage.Size = new System.Drawing.Size(52, 35);
             this.btnFirstPage.TabIndex = 6;
             this.btnFirstPage.Text = "<<";
             this.btnFirstPage.UseVisualStyleBackColor = false;
@@ -144,36 +151,40 @@
             // lblPages
             // 
             this.lblPages.AutoSize = true;
-            this.lblPages.Location = new System.Drawing.Point(150, 24);
+            this.lblPages.Location = new System.Drawing.Point(225, 37);
+            this.lblPages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPages.Name = "lblPages";
-            this.lblPages.Size = new System.Drawing.Size(37, 13);
+            this.lblPages.Size = new System.Drawing.Size(54, 20);
             this.lblPages.TabIndex = 5;
             this.lblPages.Text = "Pages";
             // 
             // lblNoOfPages
             // 
             this.lblNoOfPages.AutoSize = true;
-            this.lblNoOfPages.Location = new System.Drawing.Point(130, 24);
+            this.lblNoOfPages.Location = new System.Drawing.Point(195, 37);
+            this.lblNoOfPages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNoOfPages.Name = "lblNoOfPages";
-            this.lblNoOfPages.Size = new System.Drawing.Size(13, 13);
+            this.lblNoOfPages.Size = new System.Drawing.Size(18, 20);
             this.lblNoOfPages.TabIndex = 4;
             this.lblNoOfPages.Text = "n";
             // 
             // lblSeperator
             // 
             this.lblSeperator.AutoSize = true;
-            this.lblSeperator.Location = new System.Drawing.Point(112, 24);
+            this.lblSeperator.Location = new System.Drawing.Point(168, 37);
+            this.lblSeperator.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSeperator.Name = "lblSeperator";
-            this.lblSeperator.Size = new System.Drawing.Size(12, 13);
+            this.lblSeperator.Size = new System.Drawing.Size(13, 20);
             this.lblSeperator.TabIndex = 3;
             this.lblSeperator.Text = "/";
             // 
             // lblCurrentPage
             // 
             this.lblCurrentPage.AutoSize = true;
-            this.lblCurrentPage.Location = new System.Drawing.Point(93, 24);
+            this.lblCurrentPage.Location = new System.Drawing.Point(140, 37);
+            this.lblCurrentPage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCurrentPage.Name = "lblCurrentPage";
-            this.lblCurrentPage.Size = new System.Drawing.Size(13, 13);
+            this.lblCurrentPage.Size = new System.Drawing.Size(17, 20);
             this.lblCurrentPage.TabIndex = 2;
             this.lblCurrentPage.Text = "c";
             // 
@@ -181,9 +192,10 @@
             // 
             this.btnNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNext.Location = new System.Drawing.Point(193, 19);
+            this.btnNext.Location = new System.Drawing.Point(290, 29);
+            this.btnNext.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(32, 23);
+            this.btnNext.Size = new System.Drawing.Size(48, 35);
             this.btnNext.TabIndex = 1;
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = false;
@@ -193,9 +205,10 @@
             // 
             this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrevious.Location = new System.Drawing.Point(48, 19);
+            this.btnPrevious.Location = new System.Drawing.Point(72, 29);
+            this.btnPrevious.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(39, 23);
+            this.btnPrevious.Size = new System.Drawing.Size(58, 35);
             this.btnPrevious.TabIndex = 0;
             this.btnPrevious.Text = "<";
             this.btnPrevious.UseVisualStyleBackColor = false;
@@ -206,9 +219,11 @@
             this.grpBoxForGridView.BackColor = System.Drawing.Color.White;
             this.grpBoxForGridView.Controls.Add(this.dView);
             this.grpBoxForGridView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpBoxForGridView.Location = new System.Drawing.Point(12, 251);
+            this.grpBoxForGridView.Location = new System.Drawing.Point(18, 332);
+            this.grpBoxForGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpBoxForGridView.Name = "grpBoxForGridView";
-            this.grpBoxForGridView.Size = new System.Drawing.Size(1074, 276);
+            this.grpBoxForGridView.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpBoxForGridView.Size = new System.Drawing.Size(1611, 348);
             this.grpBoxForGridView.TabIndex = 15;
             this.grpBoxForGridView.TabStop = false;
             this.grpBoxForGridView.Text = "Existing Activity and Description";
@@ -216,9 +231,11 @@
             // dView
             // 
             this.dView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dView.Location = new System.Drawing.Point(7, 34);
+            this.dView.Location = new System.Drawing.Point(10, 36);
+            this.dView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dView.Name = "dView";
-            this.dView.Size = new System.Drawing.Size(1061, 228);
+            this.dView.RowHeadersWidth = 62;
+            this.dView.Size = new System.Drawing.Size(1592, 299);
             this.dView.TabIndex = 0;
             this.dView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dView_CellClick);
             // 
@@ -229,17 +246,20 @@
             this.grpBoxForButton.Controls.Add(this.btnCancel);
             this.grpBoxForButton.Controls.Add(this.btnAdd);
             this.grpBoxForButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.grpBoxForButton.Location = new System.Drawing.Point(403, 197);
+            this.grpBoxForButton.Location = new System.Drawing.Point(604, 252);
+            this.grpBoxForButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpBoxForButton.Name = "grpBoxForButton";
-            this.grpBoxForButton.Size = new System.Drawing.Size(316, 48);
+            this.grpBoxForButton.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpBoxForButton.Size = new System.Drawing.Size(474, 74);
             this.grpBoxForButton.TabIndex = 14;
             this.grpBoxForButton.TabStop = false;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(82, 11);
+            this.btnSave.Location = new System.Drawing.Point(123, 17);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(72, 31);
+            this.btnSave.Size = new System.Drawing.Size(108, 48);
             this.btnSave.TabIndex = 10;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -247,9 +267,10 @@
             // 
             // btnModify
             // 
-            this.btnModify.Location = new System.Drawing.Point(159, 11);
+            this.btnModify.Location = new System.Drawing.Point(238, 17);
+            this.btnModify.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnModify.Name = "btnModify";
-            this.btnModify.Size = new System.Drawing.Size(72, 31);
+            this.btnModify.Size = new System.Drawing.Size(108, 48);
             this.btnModify.TabIndex = 15;
             this.btnModify.Text = "&Modify";
             this.btnModify.UseVisualStyleBackColor = true;
@@ -257,9 +278,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(237, 11);
+            this.btnCancel.Location = new System.Drawing.Point(356, 17);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(72, 31);
+            this.btnCancel.Size = new System.Drawing.Size(108, 48);
             this.btnCancel.TabIndex = 16;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -267,9 +289,10 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(6, 11);
+            this.btnAdd.Location = new System.Drawing.Point(9, 17);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(72, 31);
+            this.btnAdd.Size = new System.Drawing.Size(108, 48);
             this.btnAdd.TabIndex = 12;
             this.btnAdd.Text = "&Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -283,9 +306,11 @@
             this.grpBoxInputControls.Controls.Add(this.lblActivityDescription);
             this.grpBoxInputControls.Controls.Add(this.txtTaskName);
             this.grpBoxInputControls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.grpBoxInputControls.Location = new System.Drawing.Point(12, 3);
+            this.grpBoxInputControls.Location = new System.Drawing.Point(18, 5);
+            this.grpBoxInputControls.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpBoxInputControls.Name = "grpBoxInputControls";
-            this.grpBoxInputControls.Size = new System.Drawing.Size(1074, 180);
+            this.grpBoxInputControls.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpBoxInputControls.Size = new System.Drawing.Size(1611, 239);
             this.grpBoxInputControls.TabIndex = 12;
             this.grpBoxInputControls.TabStop = false;
             this.grpBoxInputControls.Text = "Define Activity";
@@ -294,9 +319,10 @@
             // 
             this.chkActive.AutoSize = true;
             this.chkActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkActive.Location = new System.Drawing.Point(478, 154);
+            this.chkActive.Location = new System.Drawing.Point(717, 206);
+            this.chkActive.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkActive.Name = "chkActive";
-            this.chkActive.Size = new System.Drawing.Size(69, 19);
+            this.chkActive.Size = new System.Drawing.Size(103, 26);
             this.chkActive.TabIndex = 7;
             this.chkActive.Text = "Is Active";
             this.chkActive.UseVisualStyleBackColor = true;
@@ -304,9 +330,10 @@
             // rtxtActivityDescription
             // 
             this.rtxtActivityDescription.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.rtxtActivityDescription.Location = new System.Drawing.Point(478, 83);
+            this.rtxtActivityDescription.Location = new System.Drawing.Point(717, 101);
+            this.rtxtActivityDescription.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rtxtActivityDescription.Name = "rtxtActivityDescription";
-            this.rtxtActivityDescription.Size = new System.Drawing.Size(272, 62);
+            this.rtxtActivityDescription.Size = new System.Drawing.Size(406, 93);
             this.rtxtActivityDescription.TabIndex = 6;
             this.rtxtActivityDescription.Text = "";
             // 
@@ -314,9 +341,10 @@
             // 
             this.lblActivityName.AutoSize = true;
             this.lblActivityName.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActivityName.Location = new System.Drawing.Point(315, 30);
+            this.lblActivityName.Location = new System.Drawing.Point(472, 46);
+            this.lblActivityName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActivityName.Name = "lblActivityName";
-            this.lblActivityName.Size = new System.Drawing.Size(118, 19);
+            this.lblActivityName.Size = new System.Drawing.Size(177, 28);
             this.lblActivityName.TabIndex = 1;
             this.lblActivityName.Text = "Activity Name";
             // 
@@ -324,28 +352,31 @@
             // 
             this.lblActivityDescription.AutoSize = true;
             this.lblActivityDescription.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.lblActivityDescription.Location = new System.Drawing.Point(315, 83);
+            this.lblActivityDescription.Location = new System.Drawing.Point(472, 101);
+            this.lblActivityDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActivityDescription.Name = "lblActivityDescription";
-            this.lblActivityDescription.Size = new System.Drawing.Size(154, 19);
+            this.lblActivityDescription.Size = new System.Drawing.Size(235, 28);
             this.lblActivityDescription.TabIndex = 5;
             this.lblActivityDescription.Text = "Activity Description";
             // 
             // txtTaskName
             // 
             this.txtTaskName.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.txtTaskName.Location = new System.Drawing.Point(478, 30);
+            this.txtTaskName.Location = new System.Drawing.Point(717, 46);
+            this.txtTaskName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTaskName.Name = "txtTaskName";
-            this.txtTaskName.Size = new System.Drawing.Size(272, 27);
+            this.txtTaskName.Size = new System.Drawing.Size(406, 37);
             this.txtTaskName.TabIndex = 1;
             // 
             // DefineActivity
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.pnlOuter);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DefineActivity";
-            this.Size = new System.Drawing.Size(1097, 636);
+            this.Size = new System.Drawing.Size(1646, 780);
             this.Load += new System.EventHandler(this.DefineActivity_Load);
             this.pnlOuter.ResumeLayout(false);
             this.pnlOuter.PerformLayout();

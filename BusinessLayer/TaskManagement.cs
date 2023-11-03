@@ -14,7 +14,7 @@ namespace TMS.BusinessLogicLayer
         //Returns the Activities Data based on activityId/activityName and/Or isActive Flag
         //if activityId/activityName is supplied then it returns specific record only
         //if isActive flag is true, it returns active records only
-        public DataTable GetActivitiesUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize,Boolean isActive = false, int activityId = -1, string activityName = null)
+        public DataTable GetActivitiesUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, Int32 ProjectId, Boolean isActive = false, int activityId = -1, string activityName = null)
         {
             try
             {
@@ -27,6 +27,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@IsActive", SqlDbType.Int).Value = isActive;
                 sqlCommand.Parameters.Add("@ActivityId", SqlDbType.Int).Value = activityId;
                 sqlCommand.Parameters.Add("@ActivityName", SqlDbType.NVarChar).Value = activityName;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.NVarChar).Value = ProjectId;
                 DataTable dataTable = dbConnection.ExeReader(sqlCommand);
                 totalRecords = Convert.ToInt32(sqlCommand.Parameters["@TotalRecords"].Value);
                 return dataTable;
@@ -38,7 +39,7 @@ namespace TMS.BusinessLogicLayer
             }
 
         }
-        public DataTable GetActivities(Boolean isActive = false, int activityId = -1, string activityName = null)
+        public DataTable GetActivities(Int32 projectid,Boolean isActive = false, int activityId = -1, string activityName = null)
         {
             try
             {
@@ -48,6 +49,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@IsActive", SqlDbType.Int).Value = isActive;
                 sqlCommand.Parameters.Add("@ActivityId", SqlDbType.Int).Value = activityId;
                 sqlCommand.Parameters.Add("@ActivityName", SqlDbType.NVarChar).Value = activityName;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.NVarChar).Value = projectid;
                 return dbConnection.ExeReader(sqlCommand);
             }
             catch (Exception ex)
@@ -61,8 +63,8 @@ namespace TMS.BusinessLogicLayer
         {
             try
             {
-                if (((updateFlag == true) && (GetActivities(false,activity.ActivityId, activity.ActivityName).Rows.Count > 0))
-                    || ((updateFlag == false) && (GetActivities(false, activity.ActivityId, activity.ActivityName).Rows.Count <= 0)))
+                if (((updateFlag == true) && (GetActivities(activity.ProjectId,  false,activity.ActivityId, activity.ActivityName).Rows.Count > 0))
+                    || ((updateFlag == false) && (GetActivities(activity.ProjectId, false, activity.ActivityId, activity.ActivityName).Rows.Count <= 0)))
                 {
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -71,6 +73,7 @@ namespace TMS.BusinessLogicLayer
                     sqlCommand.Parameters.Add("@ActivityName", SqlDbType.NVarChar).Value = activity.ActivityName;
                     sqlCommand.Parameters.Add("@ActivityDescription", SqlDbType.NVarChar).Value = activity.ActivityDescription;
                     sqlCommand.Parameters.Add("@IsActive", SqlDbType.Bit).Value = activity.IsActive;
+                    sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = activity.ProjectId;
                     sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Bit).Value = updateFlag;
                     return dbConnection.ExeNonQuery(sqlCommand);
                 }
@@ -88,7 +91,7 @@ namespace TMS.BusinessLogicLayer
         //Returns the Tasks Data based on taskId/taskName and/Or isActive Flag
         //if taskId/taskName is supplied then it returns specific record only
         //if isActive flag is true, it returns active records only
-        public DataTable GetTasksUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null)
+        public DataTable GetTasksUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize,Int32 ProjectId, Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null)
         {
             try
             {
@@ -102,6 +105,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@TaskId", SqlDbType.Int).Value = taskId;
                 sqlCommand.Parameters.Add("@ActivityId", SqlDbType.Int).Value = activityId;
                 sqlCommand.Parameters.Add("@TaskName", SqlDbType.NVarChar).Value = taskName;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = ProjectId;
                 DataTable dataTable = dbConnection.ExeReader(sqlCommand);
                 totalRecords = Convert.ToInt32(sqlCommand.Parameters["@TotalRecords"].Value);
                 return dataTable;
@@ -112,26 +116,7 @@ namespace TMS.BusinessLogicLayer
                 
             }
         }
-        public DataTable GetTasks(Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null)
-        {
-            try
-            {
-                SqlCommand sqlCommand = new SqlCommand();
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.CommandText = "uspGetTasks";
-                sqlCommand.Parameters.Add("@IsActive", SqlDbType.Bit).Value = isActive;
-                sqlCommand.Parameters.Add("@TaskId", SqlDbType.Int).Value = taskId;
-                sqlCommand.Parameters.Add("@ActivityId", SqlDbType.Int).Value = activityId;
-                sqlCommand.Parameters.Add("@TaskName", SqlDbType.NVarChar).Value = taskName;
-                DataTable dataTable = dbConnection.ExeReader(sqlCommand);
-                return dataTable;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("BLLError - Failure in fetching Tasks Data!! " + "\n'" + ex.Message + "'", ex.InnerException);
-
-            }
-        }
+      
 
         //Returns the SubTasks Data based on subTaskId/subTtaskName and/Or isActive Flag
         //if subTaskId/subTaskName is supplied then it returns specific record only
@@ -180,16 +165,13 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in fetching SubTasks Data!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-
-
-
         //Add or Update a Task Record
         public int AddUpdateTask(Task task, Boolean updateFlag = false)
         {
             try
             {
-                if (((updateFlag==true) && (GetTasks(false, task.TaskId, task.ActivityId, task.TaskName).Rows.Count > 0))
-                    || ((updateFlag==false) && (GetTasks(false, task.TaskId, task.ActivityId, task.TaskName).Rows.Count <= 0)))
+                if (((updateFlag==true) && (GetTasks(false, task.TaskId, task.ActivityId, null, task.ProjectId).Rows.Count > 0))
+                    || ((updateFlag==false) && (GetTasks(false, task.TaskId, task.ActivityId, task.TaskName, task.ProjectId).Rows.Count <= 0)))
                 {
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -198,6 +180,7 @@ namespace TMS.BusinessLogicLayer
                     sqlCommand.Parameters.Add("@TaskDescription", SqlDbType.NVarChar).Value = task.TaskDescription;
                     sqlCommand.Parameters.Add("@ActivityId", SqlDbType.Int).Value = task.ActivityId;
                     sqlCommand.Parameters.Add("@IsActive", SqlDbType.Bit).Value = task.IsActive;
+                    sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = task.ProjectId;
                     sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Bit).Value = updateFlag;
                     sqlCommand.Parameters.Add("@TaskId", SqlDbType.Int).Value = task.TaskId;
                     return dbConnection.ExeNonQuery(sqlCommand);
@@ -210,6 +193,27 @@ namespace TMS.BusinessLogicLayer
             catch (Exception ex)
             {
                 throw new Exception("BLLError - Failure in adding/updating Task record!! " + "\n'" + ex.Message + "'", ex.InnerException);
+            }
+        }
+        public DataTable GetTasks( Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null, int projectId = -1)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "uspGetTasks";
+                sqlCommand.Parameters.Add("@IsActive", SqlDbType.Bit).Value = isActive;
+                sqlCommand.Parameters.Add("@TaskId", SqlDbType.Int).Value = taskId;
+                sqlCommand.Parameters.Add("@ActivityId", SqlDbType.Int).Value = activityId;
+                sqlCommand.Parameters.Add("@TaskName", SqlDbType.NVarChar).Value = taskName;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = projectId;
+                DataTable dataTable = dbConnection.ExeReader(sqlCommand);
+                return dataTable;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("BLLError - Failure in fetching Tasks Data!! " + "\n'" + ex.Message + "'", ex.InnerException);
+
             }
         }
 

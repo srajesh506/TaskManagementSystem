@@ -60,7 +60,7 @@ namespace TMS.UI
                 EnableDisableButtons(2);
 
                 DataTable dtActivity = new DataTable();
-                dtActivity = taskManagement.GetActivities(true);
+                dtActivity = taskManagement.GetActivities(UserInfo.selectedvalue, true);
                 var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "ActivityId", "ActivityName");
                 DataRow drActivity = dtActivityFilter.NewRow();
                 drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
@@ -165,7 +165,7 @@ namespace TMS.UI
                 if (cmbActivity.SelectedIndex > 0)
                 {
                     DataTable dtTemp = new DataTable();
-                    dtTemp = taskManagement.GetTasks(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)));
+                    dtTemp = taskManagement.GetTasks(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)),null, UserInfo.selectedvalue);
                     string[] selectedColumns = new[] { "TaskId", "Task Name" };
                     DataTable dtTask = new DataView(dtTemp).ToTable(false, selectedColumns);
                     DataRow drTask;

@@ -61,6 +61,7 @@ namespace TMS.MDI
                         cmbprojects.DisplayMember = "projectname";
                         cmbprojects.DataSource = tempRecord;
                         cmbprojects.SelectedIndex = (tempRecord.Rows.Count > 1) ? 1 : 0;
+                        UserInfo.selectedvalue = Convert.ToInt32(cmbprojects.SelectedValue);
                         switch (UserInfo.roleID)
                         {
                             case "1": // Admin Role
@@ -681,13 +682,17 @@ namespace TMS.MDI
         private void cmbprojects_SelectedIndexChanged(object sender, EventArgs e)
         {
             UserInfo.projectID = cmbprojects.SelectedIndex > 0 ? Convert.ToString(cmbprojects.SelectedValue) : null;
+            UserInfo.selectedvalue = Convert.ToInt32(cmbprojects.SelectedValue);
             try
             {
                 if (cmbprojects.SelectedIndex > 0 && ActiveMdiChild != null)
                 {
-                    Type childType = ActiveMdiChild.GetType();
-                    Form newChild = (Form)Activator.CreateInstance(childType);
-                    OpenChildForm(newChild);
+                    //if (PopupMessageBox.Show("Do you want to switch the Project? if Yes,Enter Data will loss for the current page.", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    //{
+                        Type childType = ActiveMdiChild.GetType();
+                        Form newChild = (Form)Activator.CreateInstance(childType);
+                        OpenChildForm(newChild);
+                    //}
                 }
             }
             catch (Exception ex)
