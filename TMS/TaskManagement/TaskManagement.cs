@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using TMS.UI.Utilities;
+using TMS.BusinessEntities;
 
 namespace TMS.UI
 {
@@ -12,8 +13,38 @@ namespace TMS.UI
         public TaskManagementForm()
         {
             InitializeComponent();
-            AddControl(new DefineActivity());
-            pnlManageActivity.BackColor = Color.Black;
+            if(UserInfo.Taskmanagementpagename==null)
+            {
+                AddControl(new DefineActivity());
+                pnlManageActivity.BackColor = Color.Black;
+            }
+            else
+            {
+                foreach (var pnl in tblLayoutPanelMain.Controls.OfType<Panel>())
+                {
+                    pnl.BackColor = Color.Silver;
+                }
+                switch (UserInfo.Taskmanagementpagename)
+                {
+
+                    case "DefineActivity":
+                        AddControl(new DefineActivity());
+                        pnlManageActivity.BackColor = Color.Black;
+                        break;
+                    case "DefineTask":
+                        AddControl(new DefineTask());
+                        pnlManageTask.BackColor = Color.Black;
+                        break;
+                    case "DefineSubTask":
+                        AddControl(new DefineSubTask());
+                        pnlManageSubTask.BackColor = Color.Black;
+                        break;
+                    default:
+                        break;
+                }
+                //UserInfo.Taskmanagementpagename = null;
+            }
+          
         }
        
         private void LoadTheme()
@@ -29,7 +60,6 @@ namespace TMS.UI
                 }
             }
         }
-
         private void AddControl(Control userControl)
         {
             userControl.Dock = DockStyle.Fill;

@@ -12,5 +12,7 @@ namespace TMS.BusinessEntities
         public Boolean IsActive { get; set; }
         public int ActivityId { get; set; }
         public int TaskId { get; set; }
+        public int ProjectId { get; set; }
+
     }
 }

@@ -679,20 +679,33 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in Master Data Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        int i = 0;
         private void cmbprojects_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
+            string lastIndex = UserInfo.projectID;
+            int currentIndex = cmbprojects.SelectedIndex;
             UserInfo.projectID = cmbprojects.SelectedIndex > 0 ? Convert.ToString(cmbprojects.SelectedValue) : null;
             UserInfo.selectedvalue = Convert.ToInt32(cmbprojects.SelectedValue);
             try
             {
-                if (cmbprojects.SelectedIndex > 0 && ActiveMdiChild != null)
+                
+                if (currentIndex >0 && (cmbprojects.SelectedIndex > 0 && ActiveMdiChild != null))
                 {
-                    //if (PopupMessageBox.Show("Do you want to switch the Project? if Yes,Enter Data will loss for the current page.", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                    //{
+                  
+                    if (PopupMessageBox.Show("Do you want to switch the Project? if Yes,Enter Data will loss for the current page.", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
                         Type childType = ActiveMdiChild.GetType();
                         Form newChild = (Form)Activator.CreateInstance(childType);
                         OpenChildForm(newChild);
-                    //}
+                    }
+                    else
+                    {
+                        //if (i++ == 0)
+                            //cmbprojects.SelectedValue = lastIndex;
+                        
+                    }
+
                 }
             }
             catch (Exception ex)

@@ -42,7 +42,8 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-               
+                UserInfo.Taskmanagementpagename = this.GetType().Name;
+
             }
             catch (Exception ex)
             {
@@ -374,7 +375,7 @@ namespace TMS.UI
                     subtask.SubTaskDescription = rtxtSubTaskDescription.Text;
                     subtask.IsActive = chkActive.Checked;
                     subtask.SubTaskId = _subTaskId;
-
+                    subtask.ProjectId = UserInfo.selectedvalue;
                     switch (mode)
                     {
                         case "S":
@@ -410,7 +411,7 @@ namespace TMS.UI
         {
             try
             {
-                _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, pageNum, pageSize, true);
+                _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, pageNum, pageSize,UserInfo.selectedvalue, true);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_subTasks.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_subTasks.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -435,16 +436,16 @@ namespace TMS.UI
                     {
                         if (taskId != -1)
                         {
-                            _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), false, -1, taskId, activityId);
+                            _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),UserInfo.selectedvalue, false, -1, taskId, activityId);
                         }
                         else
                         {
-                            _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), false, -1, -1, activityId);
+                            _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.selectedvalue, false, -1, -1, activityId);
                         }
                     }
                     else
                     {
-                        _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), isActive);
+                        _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.selectedvalue, isActive);
                     }
                     DataTable records = FormControlHandling.GetPageRecords(_subTasks, _currentPage, _pageSize);
                     dView.DataSource = null;

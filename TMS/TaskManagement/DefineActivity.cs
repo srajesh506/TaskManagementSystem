@@ -38,7 +38,9 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-             
+                UserInfo.Taskmanagementpagename = this.GetType().Name;
+
+
             }
             catch (Exception ex)
             {
