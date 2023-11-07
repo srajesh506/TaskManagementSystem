@@ -41,7 +41,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                UserInfo.Taskmanagementpagename = this.GetType().Name;
+                UserInfo.TaskManagementPageName = this.GetType().Name;
 
             }
             catch (Exception ex)
@@ -60,7 +60,7 @@ namespace TMS.UI
                 EnableDisableButtons(2);
 
                 DataTable dtActivity = new DataTable();
-                dtActivity = taskManagement.GetActivities(UserInfo.selectedvalue, true);
+                dtActivity = taskManagement.GetActivities(UserInfo.SelectedValue, true);
                 var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "ActivityId","ActivityName");
                 DataRow drActivity = dtActivityFilter.NewRow();
                 drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
@@ -222,7 +222,7 @@ namespace TMS.UI
                         return false;
                     }
                 }
-                if (UserInfo.selectedvalue == 0)
+                if (UserInfo.SelectedValue == 0)
                 {
                     PopupMessageBox.Show("Please Select Project Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
@@ -345,7 +345,7 @@ namespace TMS.UI
                     task.ActivityId = Convert.ToInt32(cmbActivity.SelectedValue);
                     task.IsActive = chkActive.Checked;
                     task.TaskId = _taskId;
-                    task.ProjectId = UserInfo.selectedvalue;
+                    task.ProjectId = UserInfo.SelectedValue;
                     switch (mode)
                     {
                         case "S":
@@ -390,7 +390,7 @@ namespace TMS.UI
                         GetTaskData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
                         lblCurrentPage.Text = _currentPage.ToString();
                         lblNoOfPages.Text = _noOfPages.ToString();
-                        _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.selectedvalue, false, -1, activityId);
+                        _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.SelectedValue, false, -1, activityId);
                         DataTable records = FormControlHandling.GetPageRecords(_tasks, _currentPage, _pageSize);
                         dView.DataSource = null;
                         dView.DataSource = records;
@@ -399,7 +399,7 @@ namespace TMS.UI
                     else
                     {
                         GetTaskData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
-                        _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),UserInfo.selectedvalue, true);
+                        _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),UserInfo.SelectedValue, true);
                         lblCurrentPage.Text = _currentPage.ToString();
                         lblNoOfPages.Text = _noOfPages.ToString();
                         DataTable records = FormControlHandling.GetPageRecords(_tasks, _currentPage, _pageSize);
@@ -427,7 +427,7 @@ namespace TMS.UI
         {
             try
             {
-                _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, pageNum, pageSize, UserInfo.selectedvalue,true);
+                _tasks = taskManagement.GetTasksUsingPaging(out _totalRecords, pageNum, pageSize, UserInfo.SelectedValue,true);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_tasks.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_tasks.Rows.Count / pageSize));
                 _pageSize = pageSize;

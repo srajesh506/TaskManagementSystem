@@ -4,10 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Data;
-using TMS.BusinessLogicLayer;
+
 
 namespace TMS.BusinessLogicLayer
 {
@@ -17,23 +14,25 @@ namespace TMS.BusinessLogicLayer
         {
             try
             {
-                string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
-                using (Aes encryptor = Aes.Create())
+                string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";// Define the encryption key, which is a string of characters
+                byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);// Convert the string you want to encrypt into bytes
+                using (Aes encryptor = Aes.Create())// Create an Aes object for encryption
                 {
+                    // Create a key derivation function with the encryption key and salt
                     Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
             0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
         });
+                    // Set the encryption key and initialization vector
                     encryptor.Key = pdb.GetBytes(32);
                     encryptor.IV = pdb.GetBytes(16);
-                    using (MemoryStream ms = new MemoryStream())
+                    using (MemoryStream ms = new MemoryStream())  // Create a memory stream to store the encrypted data
                     {
-                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))// Create a CryptoStream for encryption
                         {
-                            cs.Write(clearBytes, 0, clearBytes.Length);
+                            cs.Write(clearBytes, 0, clearBytes.Length);// Write the clearBytes (data to be encrypted) into the CryptoStream
                             cs.Close();
                         }
-                        encryptString = Convert.ToBase64String(ms.ToArray());
+                        encryptString = Convert.ToBase64String(ms.ToArray()); // Convert the encrypted data to a Base64 string
                     }
                 }
             }
@@ -48,23 +47,28 @@ namespace TMS.BusinessLogicLayer
         {
             try
             {
-                string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                cipherText = cipherText.Replace(" ", "+");
-                byte[] cipherBytes = Convert.FromBase64String(cipherText);
-                using (Aes encryptor = Aes.Create())
+                string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";// Define the encryption key, which is a string of characters
+                cipherText = cipherText.Replace(" ", "+");// Remove any white spaces from the input cipherText
+                byte[] cipherBytes = Convert.FromBase64String(cipherText);// Convert the cipherText (Base64 encoded) into bytes
+                using (Aes encryptor = Aes.Create())// Create an Aes object for decryption
                 {
+                    // Create a key derivation function with the encryption key and salt
                     Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
             0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
         });
+                    // Set the decryption key and initialization vector
                     encryptor.Key = pdb.GetBytes(32);
                     encryptor.IV = pdb.GetBytes(16);
-                    using (MemoryStream ms = new MemoryStream())
+                    using (MemoryStream ms = new MemoryStream())// Create a memory stream to store the decrypted data
                     {
+                        // Create a CryptoStream for decryption
                         using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
                         {
+                            // Write the cipherBytes (encrypted data) into the CryptoStream
                             cs.Write(cipherBytes, 0, cipherBytes.Length);
                             cs.Close();
                         }
+                        // Convert the decrypted bytes to a string
                         cipherText = Encoding.Unicode.GetString(ms.ToArray());
                     }
                 }
@@ -76,32 +80,6 @@ namespace TMS.BusinessLogicLayer
             }
             return cipherText;
 
-        }
-
-        public int ValidateEmailId(string emailId)
-        {
-            try
-            {
-                /*Regular Expressions for email id*/
-                System.Text.RegularExpressions.Regex rEMail = new System.Text.RegularExpressions.Regex(@"^[a-zA-Z][\w\.-]{2,28}[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$");
-                if (emailId.Length > 0)
-                {
-                    if (!rEMail.IsMatch(emailId))
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        return 1;
-                    }
-                }
-                return 2;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("ErrorBLO03 - Failure in Email Validation!! " + "'" + ex.Message + "'");
-            }
-            
         }
     }
 }

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.IO;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-
 using TMS.UI.Utilities;
 using TMS.BusinessEntities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
-using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -18,8 +15,8 @@ namespace TMS.UI
     {
         private BindingList<Employee> _unassignedEmployees;
         private BindingList<Employee> _assignedEmployees;
-        private List<Employee> _unassignedEmployeeschangedList = new List<Employee>();
-        private List<Employee> _assignedEmployeeschangedList = new List<Employee>();
+        private List<Employee> _unassignedEmployeesChangedList = new List<Employee>();
+        private List<Employee> _assignedEmployeesChangedList = new List<Employee>();
         TeamManagement teamManagement = new TeamManagement();
         public ProjectAssignment()
         {
@@ -66,7 +63,7 @@ namespace TMS.UI
                     break;
                 case ListChangedType.ItemAdded:
                     Employee addedItem = _assignedEmployees[e.NewIndex];
-                    _assignedEmployeeschangedList.Add(addedItem);
+                    _assignedEmployeesChangedList.Add(addedItem);
                     break;
                 case ListChangedType.ItemDeleted:
                     break;
@@ -92,7 +89,7 @@ namespace TMS.UI
                     break;
                 case ListChangedType.ItemAdded:
                     Employee addedItem = _unassignedEmployees[e.NewIndex];
-                    _unassignedEmployeeschangedList.Add(addedItem);
+                    _unassignedEmployeesChangedList.Add(addedItem);
                     break;
                 case ListChangedType.ItemDeleted:
                     break;
@@ -129,7 +126,7 @@ namespace TMS.UI
                 lblAssignedTeamMember.ForeColor = ThemeColor.SecondaryColor;
                 btnSave.ForeColor = ThemeColor.SecondaryColor;
                 btnCancel.ForeColor = ThemeColor.SecondaryColor;
-                grpBoxRegistrationForm.ForeColor = ThemeColor.PrimaryColor;
+                grpBoxProjectAssignmentForm.ForeColor = ThemeColor.PrimaryColor;
             }
             catch (Exception ex)
             {
@@ -140,7 +137,7 @@ namespace TMS.UI
         {
             try
             {
-                DataTable projectMember = teamManagement.GetProjectMemberByProjectId(UserInfo.projectID, flag);
+                DataTable projectMember = teamManagement.GetProjectMemberByProjectId(UserInfo.ProjectId, flag);
                 List<Employee> empList = new List<Employee>();
 
                 foreach (DataRow row in projectMember.Rows)
@@ -222,23 +219,23 @@ namespace TMS.UI
         }
         private void AddUpdateAssignment()
         {
-            if (_unassignedEmployeeschangedList != null || _assignedEmployeeschangedList != null)
+            if (_unassignedEmployeesChangedList != null || _assignedEmployeesChangedList != null)
             {
-                if (_unassignedEmployeeschangedList != null)
+                if (_unassignedEmployeesChangedList != null)
                 {
-                    foreach (Employee emp in _unassignedEmployeeschangedList)
+                    foreach (Employee emp in _unassignedEmployeesChangedList)
                     {
-                        teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.projectID), emp.UserId);
+                        teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.ProjectId), emp.UserId);
                     }
-                    _unassignedEmployeeschangedList.Clear();
+                    _unassignedEmployeesChangedList.Clear();
                 }
-                if (_assignedEmployeeschangedList != null)
+                if (_assignedEmployeesChangedList != null)
                 {
-                    foreach (Employee emp in _assignedEmployeeschangedList)
+                    foreach (Employee emp in _assignedEmployeesChangedList)
                     {
-                        teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.projectID), emp.UserId);
+                        teamManagement.AssignedProjectMember(Convert.ToInt32(UserInfo.ProjectId), emp.UserId);
                     }
-                    _assignedEmployeeschangedList.Clear();
+                    _assignedEmployeesChangedList.Clear();
                 }
                 LoadTeamMembers();
                 RightBottomMessageBox.Success("Data saved Successfully!");

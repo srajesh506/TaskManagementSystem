@@ -49,6 +49,7 @@
     <Compile Include="Role.cs" />
     <Compile Include="SubTask.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="UserInfo.cs" />
     <Compile Include="WorkItemAssignment.cs" />
     <Compile Include="WorkItem.cs" />
   </ItemGroup>

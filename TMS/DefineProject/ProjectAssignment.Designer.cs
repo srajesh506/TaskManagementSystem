@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.grpBoxRegistrationForm = new System.Windows.Forms.GroupBox();
+            this.grpBoxProjectAssignmentForm = new System.Windows.Forms.GroupBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblAssignedTeamMember = new System.Windows.Forms.Label();
@@ -37,29 +37,29 @@
             this.lstAssignedTeamMember = new System.Windows.Forms.ListBox();
             this.lstTeamMembers = new System.Windows.Forms.ListBox();
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.grpBoxRegistrationForm.SuspendLayout();
+            this.grpBoxProjectAssignmentForm.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.SuspendLayout();
             // 
-            // grpBoxRegistrationForm
+            // grpBoxProjectAssignmentForm
             // 
-            this.grpBoxRegistrationForm.Controls.Add(this.btnSave);
-            this.grpBoxRegistrationForm.Controls.Add(this.btnCancel);
-            this.grpBoxRegistrationForm.Controls.Add(this.lblAssignedTeamMember);
-            this.grpBoxRegistrationForm.Controls.Add(this.lblAvailableTeamMember);
-            this.grpBoxRegistrationForm.Controls.Add(this.btnRemoveItems);
-            this.grpBoxRegistrationForm.Controls.Add(this.btnAddItems);
-            this.grpBoxRegistrationForm.Controls.Add(this.lstAssignedTeamMember);
-            this.grpBoxRegistrationForm.Controls.Add(this.lstTeamMembers);
-            this.grpBoxRegistrationForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.grpBoxRegistrationForm.Location = new System.Drawing.Point(9, 12);
-            this.grpBoxRegistrationForm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpBoxRegistrationForm.Name = "grpBoxRegistrationForm";
-            this.grpBoxRegistrationForm.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpBoxRegistrationForm.Size = new System.Drawing.Size(1599, 908);
-            this.grpBoxRegistrationForm.TabIndex = 11;
-            this.grpBoxRegistrationForm.TabStop = false;
-            this.grpBoxRegistrationForm.Text = "Project Assignment Form";
+            this.grpBoxProjectAssignmentForm.Controls.Add(this.btnSave);
+            this.grpBoxProjectAssignmentForm.Controls.Add(this.btnCancel);
+            this.grpBoxProjectAssignmentForm.Controls.Add(this.lblAssignedTeamMember);
+            this.grpBoxProjectAssignmentForm.Controls.Add(this.lblAvailableTeamMember);
+            this.grpBoxProjectAssignmentForm.Controls.Add(this.btnRemoveItems);
+            this.grpBoxProjectAssignmentForm.Controls.Add(this.btnAddItems);
+            this.grpBoxProjectAssignmentForm.Controls.Add(this.lstAssignedTeamMember);
+            this.grpBoxProjectAssignmentForm.Controls.Add(this.lstTeamMembers);
+            this.grpBoxProjectAssignmentForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.grpBoxProjectAssignmentForm.Location = new System.Drawing.Point(9, 12);
+            this.grpBoxProjectAssignmentForm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpBoxProjectAssignmentForm.Name = "grpBoxProjectAssignmentForm";
+            this.grpBoxProjectAssignmentForm.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpBoxProjectAssignmentForm.Size = new System.Drawing.Size(1599, 908);
+            this.grpBoxProjectAssignmentForm.TabIndex = 11;
+            this.grpBoxProjectAssignmentForm.TabStop = false;
+            this.grpBoxProjectAssignmentForm.Text = "Project Assignment Form";
             // 
             // btnSave
             // 
@@ -148,7 +148,7 @@
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
-            this.pnlMain.Controls.Add(this.grpBoxRegistrationForm);
+            this.pnlMain.Controls.Add(this.grpBoxProjectAssignmentForm);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -166,8 +166,8 @@
             this.Name = "ProjectAssignment";
             this.Text = "Project Assignment";
             this.Load += new System.EventHandler(this.ProjectAssignment_Load);
-            this.grpBoxRegistrationForm.ResumeLayout(false);
-            this.grpBoxRegistrationForm.PerformLayout();
+            this.grpBoxProjectAssignmentForm.ResumeLayout(false);
+            this.grpBoxProjectAssignmentForm.PerformLayout();
             this.pnlMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -175,7 +175,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox grpBoxRegistrationForm;
+        private System.Windows.Forms.GroupBox grpBoxProjectAssignmentForm;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.ListBox lstTeamMembers;
         private System.Windows.Forms.Button btnRemoveItems;

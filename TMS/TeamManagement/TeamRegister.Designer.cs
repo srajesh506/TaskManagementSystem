@@ -50,8 +50,9 @@
             this.chkSelectAll = new System.Windows.Forms.CheckBox();
             this.txtsearch = new System.Windows.Forms.TextBox();
             this.lblSelectProject = new System.Windows.Forms.Label();
-            this.chklstbxProject = new System.Windows.Forms.CheckedListBox();
+            this.chkListBoxProject = new System.Windows.Forms.CheckedListBox();
             this.pbPwdIcon = new System.Windows.Forms.PictureBox();
+            this.pbPic = new TMS.UI.Utilities.RoundPictureBox();
             this.btnAddRole = new System.Windows.Forms.Button();
             this.cmbRole = new System.Windows.Forms.ComboBox();
             this.btnUpload = new System.Windows.Forms.Button();
@@ -67,7 +68,6 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblRemark = new System.Windows.Forms.Label();
             this.txtUserId = new System.Windows.Forms.TextBox();
-            this.pbPic = new TMS.UI.Utilities.RoundPictureBox();
             this.pnlMain.SuspendLayout();
             this.grpBoxPaging.SuspendLayout();
             this.grpBoxEmployeeGridView.SuspendLayout();
@@ -326,7 +326,7 @@
             this.grpBoxRegistrationForm.Controls.Add(this.chkSelectAll);
             this.grpBoxRegistrationForm.Controls.Add(this.txtsearch);
             this.grpBoxRegistrationForm.Controls.Add(this.lblSelectProject);
-            this.grpBoxRegistrationForm.Controls.Add(this.chklstbxProject);
+            this.grpBoxRegistrationForm.Controls.Add(this.chkListBoxProject);
             this.grpBoxRegistrationForm.Controls.Add(this.pbPwdIcon);
             this.grpBoxRegistrationForm.Controls.Add(this.pbPic);
             this.grpBoxRegistrationForm.Controls.Add(this.btnAddRole);
@@ -373,7 +373,7 @@
             this.txtsearch.Name = "txtsearch";
             this.txtsearch.Size = new System.Drawing.Size(251, 37);
             this.txtsearch.TabIndex = 22;
-            this.txtsearch.TextChanged += new System.EventHandler(this.txtsearch_TextChanged);
+            this.txtsearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // lblSelectProject
             // 
@@ -386,15 +386,15 @@
             this.lblSelectProject.TabIndex = 21;
             this.lblSelectProject.Text = "&Search Project";
             // 
-            // chklstbxProject
+            // chkListBoxProject
             // 
-            this.chklstbxProject.CheckOnClick = true;
-            this.chklstbxProject.FormattingEnabled = true;
-            this.chklstbxProject.Location = new System.Drawing.Point(1035, 140);
-            this.chklstbxProject.Name = "chklstbxProject";
-            this.chklstbxProject.Size = new System.Drawing.Size(251, 247);
-            this.chklstbxProject.TabIndex = 20;
-            this.chklstbxProject.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chklstbxProject_ItemCheck);
+            this.chkListBoxProject.CheckOnClick = true;
+            this.chkListBoxProject.FormattingEnabled = true;
+            this.chkListBoxProject.Location = new System.Drawing.Point(1035, 140);
+            this.chkListBoxProject.Name = "chkListBoxProject";
+            this.chkListBoxProject.Size = new System.Drawing.Size(251, 247);
+            this.chkListBoxProject.TabIndex = 20;
+            this.chkListBoxProject.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkListBoxProject_ItemCheck);
             // 
             // pbPwdIcon
             // 
@@ -408,6 +408,17 @@
             this.pbPwdIcon.TabStop = false;
             this.pbPwdIcon.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbPwdIcon_MouseDown);
             this.pbPwdIcon.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbPwdIcon_MouseUp);
+            // 
+            // pbPic
+            // 
+            this.pbPic.Image = global::TMS.Properties.Resources.dp;
+            this.pbPic.Location = new System.Drawing.Point(1336, 65);
+            this.pbPic.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pbPic.Name = "pbPic";
+            this.pbPic.Size = new System.Drawing.Size(173, 186);
+            this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbPic.TabIndex = 18;
+            this.pbPic.TabStop = false;
             // 
             // btnAddRole
             // 
@@ -570,17 +581,6 @@
             this.txtUserId.TabIndex = 1;
             this.txtUserId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUserId_KeyPress);
             // 
-            // pbPic
-            // 
-            this.pbPic.Image = global::TMS.Properties.Resources.dp;
-            this.pbPic.Location = new System.Drawing.Point(1336, 65);
-            this.pbPic.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pbPic.Name = "pbPic";
-            this.pbPic.Size = new System.Drawing.Size(173, 186);
-            this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbPic.TabIndex = 18;
-            this.pbPic.TabStop = false;
-            // 
             // FrmTeamRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -644,7 +644,7 @@
         private System.Windows.Forms.Button btnFirstPage;
         private System.Windows.Forms.Label lblPages;
         private System.Windows.Forms.ComboBox cmbNoOfRecordsPerPage;
-        private System.Windows.Forms.CheckedListBox chklstbxProject;
+        private System.Windows.Forms.CheckedListBox chkListBoxProject;
         private System.Windows.Forms.Label lblSelectProject;
         private System.Windows.Forms.TextBox txtsearch;
         private System.Windows.Forms.CheckBox chkSelectAll;

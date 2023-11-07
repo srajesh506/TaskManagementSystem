@@ -119,7 +119,7 @@ namespace TMS.UI
             try
             {
                 string UserId;
-                UserId = UserInfo.userId;
+                UserId = UserInfo.UserId;
                 if (txtOldPwd.Text == "Type your old Password")
                 {
                     PopupMessageBox.Show("Please enter your old Password!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -138,11 +138,11 @@ namespace TMS.UI
                     txtNewConfirmPwd.Select();
                     return;
                 }
-                if (settings.CheckLogin(FormControlHandling.ClearUpperQmark(UserInfo.userId), operations.Encrypt(txtOldPwd.Text)) == true)
+                if (settings.CheckLogin(FormControlHandling.ClearUpperQmark(UserInfo.UserId), operations.Encrypt(txtOldPwd.Text)) == true)
                 {
                     if (txtNewPwd.Text == txtNewConfirmPwd.Text)
                     {
-                        int temp = settings.ChangePwd(UserInfo.userId, operations.Encrypt(txtNewConfirmPwd.Text));
+                        int temp = settings.ChangePwd(UserInfo.UserId, operations.Encrypt(txtNewConfirmPwd.Text));
                         if (temp > 0)
                         {
                             FormControlHandling.ClearControls(grpBoxChangePwd);

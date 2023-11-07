@@ -38,7 +38,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                UserInfo.Taskmanagementpagename = this.GetType().Name;
+                UserInfo.TaskManagementPageName = this.GetType().Name;
 
 
             }
@@ -166,7 +166,7 @@ namespace TMS.UI
         {
             try
             {
-                _activities = taskManagement.GetActivitiesUsingPaging(out _totalRecords,pageNum, pageSize,UserInfo.selectedvalue,true);
+                _activities = taskManagement.GetActivitiesUsingPaging(out _totalRecords,pageNum, pageSize,UserInfo.SelectedValue,true);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -183,7 +183,7 @@ namespace TMS.UI
         {
             try
             {
-                if(UserInfo.selectedvalue==0)
+                if(UserInfo.SelectedValue==0)
                 {
                     PopupMessageBox.Show("Please Select Project Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
@@ -305,7 +305,7 @@ namespace TMS.UI
                     activity.ActivityName = txtTaskName.Text;
                     activity.ActivityDescription = rtxtActivityDescription.Text;
                     activity.IsActive = chkActive.Checked;
-                    activity.ProjectId = UserInfo.selectedvalue;
+                    activity.ProjectId = UserInfo.SelectedValue;
                     switch (mode)
                     {
                         case "S":

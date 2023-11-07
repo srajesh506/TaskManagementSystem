@@ -14,7 +14,7 @@ namespace TMS.BusinessLogicLayer
         //Returns the Activities Data based on activityId/activityName and/Or isActive Flag
         //if activityId/activityName is supplied then it returns specific record only
         //if isActive flag is true, it returns active records only
-        public DataTable GetActivitiesUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, Int32 ProjectId, Boolean isActive = false, int activityId = -1, string activityName = null)
+        public DataTable GetActivitiesUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, Int32 projectId, Boolean isActive = false, int activityId = -1, string activityName = null)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@IsActive", SqlDbType.Int).Value = isActive;
                 sqlCommand.Parameters.Add("@ActivityId", SqlDbType.Int).Value = activityId;
                 sqlCommand.Parameters.Add("@ActivityName", SqlDbType.NVarChar).Value = activityName;
-                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.NVarChar).Value = ProjectId;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.NVarChar).Value = projectId;
                 DataTable dataTable = dbConnection.ExeReader(sqlCommand);
                 totalRecords = Convert.ToInt32(sqlCommand.Parameters["@TotalRecords"].Value);
                 return dataTable;
@@ -194,6 +194,7 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in adding/updating Task record!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
+        //GetTasks Function Used for Validating Data in a Datatable and Used in above defined Functions
         public DataTable GetTasks(Boolean isActive = false, int taskId = -1, int activityId = -1, string taskName = null, int projectId = -1)
         {
             try

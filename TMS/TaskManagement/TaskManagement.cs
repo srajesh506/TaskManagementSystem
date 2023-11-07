@@ -13,7 +13,7 @@ namespace TMS.UI
         public TaskManagementForm()
         {
             InitializeComponent();
-            if(UserInfo.Taskmanagementpagename==null)
+            if(UserInfo.TaskManagementPageName==null)
             {
                 AddControl(new DefineActivity());
                 pnlManageActivity.BackColor = Color.Black;
@@ -24,7 +24,7 @@ namespace TMS.UI
                 {
                     pnl.BackColor = Color.Silver;
                 }
-                switch (UserInfo.Taskmanagementpagename)
+                switch (UserInfo.TaskManagementPageName)
                 {
 
                     case "DefineActivity":

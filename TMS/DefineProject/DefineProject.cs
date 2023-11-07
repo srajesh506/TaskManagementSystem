@@ -25,9 +25,8 @@ namespace TMS.UI
 
         private DataTable _projectdetails;
 
-        Project ProjectData = new Project();
-        ProjectManagement ProjectManagement = new ProjectManagement();
-        Operations operations = new Operations();
+        Project projectData = new Project();
+        ProjectManagement projectManagement = new ProjectManagement();
         public FrmAssignProject()
         {
             try
@@ -117,7 +116,7 @@ namespace TMS.UI
                 int index = dgView.CurrentRow.Index;
                 if (index <= dgView.RowCount - 1)
                 {
-                    ProjectData.ProjectId = Convert.ToInt32(dgView.Rows[index].Cells[1].Value);
+                    projectData.ProjectId = Convert.ToInt32(dgView.Rows[index].Cells[1].Value);
                     txtProjectName.Text = Convert.ToString(dgView.Rows[index].Cells[4].Value);
                     rtxtProjectDescription.Text = Convert.ToString(dgView.Rows[index].Cells[5].Value);
                     chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[6].Value);
@@ -129,22 +128,6 @@ namespace TMS.UI
                 PopupMessageBox.Show("TMSError - Failed to load the selected record in the Form fields from the DataGrid!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        //UserId TextBox KeyPress event to allow specific charaters only
-        private void txtUserId_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
         //PictureBox Password Icon Mouse Down event to allow reading the password
         //PictureBox Password Icon Mouse Up event to disallow reading the password
         //Previous Page button click event to move to previous page of datagridview
@@ -272,7 +255,7 @@ namespace TMS.UI
         {
             try
             {
-                _projectdetails = ProjectManagement.GetProjectDetails(out _totalRecords, pageNum, pageSize);
+                _projectdetails = projectManagement.GetProjectDetails(out _totalRecords, pageNum, pageSize);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_projectdetails.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_projectdetails.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -404,19 +387,19 @@ namespace TMS.UI
                 if (ValidateControls(mode))
                 {
                     //ProjectData.ProjectManagerId = Convert.ToString(cmbProjectManager.SelectedValue);
-                    ProjectData.ProjectName = txtProjectName.Text;
-                    ProjectData.ProjectDescription = rtxtProjectDescription.Text;
-                    ProjectData.IsActive = chkActive.Checked;
+                    projectData.ProjectName = txtProjectName.Text;
+                    projectData.ProjectDescription = rtxtProjectDescription.Text;
+                    projectData.IsActive = chkActive.Checked;
                     switch (mode)
                     {
                         case "S":
-                            if (ProjectManagement.AddUpdateProject(ProjectData) <= 0)
+                            if (projectManagement.AddUpdateProject(projectData) <= 0)
                             {
                                 throw new Exception("TMSError - User ID: '" + txtProjectName.Text + "' already exists in Database!! ");
                             }
                             break;
                         case "M":
-                            if (ProjectManagement.AddUpdateProject(ProjectData, true) <= 0)
+                            if (projectManagement.AddUpdateProject(projectData, true) <= 0)
                             {
                                 throw new Exception("TMSError - User ID: '" + txtProjectName.Text + "' does not exist in Database!! ");
                             }

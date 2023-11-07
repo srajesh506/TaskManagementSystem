@@ -168,28 +168,28 @@ namespace TMS.UI
                     cmbRole.SelectedValue = Convert.ToString(dgView.Rows[index].Cells[9].Value);
                     txtEmail.Text = Convert.ToString(dgView.Rows[index].Cells[4].Value);
                     rtxtRemark.Text = Convert.ToString(dgView.Rows[index].Cells[5].Value);
-                    for (int i = 0; i < chklstbxProject.Items.Count; i++)
+                    for (int i = 0; i < chkListBoxProject.Items.Count; i++)
                     {
-                        chklstbxProject.SetItemChecked(i, false);
+                        chkListBoxProject.SetItemChecked(i, false);
                     }
-                        DataRow[] dr = _employees.Select("[User Id] = '"+ txtUserId.Text + "' and IsActive =1");
-                    if (dr.Length > 0)
+                        DataRow[] dataRowSelectedEmployee = _employees.Select("[User Id] = '"+ txtUserId.Text + "' and IsActive =1");
+                    if (dataRowSelectedEmployee.Length > 0)
                     {
-                        foreach (DataRow dr2 in dr)
+                        foreach (DataRow drEmployee in dataRowSelectedEmployee)
                         {
-                            if (!string.IsNullOrEmpty(Convert.ToString(dr2["projectid"])))
+                            if (!string.IsNullOrEmpty(Convert.ToString(drEmployee["projectid"])))
                             {
-                                int projectid = Convert.ToInt32(dr2["projectid"]);
+                                int projectId = Convert.ToInt32(drEmployee["projectid"]);
                                 // Find the corresponding item in the CheckedListBox and check/uncheck it
-                                for (int i = 0; i < chklstbxProject.Items.Count; i++)
+                                for (int i = 0; i < chkListBoxProject.Items.Count; i++)
                                 {
                                     //chklstbxProject.SetItemChecked(i, false);
-                                    ListItem item = chklstbxProject.Items[i] as ListItem;
-                                    if (item != null && item.Value == dr2["projectid"].ToString())
+                                    ListItem item = chkListBoxProject.Items[i] as ListItem;
+                                    if (item != null && item.Value == drEmployee["projectid"].ToString())
                                     {
                                         // Toggle the item's checked state
                                         //chklstbxProject.SetItemChecked(i, !chklstbxProject.GetItemChecked(i));
-                                        chklstbxProject.SetItemChecked(i, true);
+                                        chkListBoxProject.SetItemChecked(i, true);
                                         break; // Exit the loop once the item is found
                                     }
                                 }
@@ -570,37 +570,6 @@ namespace TMS.UI
             {
                 if (ValidateControls(mode))
                 {
-                    //string imagePath = Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg";
-
-                    //if (File.Exists(imagePath) && pbPic.Image != null)
-                    //{
-                    //    using (Bitmap newImage = new Bitmap(pbPic.Image))
-                    //    {
-                    //        using (MemoryStream memoryStream = new MemoryStream())
-                    //        {
-                    //            newImage.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    //            pbPic.Image = Image.FromStream(memoryStream);
-                    //        }
-                    //        using (Bitmap imageToSave = (Bitmap)pbPic.Image.Clone())
-                    //        {
-                    //            imageToSave.Save(imagePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    //        }
-                    //    }
-                    //}
-                    //string imagePath = Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg";
-
-                    //if (File.Exists(imagePath) && pbPic.Image != null)
-                    //{
-                    //    using (Bitmap newImage = new Bitmap(pbPic.Image))
-                    //    {
-                    //        using (MemoryStream memoryStream = new MemoryStream())
-                    //        {
-                    //            newImage.Save(memoryStream, ImageFormat.Jpeg);
-                    //            pbPic.Image = Image.FromStream(memoryStream);
-                    //        }
-                    //        pbPic.Image.Save(imagePath, ImageFormat.Jpeg);
-                    //    }
-                    //}
                     if (!File.Exists(Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg"))
                     {
                         if (pbPic.Image != null)
@@ -626,14 +595,13 @@ namespace TMS.UI
                     employee.Password = operations.Encrypt(txtPwd.Text);
                     employee.Pic = pbPic.Image == null ? null : txtUserId.Text + ".jpg";
                     List<int> ProjectIdList = new List<int>();
-                    if (chklstbxProject.CheckedItems.Count > 0)
+                    if (chkListBoxProject.CheckedItems.Count > 0)
                     {
-                        foreach (ListItem item in chklstbxProject.CheckedItems)
+                        foreach (ListItem item in chkListBoxProject.CheckedItems)
                         {
-                            string projectID = item.Value.ToString() != null ? item.Value.ToString() : null;
-                            string projecttext = item.Text.ToString() != null ? item.Text.ToString() : null;
-                            ProjectIdList.Add(Convert.ToInt32(projectID));
-                            //employee.ProjectID = Convert.ToInt32(projectID);
+                            string projectId = item.Value.ToString() != null ? item.Value.ToString() : null;
+                            string projecText = item.Text.ToString() != null ? item.Text.ToString() : null;
+                            ProjectIdList.Add(Convert.ToInt32(projectId));
                         }
                         employee.ProjectID = ProjectIdList;
                     }
@@ -706,28 +674,28 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to load the data in GridView!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-        List<string> listcollection = new List<string>();
+        List<string> listCollection = new List<string>();
         Dictionary<string, bool> checkedState = new Dictionary<string, bool>();
-        private void txtsearch_TextChanged(object sender, EventArgs e)
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             string searchText = txtsearch.Text.ToLower();
             if (!string.IsNullOrEmpty(searchText))
             {
-                chklstbxProject.Items.Clear();
-                foreach (string str in listcollection)
+                chkListBoxProject.Items.Clear();
+                foreach (string str in listCollection)
                 {
                     if (str.ToLower().StartsWith(searchText))// Use Contains for partial matches
                     {
-                        chklstbxProject.Items.Add(str, checkedState.ContainsKey(str)); // Maintain checked state
+                        chkListBoxProject.Items.Add(str, checkedState.ContainsKey(str)); // Maintain checked state
                     }
                 }
             }
             else
             {
-                chklstbxProject.Items.Clear();
-                foreach (string str in listcollection)
+                chkListBoxProject.Items.Clear();
+                foreach (string str in listCollection)
                 {
-                    chklstbxProject.Items.Add(str, checkedState.ContainsKey(str)); // Maintain checked state
+                    chkListBoxProject.Items.Add(str, checkedState.ContainsKey(str)); // Maintain checked state
                 }
             }
         }
@@ -738,7 +706,7 @@ namespace TMS.UI
                 DataTable dataTable = new DataTable();
                 dataTable = projectData.GetAllProject();
                 // Clear existing items in the CheckBoxList
-                chklstbxProject.Items.Clear();
+                chkListBoxProject.Items.Clear();
 
                 // Loop through the DataTable and add items to the CheckBoxList and listcollection
                 foreach (DataRow row in dataTable.Rows)
@@ -752,8 +720,8 @@ namespace TMS.UI
                         isChecked = checkedState[projectName];
                     }
                     // Create a new ListItem for each item and add it to the CheckBoxList
-                    chklstbxProject.Items.Add(new ListItem(projectName, projectID));
-                    listcollection.Add(projectName);
+                    chkListBoxProject.Items.Add(new ListItem(projectName, projectID));
+                    listCollection.Add(projectName);
                 }
             }
             catch (Exception ex)
@@ -762,9 +730,9 @@ namespace TMS.UI
             }
         }
         // Event handler to track checked state changes
-        private void chklstbxProject_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void chkListBoxProject_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            string itemName = chklstbxProject.Items[e.Index].ToString();
+            string itemName = chkListBoxProject.Items[e.Index].ToString();
             bool isChecked = (e.NewValue == CheckState.Checked);
             if (checkedState.ContainsKey(itemName))
             {
@@ -775,13 +743,12 @@ namespace TMS.UI
                 checkedState.Add(itemName, isChecked);
             }
         }
-
         private void chkSelectAll_CheckedChanged(object sender, EventArgs e)
         {
             bool isChecked = chkSelectAll.Checked;
-            for (int i = 0; i < chklstbxProject.Items.Count; i++)
+            for (int i = 0; i < chkListBoxProject.Items.Count; i++)
             {
-                chklstbxProject.SetItemChecked(i, isChecked);
+                chkListBoxProject.SetItemChecked(i, isChecked);
             }
         }
     }

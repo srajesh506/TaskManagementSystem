@@ -51,7 +51,7 @@ namespace TMS.UI
                 LoadWorkItemDataGrid(true, true);
 
                 DataTable dtActivity = new DataTable();
-                dtActivity = taskManagement.GetActivities(UserInfo.selectedvalue, true);
+                dtActivity = taskManagement.GetActivities(UserInfo.SelectedValue, true);
                 var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "ActivityId", "ActivityName");
                 DataRow drActivity = dtActivityFilter.NewRow();
                 drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
@@ -156,7 +156,7 @@ namespace TMS.UI
                 if (cmbActivity.SelectedIndex > 0)
                 {
                     DataTable dtTemp = new DataTable();
-                    dtTemp = taskManagement.GetTasks(false, -1, Convert.ToInt32(cmbActivity.SelectedValue), null,UserInfo.selectedvalue);
+                    dtTemp = taskManagement.GetTasks(false, -1, Convert.ToInt32(cmbActivity.SelectedValue), null,UserInfo.SelectedValue);
                     if (dtTemp.Rows.Count > 0)
                     {
                         cmbTask.Enabled = true;

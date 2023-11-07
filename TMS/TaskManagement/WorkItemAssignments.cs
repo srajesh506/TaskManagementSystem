@@ -47,7 +47,7 @@ namespace TMS.UI
             try
             {
                 InitializeComponent();
-                string roleid=UserInfo.roleID;
+                string roleid=UserInfo.RoleId;
 
             }
             catch (Exception ex)
@@ -438,7 +438,7 @@ namespace TMS.UI
                 int index = dgView.CurrentRow.Index;
                 _remarks = dgView.Rows[index].Cells[9].Value.ToString();
                 DataTable usertbl = new DataTable();
-                usertbl = teamManagement.GetEmployees(UserInfo.userId);
+                usertbl = teamManagement.GetEmployees(UserInfo.UserId);
                 if (!string.IsNullOrWhiteSpace(dgView.Rows[index].Cells[9].Value.ToString().ToString().Trim()))
                 {
                     ComboBox temp = (ComboBox)sender;

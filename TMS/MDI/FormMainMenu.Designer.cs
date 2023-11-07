@@ -34,7 +34,6 @@ namespace TMS.MDI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             this.pnlSideBar = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlLogo = new System.Windows.Forms.Panel();
-            this.pbUser = new TMS.UI.Utilities.RoundPictureBox();
             this.lblLogOut = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.lblMenu = new System.Windows.Forms.Label();
@@ -65,20 +64,20 @@ namespace TMS.MDI
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.cmbprojects = new System.Windows.Forms.ComboBox();
+            this.cmbProjects = new System.Windows.Forms.ComboBox();
             this.timerExpandCollapse = new System.Windows.Forms.Timer(this.components);
             this.pnltop = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnMaximize = new System.Windows.Forms.Button();
-            this.lblprojectname = new System.Windows.Forms.Label();
+            this.lblProjectName = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.pnlTitleBar = new System.Windows.Forms.Panel();
             this.btnCloseChildForm = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlDesktopPanel = new System.Windows.Forms.Panel();
+            this.pbUser = new TMS.UI.Utilities.RoundPictureBox();
             this.pnlSideBar.SuspendLayout();
             this.pnlLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMenuButton)).BeginInit();
             this.pnlAdmin.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -93,6 +92,7 @@ namespace TMS.MDI
             this.pnlSettings.SuspendLayout();
             this.pnltop.SuspendLayout();
             this.pnlTitleBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlSideBar
@@ -126,16 +126,6 @@ namespace TMS.MDI
             this.pnlLogo.Name = "pnlLogo";
             this.pnlLogo.Size = new System.Drawing.Size(360, 215);
             this.pnlLogo.TabIndex = 1;
-            // 
-            // pbUser
-            // 
-            this.pbUser.Location = new System.Drawing.Point(4, 9);
-            this.pbUser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pbUser.Name = "pbUser";
-            this.pbUser.Size = new System.Drawing.Size(88, 91);
-            this.pbUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbUser.TabIndex = 5;
-            this.pbUser.TabStop = false;
             // 
             // lblLogOut
             // 
@@ -626,15 +616,15 @@ namespace TMS.MDI
             this.btnSettings.UseVisualStyleBackColor = false;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // cmbprojects
+            // cmbProjects
             // 
-            this.cmbprojects.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbprojects.FormattingEnabled = true;
-            this.cmbprojects.Location = new System.Drawing.Point(198, 22);
-            this.cmbprojects.Name = "cmbprojects";
-            this.cmbprojects.Size = new System.Drawing.Size(307, 28);
-            this.cmbprojects.TabIndex = 6;
-            this.cmbprojects.SelectedIndexChanged += new System.EventHandler(this.cmbprojects_SelectedIndexChanged);
+            this.cmbProjects.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProjects.FormattingEnabled = true;
+            this.cmbProjects.Location = new System.Drawing.Point(198, 22);
+            this.cmbProjects.Name = "cmbProjects";
+            this.cmbProjects.Size = new System.Drawing.Size(307, 28);
+            this.cmbProjects.TabIndex = 6;
+            this.cmbProjects.SelectedIndexChanged += new System.EventHandler(this.cmbprojects_SelectedIndexChanged);
             // 
             // timerExpandCollapse
             // 
@@ -646,8 +636,8 @@ namespace TMS.MDI
             this.pnltop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
             this.pnltop.Controls.Add(this.btnMinimize);
             this.pnltop.Controls.Add(this.btnMaximize);
-            this.pnltop.Controls.Add(this.lblprojectname);
-            this.pnltop.Controls.Add(this.cmbprojects);
+            this.pnltop.Controls.Add(this.lblProjectName);
+            this.pnltop.Controls.Add(this.cmbProjects);
             this.pnltop.Controls.Add(this.btnClose);
             this.pnltop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnltop.Location = new System.Drawing.Point(368, 0);
@@ -687,17 +677,17 @@ namespace TMS.MDI
             this.btnMaximize.UseVisualStyleBackColor = true;
             this.btnMaximize.Click += new System.EventHandler(this.btnMaximize_Click);
             // 
-            // lblprojectname
+            // lblProjectName
             // 
-            this.lblprojectname.AutoSize = true;
-            this.lblprojectname.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.lblprojectname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblprojectname.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblprojectname.Location = new System.Drawing.Point(12, 22);
-            this.lblprojectname.Name = "lblprojectname";
-            this.lblprojectname.Size = new System.Drawing.Size(146, 25);
-            this.lblprojectname.TabIndex = 7;
-            this.lblprojectname.Text = "Select Project";
+            this.lblProjectName.AutoSize = true;
+            this.lblProjectName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.lblProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProjectName.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblProjectName.Location = new System.Drawing.Point(12, 22);
+            this.lblProjectName.Name = "lblProjectName";
+            this.lblProjectName.Size = new System.Drawing.Size(146, 25);
+            this.lblProjectName.TabIndex = 7;
+            this.lblProjectName.Text = "Select Project";
             // 
             // btnClose
             // 
@@ -764,6 +754,16 @@ namespace TMS.MDI
             this.pnlDesktopPanel.Size = new System.Drawing.Size(1348, 968);
             this.pnlDesktopPanel.TabIndex = 5;
             // 
+            // pbUser
+            // 
+            this.pbUser.Location = new System.Drawing.Point(4, 9);
+            this.pbUser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pbUser.Name = "pbUser";
+            this.pbUser.Size = new System.Drawing.Size(88, 91);
+            this.pbUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbUser.TabIndex = 5;
+            this.pbUser.TabStop = false;
+            // 
             // FormMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -784,7 +784,6 @@ namespace TMS.MDI
             this.pnlSideBar.ResumeLayout(false);
             this.pnlLogo.ResumeLayout(false);
             this.pnlLogo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMenuButton)).EndInit();
             this.pnlAdmin.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -801,6 +800,7 @@ namespace TMS.MDI
             this.pnltop.PerformLayout();
             this.pnlTitleBar.ResumeLayout(false);
             this.pnlTitleBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -841,9 +841,9 @@ namespace TMS.MDI
         private System.Windows.Forms.Button btnTeamRegister;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnAdmin;
-        private System.Windows.Forms.ComboBox cmbprojects;
+        private System.Windows.Forms.ComboBox cmbProjects;
         private System.Windows.Forms.Panel pnltop;
-        private System.Windows.Forms.Label lblprojectname;
+        private System.Windows.Forms.Label lblProjectName;
         private System.Windows.Forms.Panel pnlTitleBar;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Button btnMaximize;

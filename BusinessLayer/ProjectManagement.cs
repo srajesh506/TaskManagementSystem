@@ -32,7 +32,7 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Adding/Updating Project Data!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataTable GetProjectDetails(out Int32 totalRecords, Int32 pageNum = 1, Int32 pageSize = 5)
+        public DataTable GetProjectDetails(out Int32 totalRecords, Int32 pageNum = 1, Int32 pageSize = 5)//Get All Project Using Pagination 
         {
             try
             {
@@ -51,7 +51,7 @@ namespace TMS.BusinessLogicLayer
                 throw new Exception("BLLError - Failure in Fetching Project Details!! " + "\n'" + ex.Message + "'", ex.InnerException);
             }
         }
-        public DataTable GetAllProject()
+        public DataTable GetAllProject()//Get All Project at a time
         {
             try
             {

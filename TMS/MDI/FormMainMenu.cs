@@ -37,7 +37,7 @@ namespace TMS.MDI
                 InitializeComponent();
                 IsMdiContainer = true;
                 _random = new Random();
-                UserInfo.userId = userId;
+                UserInfo.UserId = userId;
                 btnCloseChildForm.Visible = false;
                 this.Text = string.Empty;
                 this.ControlBox = false;
@@ -45,7 +45,7 @@ namespace TMS.MDI
                 employeeDetails = teamManagement.GetEmployees(userId);
                 pbUser.Image = File.Exists(Application.StartupPath + "\\Images\\" + userId + ".jpg") ? Image.FromFile(Application.StartupPath + "\\Images\\" + userId + ".jpg") : Image.FromFile(Application.StartupPath + "\\Images\\noimageMDI.png");
                 lblWelcome.Text = "Welcome " + employeeDetails.Rows[0][0].ToString();
-                UserInfo.roleID = employeeDetails.Rows[0]["RoleId"].ToString();
+                UserInfo.RoleId = employeeDetails.Rows[0]["RoleId"].ToString();
                 DataTable employeeProjectAssignedRecord = new DataTable();
                 employeeProjectAssignedRecord = teamManagement.GetProjectbyUserId(userId);
                 if (employeeProjectAssignedRecord != null)
@@ -57,29 +57,29 @@ namespace TMS.MDI
                     tempRecord.Rows.InsertAt(dataRow, 0);
                     if (employeeProjectAssignedRecord.Rows.Count > 0)
                     {
-                        cmbprojects.ValueMember = "projectid";
-                        cmbprojects.DisplayMember = "projectname";
-                        cmbprojects.DataSource = tempRecord;
-                        cmbprojects.SelectedIndex = (tempRecord.Rows.Count > 1) ? 1 : 0;
-                        UserInfo.selectedvalue = Convert.ToInt32(cmbprojects.SelectedValue);
-                        switch (UserInfo.roleID)
+                        cmbProjects.ValueMember = "ProjectId";
+                        cmbProjects.DisplayMember = "ProjectName";
+                        cmbProjects.DataSource = tempRecord;
+                        cmbProjects.SelectedIndex = (tempRecord.Rows.Count > 1) ? 1 : 0;
+                        UserInfo.SelectedValue = Convert.ToInt32(cmbProjects.SelectedValue);
+                        switch (UserInfo.RoleId)
                         {
                             case "1": // Admin Role
                                 pnlAdmin.Visible = true;
                                 pnlMasterData.Visible = true;
-                                lblprojectname.Visible = false;
-                                cmbprojects.Visible = false;
+                                lblProjectName.Visible = false;
+                                cmbProjects.Visible = false;
                                 break;
                             case "2": // Manager Role
                                 pnlAdmin.Visible = false;
-                                lblprojectname.Visible = true;
-                                cmbprojects.Visible = true;
+                                lblProjectName.Visible = true;
+                                cmbProjects.Visible = true;
                                 break;
                             case "3": // Team Member Role
                                 pnlAdmin.Visible = false;
                                 pnlMasterData.Visible = false;
-                                lblprojectname.Visible = true;
-                                cmbprojects.Visible = true;
+                                lblProjectName.Visible = true;
+                                cmbProjects.Visible = true;
                                 break;
                             default:
                                 // Handle other cases, if necessary
@@ -493,10 +493,10 @@ namespace TMS.MDI
                 childForm.BringToFront();
                 childForm.Show();
                 lblTitle.Text = childForm.Text;
-                UserInfo.formname = childForm.GetType().Name;
-                if (UserInfo.roleID == "1")
+                UserInfo.FormName = childForm.GetType().Name;
+                if (UserInfo.RoleId == "1")
                 {
-                    switch (UserInfo.formname)
+                    switch (UserInfo.FormName)
                     {
                         case "ProjectAssignment":
                         case "TaskManagementForm":
@@ -505,57 +505,16 @@ namespace TMS.MDI
                         case "StatusBasedReport":
                         case "AssigneeBasedReport":
                         case "TimeBasedReport":
-                            lblprojectname.Visible = true;
-                            cmbprojects.Visible = true;
+                            lblProjectName.Visible = true;
+                            cmbProjects.Visible = true;
                             break;
-                        default: lblprojectname.Visible = false; cmbprojects.Visible = false; break;
+                        default: lblProjectName.Visible = false; cmbProjects.Visible = false; break;
                     }
                 }
             }
             catch (Exception ex)
             {
                 throw new Exception("TMSError - Error in loading Form!! \n" + ex.Message + "\n", ex.InnerException);
-            }
-        }
-        private void OpenChildForm(string childFormName, object btnSender = null)
-        {
-            try
-            {
-                if (_activeForm != null)
-                {
-                    _activeForm.Close();
-                }
-
-                if (btnSender != null)
-                {
-                    ActiveButton(btnSender);
-                }
-
-                // Use reflection to create an instance of the child form by its name
-                Type formType = Type.GetType(childFormName);
-                if (formType != null)
-                {
-                    Form childForm = (Form)Activator.CreateInstance(formType);
-
-                    _activeForm = childForm;
-                    childForm.TopLevel = false;
-                    childForm.FormBorderStyle = FormBorderStyle.None;
-                    childForm.Dock = DockStyle.Fill;
-                    pnlDesktopPanel.Controls.Add(childForm);
-                    pnlDesktopPanel.Tag = childForm;
-                    childForm.BringToFront();
-                    childForm.Show();
-
-                    lblTitle.Text = childForm.Text;
-                }
-                else
-                {
-                    MessageBox.Show("Child form not found: " + childFormName, "Error");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred: " + ex.Message, "Error");
             }
         }
         //Function for Mouse Enter - Yellow Highlight
@@ -679,20 +638,18 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in Master Data Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        int i = 0;
         private void cmbprojects_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-            string lastIndex = UserInfo.projectID;
-            int currentIndex = cmbprojects.SelectedIndex;
-            UserInfo.projectID = cmbprojects.SelectedIndex > 0 ? Convert.ToString(cmbprojects.SelectedValue) : null;
-            UserInfo.selectedvalue = Convert.ToInt32(cmbprojects.SelectedValue);
+            cmbProjects.SelectedIndexChanged -= cmbprojects_SelectedIndexChanged;
+            string lastIndex = UserInfo.ProjectId;
+            int currentIndex = cmbProjects.SelectedIndex;
+            UserInfo.ProjectId = cmbProjects.SelectedIndex > 0 ? Convert.ToString(cmbProjects.SelectedValue) : null;
+            UserInfo.SelectedValue = Convert.ToInt32(cmbProjects.SelectedValue);
             try
             {
-                
-                if (currentIndex >0 && (cmbprojects.SelectedIndex > 0 && ActiveMdiChild != null))
+                if (cmbProjects.SelectedIndex > 0 && ActiveMdiChild != null)
                 {
-                  
+
                     if (PopupMessageBox.Show("Do you want to switch the Project? if Yes,Enter Data will loss for the current page.", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
                         Type childType = ActiveMdiChild.GetType();
@@ -702,11 +659,12 @@ namespace TMS.MDI
                     else
                     {
                         //if (i++ == 0)
-                            //cmbprojects.SelectedValue = lastIndex;
-                        
+                        cmbProjects.SelectedValue = lastIndex;
+
                     }
 
                 }
+                cmbProjects.SelectedIndexChanged += cmbprojects_SelectedIndexChanged;
             }
             catch (Exception ex)
             {

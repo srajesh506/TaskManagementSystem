@@ -169,7 +169,6 @@
     <Compile Include="TaskReporting\TimeBasedReport.Designer.cs">
       <DependentUpon>TimeBasedReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\UserInfo.cs" />
     <Compile Include="Utilities\RightBottomMessageBox.cs" />
     <Compile Include="Utilities\FormControlHandling.cs" />
     <Compile Include="Utilities\Function.cs">
