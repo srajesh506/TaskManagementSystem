@@ -15,7 +15,7 @@ namespace TMS.BusinessLogicLayer
         //Returns the Employees UserId and Name from the Database
         //if isActive flag is true, it returns active users only
         //if userId is supplied then it returns specific record only
-        public DataTable GetEmployees(string userId = null, Boolean isActive = false)
+        public DataTable GetEmployees(string userId = null, Boolean isActive = false,int projectId=-1)
         {
             try
             {
@@ -23,6 +23,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.CommandText = "uspGetEmployees";
                 sqlCommand.Parameters.Add("@UserId", SqlDbType.NVarChar).Value = userId;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = projectId;
                 sqlCommand.Parameters.Add("@IsActive", SqlDbType.Int).Value = isActive;
                 return dbConnection.ExeReader(sqlCommand);
             }

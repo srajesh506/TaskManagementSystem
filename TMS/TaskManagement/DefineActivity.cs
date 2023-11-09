@@ -357,6 +357,7 @@ namespace TMS.UI
                 dView.Columns[4].Visible = false;
                 dView.Columns[5].Visible = false;
                 dView.Columns[6].Visible = false;
+                dView.Columns[7].Visible = false;
                 dView.ReadOnly = true;
                 EnableDisableButtons(4);
                 

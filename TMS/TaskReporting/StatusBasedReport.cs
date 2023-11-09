@@ -10,7 +10,7 @@ using TMS.TaskReporting;
 
 using CrystalDecisions.CrystalReports.Engine;
 using System.Linq;
-
+using TMS.BusinessEntities;
 
 namespace TMS.UI
 {
@@ -147,14 +147,17 @@ namespace TMS.UI
                     DataSet Ds = new DataSet();
                     DataTable dt = new DataTable();
                     //dt = taskReporting.GetStatusBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
-                    dt= taskReporting.GetStatusBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue));
+                    dt= taskReporting.GetStatusBasedReport(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked,UserInfo.SelectedValue, Convert.ToInt32(cmbStatus.SelectedValue));
                     Ds.Tables.Add(dt);
                     Ds.WriteXmlSchema("TMSReporting.xml");
                     ReportViewer fm = new ReportViewer();
                     CrystalReport cr = new CrystalReport();
                     CrystalDecisions.CrystalReports.Engine.TextObject txtReportHeader;
+                    CrystalDecisions.CrystalReports.Engine.TextObject txtProjectName;
                     txtReportHeader = cr.ReportDefinition.ReportObjects["Text7"] as TextObject;
                     txtReportHeader.Text = "STATUS BASED REPORT";
+                    txtProjectName = cr.ReportDefinition.ReportObjects["Text10"] as TextObject;
+                    txtProjectName.Text = UserInfo.ProjectText;
                     cr.SetDataSource(Ds);
                     fm.crystalReportViewer.ReportSource = cr;
                     fm.Show();
@@ -200,7 +203,7 @@ namespace TMS.UI
         {
             try
             {
-                _taskReporting = taskReporting.GetStatusBasedReportusingPaging(out _totalRecords, pageNum, pageSize, dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue) == 0 ? -1 : Convert.ToInt32(cmbStatus.SelectedValue));
+                _taskReporting = taskReporting.GetStatusBasedReportusingPaging(out _totalRecords, pageNum, pageSize,UserInfo.SelectedValue, dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue) == 0 ? -1 : Convert.ToInt32(cmbStatus.SelectedValue));
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize));
                 _pageSize = pageSize;

@@ -10,6 +10,7 @@ using TMS.UI.CustomMessageBox;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Linq;
 using TMS.TaskReporting;
+using TMS.BusinessEntities;
 
 namespace TMS.UI
 {
@@ -58,10 +59,10 @@ namespace TMS.UI
                 LoadAssigneeBasedReportGrid(true);
 
                 DataTable dtAssignee = new DataTable();
-                dtAssignee = teamManagement.GetEmployees(null, true);
+                dtAssignee = teamManagement.GetEmployees(null, true,UserInfo.SelectedValue);
                 DataRow drAssignee;
                 drAssignee = dtAssignee.NewRow();
-                drAssignee.ItemArray = new object[] { 0, "--Select Assignee--" };
+                drAssignee.ItemArray = new object[] {  "--Select Assignee--", 0 };
                 dtAssignee.Rows.InsertAt(drAssignee, 0);
                 cmbAssignee.ValueMember = "UserId";
                 cmbAssignee.DisplayMember = "EmpName";
@@ -252,7 +253,7 @@ namespace TMS.UI
         {
             try
             {
-                _taskReporting = taskReporting.GetAssigneeBasedReportUsingPaging(out _totalRecords, pageNum, pageSize, dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, Convert.ToString(cmbAssignee.SelectedValue)=="0" ? null : Convert.ToString(cmbAssignee.SelectedValue));
+                _taskReporting = taskReporting.GetAssigneeBasedReportUsingPaging(out _totalRecords, pageNum, pageSize, dtpDateFrom.Value, dtpDateTo.Value, chkDateAndAssignee.Checked, Convert.ToString(cmbAssignee.SelectedValue)=="0" ? null : Convert.ToString(cmbAssignee.SelectedValue),UserInfo.SelectedValue);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize));
                 _pageSize = pageSize;

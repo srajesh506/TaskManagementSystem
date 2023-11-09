@@ -10,6 +10,7 @@ using TMS.UI.CustomMessageBox;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Linq;
 using TMS.TaskReporting;
+using TMS.BusinessEntities;
 
 namespace TMS.UI
 {
@@ -140,13 +141,11 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to load the Theme!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-
-
         public void GetTimeBasedReportData(int pageNum, int pageSize)
         {
             try
             {
-                _taskReporting = taskReporting.GetTimeBasedReportUsingPaging(out _totalRecords, pageNum, pageSize, dtpDateFrom.Value, dtpDateTo.Value);
+                _taskReporting = taskReporting.GetTimeBasedReportUsingPaging(out _totalRecords, pageNum, pageSize, dtpDateFrom.Value, dtpDateTo.Value,UserInfo.SelectedValue);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_taskReporting.Rows.Count / pageSize));
                 _pageSize = pageSize;

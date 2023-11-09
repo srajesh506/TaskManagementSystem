@@ -140,6 +140,7 @@ namespace TMS.UI
                     cmbSubTask.SelectedValue = _subTaskId;
                     rtxtWorkItemDescription.Text = _workItemDescription;
                     EnableDisableButtons(3);
+                    LoadWorkItemDataGrid(true, true);
                 }
             }
             catch (Exception ex)
@@ -422,7 +423,7 @@ namespace TMS.UI
                     workitem.SubTaskId = (int)cmbSubTask.SelectedValue;
                     workitem.WorkItemDescription = rtxtWorkItemDescription.Text;
                     workitem.WorkItemId = Convert.ToInt32(_workItemId);
-
+                    workitem.ProjectId = UserInfo.SelectedValue;
                     switch (mode)
                     {
                         case "S":
@@ -458,7 +459,7 @@ namespace TMS.UI
         {
             try
             {
-                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, pageNum, pageSize);
+                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, pageNum, pageSize,UserInfo.SelectedValue);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_WorkItem.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_WorkItem.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -501,7 +502,7 @@ namespace TMS.UI
                     }
                     else
                     {
-                        _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                        _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),UserInfo.SelectedValue);
                     }
                     DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
                     dgView.DataSource = null;

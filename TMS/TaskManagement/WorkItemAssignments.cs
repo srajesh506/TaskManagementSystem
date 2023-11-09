@@ -96,55 +96,6 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to setup the Create WorkItem form button controls!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-        int count = 0;
-        //Datagridview formatting Event to highlight records based on the status
-        //private void dgView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        //{
-        //    try
-        //    {
-        //        count += 1;
-        //        //for (int i = 0; i < dgView.Rows.Count; i++)
-        //        //{
-        //        //int index = dgView.CurrentRow.Index;
-        //        //_Id = (int)dgView.Rows[index].Cells[2].Value;
-        //        DataTable dtfinalstatus = new DataTable();
-        //        dtfinalstatus = workItemManagement.GetWorkItemFinalStatus(Convert.ToInt32(dgView.Rows[e.RowIndex].Cells[2].Value));
-
-        //        if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Completed")
-        //        {
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Lavender;
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-        //        } //dgView.Rows[i].Cells[4].Value.ToString()
-        //        else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "HandedOver")
-        //        {
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-        //        }
-        //        else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Pending")
-        //        {
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.WhiteSmoke;
-        //        }
-        //        else if (dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "InProgress" || dtfinalstatus.Rows[0]["StatusDescription"].ToString() == "Monitoring")
-        //        {
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-        //        }
-        //        else
-        //        {
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
-        //            dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(181)))), ((int)(((byte)(171)))));
-        //        }
-
-        //        //}
-        //        e.CellStyle.ForeColor = Color.Black;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PopupMessageBox.Show("TMSError - Failed to format the records in the DataGridView!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
         private void dgView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             try
@@ -214,7 +165,7 @@ namespace TMS.UI
                         {
                             dgView.CurrentCell.ReadOnly = false;
                             DataTable dtTemp = new DataTable();
-                            dtTemp = teamManagement.GetEmployees();
+                            dtTemp = teamManagement.GetEmployees(null,true,UserInfo.SelectedValue);
                             string[] selectedColumns = new[] { "UserId", "EmpName" };
                             DataTable dtEmployees = new DataView(dtTemp).ToTable(false, selectedColumns);
                             DataRow drEmpNameNoValues;
@@ -331,7 +282,7 @@ namespace TMS.UI
         {
             try
             {
-                _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, pageNum, pageSize);
+                _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, pageNum, pageSize, UserInfo.SelectedValue);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_WorkItemAssignment.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_WorkItemAssignment.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -355,14 +306,14 @@ namespace TMS.UI
                     lblNoOfPages.Text = _noOfPages.ToString();
                     if (filterflag)
                     {
-                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), true);
+                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.SelectedValue, true);
                         DataTable records = FormControlHandling.GetPageRecords(_WorkItemAssignment, _currentPage, _pageSize);
                         dgView.DataSource = null;
                         dgView.DataSource = records;
                     }
                     else
                     {
-                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                        _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.SelectedValue);
                         DataTable records = FormControlHandling.GetPageRecords(_WorkItemAssignment, _currentPage, _pageSize);
                         dgView.DataSource = null;
                         dgView.DataSource = records;
@@ -419,7 +370,7 @@ namespace TMS.UI
                 {
                     if (_remarks != dgView.CurrentCell.Value.ToString())
                     {
-                        workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, 0, dgView.CurrentCell.Value.ToString());
+                        workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, 0, dgView.CurrentCell.Value.ToString(), UserInfo.SelectedValue);
                     }
                 }
                 FilterData(chkFilterActive.Checked);
@@ -451,13 +402,13 @@ namespace TMS.UI
                             if (!string.IsNullOrWhiteSpace(input))
                             {
                                 _status = Convert.ToInt32(temp.SelectedValue);
-                                workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status, _remarks + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ":" + input + "(" + DateTime.Now.ToString() + ")");
+                                workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status, _remarks + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ":" + input + "(" + DateTime.Now.ToString() + ")",UserInfo.SelectedValue);
                             }
                         }
                         else
                         {
                             _status = Convert.ToInt32(temp.SelectedValue);
-                            workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status, usertbl.Rows[0]["EmpName"].ToString() + ":" + _remarks + "(" + DateTime.Now.ToString() + ")");
+                            workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, null, _status, usertbl.Rows[0]["EmpName"].ToString() + ":" + _remarks + "(" + DateTime.Now.ToString() + ")", UserInfo.SelectedValue);
                         }
                     }
                     else if (_modifiedColumn == 5) // UserId
@@ -471,13 +422,13 @@ namespace TMS.UI
                                 if (!string.IsNullOrWhiteSpace(input))
                                 {
                                     _userId = Convert.ToString(temp.SelectedValue);
-                                    workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, 0, _remarks + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ":" + input + "(" + DateTime.Now.ToString() + ")");
+                                    workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, 0, _remarks + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ":" + input + "(" + DateTime.Now.ToString() + ")", UserInfo.SelectedValue);
                                 }
                             }
                             else
                             {
                                 _userId = Convert.ToString(temp.SelectedValue);
-                                workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, 0, usertbl.Rows[0]["EmpName"].ToString() + ":" + _remarks + "(" + DateTime.Now.ToString() + ")");
+                                workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, 0, usertbl.Rows[0]["EmpName"].ToString() + ":" + _remarks + "(" + DateTime.Now.ToString() + ")", UserInfo.SelectedValue);
                             }
                         }
                         else

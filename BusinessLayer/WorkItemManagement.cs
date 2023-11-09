@@ -13,7 +13,7 @@ namespace TMS.BusinessLogicLayer
         DbConnection dbConnection = new DbConnection();
 
         // Returns the Workitems based on the criteria supplied for Activity and/or Task and/or SubTask Values
-        public DataTable GetWorkItemsUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, int activityId = -1, int taskId = -1, int subTaskId = -1)
+        public DataTable GetWorkItemsUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize,Int32 projectId, int activityId = -1, int taskId = -1, int subTaskId = -1)
         {
             try
             {
@@ -26,6 +26,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@ActivityId", SqlDbType.Int).Value = activityId;
                 sqlCommand.Parameters.Add("@TaskId", SqlDbType.Int).Value = taskId;
                 sqlCommand.Parameters.Add("@SubTaskId", SqlDbType.Int).Value = subTaskId;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = projectId;
                 DataTable dataTable = dbConnection.ExeReader(sqlCommand);
                 totalRecords = Convert.ToInt32(sqlCommand.Parameters["@TotalRecords"].Value);
                 return dataTable;
@@ -54,7 +55,7 @@ namespace TMS.BusinessLogicLayer
         }
 
         // Returns the WorkitemAssignments based on the criteria whether to return all records or only active assignments (excluding completed/handedover
-        public DataTable GetWorkItemAssignmentsUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize, bool filterFlag = false)
+        public DataTable GetWorkItemAssignmentsUsingPaging(out Int32 totalRecords, Int32 pageNum, Int32 pageSize,Int32 projectId, bool filterFlag = false)
         {
             try
             {
@@ -63,6 +64,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.CommandText = "uspGetWorkItemAssignments";
                 sqlCommand.Parameters.Add("@PageNum", SqlDbType.Int).Value = pageNum;
                 sqlCommand.Parameters.Add("@PageSize", SqlDbType.Int).Value = pageSize;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = projectId;
                 sqlCommand.Parameters.Add("@TotalRecords", SqlDbType.Int).Direction = ParameterDirection.Output;
                 if (filterFlag)
                 {
@@ -130,16 +132,9 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@TaskId", SqlDbType.Int).Value = workItem.TaskId;
                 sqlCommand.Parameters.Add("@SubTaskId", SqlDbType.Int).Value = workItem.SubTaskId;
                 sqlCommand.Parameters.Add("@WorkItemDescription", SqlDbType.NVarChar).Value = workItem.WorkItemDescription;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = workItem.ProjectId;
                 sqlCommand.Parameters.Add("@WorkItemId", SqlDbType.Int).Value = workItem.WorkItemId;
-                if (updateFlag == true)
-                {
-                    sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Bit).Value = 1;
-
-                }
-                else
-                {
-                    sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Bit).Value = 0;
-                }
+                sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Bit).Value= updateFlag == true ? 1 : 0;
                 return dbConnection.ExeNonQuery(sqlCommand);
             }
             catch (Exception ex)
@@ -152,7 +147,7 @@ namespace TMS.BusinessLogicLayer
         //Assign a user to an unassigned WorkItem or Handover a workitem to other user
         //Update the Status of WorkItem Assignment to "InProgress, Pending" etc 
         //Update any Remarks against WorkItem Assignment
-        public int AddUpdateWorkassignmentItem(int workItemAssignmentId, int workItemId, string userId, int status, string remarks)
+        public int AddUpdateWorkassignmentItem(int workItemAssignmentId, int workItemId, string userId, int status, string remarks,int projectId)
         {
             try
             {
@@ -164,6 +159,7 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@UserId", SqlDbType.NVarChar).Value = userId;
                 sqlCommand.Parameters.Add("@Status", SqlDbType.NVarChar).Value = status;
                 sqlCommand.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = remarks;
+                sqlCommand.Parameters.Add("@ProjectId", SqlDbType.Int).Value = projectId;
                 return dbConnection.ExeNonQuery(sqlCommand);
             }
             catch (Exception ex)

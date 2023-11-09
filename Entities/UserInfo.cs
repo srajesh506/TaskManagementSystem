@@ -13,6 +13,8 @@ namespace TMS.BusinessEntities
         { get; set; }
         public static int SelectedValue
         { get; set; }
+        public static string ProjectText
+        { get; set; }
         public static string TaskManagementPageName
         { get; set; }
     }

@@ -62,6 +62,7 @@ namespace TMS.MDI
                         cmbProjects.DataSource = tempRecord;
                         cmbProjects.SelectedIndex = (tempRecord.Rows.Count > 1) ? 1 : 0;
                         UserInfo.SelectedValue = Convert.ToInt32(cmbProjects.SelectedValue);
+                        UserInfo.ProjectText = cmbProjects.Text;
                         switch (UserInfo.RoleId)
                         {
                             case "1": // Admin Role
@@ -644,6 +645,7 @@ namespace TMS.MDI
             string lastIndex = UserInfo.ProjectId;
             int currentIndex = cmbProjects.SelectedIndex;
             UserInfo.ProjectId = cmbProjects.SelectedIndex > 0 ? Convert.ToString(cmbProjects.SelectedValue) : null;
+            UserInfo.ProjectText = cmbProjects.Text;
             UserInfo.SelectedValue = Convert.ToInt32(cmbProjects.SelectedValue);
             try
             {
