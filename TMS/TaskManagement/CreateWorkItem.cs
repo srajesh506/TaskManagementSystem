@@ -265,6 +265,11 @@ namespace TMS.UI
         {
             try
             {
+                if(UserInfo.SelectedValue ==0)
+                    {
+                    PopupMessageBox.Show("Please Select Project Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
                 if (cmbActivity.SelectedIndex == 0)
                 {
                     PopupMessageBox.Show("Please Select Activity Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);

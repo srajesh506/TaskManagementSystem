@@ -113,13 +113,17 @@ namespace TMS.UI
             try
             {
                 btnPrint.Enabled = false;
-                if (cmbStatus.SelectedIndex <= 0)
+                if (UserInfo.SelectedValue == 0)
                 {
-                    PopupMessageBox.Show("Please Select Status!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PopupMessageBox.Show("Please Select Project Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (cmbStatus.SelectedIndex <= 0)
+                    {
+                        PopupMessageBox.Show("Please Select Status!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {
-                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue),true);
+                    LoadStatusBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, chkTimeAndStatus.Checked, Convert.ToInt32(cmbStatus.SelectedValue), true);
                     if (dView.Rows.Count <= 1)
                     {
                         PopupMessageBox.Show("No Records Found!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);

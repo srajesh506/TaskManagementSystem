@@ -62,15 +62,19 @@ namespace TMS.UI
         {
             try
             {
-                TimeSpan span = new TimeSpan(0, 0, 2, 0);
-                if (dtpDateFrom.Value > dtpDateTo.Value.Add(span))
+                if (UserInfo.SelectedValue == 0)
                 {
-                    PopupMessageBox.Show("From date should not be greater than to date", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    dtpDateTo.Value = DateTime.Now;
+                    PopupMessageBox.Show("Please Select Project Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    TimeSpan span = new TimeSpan(0, 0, 2, 0);
+                    if (dtpDateFrom.Value > dtpDateTo.Value.Add(span))
+                    {
+                        PopupMessageBox.Show("From date should not be greater than to date", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        dtpDateTo.Value = DateTime.Now;
+                    }
                 }
                 else
                 {
-                    LoadTimeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value,true);
+                    LoadTimeBasedReportGrid(dtpDateFrom.Value, dtpDateTo.Value, true);
                     btnPrint.Enabled = false;
                     if (dView.Rows.Count <= 1)
                     {

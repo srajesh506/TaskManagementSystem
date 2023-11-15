@@ -116,9 +116,13 @@ namespace TMS.UI
             try
             {
                 btnPrint.Enabled = false;
-                if (cmbAssignee.SelectedIndex <= 0)
+                if (UserInfo.SelectedValue == 0)
                 {
-                    PopupMessageBox.Show("Please Select Assignee!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PopupMessageBox.Show("Please Select Project Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (cmbAssignee.SelectedIndex <= 0)
+                    {
+                        PopupMessageBox.Show("Please Select Assignee!!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {
