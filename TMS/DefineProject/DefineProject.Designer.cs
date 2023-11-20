@@ -52,6 +52,7 @@
             this.lblProjectName = new System.Windows.Forms.Label();
             this.txtProjectName = new System.Windows.Forms.TextBox();
             this.lblProjectDescription = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.grpBoxPaging.SuspendLayout();
             this.grpBoxEmployeeGridView.SuspendLayout();
@@ -63,6 +64,7 @@
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
+            this.pnlMain.Controls.Add(this.label1);
             this.pnlMain.Controls.Add(this.cmbNoOfRecordsPerPage);
             this.pnlMain.Controls.Add(this.lblNoOfRecordPerPage);
             this.pnlMain.Controls.Add(this.grpBoxPaging);
@@ -75,6 +77,7 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1563, 883);
             this.pnlMain.TabIndex = 0;
+            // 
             // cmbNoOfRecordsPerPage
             // 
             this.cmbNoOfRecordsPerPage.FormattingEnabled = true;
@@ -372,6 +375,16 @@
             this.lblProjectDescription.TabIndex = 5;
             this.lblProjectDescription.Text = "Project Description";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(1136, 377);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(400, 20);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "*IsActive flag will not change if project already assigned.";
+            // 
             // FrmAssignProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -421,5 +434,6 @@
         private System.Windows.Forms.Button btnFirstPage;
         private System.Windows.Forms.Label lblPages;
         private System.Windows.Forms.ComboBox cmbNoOfRecordsPerPage;
+        private System.Windows.Forms.Label label1;
     }
 }

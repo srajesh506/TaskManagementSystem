@@ -633,38 +633,49 @@ namespace TMS.MDI
             try
             {
                 StartTimer(sender);
+               
             }
             catch (Exception ex)
             {
                 PopupMessageBox.Show("TMSError - Error in Master Data Menu Option Expand/Collapse event!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void BtnAdmin_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void cmbprojects_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmbProjects.SelectedIndexChanged -= cmbprojects_SelectedIndexChanged;
-            string lastIndex = UserInfo.ProjectId;
+            string lastProjectId = UserInfo.ProjectId;
             int currentIndex = cmbProjects.SelectedIndex;
             UserInfo.ProjectId = cmbProjects.SelectedIndex > 0 ? Convert.ToString(cmbProjects.SelectedValue) : null;
             UserInfo.ProjectText = cmbProjects.Text;
             UserInfo.SelectedValue = Convert.ToInt32(cmbProjects.SelectedValue);
             try
             {
-                if (cmbProjects.SelectedIndex > 0 && ActiveMdiChild != null)
+                string currentProjectId = UserInfo.ProjectId;
+                if (currentProjectId != lastProjectId)
                 {
-
-                    if (PopupMessageBox.Show("Do you want to switch the Project? if Yes,Enter Data will loss for the current page.", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    if (cmbProjects.SelectedIndex > 0 && ActiveMdiChild != null)
                     {
-                        Type childType = ActiveMdiChild.GetType();
-                        Form newChild = (Form)Activator.CreateInstance(childType);
-                        OpenChildForm(newChild);
-                    }
-                    else
-                    {
-                        //if (i++ == 0)
-                        cmbProjects.SelectedValue = lastIndex;
+
+                        if (PopupMessageBox.Show("Do you want to switch the Project? if Yes,Enter Data will loss for the current page.", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            Type childType = ActiveMdiChild.GetType();
+                            Form newChild = (Form)Activator.CreateInstance(childType);
+                            OpenChildForm(newChild);
+                        }
+                        else
+                        {
+                            //if (i++ == 0)
+                            cmbProjects.SelectedValue = lastProjectId;
+
+                        }
 
                     }
-
                 }
                 cmbProjects.SelectedIndexChanged += cmbprojects_SelectedIndexChanged;
             }

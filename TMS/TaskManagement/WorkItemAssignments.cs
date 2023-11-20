@@ -282,7 +282,7 @@ namespace TMS.UI
         {
             try
             {
-                _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, pageNum, pageSize, UserInfo.SelectedValue);
+                _WorkItemAssignment = workItemManagement.GetWorkItemAssignmentsUsingPaging(out _totalRecords, pageNum, pageSize, UserInfo.SelectedValue,chkFilterActive.Checked);
                 _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
                 _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_WorkItemAssignment.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_WorkItemAssignment.Rows.Count / pageSize));
                 _pageSize = pageSize;
@@ -451,68 +451,6 @@ namespace TMS.UI
                 PopupMessageBox.Show("TMSError - Failed to update Employee name or Status in the selected record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-        //private void comboLeave(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        int index = dgView.CurrentRow.Index;
-        //        _remarks = dgView.Rows[index].Cells[9].Value.ToString().Trim();
-        //        DataTable usertbl = teamManagement.GetEmployees(Global.GlobalVar);
-        //        if (!string.IsNullOrWhiteSpace(_remarks))
-        //        {
-        //            ComboBox temp = (ComboBox)sender;
-        //            if (_modifiedColumn == 4) // Status
-        //            {
-        //                _status = Convert.ToInt32(temp.SelectedValue);
-        //                string newRemark = GetNewRemark(usertbl, _remarks);
-        //                UpdateWorkItemAssignment(_status, newRemark);
-        //            }
-        //            else if (_modifiedColumn == 5) // UserId
-        //            {
-        //                string selectedEmpName = temp.Text;
-        //                if (_empName != selectedEmpName)
-        //                {
-        //                    _userId = Convert.ToString(temp.SelectedValue);
-        //                    string newRemark = GetNewRemark(usertbl, _remarks);
-        //                    UpdateWorkItemAssignment(0, newRemark);
-        //                }
-        //                else
-        //                {
-        //                    PopupMessageBox.Show("Assigned To Value has not changed. Please choose a different value than currently assigned", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //                }
-        //            }
-        //            temp.Hide();
-        //            FilterData(chkFilterActive.Checked);
-        //        }
-        //        else
-        //        {
-        //            dgView.Rows[index].Cells[9].Value = Microsoft.VisualBasic.Interaction.InputBox("Remarks are mandatory. Please put appropriate remarks.", "Mandatory Remarks", "");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PopupMessageBox.Show("TMSError - Failed to update Employee name or Status in the selected record!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-        //private string GetNewRemark(DataTable usertbl, string existingRemark)
-        //{
-        //    if (Isremarksexitsindatabase(_Id))
-        //    {
-        //        string input = Microsoft.VisualBasic.Interaction.InputBox("Enter mandatory remarks:", "Mandatory Remarks", "");
-        //        if (!string.IsNullOrWhiteSpace(input))
-        //        {
-        //            return existingRemark + "\n" + usertbl.Rows[0]["EmpName"].ToString() + ": " + input + " (" + DateTime.Now.ToString() + ")";
-        //        }
-        //        return existingRemark;
-        //    }
-        //    return usertbl.Rows[0]["EmpName"].ToString() + ": " + existingRemark + " (" + DateTime.Now.ToString() + ")";
-        //}
-        //private void UpdateWorkItemAssignment(int status, string newRemark)
-        //{
-        //    workItemManagement.AddUpdateWorkassignmentItem(_workItemAssignmentId, _workItemId, _userId, status, newRemark);
-        //}
         private void WorkItemAssignments_Load(object sender, EventArgs e)
         {
             try
@@ -527,7 +465,6 @@ namespace TMS.UI
             }
 
         }
-
         private void btnNext_Click(object sender, EventArgs e)
         {
             try
@@ -543,7 +480,6 @@ namespace TMS.UI
                 PopupMessageBox.Show("TMSError - Failed to move to next page in the grid !! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btnLastPage_Click(object sender, EventArgs e)
         {
             try
@@ -559,7 +495,6 @@ namespace TMS.UI
                 PopupMessageBox.Show("TMSError - Failed to move to last page in the grid!!  \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             try
@@ -630,17 +565,5 @@ namespace TMS.UI
         {
 
         }
-
-        //private void dgView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
-        //{
-        //    count += 1;
-        //    if (count == 1)
-        //    {
-        //        changerowcolor();
-        //        dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
-        //    }
-        //    changerowcolor();
-        //    dgView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
-        //}
     }
 }

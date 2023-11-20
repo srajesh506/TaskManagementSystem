@@ -24,7 +24,6 @@ namespace TMS.BusinessLogicLayer
                 sqlCommand.Parameters.Add("@ProjectName", SqlDbType.NVarChar).Value = projectData.ProjectName;
                 sqlCommand.Parameters.Add("@ProjectDescription", SqlDbType.NVarChar).Value = projectData.ProjectDescription;
                 sqlCommand.Parameters.Add("@IsActive", SqlDbType.Bit).Value = projectData.IsActive;
-              
                 return dbConnection.ExeNonQuery(sqlCommand);
             }
             catch (Exception ex)

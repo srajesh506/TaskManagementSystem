@@ -16,13 +16,10 @@ namespace TMS.UI
     {
         private int _currentPage = 1;
         private int _pageSize = 5;
-
         private int _noOfPages;
         private int _totalRecords;
-
         private int _startPageInLocal;
         private int _pagesInLocal;
-
         private DataTable _projectdetails;
 
         Project projectData = new Project();

@@ -253,7 +253,7 @@
             // 
             // dgView
             // 
-            this.dgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgView.ColumnHeadersHeight = 34;
             this.dgView.Location = new System.Drawing.Point(9, 46);
             this.dgView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgView.Name = "dgView";

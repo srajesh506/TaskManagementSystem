@@ -492,22 +492,22 @@ namespace TMS.UI
                         {
                             if (subTaskId != -1)
                             {
-                                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId, taskId, subTaskId);
+                                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.SelectedValue, activityId, taskId, subTaskId);
                             }
                             else
                             {
-                                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId, taskId);
+                                _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.SelectedValue, activityId, taskId);
                             }
                            
                         }
                         else
                         {
-                            _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), activityId);
+                            _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),UserInfo.SelectedValue, activityId);
                         }
                     }
                     else
                     {
-                        _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),UserInfo.SelectedValue);
+                        _WorkItem = workItemManagement.GetWorkItemsUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),UserInfo.SelectedValue,activityId);
                     }
                     DataTable records = FormControlHandling.GetPageRecords(_WorkItem, _currentPage, _pageSize);
                     dgView.DataSource = null;

@@ -172,7 +172,8 @@ namespace TMS.UI
                     {
                         chkListBoxProject.SetItemChecked(i, false);
                     }
-                        DataRow[] dataRowSelectedEmployee = _employees.Select("[User Id] = '"+ txtUserId.Text + "' and IsActive =1");
+                    //DataRow[] dataRowSelectedEmployee = _employees.Select("[User Id] = '"+ txtUserId.Text + "' and IsActive =1");
+                    DataRow[] dataRowSelectedEmployee = _employees.Select("[User Id] = '" + txtUserId.Text + "'");
                     if (dataRowSelectedEmployee.Length > 0)
                     {
                         foreach (DataRow drEmployee in dataRowSelectedEmployee)
@@ -422,6 +423,7 @@ namespace TMS.UI
                     {
                         PopupMessageBox.Show("Please Confirm Active Member!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return false;
+
                     }
                 }
                 if (txtUserId.Text == "")
@@ -628,15 +630,18 @@ namespace TMS.UI
                         default:
                             throw new Exception("TMSError - Invalid Operation!! ");
                     }
+                    if (mode == "S")
+                        RightBottomMessageBox.Success("Data saved Successfully!");
+                    else
+                        RightBottomMessageBox.Info("Data modify Successfully!");
+
+                    _currentPage = 1;               //Freshly Load the grid with Page 1
+                    LoadEmployeesDataGrid(true);    //True flag to make DB call for refreshing the grid
+                    FormControlHandling.ClearControls(grpBoxRegistrationForm);
+                    EnableDisableButtons(2);
                 }
-                _currentPage = 1;               //Freshly Load the grid with Page 1
-                LoadEmployeesDataGrid(true);    //True flag to make DB call for refreshing the grid
-                FormControlHandling.ClearControls(grpBoxRegistrationForm);
-                EnableDisableButtons(2);
-                if (mode == "S")
-                    RightBottomMessageBox.Success("Data saved Successfully!");
-                else
-                    RightBottomMessageBox.Info("Data modify Successfully!");
+              
+              
             }
             catch (Exception ex)
             {
@@ -666,6 +671,8 @@ namespace TMS.UI
                 dgView.Columns[9].Visible = false;
                 dgView.Columns[10].Visible = false;
                 dgView.Columns[11].Visible = false;
+                dgView.Columns[12].Visible = true;
+                dgView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
                 dgView.ReadOnly = true;
                 EnableDisableButtons(4);
             }
@@ -751,6 +758,20 @@ namespace TMS.UI
                 chkListBoxProject.SetItemChecked(i, isChecked);
             }
         }
+
+        //private void dgView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        //{
+        //    DataGridViewRow row = dgView.Rows[e.RowIndex];
+
+        //    if ((Convert.ToInt32(row.Cells["IsActive"].Value) == 0) && (row.Cells["IsActive"].Value != null))
+        //    {
+        //        row.DefaultCellStyle.BackColor = Color.LightBlue;
+        //    }
+        //    else
+        //    {
+        //        row.DefaultCellStyle.BackColor = Color.White;
+        //    }
+        //}
     }
 }
 

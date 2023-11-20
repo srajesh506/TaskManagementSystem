@@ -34,7 +34,6 @@ namespace TMS.MDI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             this.pnlSideBar = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlLogo = new System.Windows.Forms.Panel();
-            this.pbUser = new TMS.UI.Utilities.RoundPictureBox();
             this.lblLogOut = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.lblMenu = new System.Windows.Forms.Label();
@@ -76,9 +75,9 @@ namespace TMS.MDI
             this.btnCloseChildForm = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlDesktopPanel = new System.Windows.Forms.Panel();
+            this.pbUser = new TMS.UI.Utilities.RoundPictureBox();
             this.pnlSideBar.SuspendLayout();
             this.pnlLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMenuButton)).BeginInit();
             this.pnlAdmin.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -93,6 +92,7 @@ namespace TMS.MDI
             this.pnlSettings.SuspendLayout();
             this.pnltop.SuspendLayout();
             this.pnlTitleBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlSideBar
@@ -126,16 +126,6 @@ namespace TMS.MDI
             this.pnlLogo.Name = "pnlLogo";
             this.pnlLogo.Size = new System.Drawing.Size(360, 215);
             this.pnlLogo.TabIndex = 1;
-            // 
-            // pbUser
-            // 
-            this.pbUser.Location = new System.Drawing.Point(4, 9);
-            this.pbUser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pbUser.Name = "pbUser";
-            this.pbUser.Size = new System.Drawing.Size(88, 91);
-            this.pbUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbUser.TabIndex = 5;
-            this.pbUser.TabStop = false;
             // 
             // lblLogOut
             // 
@@ -175,7 +165,7 @@ namespace TMS.MDI
             this.lblMenu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMenu.ForeColor = System.Drawing.Color.White;
-            this.lblMenu.Location = new System.Drawing.Point(65, 163);
+            this.lblMenu.Location = new System.Drawing.Point(93, 163);
             this.lblMenu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMenu.Name = "lblMenu";
             this.lblMenu.Size = new System.Drawing.Size(62, 28);
@@ -187,7 +177,7 @@ namespace TMS.MDI
             // pbMenuButton
             // 
             this.pbMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("pbMenuButton.Image")));
-            this.pbMenuButton.Location = new System.Drawing.Point(9, 160);
+            this.pbMenuButton.Location = new System.Drawing.Point(16, 160);
             this.pbMenuButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pbMenuButton.Name = "pbMenuButton";
             this.pbMenuButton.Size = new System.Drawing.Size(56, 36);
@@ -764,6 +754,16 @@ namespace TMS.MDI
             this.pnlDesktopPanel.Size = new System.Drawing.Size(1348, 968);
             this.pnlDesktopPanel.TabIndex = 5;
             // 
+            // pbUser
+            // 
+            this.pbUser.Location = new System.Drawing.Point(4, 9);
+            this.pbUser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pbUser.Name = "pbUser";
+            this.pbUser.Size = new System.Drawing.Size(88, 91);
+            this.pbUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbUser.TabIndex = 5;
+            this.pbUser.TabStop = false;
+            // 
             // FormMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -784,7 +784,6 @@ namespace TMS.MDI
             this.pnlSideBar.ResumeLayout(false);
             this.pnlLogo.ResumeLayout(false);
             this.pnlLogo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMenuButton)).EndInit();
             this.pnlAdmin.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -801,6 +800,7 @@ namespace TMS.MDI
             this.pnltop.PerformLayout();
             this.pnlTitleBar.ResumeLayout(false);
             this.pnlTitleBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUser)).EndInit();
             this.ResumeLayout(false);
 
         }

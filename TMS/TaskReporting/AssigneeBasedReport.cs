@@ -368,5 +368,10 @@ namespace TMS.UI
             _currentPage = 1;
             LoadAssigneeBasedReportGrid(true);
         }
+
+        private void grpBoxPaging_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

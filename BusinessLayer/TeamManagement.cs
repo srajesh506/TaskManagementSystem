@@ -143,12 +143,11 @@ namespace TMS.BusinessLogicLayer
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.CommandText = "uspAddUpdateEmployee";
-                DtActiveEmployee = GetEmployees(employee.UserId);
-                if ((DtActiveEmployee.Rows.Count <= 0) && (updateflag == false))
+                if (updateflag == false)
                 {
                     sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Int).Value = 0;
                 }
-                else if ((DtActiveEmployee.Rows.Count > 0) && (updateflag == true))
+                else if (updateflag == true)
                 {
                     sqlCommand.Parameters.Add("@UpdateFlag", SqlDbType.Int).Value = 1;
                 }

@@ -70,7 +70,7 @@ namespace TMS.UI
             // lblNoOfRecordPerPage
             // 
             this.lblNoOfRecordPerPage.AutoSize = true;
-            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(9, 902);
+            this.lblNoOfRecordPerPage.Location = new System.Drawing.Point(9, 861);
             this.lblNoOfRecordPerPage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNoOfRecordPerPage.Name = "lblNoOfRecordPerPage";
             this.lblNoOfRecordPerPage.Size = new System.Drawing.Size(81, 20);
@@ -86,7 +86,7 @@ namespace TMS.UI
             "20",
             "50",
             "100"});
-            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(98, 898);
+            this.cmbNoOfRecordsPerPage.Location = new System.Drawing.Point(98, 861);
             this.cmbNoOfRecordsPerPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbNoOfRecordsPerPage.Name = "cmbNoOfRecordsPerPage";
             this.cmbNoOfRecordsPerPage.Size = new System.Drawing.Size(66, 28);
@@ -104,7 +104,7 @@ namespace TMS.UI
             this.grpBoxPaging.Controls.Add(this.lblCurrentPage);
             this.grpBoxPaging.Controls.Add(this.btnNext);
             this.grpBoxPaging.Controls.Add(this.btnPrevious);
-            this.grpBoxPaging.Location = new System.Drawing.Point(555, 894);
+            this.grpBoxPaging.Location = new System.Drawing.Point(555, 861);
             this.grpBoxPaging.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpBoxPaging.Name = "grpBoxPaging";
             this.grpBoxPaging.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -214,7 +214,7 @@ namespace TMS.UI
             this.grpBoxGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpBoxGridView.Name = "grpBoxGridView";
             this.grpBoxGridView.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpBoxGridView.Size = new System.Drawing.Size(1659, 873);
+            this.grpBoxGridView.Size = new System.Drawing.Size(1659, 835);
             this.grpBoxGridView.TabIndex = 15;
             this.grpBoxGridView.TabStop = false;
             this.grpBoxGridView.Text = "Assign WorkItems";
@@ -250,7 +250,7 @@ namespace TMS.UI
             this.dgView.Name = "dgView";
             this.dgView.RowHeadersWidth = 62;
             this.dgView.RowTemplate.Height = 30;
-            this.dgView.Size = new System.Drawing.Size(1636, 788);
+            this.dgView.Size = new System.Drawing.Size(1636, 751);
             this.dgView.TabIndex = 0;
             this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellClick);
             this.dgView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
