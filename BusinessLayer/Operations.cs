@@ -10,16 +10,16 @@ namespace TMS.BusinessLogicLayer
 {
     public class Operations
     {
+        string encryptionKey = Environment.GetEnvironmentVariable("TMSKEY", EnvironmentVariableTarget.Machine);
         public string Encrypt(string encryptString)
         {
             try
             {
-                string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";// Define the encryption key, which is a string of characters
                 byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);// Convert the string you want to encrypt into bytes
                 using (Aes encryptor = Aes.Create())// Create an Aes object for encryption
                 {
                     // Create a key derivation function with the encryption key and salt
-                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] {
             0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
         });
                     // Set the encryption key and initialization vector
@@ -47,13 +47,12 @@ namespace TMS.BusinessLogicLayer
         {
             try
             {
-                string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";// Define the encryption key, which is a string of characters
                 cipherText = cipherText.Replace(" ", "+");// Remove any white spaces from the input cipherText
                 byte[] cipherBytes = Convert.FromBase64String(cipherText);// Convert the cipherText (Base64 encoded) into bytes
                 using (Aes encryptor = Aes.Create())// Create an Aes object for decryption
                 {
                     // Create a key derivation function with the encryption key and salt
-                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] {
             0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
         });
                     // Set the decryption key and initialization vector

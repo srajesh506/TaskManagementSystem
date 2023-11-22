@@ -8,10 +8,9 @@ using TMS.UI.Utilities;
 using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
 using System.Data;
-using CrystalDecisions.ReportAppServer.DataDefModel;
-using DataSet = System.Data.DataSet;
 using TMS.BusinessEntities;
-using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace TMS.MDI
 {
@@ -19,6 +18,7 @@ namespace TMS.MDI
     {
         //Flags to store the expanded or collapsed status of Menu Options
         private bool _sideBarExpand = true;
+        private bool _adminCollaps = true;
         private bool _masterDataCollaps = true;
         private bool _workItemCollaps = true;
         private bool _reportCollaps = true;
@@ -26,9 +26,11 @@ namespace TMS.MDI
 
         //String variable to hold the name of the control which triggered the Timer to start as part of Menu Expand/Collapse Functionality.
         private String _timerStartControlName;
-        private Button _currentButton;
+        private System.Windows.Forms.Button _currentButton;
         private Random _random;
         private Form _activeForm;
+
+        ProjectManagement projectManagement = new ProjectManagement();
         TeamManagement teamManagement = new TeamManagement();
         public FormMainMenu(string userId)
         {
@@ -41,28 +43,43 @@ namespace TMS.MDI
                 btnCloseChildForm.Visible = false;
                 this.Text = string.Empty;
                 this.ControlBox = false;
-                DataTable employeeDetails = new DataTable();
+                DataTable employeeDetails = new System.Data.DataTable();
                 employeeDetails = teamManagement.GetEmployees(userId);
-                pbUser.Image = File.Exists(Application.StartupPath + "\\Images\\" + userId + ".jpg") ? Image.FromFile(Application.StartupPath + "\\Images\\" + userId + ".jpg") : Image.FromFile(Application.StartupPath + "\\Images\\noimageMDI.png");
-                lblWelcome.Text = "Welcome " + employeeDetails.Rows[0][0].ToString();
+                pbUser.Image = File.Exists(System.Windows.Forms.Application.StartupPath + "\\Images\\" + userId + ".jpg") ? Image.FromFile(Application.StartupPath + "\\Images\\" + userId + ".jpg") : Image.FromFile(Application.StartupPath + "\\Images\\noimageMDI.png");
+                lblWelcome.Text = "Welcome " + employeeDetails.Rows[0]["EmpName"].ToString();
                 UserInfo.RoleId = employeeDetails.Rows[0]["RoleId"].ToString();
+
+                int[] projectIdArray ;
+                string[] projectNameArray;
                 DataTable employeeProjectAssignedRecord = new DataTable();
-                employeeProjectAssignedRecord = teamManagement.GetProjectbyUserId(userId);
-                if (employeeProjectAssignedRecord != null)
+
+                if (employeeDetails.Rows[0]["RoleId"].ToString() == "1")
                 {
-                    DataTable tempRecord = new DataTable();
-                    tempRecord = employeeProjectAssignedRecord;
-                    DataRow dataRow = tempRecord.NewRow();
+                    employeeProjectAssignedRecord = projectManagement.GetAllProject();
+                }
+
+                else if (!string.IsNullOrEmpty(employeeDetails.Rows[0]["ProjectId"].ToString()) && !string.IsNullOrEmpty(employeeDetails.Rows[0]["ProjectName"].ToString()))
+                {
+                    projectIdArray = employeeDetails.Rows[0]["ProjectId"].ToString().Split(',').Select(int.Parse).ToArray();
+                    projectNameArray = employeeDetails.Rows[0]["ProjectName"].ToString().Split(',');
+                    
+                    employeeProjectAssignedRecord.Columns.Add("ProjectId", typeof(int));
+                    employeeProjectAssignedRecord.Columns.Add("ProjectName", typeof(string));
+                    for (int i = 0; i < projectIdArray.Length && i < projectNameArray.Length; i++)
+                    {
+                        employeeProjectAssignedRecord.Rows.Add(projectIdArray[i].ToString().Trim(), projectNameArray[i].Trim());
+                    }
+                }                
+                if (employeeProjectAssignedRecord != null && employeeProjectAssignedRecord.Rows.Count > 0)
+                {
+                    DataRow dataRow = employeeProjectAssignedRecord.NewRow();
                     dataRow.ItemArray = new object[] { 0, "--Select Project--" };
-                    tempRecord.Rows.InsertAt(dataRow, 0);
+                    employeeProjectAssignedRecord.Rows.InsertAt(dataRow, 0);
                     if (employeeProjectAssignedRecord.Rows.Count > 0)
                     {
                         cmbProjects.ValueMember = "ProjectId";
                         cmbProjects.DisplayMember = "ProjectName";
-                        cmbProjects.DataSource = tempRecord;
-                        cmbProjects.SelectedIndex = (tempRecord.Rows.Count > 1) ? 1 : 0;
-                        UserInfo.SelectedValue = Convert.ToInt32(cmbProjects.SelectedValue);
-                        UserInfo.ProjectText = cmbProjects.Text;
+                        cmbProjects.DataSource = employeeProjectAssignedRecord;
                         switch (UserInfo.RoleId)
                         {
                             case "1": // Admin Role
@@ -87,6 +104,10 @@ namespace TMS.MDI
                                 break;
                         }
                     }
+                }
+                else
+                {
+                    PopupMessageBox.Show("User is not assigned to any project. Please connect with your reporting manager", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             catch (Exception ex)
@@ -359,13 +380,14 @@ namespace TMS.MDI
         {
             try
             {
+
                 switch (_timerStartControlName)
                 {
                     case "pbMenuButton":
                         VerticalTimerTick();
                         break;
                     case "btnAdmin":
-                        _masterDataCollaps = HorizantalTimerTick(_masterDataCollaps, pnlAdmin);
+                        _adminCollaps = HorizantalTimerTick(_adminCollaps, pnlAdmin);
                         break;
                     case "btnMasterData":
                         _masterDataCollaps = HorizantalTimerTick(_masterDataCollaps, pnlMasterData);
@@ -573,6 +595,17 @@ namespace TMS.MDI
                         collaps = false;
                         timerExpandCollapse.Stop();
                     }
+                    foreach (Panel control in pnlSideBar.Controls)
+                    {
+                        if (control != panel && control != pnlLogo)
+                        {
+                            if (control.Height > control.MinimumSize.Height)
+                            {
+                                control.Height = control.MinimumSize.Height;
+                                ResetPanelCollapsFlags(control, true);
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -589,6 +622,30 @@ namespace TMS.MDI
                 throw new Exception("TMSError - Error in Menu Options Expand/Collapse event!! \n" + ex.Message + "\n", ex.InnerException);
             }
             return collaps;
+        }
+
+        private void ResetPanelCollapsFlags(Panel pnl, Boolean flag)
+        {
+            switch (pnl.Name)
+            {
+                case "pnlAdmin":
+                    _adminCollaps = flag;
+                    break;
+                case "pnlMasterData":
+                    _masterDataCollaps = flag;
+                    break;
+                case "pnlWorkItem":
+                    _workItemCollaps = flag;
+                    break;
+                case "pnlReportAnalysis":
+                    _reportCollaps = flag;
+                    break;
+                case "pnlSettings":
+                    _settingsCollaps = flag;
+                    break;
+                default:
+                    break;
+            }
         }
         //Function to start timer and capture the name of control which triggered timer to start
         private void StartTimer(object controlSender)
@@ -633,7 +690,7 @@ namespace TMS.MDI
             try
             {
                 StartTimer(sender);
-               
+
             }
             catch (Exception ex)
             {
@@ -648,34 +705,42 @@ namespace TMS.MDI
 
         private void cmbprojects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbProjects.SelectedIndexChanged -= cmbprojects_SelectedIndexChanged;
-            string lastProjectId = UserInfo.ProjectId;
-            int currentIndex = cmbProjects.SelectedIndex;
-            UserInfo.ProjectId = cmbProjects.SelectedIndex > 0 ? Convert.ToString(cmbProjects.SelectedValue) : null;
-            UserInfo.ProjectText = cmbProjects.Text;
-            UserInfo.SelectedValue = Convert.ToInt32(cmbProjects.SelectedValue);
             try
             {
-                string currentProjectId = UserInfo.ProjectId;
-                if (currentProjectId != lastProjectId)
+                cmbProjects.SelectedIndexChanged -= cmbprojects_SelectedIndexChanged;
+                string lastProjectId = UserInfo.ProjectId;
+                if (cmbProjects.SelectedIndex > 0)
                 {
-                    if (cmbProjects.SelectedIndex > 0 && ActiveMdiChild != null)
+                    string currentProjectId = Convert.ToString(cmbProjects.SelectedValue);
+                    if (currentProjectId != lastProjectId)
                     {
-
-                        if (PopupMessageBox.Show("Do you want to switch the Project? if Yes,Enter Data will loss for the current page.", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                        if (ActiveMdiChild != null)
                         {
-                            Type childType = ActiveMdiChild.GetType();
-                            Form newChild = (Form)Activator.CreateInstance(childType);
-                            OpenChildForm(newChild);
+                            if (PopupMessageBox.Show("Do you want to switch the Project? if Yes,Enter Data will loss for the current page.", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                            {
+                                SetupUserInfo();
+                                Type childType = ActiveMdiChild.GetType();
+                                Form newChild = (Form)Activator.CreateInstance(childType);
+                                OpenChildForm(newChild);
+                            }
+                            else
+                            {
+                                //if (i++ == 0)
+                                cmbProjects.SelectedValue = lastProjectId;
+                                SetupUserInfo();
+                            }
                         }
                         else
                         {
-                            //if (i++ == 0)
-                            cmbProjects.SelectedValue = lastProjectId;
-
+                            SetupUserInfo();
                         }
-
                     }
+                }
+                else
+                {
+                    cmbProjects.SelectedIndex = (cmbProjects.Items.Count > 0) ? 1 : 0;
+                    SetupUserInfo();
+                    //PopupMessageBox.Show("Default Project Selected", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 cmbProjects.SelectedIndexChanged += cmbprojects_SelectedIndexChanged;
             }
@@ -684,5 +749,12 @@ namespace TMS.MDI
                 PopupMessageBox.Show("TMSError - Error in loading Task Management Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void SetupUserInfo()
+        {
+            UserInfo.ProjectId = cmbProjects.SelectedIndex > 0 ? Convert.ToString(cmbProjects.SelectedValue) : null;
+            UserInfo.ProjectText = cmbProjects.Text;
+            UserInfo.SelectedValue = Convert.ToInt32(cmbProjects.SelectedValue);
+        }
+
     }
 }

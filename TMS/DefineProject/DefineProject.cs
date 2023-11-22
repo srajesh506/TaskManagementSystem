@@ -116,7 +116,8 @@ namespace TMS.UI
                     projectData.ProjectId = Convert.ToInt32(dgView.Rows[index].Cells[1].Value);
                     txtProjectName.Text = Convert.ToString(dgView.Rows[index].Cells[4].Value);
                     rtxtProjectDescription.Text = Convert.ToString(dgView.Rows[index].Cells[5].Value);
-                    chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[6].Value);
+                    //chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[6].Value);
+                    chkActive.Checked = (dgView.Rows[index].Cells[6].Value.ToString() == "Active") ? true : false;
                     EnableDisableButtons(3);
                 }
             }
@@ -431,14 +432,21 @@ namespace TMS.UI
                 lblNoOfPages.Text = _noOfPages.ToString();
                 DataTable records = FormControlHandling.GetPageRecords(_projectdetails, _currentPage, _pageSize);
                 dgView.DataSource = records;
+                if (records != null && records.Rows.Count > 0)
+                {
+                    dgView.Columns[0].Visible = false;
+                    dgView.Columns[2].Visible = false;
+                    dgView.Columns[3].Visible = false;
+                    //dgView.Columns[6].Visible = false;
+                    //dgView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+                    //dgView.ReadOnly = true;
+                    dgView.AllowUserToAddRows = false;
+                    dgView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dgView.AutoResizeColumns();
+                    dgView.ReadOnly = true;
+                    EnableDisableButtons(4);
+                }
                 
-                dgView.Columns[1].Visible = false;
-                dgView.Columns[2].Visible = false;
-                dgView.Columns[3].Visible = false;
-                dgView.Columns[6].Visible = false;
-                dgView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-                dgView.ReadOnly = true;
-                EnableDisableButtons(4);
             }
             catch (Exception ex)
             {

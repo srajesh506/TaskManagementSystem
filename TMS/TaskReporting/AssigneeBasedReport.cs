@@ -62,7 +62,7 @@ namespace TMS.UI
                 dtAssignee = teamManagement.GetEmployees(null, true,UserInfo.SelectedValue);
                 DataRow drAssignee;
                 drAssignee = dtAssignee.NewRow();
-                drAssignee.ItemArray = new object[] {  "--Select Assignee--", 0 };
+                drAssignee.ItemArray = new object[] { 0, "--Select Assignee--" };
                 dtAssignee.Rows.InsertAt(drAssignee, 0);
                 cmbAssignee.ValueMember = "UserId";
                 cmbAssignee.DisplayMember = "EmpName";

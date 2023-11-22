@@ -178,27 +178,31 @@ namespace TMS.UI
                     {
                         foreach (DataRow drEmployee in dataRowSelectedEmployee)
                         {
-                            if (!string.IsNullOrEmpty(Convert.ToString(drEmployee["projectid"])))
+                            if (!string.IsNullOrEmpty(Convert.ToString(drEmployee["ProjectId"])))
                             {
-                                int projectId = Convert.ToInt32(drEmployee["projectid"]);
+                                List<int> projectIdArray = Convert.ToString(drEmployee["ProjectId"]).Split(',').Select(int.Parse).ToList();
+                                //List<string> projectNameArray = Convert.ToString(drEmployee["ProjectName"]).Split(',').ToList();
+
+                                //int projectId = Convert.ToInt32(drEmployee["ProjectId"]);
                                 // Find the corresponding item in the CheckedListBox and check/uncheck it
                                 for (int i = 0; i < chkListBoxProject.Items.Count; i++)
                                 {
                                     //chklstbxProject.SetItemChecked(i, false);
                                     ListItem item = chkListBoxProject.Items[i] as ListItem;
-                                    if (item != null && item.Value == drEmployee["projectid"].ToString())
+                                    //if (item != null && item.Value == drEmployee["ProjectId"].ToString())
+                                    if (item != null && projectIdArray.Contains(Convert.ToInt32(item.Value)))
                                     {
                                         // Toggle the item's checked state
                                         //chklstbxProject.SetItemChecked(i, !chklstbxProject.GetItemChecked(i));
                                         chkListBoxProject.SetItemChecked(i, true);
-                                        break; // Exit the loop once the item is found
+                                        //break; // Exit the loop once the item is found
                                     }
                                 }
                             }
                         }
                     }
                     txtPwd.Text = operations.Decrypt(Convert.ToString(dgView.Rows[index].Cells[7].Value));
-                    chkActive.Checked = Convert.ToBoolean(dgView.Rows[index].Cells[10].Value);
+                    chkActive.Checked = (dgView.Rows[index].Cells[10].Value.ToString() == "Active") ? true : false;
                     EnableDisableButtons(3);
                     if (File.Exists(Application.StartupPath + "\\Images\\" + txtUserId.Text + ".jpg"))
                     {
@@ -640,8 +644,8 @@ namespace TMS.UI
                     FormControlHandling.ClearControls(grpBoxRegistrationForm);
                     EnableDisableButtons(2);
                 }
-              
-              
+
+
             }
             catch (Exception ex)
             {
@@ -660,21 +664,21 @@ namespace TMS.UI
                 lblNoOfPages.Text = _noOfPages.ToString();
                 DataTable records = FormControlHandling.GetPageRecords(_employees, _currentPage, _pageSize);
                 dgView.DataSource = records;
-                dgView.Columns[0].Visible = false;
-                dgView.Columns[1].Width = 150;
-                dgView.Columns[2].Width = 200;
-                dgView.Columns[3].Width = 150;
-                dgView.Columns[4].Width = 300;
-                dgView.Columns[5].Width = 300;
-                dgView.Columns[7].Visible = false;
-                dgView.Columns[8].Visible = false;
-                dgView.Columns[9].Visible = false;
-                dgView.Columns[10].Visible = false;
-                dgView.Columns[11].Visible = false;
-                dgView.Columns[12].Visible = true;
-                dgView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-                dgView.ReadOnly = true;
-                EnableDisableButtons(4);
+                if (records != null && records.Rows.Count > 0)
+                {
+                    dgView.Columns[0].Visible = false;
+                    dgView.Columns[6].Visible = false;
+                    dgView.Columns[7].Visible = false;
+                    dgView.Columns[8].Visible = false;
+                    dgView.Columns[9].Visible = false;
+                    dgView.Columns[11].Visible = false;
+                    dgView.AllowUserToAddRows = false;
+                    dgView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dgView.AutoResizeColumns();
+                    dgView.ReadOnly = true;
+                    EnableDisableButtons(4);
+                }
+ 
             }
             catch (Exception ex)
             {
@@ -719,8 +723,8 @@ namespace TMS.UI
                 foreach (DataRow row in dataTable.Rows)
                 {
                     // Assuming "projectid" and "Project Name" are column names in the DataTable
-                    string projectID = row["projectid"].ToString();
-                    string projectName = row["projectname"].ToString();
+                    string projectID = row["ProjectId"].ToString();
+                    string projectName = row["ProjectName"].ToString();
                     bool isChecked = false;
                     if (checkedState.ContainsKey(projectName))
                     {
@@ -759,20 +763,24 @@ namespace TMS.UI
             }
         }
 
-        //private void dgView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
-        //{
-        //    DataGridViewRow row = dgView.Rows[e.RowIndex];
 
-        //    if ((Convert.ToInt32(row.Cells["IsActive"].Value) == 0) && (row.Cells["IsActive"].Value != null))
-        //    {
-        //        row.DefaultCellStyle.BackColor = Color.LightBlue;
-        //    }
-        //    else
-        //    {
-        //        row.DefaultCellStyle.BackColor = Color.White;
-        //    }
-        //}
+     
     }
+
+    //private void dgView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+    //{
+    //    DataGridViewRow row = dgView.Rows[e.RowIndex];
+
+    //    if ((Convert.ToInt32(row.Cells["IsActive"].Value) == 0) && (row.Cells["IsActive"].Value != null))
+    //    {
+    //        row.DefaultCellStyle.BackColor = Color.LightBlue;
+    //    }
+    //    else
+    //    {
+    //        row.DefaultCellStyle.BackColor = Color.White;
+    //    }
+    //}
 }
+
 
 

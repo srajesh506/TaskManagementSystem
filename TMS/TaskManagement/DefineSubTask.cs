@@ -57,17 +57,17 @@ namespace TMS.UI
             try
             {
                 LoadTheme();
-                LoadSubTaskDataGrid(true, true);
+                LoadSubTaskDataGrid(true);
                 EnableDisableButtons(2);
 
                 DataTable dtActivity = new DataTable();
                 dtActivity = taskManagement.GetActivities(UserInfo.SelectedValue, true);
-                var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "ActivityId", "ActivityName");
+                var dtActivityFilter = dtActivity.DefaultView.ToTable(false, "Activity Id", "Activity Name");
                 DataRow drActivity = dtActivityFilter.NewRow();
                 drActivity.ItemArray = new object[] { 0, "--Select Activity--" };
                 dtActivityFilter.Rows.InsertAt(drActivity, 0);
-                cmbActivity.ValueMember = "ActivityId";
-                cmbActivity.DisplayMember = "ActivityName";
+                cmbActivity.ValueMember = "Activity Id";
+                cmbActivity.DisplayMember = "Activity Name";
                 cmbActivity.DataSource = dtActivityFilter;
             }
             catch (Exception ex)
@@ -75,6 +75,7 @@ namespace TMS.UI
                 PopupMessageBox.Show("TMSError - Failed to Load the Define SubTask Form!! \n" + ex.Message + "\n", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         //Add button click event to enable the form for adding new record
         private void btnAdd_Click(object sender, EventArgs e)
@@ -122,6 +123,7 @@ namespace TMS.UI
             {
                 FormControlHandling.ClearControls(grpBoxInputControls);
                 EnableDisableButtons(2);
+                LoadSubTaskDataGrid(true);
             }
             catch (Exception ex)
             {
@@ -138,11 +140,12 @@ namespace TMS.UI
                 if ((index >= 0) && (index <= dView.RowCount - 1))
                 {
                     _activityId = Convert.ToInt32(dView.Rows[index].Cells[7].Value);
-                    _taskId = Convert.ToInt32(dView.Rows[index].Cells[6].Value);
-                    _subTaskName = Convert.ToString(dView.Rows[index].Cells[3].Value);
-                    _subTaskDescription = Convert.ToString(dView.Rows[index].Cells[4].Value);
-                    _isActive = Convert.ToBoolean(dView.Rows[index].Cells[5].Value);
-                    _subTaskId = Convert.ToInt32(dView.Rows[index].Cells[8].Value);
+                    _taskId = Convert.ToInt32(dView.Rows[index].Cells[8].Value);
+                    _subTaskName = Convert.ToString(dView.Rows[index].Cells[2].Value);
+                    _subTaskDescription = Convert.ToString(dView.Rows[index].Cells[3].Value);
+                    //_isActive = Convert.ToBoolean(dView.Rows[index].Cells[5].Value);
+                    _isActive = (dView.Rows[index].Cells[4].Value.ToString() == "Active") ? true : false;
+                    _subTaskId = Convert.ToInt32(dView.Rows[index].Cells[1].Value);
 
                     cmbActivity.SelectedValue = Convert.ToString(_activityId);
                     cmbTask.SelectedValue = Convert.ToString(_taskId);
@@ -166,17 +169,24 @@ namespace TMS.UI
                 if (cmbActivity.SelectedIndex > 0)
                 {
                     DataTable dtTemp = new DataTable();
-                    dtTemp = taskManagement.GetTasks(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)),null, UserInfo.SelectedValue);
-                    string[] selectedColumns = new[] { "TaskId", "Task Name" };
+                    dtTemp = taskManagement.GetTasks(false, -1, (Convert.ToInt32(cmbActivity.SelectedValue)), null, UserInfo.SelectedValue);
+                    string[] selectedColumns = new[] { "Task Id", "Task Name" };
                     DataTable dtTask = new DataView(dtTemp).ToTable(false, selectedColumns);
                     DataRow drTask;
                     drTask = dtTask.NewRow();
                     drTask.ItemArray = new object[] { 0, "--Select Task--" };
                     dtTask.Rows.InsertAt(drTask, 0);
-                    cmbTask.ValueMember = "TaskId";
+                    cmbTask.ValueMember = "Task Id";
                     cmbTask.DisplayMember = "Task Name";
                     cmbTask.DataSource = dtTask;
+                    cmbTask.Enabled = true;
                     LoadSubTaskDataGrid(true, true, Convert.ToInt32(cmbActivity.SelectedValue));
+                }
+                else
+                {
+                    cmbTask.SelectedItem = null;
+                    cmbTask.Enabled = false;
+                    LoadSubTaskDataGrid(true, true);
                 }
             }
             catch (Exception ex)
@@ -193,6 +203,14 @@ namespace TMS.UI
                 if (cmbActivity.SelectedIndex > 0 && cmbTask.SelectedIndex > 0)
                 {
                     LoadSubTaskDataGrid(true, true, Convert.ToInt32(cmbActivity.SelectedValue), Convert.ToInt32(cmbTask.SelectedValue));
+                }
+                else if (cmbActivity.SelectedIndex > 0 && cmbTask.SelectedIndex <= 0)
+                {
+                    LoadSubTaskDataGrid(true, true, Convert.ToInt32(cmbActivity.SelectedValue));
+                }
+                else
+                {
+                    LoadSubTaskDataGrid(true, true);
                 }
             }
             catch (Exception ex)
@@ -300,7 +318,7 @@ namespace TMS.UI
                     rtxtSubTaskDescription.Enabled = true;
                     btnAdd.Enabled = false;
                     cmbActivity.Enabled = true;
-                    cmbTask.Enabled = true;
+                    cmbTask.Enabled = false;
                 }
                 if (flag == 2)//modify and Cancel
                 {
@@ -407,13 +425,22 @@ namespace TMS.UI
                 throw new Exception("TMSError - Failed to perform save/modify operation!! \n" + ex.Message + "\n", ex.InnerException);
             }
         }
-        public void GetSubTaskData(int pageNum, int pageSize)
+        public void GetSubTaskData(int pageNum, int pageSize, bool isActive = false, int subTaskId = -1, int taskId = -1, int activityId = -1, string subTaskName = null)
         {
             try
             {
-                _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, pageNum, pageSize,UserInfo.SelectedValue, true);
-                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
-                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_subTasks.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_subTasks.Rows.Count / pageSize));
+                _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, pageNum, pageSize, UserInfo.SelectedValue, isActive, subTaskId, taskId, activityId, subTaskName);
+                if (_totalRecords > 0)
+                {
+                    _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                    _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_subTasks.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_subTasks.Rows.Count / pageSize));
+
+                }
+                else
+                {
+                    _noOfPages = 0;
+                    _pagesInLocal = 0;
+                }
                 _pageSize = pageSize;
                 _startPageInLocal = pageNum;
             }
@@ -423,42 +450,37 @@ namespace TMS.UI
             }
         }
         //Function to load the datagridview with the records and setup other options for datagridview
-        private void LoadSubTaskDataGrid(Boolean isActive, Boolean refresh = false, int activityId = -1, int taskId = -1)
+        private void LoadSubTaskDataGrid(Boolean refresh = false, Boolean resetCurrentPage = false, int activityId = -1, int taskId = -1)
         {
             try
             {
                 if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
                 {
-                    GetSubTaskData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                    if (resetCurrentPage)
+                        _currentPage = 1;
+                    GetSubTaskData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), false, -1, taskId, activityId);
+                }
+                if (_noOfPages > 0)
+                {
+                    grpBoxPaging.Visible = true;
                     lblCurrentPage.Text = _currentPage.ToString();
                     lblNoOfPages.Text = _noOfPages.ToString();
-                    if (activityId != -1)
-                    {
-                        if (taskId != -1)
-                        {
-                            _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem),UserInfo.SelectedValue, false, -1, taskId, activityId);
-                        }
-                        else
-                        {
-                            _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.SelectedValue, false, -1, -1, activityId);
-                        }
-                    }
-                    else
-                    {
-                        _subTasks = taskManagement.GetSubTasksUsingPaging(out _totalRecords, _currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem), UserInfo.SelectedValue, isActive);
-                    }
-                    DataTable records = FormControlHandling.GetPageRecords(_subTasks, _currentPage, _pageSize);
-                    dView.DataSource = null;
+                }
+                else
+                {
+                    grpBoxPaging.Visible = false;
+                }
+                DataTable records = FormControlHandling.GetPageRecords(_subTasks, _currentPage, _pageSize);
+                dView.DataSource = null;
+                if (records != null && records.Rows.Count > 0)
+                {
                     dView.DataSource = records;
-                    dView.Columns[0].Width = 50;
-                    dView.Columns[1].Width = 200;
-                    dView.Columns[2].Width = 300;
-                    dView.Columns[3].Width = 300;
-                    dView.Columns[4].Width = 400;
-                    dView.Columns[5].Visible = false;
-                    dView.Columns[6].Visible = false;
+                    dView.Columns[0].Visible = false;
                     dView.Columns[7].Visible = false;
                     dView.Columns[8].Visible = false;
+                    dView.AllowUserToAddRows = false;
+                    dView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dView.AutoResizeColumns();
                     dView.ReadOnly = true;
                     EnableDisableButtons(4);
                 }
@@ -475,8 +497,9 @@ namespace TMS.UI
             {
                 _currentPage += 1;
                 if ((_currentPage >= _startPageInLocal) || (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
-                    LoadSubTaskDataGrid(true, true);
-              
+                    LoadSubTaskDataGrid();
+                else
+                    LoadSubTaskDataGrid(true);
             }
             catch (Exception ex)
             {
@@ -490,9 +513,9 @@ namespace TMS.UI
             {
                 _currentPage = _noOfPages;
                 if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
-                    LoadSubTaskDataGrid(false);
+                    LoadSubTaskDataGrid();
                 else
-                    LoadSubTaskDataGrid(true, true);
+                    LoadSubTaskDataGrid(true);
             }
             catch (Exception ex)
             {
@@ -506,9 +529,9 @@ namespace TMS.UI
             {
                 _currentPage -= 1;
                 if ((_currentPage >= _startPageInLocal) && (_currentPage <= _startPageInLocal + _pagesInLocal - 1))
-                    LoadSubTaskDataGrid(false);
+                    LoadSubTaskDataGrid();
                 else
-                    LoadSubTaskDataGrid(true, true);
+                    LoadSubTaskDataGrid(true);
             }
             catch (Exception ex)
             {
@@ -522,9 +545,9 @@ namespace TMS.UI
             {
                 _currentPage = 1;
                 if (_startPageInLocal == 1)
-                    LoadSubTaskDataGrid(false);
+                    LoadSubTaskDataGrid();
                 else
-                    LoadSubTaskDataGrid(true, true);
+                    LoadSubTaskDataGrid(true);
             }
             catch (Exception ex)
             {

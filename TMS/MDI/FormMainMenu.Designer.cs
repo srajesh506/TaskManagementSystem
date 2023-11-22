@@ -106,11 +106,10 @@ namespace TMS.MDI
             this.pnlSideBar.Controls.Add(this.pnlSettings);
             this.pnlSideBar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSideBar.Location = new System.Drawing.Point(0, 0);
-            this.pnlSideBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlSideBar.MaximumSize = new System.Drawing.Size(368, 1231);
-            this.pnlSideBar.MinimumSize = new System.Drawing.Size(105, 1231);
+            this.pnlSideBar.MaximumSize = new System.Drawing.Size(245, 800);
+            this.pnlSideBar.MinimumSize = new System.Drawing.Size(70, 800);
             this.pnlSideBar.Name = "pnlSideBar";
-            this.pnlSideBar.Size = new System.Drawing.Size(368, 1231);
+            this.pnlSideBar.Size = new System.Drawing.Size(245, 800);
             this.pnlSideBar.TabIndex = 0;
             // 
             // pnlLogo
@@ -121,10 +120,9 @@ namespace TMS.MDI
             this.pnlLogo.Controls.Add(this.lblMenu);
             this.pnlLogo.Controls.Add(this.pbMenuButton);
             this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlLogo.Location = new System.Drawing.Point(4, 5);
-            this.pnlLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlLogo.Location = new System.Drawing.Point(3, 3);
             this.pnlLogo.Name = "pnlLogo";
-            this.pnlLogo.Size = new System.Drawing.Size(360, 215);
+            this.pnlLogo.Size = new System.Drawing.Size(240, 140);
             this.pnlLogo.TabIndex = 1;
             // 
             // lblLogOut
@@ -135,12 +133,11 @@ namespace TMS.MDI
             this.lblLogOut.ForeColor = System.Drawing.Color.White;
             this.lblLogOut.Image = ((System.Drawing.Image)(resources.GetObject("lblLogOut.Image")));
             this.lblLogOut.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblLogOut.Location = new System.Drawing.Point(102, 82);
-            this.lblLogOut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLogOut.Location = new System.Drawing.Point(68, 53);
             this.lblLogOut.Name = "lblLogOut";
-            this.lblLogOut.Size = new System.Drawing.Size(99, 28);
+            this.lblLogOut.Size = new System.Drawing.Size(75, 19);
             this.lblLogOut.TabIndex = 5;
-            this.lblLogOut.Text = "   Logout?";
+            this.lblLogOut.Text = "    Logout?";
             this.lblLogOut.Click += new System.EventHandler(this.lblLogout_Click);
             this.lblLogOut.MouseEnter += new System.EventHandler(this.lblLogout_MouseEnter);
             this.lblLogOut.MouseLeave += new System.EventHandler(this.lblLogout_MouseLeave);
@@ -150,10 +147,9 @@ namespace TMS.MDI
             this.lblWelcome.AutoSize = true;
             this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWelcome.ForeColor = System.Drawing.Color.White;
-            this.lblWelcome.Location = new System.Drawing.Point(102, 9);
-            this.lblWelcome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblWelcome.Location = new System.Drawing.Point(68, 6);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(169, 28);
+            this.lblWelcome.Size = new System.Drawing.Size(118, 19);
             this.lblWelcome.TabIndex = 4;
             this.lblWelcome.Text = "WelcomeMessage";
             this.lblWelcome.MouseEnter += new System.EventHandler(this.lblWelcome_MouseEnter);
@@ -165,10 +161,9 @@ namespace TMS.MDI
             this.lblMenu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMenu.ForeColor = System.Drawing.Color.White;
-            this.lblMenu.Location = new System.Drawing.Point(93, 163);
-            this.lblMenu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMenu.Location = new System.Drawing.Point(62, 106);
             this.lblMenu.Name = "lblMenu";
-            this.lblMenu.Size = new System.Drawing.Size(62, 28);
+            this.lblMenu.Size = new System.Drawing.Size(45, 19);
             this.lblMenu.TabIndex = 2;
             this.lblMenu.Text = "Menu";
             this.lblMenu.MouseEnter += new System.EventHandler(this.lblMenu_MouseEnter);
@@ -177,10 +172,9 @@ namespace TMS.MDI
             // pbMenuButton
             // 
             this.pbMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("pbMenuButton.Image")));
-            this.pbMenuButton.Location = new System.Drawing.Point(16, 160);
-            this.pbMenuButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pbMenuButton.Location = new System.Drawing.Point(11, 104);
             this.pbMenuButton.Name = "pbMenuButton";
-            this.pbMenuButton.Size = new System.Drawing.Size(56, 36);
+            this.pbMenuButton.Size = new System.Drawing.Size(37, 23);
             this.pbMenuButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbMenuButton.TabIndex = 1;
             this.pbMenuButton.TabStop = false;
@@ -192,24 +186,22 @@ namespace TMS.MDI
             this.pnlAdmin.Controls.Add(this.panel2);
             this.pnlAdmin.Controls.Add(this.panel3);
             this.pnlAdmin.Controls.Add(this.panel4);
-            this.pnlAdmin.Location = new System.Drawing.Point(4, 230);
-            this.pnlAdmin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlAdmin.MaximumSize = new System.Drawing.Size(362, 220);
-            this.pnlAdmin.MinimumSize = new System.Drawing.Size(362, 86);
+            this.pnlAdmin.Location = new System.Drawing.Point(3, 149);
+            this.pnlAdmin.MaximumSize = new System.Drawing.Size(241, 143);
+            this.pnlAdmin.MinimumSize = new System.Drawing.Size(241, 56);
             this.pnlAdmin.Name = "pnlAdmin";
-            this.pnlAdmin.Size = new System.Drawing.Size(362, 86);
+            this.pnlAdmin.Size = new System.Drawing.Size(241, 56);
             this.pnlAdmin.TabIndex = 9;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.Controls.Add(this.btnProjectManagement);
-            this.panel2.Location = new System.Drawing.Point(2, 143);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel2.MaximumSize = new System.Drawing.Size(362, 142);
-            this.panel2.MinimumSize = new System.Drawing.Size(362, 77);
+            this.panel2.Location = new System.Drawing.Point(1, 93);
+            this.panel2.MaximumSize = new System.Drawing.Size(241, 92);
+            this.panel2.MinimumSize = new System.Drawing.Size(241, 50);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(362, 77);
+            this.panel2.Size = new System.Drawing.Size(241, 50);
             this.panel2.TabIndex = 8;
             // 
             // btnProjectManagement
@@ -220,11 +212,10 @@ namespace TMS.MDI
             this.btnProjectManagement.ForeColor = System.Drawing.Color.White;
             this.btnProjectManagement.Image = ((System.Drawing.Image)(resources.GetObject("btnProjectManagement.Image")));
             this.btnProjectManagement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProjectManagement.Location = new System.Drawing.Point(-2, -2);
-            this.btnProjectManagement.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnProjectManagement.Location = new System.Drawing.Point(-1, -1);
             this.btnProjectManagement.Name = "btnProjectManagement";
-            this.btnProjectManagement.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnProjectManagement.Size = new System.Drawing.Size(368, 88);
+            this.btnProjectManagement.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnProjectManagement.Size = new System.Drawing.Size(245, 57);
             this.btnProjectManagement.TabIndex = 2;
             this.btnProjectManagement.Text = "        Project Management";
             this.btnProjectManagement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -235,12 +226,11 @@ namespace TMS.MDI
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.btnTeamRegister);
-            this.panel3.Location = new System.Drawing.Point(2, 85);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel3.MaximumSize = new System.Drawing.Size(362, 142);
-            this.panel3.MinimumSize = new System.Drawing.Size(362, 77);
+            this.panel3.Location = new System.Drawing.Point(1, 55);
+            this.panel3.MaximumSize = new System.Drawing.Size(241, 92);
+            this.panel3.MinimumSize = new System.Drawing.Size(241, 50);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(362, 77);
+            this.panel3.Size = new System.Drawing.Size(241, 50);
             this.panel3.TabIndex = 7;
             // 
             // btnTeamRegister
@@ -251,11 +241,10 @@ namespace TMS.MDI
             this.btnTeamRegister.ForeColor = System.Drawing.Color.White;
             this.btnTeamRegister.Image = ((System.Drawing.Image)(resources.GetObject("btnTeamRegister.Image")));
             this.btnTeamRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTeamRegister.Location = new System.Drawing.Point(-2, -6);
-            this.btnTeamRegister.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTeamRegister.Location = new System.Drawing.Point(-1, -4);
             this.btnTeamRegister.Name = "btnTeamRegister";
-            this.btnTeamRegister.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnTeamRegister.Size = new System.Drawing.Size(368, 88);
+            this.btnTeamRegister.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnTeamRegister.Size = new System.Drawing.Size(245, 57);
             this.btnTeamRegister.TabIndex = 2;
             this.btnTeamRegister.Text = "        Team Management";
             this.btnTeamRegister.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -266,12 +255,11 @@ namespace TMS.MDI
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.btnAdmin);
-            this.panel4.Location = new System.Drawing.Point(2, 5);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel4.MaximumSize = new System.Drawing.Size(362, 142);
-            this.panel4.MinimumSize = new System.Drawing.Size(362, 77);
+            this.panel4.Location = new System.Drawing.Point(1, 3);
+            this.panel4.MaximumSize = new System.Drawing.Size(241, 92);
+            this.panel4.MinimumSize = new System.Drawing.Size(241, 50);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(362, 77);
+            this.panel4.Size = new System.Drawing.Size(241, 50);
             this.panel4.TabIndex = 5;
             // 
             // btnAdmin
@@ -282,11 +270,10 @@ namespace TMS.MDI
             this.btnAdmin.ForeColor = System.Drawing.Color.White;
             this.btnAdmin.Image = ((System.Drawing.Image)(resources.GetObject("btnAdmin.Image")));
             this.btnAdmin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdmin.Location = new System.Drawing.Point(-2, -2);
-            this.btnAdmin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdmin.Location = new System.Drawing.Point(-1, -1);
             this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnAdmin.Size = new System.Drawing.Size(364, 89);
+            this.btnAdmin.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnAdmin.Size = new System.Drawing.Size(243, 58);
             this.btnAdmin.TabIndex = 2;
             this.btnAdmin.Text = "        Admin";
             this.btnAdmin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -299,24 +286,22 @@ namespace TMS.MDI
             this.pnlMasterData.Controls.Add(this.pnlTaskManagement);
             this.pnlMasterData.Controls.Add(this.pnlTeamManagement);
             this.pnlMasterData.Controls.Add(this.pnlHomeChildContainer);
-            this.pnlMasterData.Location = new System.Drawing.Point(4, 326);
-            this.pnlMasterData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlMasterData.MaximumSize = new System.Drawing.Size(362, 220);
-            this.pnlMasterData.MinimumSize = new System.Drawing.Size(362, 86);
+            this.pnlMasterData.Location = new System.Drawing.Point(3, 211);
+            this.pnlMasterData.MaximumSize = new System.Drawing.Size(241, 143);
+            this.pnlMasterData.MinimumSize = new System.Drawing.Size(241, 56);
             this.pnlMasterData.Name = "pnlMasterData";
-            this.pnlMasterData.Size = new System.Drawing.Size(362, 86);
+            this.pnlMasterData.Size = new System.Drawing.Size(241, 56);
             this.pnlMasterData.TabIndex = 6;
             // 
             // pnlTaskManagement
             // 
             this.pnlTaskManagement.BackColor = System.Drawing.Color.White;
             this.pnlTaskManagement.Controls.Add(this.btnTaskManagement);
-            this.pnlTaskManagement.Location = new System.Drawing.Point(2, 143);
-            this.pnlTaskManagement.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlTaskManagement.MaximumSize = new System.Drawing.Size(362, 142);
-            this.pnlTaskManagement.MinimumSize = new System.Drawing.Size(362, 77);
+            this.pnlTaskManagement.Location = new System.Drawing.Point(1, 93);
+            this.pnlTaskManagement.MaximumSize = new System.Drawing.Size(241, 92);
+            this.pnlTaskManagement.MinimumSize = new System.Drawing.Size(241, 50);
             this.pnlTaskManagement.Name = "pnlTaskManagement";
-            this.pnlTaskManagement.Size = new System.Drawing.Size(362, 77);
+            this.pnlTaskManagement.Size = new System.Drawing.Size(241, 50);
             this.pnlTaskManagement.TabIndex = 8;
             // 
             // btnTaskManagement
@@ -327,11 +312,10 @@ namespace TMS.MDI
             this.btnTaskManagement.ForeColor = System.Drawing.Color.White;
             this.btnTaskManagement.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskManagement.Image")));
             this.btnTaskManagement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaskManagement.Location = new System.Drawing.Point(-2, -2);
-            this.btnTaskManagement.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTaskManagement.Location = new System.Drawing.Point(-1, -1);
             this.btnTaskManagement.Name = "btnTaskManagement";
-            this.btnTaskManagement.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnTaskManagement.Size = new System.Drawing.Size(368, 88);
+            this.btnTaskManagement.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnTaskManagement.Size = new System.Drawing.Size(245, 57);
             this.btnTaskManagement.TabIndex = 2;
             this.btnTaskManagement.Text = "        Task Management";
             this.btnTaskManagement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -342,12 +326,11 @@ namespace TMS.MDI
             // 
             this.pnlTeamManagement.BackColor = System.Drawing.Color.White;
             this.pnlTeamManagement.Controls.Add(this.btnProjectAssignment);
-            this.pnlTeamManagement.Location = new System.Drawing.Point(2, 85);
-            this.pnlTeamManagement.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlTeamManagement.MaximumSize = new System.Drawing.Size(362, 142);
-            this.pnlTeamManagement.MinimumSize = new System.Drawing.Size(362, 77);
+            this.pnlTeamManagement.Location = new System.Drawing.Point(1, 55);
+            this.pnlTeamManagement.MaximumSize = new System.Drawing.Size(241, 92);
+            this.pnlTeamManagement.MinimumSize = new System.Drawing.Size(241, 50);
             this.pnlTeamManagement.Name = "pnlTeamManagement";
-            this.pnlTeamManagement.Size = new System.Drawing.Size(362, 77);
+            this.pnlTeamManagement.Size = new System.Drawing.Size(241, 50);
             this.pnlTeamManagement.TabIndex = 7;
             // 
             // btnProjectAssignment
@@ -358,11 +341,10 @@ namespace TMS.MDI
             this.btnProjectAssignment.ForeColor = System.Drawing.Color.White;
             this.btnProjectAssignment.Image = ((System.Drawing.Image)(resources.GetObject("btnProjectAssignment.Image")));
             this.btnProjectAssignment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProjectAssignment.Location = new System.Drawing.Point(-2, -6);
-            this.btnProjectAssignment.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnProjectAssignment.Location = new System.Drawing.Point(-1, -4);
             this.btnProjectAssignment.Name = "btnProjectAssignment";
-            this.btnProjectAssignment.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnProjectAssignment.Size = new System.Drawing.Size(368, 88);
+            this.btnProjectAssignment.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnProjectAssignment.Size = new System.Drawing.Size(245, 57);
             this.btnProjectAssignment.TabIndex = 2;
             this.btnProjectAssignment.Text = "        Project Assignment";
             this.btnProjectAssignment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -373,12 +355,11 @@ namespace TMS.MDI
             // 
             this.pnlHomeChildContainer.BackColor = System.Drawing.Color.White;
             this.pnlHomeChildContainer.Controls.Add(this.btnMasterData);
-            this.pnlHomeChildContainer.Location = new System.Drawing.Point(2, 5);
-            this.pnlHomeChildContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlHomeChildContainer.MaximumSize = new System.Drawing.Size(362, 142);
-            this.pnlHomeChildContainer.MinimumSize = new System.Drawing.Size(362, 77);
+            this.pnlHomeChildContainer.Location = new System.Drawing.Point(1, 3);
+            this.pnlHomeChildContainer.MaximumSize = new System.Drawing.Size(241, 92);
+            this.pnlHomeChildContainer.MinimumSize = new System.Drawing.Size(241, 50);
             this.pnlHomeChildContainer.Name = "pnlHomeChildContainer";
-            this.pnlHomeChildContainer.Size = new System.Drawing.Size(362, 77);
+            this.pnlHomeChildContainer.Size = new System.Drawing.Size(241, 50);
             this.pnlHomeChildContainer.TabIndex = 5;
             // 
             // btnMasterData
@@ -389,11 +370,10 @@ namespace TMS.MDI
             this.btnMasterData.ForeColor = System.Drawing.Color.White;
             this.btnMasterData.Image = ((System.Drawing.Image)(resources.GetObject("btnMasterData.Image")));
             this.btnMasterData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMasterData.Location = new System.Drawing.Point(-2, -2);
-            this.btnMasterData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnMasterData.Location = new System.Drawing.Point(-1, -1);
             this.btnMasterData.Name = "btnMasterData";
-            this.btnMasterData.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnMasterData.Size = new System.Drawing.Size(364, 89);
+            this.btnMasterData.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnMasterData.Size = new System.Drawing.Size(243, 58);
             this.btnMasterData.TabIndex = 2;
             this.btnMasterData.Text = "        Master Data";
             this.btnMasterData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -407,12 +387,11 @@ namespace TMS.MDI
             this.pnlWorkItem.Controls.Add(this.btnWorkItem);
             this.pnlWorkItem.Controls.Add(this.btnCreateWorkItem);
             this.pnlWorkItem.ForeColor = System.Drawing.Color.White;
-            this.pnlWorkItem.Location = new System.Drawing.Point(4, 422);
-            this.pnlWorkItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlWorkItem.MaximumSize = new System.Drawing.Size(362, 262);
-            this.pnlWorkItem.MinimumSize = new System.Drawing.Size(362, 77);
+            this.pnlWorkItem.Location = new System.Drawing.Point(3, 273);
+            this.pnlWorkItem.MaximumSize = new System.Drawing.Size(241, 170);
+            this.pnlWorkItem.MinimumSize = new System.Drawing.Size(241, 50);
             this.pnlWorkItem.Name = "pnlWorkItem";
-            this.pnlWorkItem.Size = new System.Drawing.Size(362, 77);
+            this.pnlWorkItem.Size = new System.Drawing.Size(241, 50);
             this.pnlWorkItem.TabIndex = 8;
             // 
             // btnAssignWorkItem
@@ -423,11 +402,10 @@ namespace TMS.MDI
             this.btnAssignWorkItem.ForeColor = System.Drawing.Color.White;
             this.btnAssignWorkItem.Image = ((System.Drawing.Image)(resources.GetObject("btnAssignWorkItem.Image")));
             this.btnAssignWorkItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAssignWorkItem.Location = new System.Drawing.Point(-2, 172);
-            this.btnAssignWorkItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAssignWorkItem.Location = new System.Drawing.Point(-1, 112);
             this.btnAssignWorkItem.Name = "btnAssignWorkItem";
-            this.btnAssignWorkItem.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnAssignWorkItem.Size = new System.Drawing.Size(364, 89);
+            this.btnAssignWorkItem.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnAssignWorkItem.Size = new System.Drawing.Size(243, 58);
             this.btnAssignWorkItem.TabIndex = 2;
             this.btnAssignWorkItem.Text = "        Assign WorkItem";
             this.btnAssignWorkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -442,11 +420,10 @@ namespace TMS.MDI
             this.btnWorkItem.ForeColor = System.Drawing.Color.White;
             this.btnWorkItem.Image = ((System.Drawing.Image)(resources.GetObject("btnWorkItem.Image")));
             this.btnWorkItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnWorkItem.Location = new System.Drawing.Point(-2, -2);
-            this.btnWorkItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnWorkItem.Location = new System.Drawing.Point(-1, -1);
             this.btnWorkItem.Name = "btnWorkItem";
-            this.btnWorkItem.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnWorkItem.Size = new System.Drawing.Size(364, 89);
+            this.btnWorkItem.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnWorkItem.Size = new System.Drawing.Size(243, 58);
             this.btnWorkItem.TabIndex = 2;
             this.btnWorkItem.Text = "        WorkItem";
             this.btnWorkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -461,11 +438,10 @@ namespace TMS.MDI
             this.btnCreateWorkItem.ForeColor = System.Drawing.Color.White;
             this.btnCreateWorkItem.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateWorkItem.Image")));
             this.btnCreateWorkItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCreateWorkItem.Location = new System.Drawing.Point(-2, 86);
-            this.btnCreateWorkItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCreateWorkItem.Location = new System.Drawing.Point(-1, 56);
             this.btnCreateWorkItem.Name = "btnCreateWorkItem";
-            this.btnCreateWorkItem.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnCreateWorkItem.Size = new System.Drawing.Size(364, 89);
+            this.btnCreateWorkItem.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnCreateWorkItem.Size = new System.Drawing.Size(243, 58);
             this.btnCreateWorkItem.TabIndex = 2;
             this.btnCreateWorkItem.Text = "        Create WorkItem";
             this.btnCreateWorkItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -480,12 +456,11 @@ namespace TMS.MDI
             this.pnlReportAnalysis.Controls.Add(this.btnAssigneeBasedReport);
             this.pnlReportAnalysis.Controls.Add(this.btnStatusBasedReport);
             this.pnlReportAnalysis.Controls.Add(this.btnReportAnalysis);
-            this.pnlReportAnalysis.Location = new System.Drawing.Point(4, 509);
-            this.pnlReportAnalysis.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlReportAnalysis.MaximumSize = new System.Drawing.Size(360, 336);
-            this.pnlReportAnalysis.MinimumSize = new System.Drawing.Size(360, 76);
+            this.pnlReportAnalysis.Location = new System.Drawing.Point(3, 329);
+            this.pnlReportAnalysis.MaximumSize = new System.Drawing.Size(241, 219);
+            this.pnlReportAnalysis.MinimumSize = new System.Drawing.Size(241, 50);
             this.pnlReportAnalysis.Name = "pnlReportAnalysis";
-            this.pnlReportAnalysis.Size = new System.Drawing.Size(360, 76);
+            this.pnlReportAnalysis.Size = new System.Drawing.Size(241, 50);
             this.pnlReportAnalysis.TabIndex = 7;
             // 
             // btnTimeBasedReport
@@ -496,11 +471,10 @@ namespace TMS.MDI
             this.btnTimeBasedReport.ForeColor = System.Drawing.Color.White;
             this.btnTimeBasedReport.Image = ((System.Drawing.Image)(resources.GetObject("btnTimeBasedReport.Image")));
             this.btnTimeBasedReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTimeBasedReport.Location = new System.Drawing.Point(-2, 248);
-            this.btnTimeBasedReport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTimeBasedReport.Location = new System.Drawing.Point(-1, 161);
             this.btnTimeBasedReport.Name = "btnTimeBasedReport";
-            this.btnTimeBasedReport.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnTimeBasedReport.Size = new System.Drawing.Size(368, 88);
+            this.btnTimeBasedReport.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnTimeBasedReport.Size = new System.Drawing.Size(245, 57);
             this.btnTimeBasedReport.TabIndex = 2;
             this.btnTimeBasedReport.Text = "        Time Based Report";
             this.btnTimeBasedReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -515,11 +489,10 @@ namespace TMS.MDI
             this.btnAssigneeBasedReport.ForeColor = System.Drawing.Color.White;
             this.btnAssigneeBasedReport.Image = ((System.Drawing.Image)(resources.GetObject("btnAssigneeBasedReport.Image")));
             this.btnAssigneeBasedReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAssigneeBasedReport.Location = new System.Drawing.Point(-2, 162);
-            this.btnAssigneeBasedReport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAssigneeBasedReport.Location = new System.Drawing.Point(-1, 105);
             this.btnAssigneeBasedReport.Name = "btnAssigneeBasedReport";
-            this.btnAssigneeBasedReport.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnAssigneeBasedReport.Size = new System.Drawing.Size(368, 88);
+            this.btnAssigneeBasedReport.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnAssigneeBasedReport.Size = new System.Drawing.Size(245, 57);
             this.btnAssigneeBasedReport.TabIndex = 2;
             this.btnAssigneeBasedReport.Text = "        Assignee Based Report";
             this.btnAssigneeBasedReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -534,11 +507,10 @@ namespace TMS.MDI
             this.btnStatusBasedReport.ForeColor = System.Drawing.Color.White;
             this.btnStatusBasedReport.Image = ((System.Drawing.Image)(resources.GetObject("btnStatusBasedReport.Image")));
             this.btnStatusBasedReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStatusBasedReport.Location = new System.Drawing.Point(-2, 77);
-            this.btnStatusBasedReport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnStatusBasedReport.Location = new System.Drawing.Point(-1, 50);
             this.btnStatusBasedReport.Name = "btnStatusBasedReport";
-            this.btnStatusBasedReport.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnStatusBasedReport.Size = new System.Drawing.Size(368, 88);
+            this.btnStatusBasedReport.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnStatusBasedReport.Size = new System.Drawing.Size(245, 57);
             this.btnStatusBasedReport.TabIndex = 2;
             this.btnStatusBasedReport.Text = "        Status Based Report";
             this.btnStatusBasedReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -553,11 +525,10 @@ namespace TMS.MDI
             this.btnReportAnalysis.ForeColor = System.Drawing.Color.White;
             this.btnReportAnalysis.Image = ((System.Drawing.Image)(resources.GetObject("btnReportAnalysis.Image")));
             this.btnReportAnalysis.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportAnalysis.Location = new System.Drawing.Point(-2, -2);
-            this.btnReportAnalysis.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnReportAnalysis.Location = new System.Drawing.Point(-1, -1);
             this.btnReportAnalysis.Name = "btnReportAnalysis";
-            this.btnReportAnalysis.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnReportAnalysis.Size = new System.Drawing.Size(364, 89);
+            this.btnReportAnalysis.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnReportAnalysis.Size = new System.Drawing.Size(243, 58);
             this.btnReportAnalysis.TabIndex = 2;
             this.btnReportAnalysis.Text = "        Report Analysis";
             this.btnReportAnalysis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -570,12 +541,11 @@ namespace TMS.MDI
             this.pnlSettings.Controls.Add(this.btnChangePassword);
             this.pnlSettings.Controls.Add(this.btnSettings);
             this.pnlSettings.ForeColor = System.Drawing.Color.White;
-            this.pnlSettings.Location = new System.Drawing.Point(4, 595);
-            this.pnlSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlSettings.MaximumSize = new System.Drawing.Size(362, 163);
-            this.pnlSettings.MinimumSize = new System.Drawing.Size(362, 77);
+            this.pnlSettings.Location = new System.Drawing.Point(3, 385);
+            this.pnlSettings.MaximumSize = new System.Drawing.Size(241, 106);
+            this.pnlSettings.MinimumSize = new System.Drawing.Size(241, 50);
             this.pnlSettings.Name = "pnlSettings";
-            this.pnlSettings.Size = new System.Drawing.Size(362, 77);
+            this.pnlSettings.Size = new System.Drawing.Size(241, 50);
             this.pnlSettings.TabIndex = 7;
             // 
             // btnChangePassword
@@ -586,11 +556,10 @@ namespace TMS.MDI
             this.btnChangePassword.ForeColor = System.Drawing.Color.White;
             this.btnChangePassword.Image = ((System.Drawing.Image)(resources.GetObject("btnChangePassword.Image")));
             this.btnChangePassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnChangePassword.Location = new System.Drawing.Point(0, 86);
-            this.btnChangePassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnChangePassword.Location = new System.Drawing.Point(0, 56);
             this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnChangePassword.Size = new System.Drawing.Size(368, 80);
+            this.btnChangePassword.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnChangePassword.Size = new System.Drawing.Size(245, 52);
             this.btnChangePassword.TabIndex = 2;
             this.btnChangePassword.Text = "        Change Password";
             this.btnChangePassword.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -605,11 +574,10 @@ namespace TMS.MDI
             this.btnSettings.ForeColor = System.Drawing.Color.White;
             this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
             this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSettings.Location = new System.Drawing.Point(-2, -2);
-            this.btnSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSettings.Location = new System.Drawing.Point(-1, -1);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnSettings.Size = new System.Drawing.Size(364, 89);
+            this.btnSettings.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.btnSettings.Size = new System.Drawing.Size(243, 58);
             this.btnSettings.TabIndex = 2;
             this.btnSettings.Text = "        Settings";
             this.btnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -620,9 +588,10 @@ namespace TMS.MDI
             // 
             this.cmbProjects.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProjects.FormattingEnabled = true;
-            this.cmbProjects.Location = new System.Drawing.Point(198, 22);
+            this.cmbProjects.Location = new System.Drawing.Point(132, 14);
+            this.cmbProjects.Margin = new System.Windows.Forms.Padding(2);
             this.cmbProjects.Name = "cmbProjects";
-            this.cmbProjects.Size = new System.Drawing.Size(307, 28);
+            this.cmbProjects.Size = new System.Drawing.Size(206, 21);
             this.cmbProjects.TabIndex = 6;
             this.cmbProjects.SelectedIndexChanged += new System.EventHandler(this.cmbprojects_SelectedIndexChanged);
             // 
@@ -640,9 +609,10 @@ namespace TMS.MDI
             this.pnltop.Controls.Add(this.cmbProjects);
             this.pnltop.Controls.Add(this.btnClose);
             this.pnltop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnltop.Location = new System.Drawing.Point(368, 0);
+            this.pnltop.Location = new System.Drawing.Point(245, 0);
+            this.pnltop.Margin = new System.Windows.Forms.Padding(2);
             this.pnltop.Name = "pnltop";
-            this.pnltop.Size = new System.Drawing.Size(1348, 73);
+            this.pnltop.Size = new System.Drawing.Size(668, 47);
             this.pnltop.TabIndex = 1;
             // 
             // btnMinimize
@@ -653,10 +623,9 @@ namespace TMS.MDI
             this.btnMinimize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMinimize.ForeColor = System.Drawing.Color.White;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
-            this.btnMinimize.Location = new System.Drawing.Point(1211, 16);
-            this.btnMinimize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnMinimize.Location = new System.Drawing.Point(576, 10);
             this.btnMinimize.Name = "btnMinimize";
-            this.btnMinimize.Size = new System.Drawing.Size(45, 46);
+            this.btnMinimize.Size = new System.Drawing.Size(30, 30);
             this.btnMinimize.TabIndex = 4;
             this.btnMinimize.UseVisualStyleBackColor = true;
             this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
@@ -669,10 +638,9 @@ namespace TMS.MDI
             this.btnMaximize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMaximize.ForeColor = System.Drawing.Color.White;
             this.btnMaximize.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximize.Image")));
-            this.btnMaximize.Location = new System.Drawing.Point(1261, 27);
-            this.btnMaximize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnMaximize.Location = new System.Drawing.Point(610, 18);
             this.btnMaximize.Name = "btnMaximize";
-            this.btnMaximize.Size = new System.Drawing.Size(27, 23);
+            this.btnMaximize.Size = new System.Drawing.Size(18, 15);
             this.btnMaximize.TabIndex = 3;
             this.btnMaximize.UseVisualStyleBackColor = true;
             this.btnMaximize.Click += new System.EventHandler(this.btnMaximize_Click);
@@ -683,9 +651,10 @@ namespace TMS.MDI
             this.lblProjectName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
             this.lblProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProjectName.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblProjectName.Location = new System.Drawing.Point(12, 22);
+            this.lblProjectName.Location = new System.Drawing.Point(8, 14);
+            this.lblProjectName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblProjectName.Name = "lblProjectName";
-            this.lblProjectName.Size = new System.Drawing.Size(146, 25);
+            this.lblProjectName.Size = new System.Drawing.Size(109, 17);
             this.lblProjectName.TabIndex = 7;
             this.lblProjectName.Text = "Select Project";
             // 
@@ -696,10 +665,9 @@ namespace TMS.MDI
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(1299, 13);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnClose.Location = new System.Drawing.Point(635, 8);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(45, 45);
+            this.btnClose.Size = new System.Drawing.Size(30, 29);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "x";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -711,10 +679,9 @@ namespace TMS.MDI
             this.pnlTitleBar.Controls.Add(this.btnCloseChildForm);
             this.pnlTitleBar.Controls.Add(this.lblTitle);
             this.pnlTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTitleBar.Location = new System.Drawing.Point(368, 73);
-            this.pnlTitleBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlTitleBar.Location = new System.Drawing.Point(245, 47);
             this.pnlTitleBar.Name = "pnlTitleBar";
-            this.pnlTitleBar.Size = new System.Drawing.Size(1348, 56);
+            this.pnlTitleBar.Size = new System.Drawing.Size(668, 36);
             this.pnlTitleBar.TabIndex = 4;
             // 
             // btnCloseChildForm
@@ -725,9 +692,8 @@ namespace TMS.MDI
             this.btnCloseChildForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseChildForm.ForeColor = System.Drawing.Color.White;
             this.btnCloseChildForm.Location = new System.Drawing.Point(0, 0);
-            this.btnCloseChildForm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCloseChildForm.Name = "btnCloseChildForm";
-            this.btnCloseChildForm.Size = new System.Drawing.Size(112, 56);
+            this.btnCloseChildForm.Size = new System.Drawing.Size(75, 36);
             this.btnCloseChildForm.TabIndex = 1;
             this.btnCloseChildForm.Text = "X";
             this.btnCloseChildForm.UseVisualStyleBackColor = true;
@@ -739,43 +705,41 @@ namespace TMS.MDI
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(459, 10);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Location = new System.Drawing.Point(191, 6);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(419, 32);
+            this.lblTitle.Size = new System.Drawing.Size(284, 24);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "TASK MANAGEMENT SYSTEM";
             // 
             // pnlDesktopPanel
             // 
-            this.pnlDesktopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlDesktopPanel.Location = new System.Drawing.Point(368, 129);
+            this.pnlDesktopPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDesktopPanel.Location = new System.Drawing.Point(245, 83);
+            this.pnlDesktopPanel.Margin = new System.Windows.Forms.Padding(2);
             this.pnlDesktopPanel.Name = "pnlDesktopPanel";
-            this.pnlDesktopPanel.Size = new System.Drawing.Size(1348, 968);
+            this.pnlDesktopPanel.Size = new System.Drawing.Size(668, 404);
             this.pnlDesktopPanel.TabIndex = 5;
             // 
             // pbUser
             // 
-            this.pbUser.Location = new System.Drawing.Point(4, 9);
-            this.pbUser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pbUser.Location = new System.Drawing.Point(3, 6);
             this.pbUser.Name = "pbUser";
-            this.pbUser.Size = new System.Drawing.Size(88, 91);
+            this.pbUser.Size = new System.Drawing.Size(59, 59);
             this.pbUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbUser.TabIndex = 5;
             this.pbUser.TabStop = false;
             // 
             // FormMainMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1716, 1043);
+            this.ClientSize = new System.Drawing.Size(913, 487);
             this.Controls.Add(this.pnlDesktopPanel);
             this.Controls.Add(this.pnlTitleBar);
             this.Controls.Add(this.pnltop);
             this.Controls.Add(this.pnlSideBar);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(1489, 893);
+            this.MinimumSize = new System.Drawing.Size(915, 486);
             this.Name = "FormMainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Task Management System";

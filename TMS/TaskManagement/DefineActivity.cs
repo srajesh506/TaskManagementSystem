@@ -10,6 +10,7 @@ using TMS.BusinessLogicLayer;
 using TMS.UI.CustomMessageBox;
 using System.Linq;
 
+
 namespace TMS.UI
 {
     public partial class DefineActivity : UserControl
@@ -112,7 +113,8 @@ namespace TMS.UI
                     _activityId = Convert.ToInt32(dView.Rows[index].Cells[1].Value);
                     txtTaskName.Text = Convert.ToString(dView.Rows[index].Cells[2].Value);
                     rtxtActivityDescription.Text = Convert.ToString(dView.Rows[index].Cells[3].Value);
-                    chkActive.Checked = Convert.ToBoolean(dView.Rows[index].Cells[4].Value);
+                    //chkActive.Checked = Convert.ToBoolean(dView.Rows[index].Cells[4].Value);
+                    chkActive.Checked = (dView.Rows[index].Cells[4].Value.ToString() == "Active") ? true : false;
                     EnableDisableButtons(3);
                 }
                 else
@@ -166,9 +168,17 @@ namespace TMS.UI
         {
             try
             {
-                _activities = taskManagement.GetActivitiesUsingPaging(out _totalRecords,pageNum, pageSize,UserInfo.SelectedValue,true);
-                _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
-                _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize));
+                _activities = taskManagement.GetActivitiesUsingPaging(out _totalRecords, pageNum, pageSize, UserInfo.SelectedValue);
+                if (_totalRecords > 0)
+                {
+                    _noOfPages = Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_totalRecords / pageSize));
+                    _pagesInLocal = Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling((double)_activities.Rows.Count / pageSize));
+                }
+                else
+                {
+                    _noOfPages = 0;
+                    _pagesInLocal = 0;
+                }
                 _pageSize = pageSize;
                 _startPageInLocal = pageNum;
             }
@@ -183,7 +193,7 @@ namespace TMS.UI
         {
             try
             {
-                if(UserInfo.SelectedValue==0)
+                if (UserInfo.SelectedValue == 0)
                 {
                     PopupMessageBox.Show("Please Select Project Name!", "TMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
@@ -324,7 +334,7 @@ namespace TMS.UI
                             throw new Exception("TMSError - Invalid Operation!! ");
                     }
 
-                    LoadActivityDataGrid(true);
+                    LoadActivityDataGrid(true, true);
                     FormControlHandling.ClearControls(grpBoxInputControls);
                     EnableDisableButtons(2);
                     if (mode == "S")
@@ -340,27 +350,40 @@ namespace TMS.UI
         }
 
         //Function to load the datagridview with the records and setup other options for datagridview
-        private void LoadActivityDataGrid(Boolean refresh = false)
+        private void LoadActivityDataGrid(Boolean refresh = false, Boolean resetCurrentPage = false)
         {
             try
             {
                 if (refresh || !Enumerable.Range(_startPageInLocal, _startPageInLocal + _pagesInLocal - 1).Contains(_currentPage))
+                {
+                    if (resetCurrentPage)
+                        _currentPage = 1;
                     GetActivityData(_currentPage, Convert.ToInt32(cmbNoOfRecordsPerPage.SelectedItem));
+                }
+                if (_noOfPages > 0)
+                {
+                    grpBoxPaging.Visible = true;
                     lblCurrentPage.Text = _currentPage.ToString();
                     lblNoOfPages.Text = _noOfPages.ToString();
-                    DataTable records = FormControlHandling.GetPageRecords(_activities, _currentPage, _pageSize);
-                    dView.DataSource = records;
-                dView.Columns[0].Width = 150;
-                dView.Columns[2].Width = 400;
-                dView.Columns[3].Width = 500;
-                dView.Columns[1].Visible = false;
-                dView.Columns[4].Visible = false;
-                dView.Columns[5].Visible = false;
-                dView.Columns[6].Visible = false;
-                dView.Columns[7].Visible = false;
-                dView.ReadOnly = true;
-                EnableDisableButtons(4);
+                }
+                else
+                {
+                    grpBoxPaging.Visible = false;
+                }
                 
+                DataTable records = FormControlHandling.GetPageRecords(_activities, _currentPage, _pageSize);
+                dView.DataSource = null;
+                if (records != null && records.Rows.Count > 0)
+                {
+                    dView.DataSource = records;
+                    dView.Columns[0].Visible = false;
+                    dView.AllowUserToAddRows = false;
+                    dView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dView.AutoResizeColumns();
+                    dView.ReadOnly = true;
+                    EnableDisableButtons(4);
+                }
+
             }
             catch (Exception ex)
             {
@@ -376,11 +399,11 @@ namespace TMS.UI
                 EnableDisableButtons(2);
                 LoadActivityDataGrid(true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PopupMessageBox.Show(ex.Message, "TMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
